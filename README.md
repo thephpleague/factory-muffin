@@ -62,14 +62,14 @@ class TestUserModel extends PHPUnit_Framework_TestCase {
 
     public function __construct()
     {
-        // Load FactoryMuff bundle
-        Bundle::start( 'factorymuff' );
+        // Prepare FactoryMuff
+        $this->factory = new FactoryMuff;
     }
 
     public function testSampleFactory()
     {
         // Creates a new instance
-        $message = FactoryMuff::create( 'Message' );
+        $message = $this->factory->create( 'Message' );
 
         // Access the relationship, because attributes
         // with kind "factory|<ModelName> creates and
@@ -80,12 +80,12 @@ class TestUserModel extends PHPUnit_Framework_TestCase {
 
         // And you can also get attributes for a new
         // instance
-        $new_message = new Message( FactoryMuff::attributes_for( 'Message' ) )
+        $new_message = new Message( $this->factory->attributes_for( 'Message' ) )
 
         // For both methods (create and attributes_for
         // you can pass fixed attributes. Those will be
         // merged into the object before save.
-        $muffin_message = FactoryMuff::create(
+        $muffin_message = $this->factory->create(
             'Message', array(
                 'subject' => 'About Muffin',
                 'message' => 'Its tasty!',
@@ -103,7 +103,7 @@ class TestUserModel extends PHPUnit_Framework_TestCase {
 * text
  * A text of about 7 words from the list. Ex: "something table underrated blackboard"
 * factory|ModelName
- * Will trigger the __FactoryMuff::create__ for the given model and return it's id.
+ * Will trigger the __create__ for the given model and return it's id.
 * Any thing else
  * Will be returned. Ex: kind "tuckemuffin" will become the value of the attribute in the instantiated object.
 
