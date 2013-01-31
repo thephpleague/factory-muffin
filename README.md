@@ -80,9 +80,9 @@ class TestUserModel extends PHPUnit_Framework_TestCase {
 
         // And you can also get attributes for a new
         // instance
-        $new_message = new Message( $this->factory->attributes_for( 'Message' ) )
+        $new_message = new Message( $this->factory->attributesFor( 'Message' ) )
 
-        // For both methods (create and attributes_for
+        // For both methods (create and attributesFor
         // you can pass fixed attributes. Those will be
         // merged into the object before save.
         $muffin_message = $this->factory->create(
