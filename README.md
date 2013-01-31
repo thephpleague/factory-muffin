@@ -3,6 +3,8 @@ FactoryMuff
 
 ![factory muff poster](https://dl.dropbox.com/u/12506137/libs_bundles/factorymuff.png)
 
+[![Build Status](https://api.travis-ci.org/Zizaco/factory-muff.png)](https://travis-ci.org/Zizaco/factory-muff)
+
 The goal of this Package is to enable the rapid creation of objects for the purpose of testing. Basically a "[factory\_girl\_rails](https://github.com/thoughtbot/factory_girl_rails)" simplified for use with PHP.
 
 ### License
