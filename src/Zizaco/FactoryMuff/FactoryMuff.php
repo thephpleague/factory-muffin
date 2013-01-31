@@ -47,11 +47,15 @@ class FactoryMuff
     public function create( $model, $attr = array() )
     {
         // Get the factory attributes for that model
-        $attr_array =
-            $this->attributesFor( $model, $attr );
+        $attr_array = $this->attributesFor( $model, $attr );
 
-        // Create, save and return instance
-        $obj = new $model( $attr_array );
+        // Create, set, save and return instance
+        $obj = new $model();
+
+        foreach ($attr_array as $attr => $value) {
+            $obj->$attr = $value;
+        }
+
         $obj->save();
 
         return $obj;
@@ -92,7 +96,7 @@ class FactoryMuff
         // Prepare attributes
         $attr_array = array();
         foreach ( $static_vars['factory'] as $key => $kind ) {
-            $attr_array[$key] = $this->generate_attr( $kind );
+            $attr_array[$key] = $this->generateAttr( $kind );
         }
 
         $attr_array = array_merge( $attr_array, $attr );
@@ -109,7 +113,7 @@ class FactoryMuff
      *
      * @return mixed String or an instance of related model.
      */
-    private function generate_attr( $kind )
+    private function generateAttr( $kind )
     {
         $result = 'muff';
 
