@@ -119,7 +119,7 @@ class FactoryMuff
 
         // If the kind begins with "factory|", then create
         // that object and save the relation.
-        if ( substr( $kind, 0, 8 ) == 'factory|' ) {
+        if ( is_string($kind) && substr( $kind, 0, 8 ) == 'factory|' ) {
             $related = $this->create( substr( $kind, 8 ) );
 
             if (method_exists($related, 'getKey'))
