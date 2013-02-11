@@ -12,14 +12,14 @@ The goal of this Package is to enable the rapid creation of objects for the purp
 
 MIT
 
-Instalation
+Installation
 -----------
 
 In the `require` key of `composer.json` file add the following
 
     "zizaco/factory-muff": "dev-master"
 
-Run the Composer update comand
+Run the Composer update command
 
     $ composer update
 
@@ -95,7 +95,7 @@ class TestUserModel extends PHPUnit_Framework_TestCase {
     }
 ```
 
-### Kinds of attribute suported
+### Kinds of attribute supported
 
 * string
  * Grab a random word from the wordlist. Ex: "bucket","mouse","laptop","America"
