@@ -16,7 +16,7 @@ class FactoryMuff
      * @access private
      * @static
      */
-    private static $singletown;
+    private static $fmInstance;
     
 
     /**
@@ -27,14 +27,14 @@ class FactoryMuff
      *
      * @return Zizaco\FactoryMuff\FactoryMuff
      */
-    private static function instance()
+    private static function fmInstance()
     {
-        if (! static::$singletown)
+        if (! static::$fmInstance)
         {
-            static::$singletown = new \Zizaco\FactoryMuff\FactoryMuff;
+            static::$fmInstance = new \Zizaco\FactoryMuff\FactoryMuff;
         }
 
-        return static::$singletown;
+        return static::$fmInstance;
     }
 
     /**
@@ -51,7 +51,24 @@ class FactoryMuff
      */
     public static function create( $model, $attr = array() )
     {
-        return static::instance()->create( $model, $attr );
+        return static::fmInstance()->create( $model, $attr );
+    }
+
+    /**
+     * Creates and saves in db an instance
+     * of Model with mock attributes
+     * 
+     * @param string $model Model class name.
+     * @param array  $attr  Model attributes.
+     *
+     * @access public
+     * @static
+     *
+     * @return mixed Returns the model instance.
+     */
+    public static function instance( $model, $attr = array() )
+    {
+        return static::fmInstance()->instance( $model, $attr );
     }
 
     /**
@@ -68,6 +85,6 @@ class FactoryMuff
      */
     public static function attributesFor( $model, $attr = array() )
     {
-        return static::instance()->attributesFor( $model, $attr );
+        return static::fmInstance()->attributesFor( $model, $attr );
     }
 }
