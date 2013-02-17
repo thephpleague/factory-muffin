@@ -46,6 +46,26 @@ class FactoryMuff
      */
     public function create( $model, $attr = array() )
     {
+        $obj = $this->instance( $model, $attr );
+
+        $obj->save();
+
+        return $obj;
+    }
+
+    /**
+     * Return an instance of the model, which is
+     * not saved in the database
+     * 
+     * @param string $model Model class name.
+     * @param array  $attr  Model attributes.
+     *
+     * @access public
+     *
+     * @return mixed Returns the model instance.
+     */
+    public function instance( $model, $attr = array() )
+    {
         // Get the factory attributes for that model
         $attr_array = $this->attributesFor( $model, $attr );
 
@@ -55,8 +75,6 @@ class FactoryMuff
         foreach ($attr_array as $attr => $value) {
             $obj->$attr = $value;
         }
-
-        $obj->save();
 
         return $obj;
     }
