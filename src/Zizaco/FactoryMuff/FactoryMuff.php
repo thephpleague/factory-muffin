@@ -161,7 +161,7 @@ class FactoryMuff
 
         // Pick some words
         case 'text':
-            for ( $i=0; $i < ( (int)date( 'U' )+rand(0,5) % 8 ) + 2; $i++ ) {
+            for ( $i=0; $i < ( ((int)date( 'U' )+rand(0,5)) % 8 ) + 2; $i++ ) {
                 $result .= array_pop( $this->wordlist )." ";
             }
 
