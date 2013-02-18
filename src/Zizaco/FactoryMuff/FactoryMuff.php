@@ -112,14 +112,13 @@ class FactoryMuff
         }
 
         // Prepare attributes
-        $attr_array = array();
         foreach ( $static_vars['factory'] as $key => $kind ) {
-            $attr_array[$key] = $this->generateAttr( $kind );
+            if ( ! isset($attr[$key]) ){
+                $attr[$key] = $this->generateAttr( $kind );    
+            }
         }
 
-        $attr_array = array_merge( $attr_array, $attr );
-
-        return $attr_array;
+        return $attr;
     }
 
     /**
@@ -162,7 +161,7 @@ class FactoryMuff
 
         // Pick some words
         case 'text':
-            for ( $i=0; $i < ( (int)date( 'U' ) % 8 ) + 2; $i++ ) {
+            for ( $i=0; $i < ( (int)date( 'U' )+rand(0,5) % 8 ) + 2; $i++ ) {
                 $result .= array_pop( $this->wordlist )." ";
             }
 
