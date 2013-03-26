@@ -143,9 +143,17 @@ class FactoryMuff
             {
                 return $related->getKey();
             }
-            else
+            elseif( $related->id )
             {
                 return $related->id;
+            }
+            elseif( $related->_id )
+            {
+                return $related->_id;
+            }
+            else
+            {
+                return null;
             }
         }
 
