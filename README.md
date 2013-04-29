@@ -109,6 +109,10 @@ class TestUserModel extends PHPUnit_Framework_TestCase {
  * Will be returned. Ex: kind "tuckemuffin" will become the value of the attribute in the instantiated object.
 
 
+### Save Failures
+
+If a model cannot be saved to the database, for example if it fails validation through a library like Ardent, a Zizaco\FactoryMuff\SaveException will be raised.
+
 More help
 ---------
 
