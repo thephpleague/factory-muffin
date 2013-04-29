@@ -48,7 +48,10 @@ class FactoryMuff
     {
         $obj = $this->instance( $model, $attr );
 
-        $obj->save();
+        $result = $obj->save();
+        if ( !$result ) {
+            throw new SaveException('Could not save the model of type: '.$model);
+        }
 
         return $obj;
     }
