@@ -28,6 +28,12 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
         
         $this->assertTrue( is_numeric($obj->id) );
     }
+
+    public function test_should_throw_exception_on_model_save_failure()
+    {
+        $this->setExpectedException('\Zizaco\FactoryMuff\SaveException');
+        $obj = $this->factory->create('SampleModelC');
+    }
 }
 
 /**
@@ -66,4 +72,24 @@ class SampleModelB extends SampleModelA
         'email' => 'email',
         'content' => 'text',
     );
+}
+
+
+/**
+* Testing only
+*
+*/
+class SampleModelC
+{
+    // Array that determines the kind of attributes
+    // you would like to have
+    public static $factory = array(
+    );
+
+    // Eloquent models return False on save failure.
+    // We *might* want to throw exceptions in that case.
+    public function save()
+    {
+        return false;
+    }
 }
