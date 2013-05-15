@@ -139,7 +139,7 @@ class SampleModelD
     }
     public static function mungeModel($model)
     {
-        $bits = explode('@', $model->email);
+        $bits = explode('@', strtolower($model->email));
         return $bits[0];
     }
     public function save()
