@@ -32,7 +32,29 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
     public function test_should_throw_exception_on_model_save_failure()
     {
         $this->setExpectedException('\Zizaco\FactoryMuff\SaveException');
+
         $obj = $this->factory->create('SampleModelC');
+    }
+
+    public function test_should_make_simple_calls()
+    {
+        $obj = $this->factory->create('SampleModelD');
+
+        $expected = gmdate('Y-m-d H:i:s', strtotime('+40 days'));
+
+        $this->assertEquals($expected, $obj->future);
+    }
+    public function test_should_pass_simple_arguments_to_calls()
+    {
+        $obj = $this->factory->create('SampleModelD');
+
+        $this->assertRegExp('|^[a-z0-9-]+$|', $obj->slug);
+    }
+    public function test_should_pass_factory_models_to_calls()
+    {
+        $obj = $this->factory->create('SampleModelD');
+
+        $this->assertRegExp('|^[a-z0-9]+$|', $obj->munged_model);
     }
 }
 
@@ -91,5 +113,37 @@ class SampleModelC
     public function save()
     {
         return false;
+    }
+}
+
+/**
+ * Testing only
+ * 
+ */
+class SampleModelD
+{
+    // Array that determines the kind of attributes
+    // you would like to have
+    public static $factory = array(
+        'future' => 'call|fortyDaysFromNow',
+        'slug' => 'call|makeSlug|text',
+        'munged_model' => 'call|mungeModel|factory|SampleModelA'
+    );
+    public static function fortyDaysFromNow()
+    {
+        return gmdate('Y-m-d H:i:s', strtotime('+40 days'));
+    }
+    public static function makeSlug($text)
+    {
+        return preg_replace('|[^a-z0-9]+|', '-', $text);
+    }
+    public static function mungeModel($model)
+    {
+        $bits = explode('@', strtolower($model->email));
+        return $bits[0];
+    }
+    public function save()
+    {
+        return true;
     }
 }

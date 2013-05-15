@@ -117,7 +117,7 @@ class FactoryMuff
         // Prepare attributes
         foreach ( $static_vars['factory'] as $key => $kind ) {
             if ( ! isset($attr[$key]) ){
-                $attr[$key] = $this->generateAttr( $kind );    
+                $attr[$key] = $this->generateAttr( $kind, $model );    
             }
         }
 
@@ -127,13 +127,14 @@ class FactoryMuff
     /**
      * Generate an attribute based in the wordlist
      * 
-     * @param tring $kind The kind of attribute that will be generate.
+     * @param string $kind The kind of attribute that will be generate.
+     * @param string $model The name of the model class
      *
      * @access private
      *
      * @return mixed String or an instance of related model.
      */
-    private function generateAttr( $kind )
+    private function generateAttr( $kind, $model = NULL )
     {
         $result = 'muff';
 
@@ -157,6 +158,31 @@ class FactoryMuff
             else
             {
                 return null;
+            }
+        }
+
+        if ( is_string($kind) && substr( $kind, 0, 5 ) === 'call|' ) {
+            $callable = substr( $kind, 5 );
+            $params = array();
+
+            if ( strstr( $callable, '|' ) ) {
+                $parts = explode('|', $callable);
+                $callable = array_shift($parts);
+                if ( $parts[0] === 'factory' && count($parts) > 1 ) {
+                    $params[] = $this->create($parts[1]);
+                } else {
+                    // slight overkill here, since there's probably only 1
+                    // in the array, but let's make it a string in case the
+                    // piped format changes more in the future
+                    $attr = implode('|', $parts);
+                    $params[] = $this->generateAttr($attr, $model);
+                }
+            }
+            if (method_exists($model, $callable)) {
+                $return = call_user_func_array("$model::$callable", $params);
+                return $return;
+            } else {
+                throw new Exception("$model does not have a static $callable method");
             }
         }
 
