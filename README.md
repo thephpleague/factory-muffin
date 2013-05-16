@@ -46,12 +46,20 @@ class Message extends Eloquent
         'subject' => 'string',
         'address' => 'email',
         'message' => 'text',
+        'slug' => 'call|makeSlug|string',
     );
 
     // Relashionship with user
     public function user()
     {
         return $this->belongs_to('User');
+    }
+
+    // this static method generates the 'slug'
+    public static function makeSlug($factory_muff_generated_string)
+    {
+        $base = strtolower($factory_muff_generated_string);
+        return preg_replace('|[^a-z0-9]+|', '-', $base);
     }
 ```
 
@@ -105,6 +113,12 @@ class TestUserModel extends PHPUnit_Framework_TestCase {
  * A text of about 7 words from the list. Ex: "something table underrated blackboard"
 * factory|ModelName
  * Will trigger the __create__ for the given model and return it's id.
+* call|staticMethodName
+ * Will call staticMethodName() on the class being created.
+* call|staticMethodName|string
+ * Will call staticMethodName() on the class being created, and pass in a parameter (use any of the kinds supported by FactoryMuff such as email, text, etc)
+* call|staticMethodName|factory|User
+ * The gotcha here is that staticMethodName() will be passed the _model instance_ here, rather than the _id_ which is the case with the normal "factory|User" style.
 * Any thing else
  * Will be returned. Ex: kind "tuckemuffin" will become the value of the attribute in the instantiated object.
 
