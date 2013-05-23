@@ -50,7 +50,18 @@ class FactoryMuff
 
         $result = $obj->save();
         if ( !$result ) {
-            throw new SaveException('Could not save the model of type: '.$model);
+
+            if($obj->errors)
+            {
+                $message = $obj->errors.' - ';
+            }
+
+            if($obj->error)
+            {
+                $message = $obj->error.' - ';
+            }
+
+            throw new SaveException($message.'Could not save the model of type: '.$model);
         }
 
         return $obj;
