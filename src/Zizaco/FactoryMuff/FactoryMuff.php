@@ -51,6 +51,8 @@ class FactoryMuff
         $result = $obj->save();
         if ( !$result ) {
 
+            $message = '';
+
             if($obj->errors)
             {
                 $message = $obj->errors.' - ';
