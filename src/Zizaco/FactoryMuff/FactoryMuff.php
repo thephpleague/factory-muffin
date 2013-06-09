@@ -53,14 +53,12 @@ class FactoryMuff
 
             $message = '';
 
-            if($obj->errors)
+            if(isset($obj->validationErrors)) 
             {
-                $message = $obj->errors.' - ';
-            }
-
-            if($obj->error)
-            {
-                $message = $obj->error.' - ';
+                if($obj->validationErrors)
+                {
+                    $message = $obj->validationErrors.' - ';
+                }
             }
 
             throw new SaveException($message.'Could not save the model of type: '.$model);
