@@ -204,13 +204,15 @@ class FactoryMuff
         // Pick a word and append a domain
         case 'email':
             shuffle( $this->mail_domains );
-            $result = array_pop( $this->wordlist ).'@'.$this->mail_domains[0];
+            $k = mt_rand(0, count($this->wordlist) - 1);
+            $result = $this->wordlist[$k].'@'.$this->mail_domains[0];
             break;
 
         // Pick some words
         case 'text':
             for ( $i=0; $i < ( ((int)date( 'U' )+rand(0,5)) % 8 ) + 2; $i++ ) {
-                $result .= array_pop( $this->wordlist )." ";
+                $k = mt_rand(0, count($this->wordlist) - 1);
+                $result .= $this->wordlist[$k]." ";
             }
 
             $result = trim( $result );
@@ -218,7 +220,8 @@ class FactoryMuff
 
         // Pick a single word then
         case 'string':
-            $result = array_pop( $this->wordlist );
+            $k = mt_rand(0, count($this->wordlist) - 1);
+            $result = $this->wordlist[$k];
 
             if (rand(0,1))
                 $result = ucfirst($result);
