@@ -193,7 +193,7 @@ class FactoryMuff
                 $return = call_user_func_array("$model::$callable", $params);
                 return $return;
             } else {
-                throw new Exception("$model does not have a static $callable method");
+                throw new \Exception("$model does not have a static $callable method");
             }
         }
 
