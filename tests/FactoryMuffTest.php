@@ -56,6 +56,12 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
 
         $this->assertRegExp('|^[a-z0-9]+$|', $obj->munged_model);
     }
+    public function test_should_get_word()
+    {
+        $str = $this->factory->getWord();
+
+        $this->assertNotNull($str);
+    }
 }
 
 /**

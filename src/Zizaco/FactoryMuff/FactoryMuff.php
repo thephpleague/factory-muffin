@@ -106,12 +106,6 @@ class FactoryMuff
      */
     public function attributesFor( $model, $attr = array() )
     {
-        // Prepare word list if empty
-        if ( count( $this->wordlist ) == 0 ) {
-            $this->wordlist = include(__DIR__.'/Wordlist.php');
-            shuffle( $this->wordlist );
-        }
-
         // Get the $factory static and check for errors
         $static_vars = get_class_vars( $model );
 
@@ -204,13 +198,14 @@ class FactoryMuff
         // Pick a word and append a domain
         case 'email':
             shuffle( $this->mail_domains );
-            $result = array_pop( $this->wordlist ).'@'.$this->mail_domains[0];
+
+            $result = $this->getWord().'@'.$this->mail_domains[0];
             break;
 
         // Pick some words
         case 'text':
             for ( $i=0; $i < ( ((int)date( 'U' )+rand(0,5)) % 8 ) + 2; $i++ ) {
-                $result .= array_pop( $this->wordlist )." ";
+                $result .= $this->getWord()." ";
             }
 
             $result = trim( $result );
@@ -218,7 +213,7 @@ class FactoryMuff
 
         // Pick a single word then
         case 'string':
-            $result = array_pop( $this->wordlist );
+            $result = $this->getWord();
 
             if (rand(0,1))
                 $result = ucfirst($result);
@@ -237,5 +232,15 @@ class FactoryMuff
         }
 
         return $result;
+    }
+
+    public function getWord() {
+        // Reset wordlist if empty
+        if ( count( $this->wordlist ) == 0 ) {
+            $this->wordlist = include(__DIR__.'/Wordlist.php');
+            shuffle( $this->wordlist );
+        }
+
+        return array_pop($this->wordlist);
     }
 }
