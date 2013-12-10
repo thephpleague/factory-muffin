@@ -1,7 +1,7 @@
 <?php namespace Zizaco\FactoryMuff;
 
 /**
-* Creates models with randomic attributes
+* Creates models with random attributes
 *
 * @package  Zizaco\FactoryMuff
 * @author   Zizaco <zizaco@gmail.com>
@@ -29,7 +29,7 @@ class FactoryMuff
      */
     private $mail_domains = array(
         'example.com', 'dontexist.com',
-        'mockdoman.com', 'emailprovider.com',
+        'mockdomain.com', 'emailprovider.com',
         'exampledomain.org'
     );
 
@@ -95,7 +95,7 @@ class FactoryMuff
 
     /**
      * Returns an array of mock attributes
-     * for the especified model
+     * for the specified model
      * 
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
@@ -110,12 +110,12 @@ class FactoryMuff
         $static_vars = get_class_vars( $model );
 
         if ( !$static_vars ) {
-            trigger_error( "$model Model is not an valid Class for FactoryMuff" );
+            trigger_error( "$model Model is not a valid Class for FactoryMuff" );
             return false;
         }
 
         if ( !isset( $static_vars['factory'] ) ) {
-            trigger_error( "$model Model should have an static \$factory array in order to be created with FactoryMuff" );
+            trigger_error( "$model Model should have a static \$factory array in order to be created with FactoryMuff" );
             return false;
         }
 
@@ -191,6 +191,14 @@ class FactoryMuff
             }
         }
 
+        if ( is_string($kind) && substr( $kind, 0, 8 ) === 'integer|' ) {
+            $numgen = substr( $kind, 8 );
+
+            for ( $i=0; $i<$numgen; $i++ ) {
+                $result .= mt_rand(0,9);
+            }
+        }
+
         // Overwise interpret the kind and 'generate' some
         // crap.
         switch ( $kind ) {
@@ -211,7 +219,7 @@ class FactoryMuff
             $result = trim( $result );
             break;
 
-        // Pick a single word then
+        // Pick a single word
         case 'string':
             $result = $this->getWord();
 
