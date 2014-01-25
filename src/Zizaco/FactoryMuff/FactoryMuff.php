@@ -181,9 +181,12 @@ class FactoryMuff
     {
         $result = 'muff';
 
+        if($kind instanceof \Closure) {
+            $result = $kind();
+        }
         // If the kind begins with "factory|", then create
         // that object and save the relation.
-        if ( is_string($kind) && substr( $kind, 0, 8 ) == 'factory|' ) {
+        else if ( is_string($kind) && substr( $kind, 0, 8 ) == 'factory|' ) {
             $related = $this->create( substr( $kind, 8 ) );
 
             if (method_exists($related, 'getKey'))
@@ -204,7 +207,7 @@ class FactoryMuff
             }
         }
 
-        if ( is_string($kind) && substr( $kind, 0, 5 ) === 'call|' ) {
+        else if ( is_string($kind) && substr( $kind, 0, 5 ) === 'call|' ) {
             $callable = substr( $kind, 5 );
             $params = array();
 
@@ -228,45 +231,48 @@ class FactoryMuff
                 throw new \Exception("$model does not have a static $callable method");
             }
         }
+        else {
 
-        // Overwise interpret the kind and 'generate' some
-        // crap.
-        switch ( $kind ) {
+            // Overwise interpret the kind and 'generate' some
+            // crap.
+            switch ( $kind ) {
 
-        // Pick a word and append a domain
-        case 'email':
-            shuffle( $this->mail_domains );
+            // Pick a word and append a domain
+            case 'email':
+                shuffle( $this->mail_domains );
 
-            $result = $this->getWord().'@'.$this->mail_domains[0];
-            break;
+                $result = $this->getWord().'@'.$this->mail_domains[0];
+                break;
 
-        // Pick some words
-        case 'text':
-            for ( $i=0; $i < ( ((int)date( 'U' )+rand(0,5)) % 8 ) + 2; $i++ ) {
-                $result .= $this->getWord()." ";
+            // Pick some words
+            case 'text':
+                for ( $i=0; $i < ( ((int)date( 'U' )+rand(0,5)) % 8 ) + 2; $i++ ) {
+                    $result .= $this->getWord()." ";
+                }
+
+                $result = trim( $result );
+                break;
+
+            // Pick a single word then
+            case 'string':
+                $result = $this->getWord();
+
+                if (rand(0,1))
+                    $result = ucfirst($result);
+
+                break;
+
+                /**
+                 * ITS HERE: The point where you can extend
+                 * this class, to support new datatypes
+                 */
+
+            // Returns the original string or number
+            default:
+                $result = $kind;
+                break;
             }
 
-            $result = trim( $result );
-            break;
-
-        // Pick a single word then
-        case 'string':
-            $result = $this->getWord();
-
-            if (rand(0,1))
-                $result = ucfirst($result);
-
-            break;
-
-            /**
-             * ITS HERE: The point where you can extend
-             * this class, to support new datatypes
-             */
-
-        // Returns the original string or number
-        default:
-            $result = $kind;
-            break;
         }
 
         return $result;
