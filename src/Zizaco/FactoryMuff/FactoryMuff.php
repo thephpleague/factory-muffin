@@ -34,6 +34,15 @@ class FactoryMuff
     );
 
     /**
+     * $factories
+     *
+     * @var array
+     *
+     * @access private
+     */
+    private $factories = array();
+
+    /**
      * Creates and saves in db an instance
      * of Model with mock attributes
      * 
@@ -106,27 +115,56 @@ class FactoryMuff
      */
     public function attributesFor( $model, $attr = array() )
     {
-        // Get the $factory static and check for errors
-        $static_vars = get_class_vars( $model );
-
-        if ( !$static_vars ) {
-            trigger_error( "$model Model is not an valid Class for FactoryMuff" );
-            return false;
-        }
-
-        if ( !isset( $static_vars['factory'] ) ) {
-            trigger_error( "$model Model should have an static \$factory array in order to be created with FactoryMuff" );
-            return false;
-        }
+        $factory_attrs = $this->getFactoryAttrs($model);
 
         // Prepare attributes
-        foreach ( $static_vars['factory'] as $key => $kind ) {
+        foreach ( $factory_attrs as $key => $kind ) {
             if ( ! isset($attr[$key]) ){
                 $attr[$key] = $this->generateAttr( $kind, $model );    
             }
         }
 
         return $attr;
+    }
+
+    /**
+     * Define a new model factory
+     * 
+     * @param string $model Model class name.
+     * @param array $definition Array with definition of attributes.
+     *
+     * @access public
+     *
+     * @return void
+     */
+    public function define($model, array $definition = array())
+    {
+        $this->factories[$model] = $definition;
+    }
+
+    /**
+     * Returns an array with factory definition for the especified model
+     * 
+     * @param string $model Model class name.
+     *
+     * @access private
+     *
+     * @return array Returns an factory definition array.
+     */
+    private function getFactoryAttrs($model)
+    {
+        if(isset($this->factories[$model])) {
+            return $this->factories[$model];
+        }
+        else {
+            // Get the $factory static and check for errors
+            $static_vars = get_class_vars( $model );
+
+            if (isset( $static_vars['factory'] ) ) {
+                return $static_vars['factory'];
+            }
+        }
+        throw new NoDefinedFactoryException('Factory not defined for class: ' . $model);
     }
 
     /**
