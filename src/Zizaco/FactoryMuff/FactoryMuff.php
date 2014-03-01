@@ -46,7 +46,10 @@ class FactoryMuff
      */
     public function create( $model, $attr = array() )
     {
-        $obj = $this->instance( $model, $attr );
+        // Is $model already an object?
+        $isObject = (gettype($model) == 'object');
+
+        $obj = ($isObject) ?: $this->instance($model, $attr);
 
         $result = $obj->save();
         if ( !$result ) {
@@ -80,11 +83,14 @@ class FactoryMuff
      */
     public function instance( $model, $attr = array() )
     {
-        // Get the factory attributes for that model
-        $attr_array = $this->attributesFor( $model, $attr );
+        // Is model already an object?
+        $isObject = (gettype($model) == 'object');
 
         // Create, set, save and return instance
-        $obj = new $model();
+        $obj = ($isObject) ?: new $model();
+
+        // Get the factory attributes for that model
+        $attr_array = $this->attributesFor( $model, $attr );
 
         foreach ($attr_array as $attr => $value) {
             $obj->$attr = $value;
