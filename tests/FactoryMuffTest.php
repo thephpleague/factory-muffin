@@ -62,6 +62,39 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
 
         $this->assertNotNull($str);
     }
+
+    public function test_should_create_based_on_define_declaration()
+    {
+        $this->factory->define('SampleModelA', array(
+            'text' => 'just a string',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+
+        $this->assertEquals('just a string', $obj->text);
+    }
+
+    /**
+     * @expectedException Zizaco\FactoryMuff\NoDefinedFactoryException
+     */
+    public function test_should_throw_exception_when_no_defined_factory()
+    {
+        $obj = $this->factory->create('SampleModelE');
+    }
+
+    public function test_should_accept_closure_as_attribute_factory()
+    {
+        $this->factory->define('SampleModelA', array(
+            'text' => function() {
+                return 'just a string';
+            },
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+
+        $this->assertEquals('just a string', $obj->text);
+
+    }
 }
 
 /**
@@ -148,6 +181,14 @@ class SampleModelD
         $bits = explode('@', strtolower($model->email));
         return $bits[0];
     }
+    public function save()
+    {
+        return true;
+    }
+}
+
+class SampleModelE
+{
     public function save()
     {
         return true;
