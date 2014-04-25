@@ -50,6 +50,8 @@ class Message extends Eloquent
         'subject' => 'string',
         'address' => 'email',
         'message' => 'text',
+        'phone_number' => 'integer|8',
+        'created' => 'date|Ymd h:s',
         'slug' => 'call|makeSlug|string',
     );
 
@@ -115,6 +117,10 @@ class TestUserModel extends PHPUnit_Framework_TestCase {
  * An word from the wordlist + domain. Ex: "smart@example.com", "Brasil@nonexist.org"
 * text
  * A text of about 7 words from the list. Ex: "something table underrated blackboard"
+* integer|length
+ * Return an integer of the specified length
+* date|format
+ * Return the current date, using the supplied format. (See php.net/date for formats)
 * factory|ModelName
  * Will trigger the __create__ for the given model and return it's id.
 * call|staticMethodName

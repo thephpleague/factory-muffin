@@ -22,6 +22,26 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue( is_numeric($attr['modelb_id']) );
     }
 
+    public function test_date_kind()
+    {
+        $this->factory->define('SampleModelA', array(
+            'created' => 'date|Ymd',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+        $this->assertEquals($obj->created, date('Ymd'));
+    }
+
+    public function test_date_kind_with_date()
+    {
+        $this->factory->define('SampleModelA', array(
+            'created' => 'date|Ymd h:s',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+        $this->assertEquals($obj->created, date('Ymd h:s'));
+    }
+
     public function test_should_create()
     {
         $obj = $this->factory->create('SampleModelA');
