@@ -235,7 +235,8 @@ class FactoryMuff
                 throw new \Exception("$model does not have a static $callable method");
             }
         }
-        elseif ( is_string($kind) && substr( $kind, 0, 8 ) === 'integer|' ) {
+        
+        else if ( is_string($kind) && substr( $kind, 0, 8 ) === 'integer|' ) {
             $numgen = substr( $kind, 8 );
 
             $result = null;
