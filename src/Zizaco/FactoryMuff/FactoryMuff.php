@@ -245,45 +245,47 @@ class FactoryMuff
                     $result .= mt_rand(0,9);
                 }
             }
+            else {
 
-            // Overwise interpret the kind and 'generate' some
-            // crap.
-            switch ( $kind ) {
+                // Overwise interpret the kind and 'generate' some
+                // crap.
+                switch ( $kind ) {
 
-                // Pick a word and append a domain
-                case 'email':
-                    shuffle( $this->mail_domains );
+                    // Pick a word and append a domain
+                    case 'email':
+                        shuffle( $this->mail_domains );
 
-                    $result = $this->getWord().'@'.$this->mail_domains[0];
-                    break;
+                        $result = $this->getWord().'@'.$this->mail_domains[0];
+                        break;
 
-                // Pick some words
-                case 'text':
-                    for ( $i=0; $i < ( ((int)date( 'U' )+rand(0,5)) % 8 ) + 2; $i++ ) {
-                        $result .= $this->getWord()." ";
-                    }
+                    // Pick some words
+                    case 'text':
+                        for ( $i=0; $i < ( ((int)date( 'U' )+rand(0,5)) % 8 ) + 2; $i++ ) {
+                            $result .= $this->getWord()." ";
+                        }
 
-                    $result = trim( $result );
-                    break;
+                        $result = trim( $result );
+                        break;
 
-                // Pick a single word
-                case 'string':
-                    $result = $this->getWord();
+                    // Pick a single word
+                    case 'string':
+                        $result = $this->getWord();
 
-                    if (rand(0,1))
-                        $result = ucfirst($result);
+                        if (rand(0,1))
+                            $result = ucfirst($result);
 
-                    break;
+                        break;
 
-                /**
-                 * ITS HERE: The point where you can extend
-                 * this class, to support new datatypes
-                 */
+                    /**
+                     * ITS HERE: The point where you can extend
+                     * this class, to support new datatypes
+                     */
 
-                // Returns the original string or number
-                default:
-                    $result = $kind;
-                    break;
+                    // Returns the original string or number
+                    default:
+                        $result = $kind;
+                        break;
+                }
             }
 
         }
