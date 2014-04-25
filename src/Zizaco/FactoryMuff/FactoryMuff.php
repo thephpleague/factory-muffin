@@ -34,9 +34,18 @@ class FactoryMuff
     );
 
     /**
+     * $factories
+     *
+     * @var array
+     *
+     * @access private
+     */
+    private $factories = array();
+
+    /**
      * Creates and saves in db an instance
      * of Model with mock attributes
-     * 
+     *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
      *
@@ -53,7 +62,7 @@ class FactoryMuff
 
             $message = '';
 
-            if(isset($obj->validationErrors)) 
+            if(isset($obj->validationErrors))
             {
                 if($obj->validationErrors)
                 {
@@ -70,7 +79,7 @@ class FactoryMuff
     /**
      * Return an instance of the model, which is
      * not saved in the database
-     * 
+     *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
      *
@@ -96,7 +105,7 @@ class FactoryMuff
     /**
      * Returns an array of mock attributes
      * for the especified model
-     * 
+     *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
      *
@@ -106,23 +115,12 @@ class FactoryMuff
      */
     public function attributesFor( $model, $attr = array() )
     {
-        // Get the $factory static and check for errors
-        $static_vars = get_class_vars( $model );
-
-        if ( !$static_vars ) {
-            trigger_error( "$model Model is not an valid Class for FactoryMuff" );
-            return false;
-        }
-
-        if ( !isset( $static_vars['factory'] ) ) {
-            trigger_error( "$model Model should have an static \$factory array in order to be created with FactoryMuff" );
-            return false;
-        }
+        $factory_attrs = $this->getFactoryAttrs($model);
 
         // Prepare attributes
-        foreach ( $static_vars['factory'] as $key => $kind ) {
+        foreach ( $factory_attrs as $key => $kind ) {
             if ( ! isset($attr[$key]) ){
-                $attr[$key] = $this->generateAttr( $kind, $model );    
+                $attr[$key] = $this->generateAttr( $kind, $model );
             }
         }
 
@@ -130,8 +128,48 @@ class FactoryMuff
     }
 
     /**
+     * Define a new model factory
+     *
+     * @param string $model Model class name.
+     * @param array $definition Array with definition of attributes.
+     *
+     * @access public
+     *
+     * @return void
+     */
+    public function define($model, array $definition = array())
+    {
+        $this->factories[$model] = $definition;
+    }
+
+    /**
+     * Returns an array with factory definition for the especified model
+     *
+     * @param string $model Model class name.
+     *
+     * @access private
+     *
+     * @return array Returns an factory definition array.
+     */
+    private function getFactoryAttrs($model)
+    {
+        if(isset($this->factories[$model])) {
+            return $this->factories[$model];
+        }
+        else {
+            // Get the $factory static and check for errors
+            $static_vars = get_class_vars( $model );
+
+            if (isset( $static_vars['factory'] ) ) {
+                return $static_vars['factory'];
+            }
+        }
+        throw new NoDefinedFactoryException('Factory not defined for class: ' . $model);
+    }
+
+    /**
      * Generate an attribute based in the wordlist
-     * 
+     *
      * @param string $kind The kind of attribute that will be generate.
      * @param string $model The name of the model class
      *
@@ -143,9 +181,12 @@ class FactoryMuff
     {
         $result = 'muff';
 
+        if($kind instanceof \Closure) {
+            $result = $kind();
+        }
         // If the kind begins with "factory|", then create
         // that object and save the relation.
-        if ( is_string($kind) && substr( $kind, 0, 8 ) == 'factory|' ) {
+        else if ( is_string($kind) && substr( $kind, 0, 8 ) == 'factory|' ) {
             $related = $this->create( substr( $kind, 8 ) );
 
             if (method_exists($related, 'getKey'))
@@ -156,11 +197,11 @@ class FactoryMuff
             {
                 return $related->pk();
             }
-            elseif( $related->id )
+            elseif( isset($related->id) ) // id Attribute
             {
                 return $related->id;
             }
-            elseif( $related->_id )
+            elseif( isset($related->_id) ) // Mongo _id attribute
             {
                 return $related->_id;
             }
@@ -170,7 +211,7 @@ class FactoryMuff
             }
         }
 
-        if ( is_string($kind) && substr( $kind, 0, 5 ) === 'call|' ) {
+        else if ( is_string($kind) && substr( $kind, 0, 5 ) === 'call|' ) {
             $callable = substr( $kind, 5 );
             $params = array();
 
@@ -194,45 +235,48 @@ class FactoryMuff
                 throw new \Exception("$model does not have a static $callable method");
             }
         }
+        else {
 
-        // Overwise interpret the kind and 'generate' some
-        // crap.
-        switch ( $kind ) {
+            // Overwise interpret the kind and 'generate' some
+            // crap.
+            switch ( $kind ) {
 
-        // Pick a word and append a domain
-        case 'email':
-            shuffle( $this->mail_domains );
+            // Pick a word and append a domain
+            case 'email':
+                shuffle( $this->mail_domains );
 
-            $result = $this->getWord().'@'.$this->mail_domains[0];
-            break;
+                $result = $this->getWord().'@'.$this->mail_domains[0];
+                break;
 
-        // Pick some words
-        case 'text':
-            for ( $i=0; $i < ( ((int)date( 'U' )+rand(0,5)) % 8 ) + 2; $i++ ) {
-                $result .= $this->getWord()." ";
+            // Pick some words
+            case 'text':
+                for ( $i=0; $i < ( ((int)date( 'U' )+rand(0,5)) % 8 ) + 2; $i++ ) {
+                    $result .= $this->getWord()." ";
+                }
+
+                $result = trim( $result );
+                break;
+
+            // Pick a single word then
+            case 'string':
+                $result = $this->getWord();
+
+                if (rand(0,1))
+                    $result = ucfirst($result);
+
+                break;
+
+                /**
+                 * ITS HERE: The point where you can extend
+                 * this class, to support new datatypes
+                 */
+
+            // Returns the original string or number
+            default:
+                $result = $kind;
+                break;
             }
 
-            $result = trim( $result );
-            break;
-
-        // Pick a single word then
-        case 'string':
-            $result = $this->getWord();
-
-            if (rand(0,1))
-                $result = ucfirst($result);
-
-            break;
-
-            /**
-             * ITS HERE: The point where you can extend
-             * this class, to support new datatypes
-             */
-
-        // Returns the original string or number
-        default:
-            $result = $kind;
-            break;
         }
 
         return $result;
