@@ -235,15 +235,16 @@ class FactoryMuff
                 throw new \Exception("$model does not have a static $callable method");
             }
         }
-        else {
+        
+        else if ( is_string($kind) && substr( $kind, 0, 8 ) === 'integer|' ) {
+            $numgen = substr( $kind, 8 );
 
-            if ( is_string($kind) && substr( $kind, 0, 8 ) === 'integer|' ) {
-                $numgen = substr( $kind, 8 );
-
-                for ( $i=0; $i<$numgen; $i++ ) {
-                    $result .= mt_rand(0,9);
-                }
+            $result = null;
+            for ( $i=0; $i<$numgen; $i++ ) {
+                $result .= mt_rand(0,9);
             }
+        }
+        else {
 
             // Overwise interpret the kind and 'generate' some
             // crap.
@@ -284,6 +285,7 @@ class FactoryMuff
                     $result = $kind;
                     break;
             }
+            
 
         }
 
