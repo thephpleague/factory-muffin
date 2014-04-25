@@ -235,6 +235,12 @@ class FactoryMuff
                 throw new \Exception("$model does not have a static $callable method");
             }
         }
+
+        else if ( is_string($kind) && substr( $kind, 0, 5 ) === 'date|' ) {
+            $format = substr( $kind, 5 );
+            $result = date($format);
+        }
+        
         else {
 
             if ( is_string($kind) && substr( $kind, 0, 8 ) === 'integer|' ) {
