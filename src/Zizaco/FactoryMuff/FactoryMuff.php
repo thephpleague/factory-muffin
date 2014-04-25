@@ -240,6 +240,7 @@ class FactoryMuff
             if ( is_string($kind) && substr( $kind, 0, 8 ) === 'integer|' ) {
                 $numgen = substr( $kind, 8 );
 
+                $result = null;
                 for ( $i=0; $i<$numgen; $i++ ) {
                     $result .= mt_rand(0,9);
                 }
