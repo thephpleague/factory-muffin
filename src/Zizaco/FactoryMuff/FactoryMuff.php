@@ -152,11 +152,11 @@ class FactoryMuff
             {
                 return $related->getKey();
             }
-            elseif( $related->id )
+            elseif( isset($related->id) )
             {
                 return $related->id;
             }
-            elseif( $related->_id )
+            elseif( isset($related->_id) )
             {
                 return $related->_id;
             }
