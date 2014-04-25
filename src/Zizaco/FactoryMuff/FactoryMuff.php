@@ -193,6 +193,10 @@ class FactoryMuff
             {
                 return $related->getKey();
             }
+            elseif (method_exists($related, 'pk')) // Kohana Primary Key
+            {
+                return $related->pk();
+            }
             elseif( $related->id )
             {
                 return $related->id;
