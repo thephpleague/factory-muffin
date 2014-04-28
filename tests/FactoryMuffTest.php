@@ -42,6 +42,16 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($obj->created, date('Ymd h:s'));
     }
 
+    public function test_integer()
+    {
+        $this->factory->define('SampleModelA', array(
+            'number' => 'integer|100',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+        $this->assertEquals(100, strlen($obj->number));
+    }
+
     public function test_should_create()
     {
         $obj = $this->factory->create('SampleModelA');
