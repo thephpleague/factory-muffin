@@ -66,6 +66,26 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(4, strlen($obj->string));
     }
 
+    public function test_text()
+    {
+        $this->factory->define('SampleModelA', array(
+            'text' => 'text|4',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+        $this->assertEquals(4, strlen($obj->text));
+    }
+
+    public function test_text_default()
+    {
+        $this->factory->define('SampleModelA', array(
+            'text' => 'text',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+        $this->assertEquals(100, strlen($obj->text));
+    }
+
     public function test_should_create()
     {
         $obj = $this->factory->create('SampleModelA');
