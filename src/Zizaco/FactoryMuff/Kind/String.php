@@ -13,7 +13,7 @@ class String extends Kind
 
     // Generate a large amount of text. The reason for this is that
     // faker uses a maximum length, and not an exact length. We then substr this
-    $text = $faker->text($length * 3);
+    $text = str_replace(' ', null, $faker->text($length * 3));
     return substr($text, 0, $length);
   }
 }
