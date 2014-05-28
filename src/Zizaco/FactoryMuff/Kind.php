@@ -55,5 +55,13 @@ abstract class Kind
     }
   }
 
+  public function getOptions()
+  {
+    $options = explode('|', $this->kind);
+    array_shift($options);
+
+    return $options;
+  }
+
   abstract public function generate();
 }
