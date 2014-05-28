@@ -55,6 +55,16 @@ abstract class Kind
     }
   }
 
+  public function getOption($index, $default = null)
+  {
+    $options = $this->getOptions();
+    if (isset($options[$index])) {
+      return $options[$index];
+    }
+
+    return $default;
+  }
+
   public function getOptions()
   {
     $options = explode('|', $this->kind);
