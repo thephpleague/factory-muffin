@@ -20,37 +20,38 @@ abstract class Kind
       return new Kind\Closure($kind, $model);
     }
     elseif (is_string($kind)) {
-
       if (substr($kind, 0, 8) == 'factory|')
       {
         return new Kind\Factory($kind, $model);
       }
-      elseif (substr($kind, 0, 5) === 'call|')
+      elseif (substr($kind, 0, 5) === 'call|' || substr($kind, 0, 4) === 'call')
       {
         return new Kind\Call($kind, $model);
       }
-      elseif (substr($kind, 0, 5) === 'date|')
+      elseif (substr($kind, 0, 5) === 'date|' || substr($kind, 0, 4) === 'date')
       {
         return new Kind\Date($kind, $model);
       }
-      elseif (substr($kind, 0, 8) === 'integer|')
+      elseif (substr($kind, 0, 8) === 'integer|' || substr($kind, 0, 7) === 'integer')
       {
         return new Kind\Integer($kind, $model);
       }
+      elseif (substr($kind, 0, 6) === 'email|' || substr($kind, 0, 5) === 'email')
+      {
+        return new Kind\Email($kind, $model);
+      }
+      elseif (substr($kind, 0, 5) === 'text|' || substr($kind, 0, 4) === 'text')
+      {
+        return new Kind\Text($kind, $model);
+      }
+      elseif (substr($kind, 0, 7) === 'string|' || substr($kind, 0, 6) === 'string')
+      {
+        return new Kind\String($kind, $model);
+      }
       else
       {
-        switch ($kind) {
-          case 'email':
-            return new Kind\Email($kind, $model);
-          case 'text':
-            return new Kind\Text($kind, $model);
-          case 'string':
-            return new Kind\String($kind, $model);
-          default:
-            return new Kind\None($kind, $model);
-        }
+        return new Kind\None($kind, $model);
       }
-
     }
   }
 
