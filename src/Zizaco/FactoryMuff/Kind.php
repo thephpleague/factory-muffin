@@ -20,38 +20,29 @@ abstract class Kind
       return new Kind\Closure($kind, $model);
     }
     elseif (is_string($kind)) {
-      if (substr($kind, 0, 8) == 'factory|')
+
+      $available_kinds = array(
+        'call',
+        'closure',
+        'date',
+        'email',
+        'factory',
+        'integer',
+        'none',
+        'string',
+        'text',
+      );
+
+      $class = '\\Zizaco\\FactoryMuff\\Kind\\None';
+      foreach ($available_kinds as $available_kind)
       {
-        return new Kind\Factory($kind, $model);
+        if (substr($kind, 0, strlen($available_kind)) === $available_kind) {
+          $class = '\\Zizaco\\FactoryMuff\\Kind\\' . ucfirst($available_kind);
+          break;
+        }
       }
-      elseif (substr($kind, 0, 5) === 'call|' || substr($kind, 0, 4) === 'call')
-      {
-        return new Kind\Call($kind, $model);
-      }
-      elseif (substr($kind, 0, 5) === 'date|' || substr($kind, 0, 4) === 'date')
-      {
-        return new Kind\Date($kind, $model);
-      }
-      elseif (substr($kind, 0, 8) === 'integer|' || substr($kind, 0, 7) === 'integer')
-      {
-        return new Kind\Integer($kind, $model);
-      }
-      elseif (substr($kind, 0, 6) === 'email|' || substr($kind, 0, 5) === 'email')
-      {
-        return new Kind\Email($kind, $model);
-      }
-      elseif (substr($kind, 0, 5) === 'text|' || substr($kind, 0, 4) === 'text')
-      {
-        return new Kind\Text($kind, $model);
-      }
-      elseif (substr($kind, 0, 7) === 'string|' || substr($kind, 0, 6) === 'string')
-      {
-        return new Kind\String($kind, $model);
-      }
-      else
-      {
-        return new Kind\None($kind, $model);
-      }
+
+      return new $class($kind, $model);
     }
   }
 
