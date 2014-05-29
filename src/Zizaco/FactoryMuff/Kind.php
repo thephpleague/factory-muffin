@@ -4,23 +4,43 @@ namespace Zizaco\FactoryMuff;
 
 abstract class Kind
 {
-
+  /**
+   * Holds the Kind we are working on
+   * @var Zizaco\FactoryMuff\Kind
+   */
   protected $kind = null;
+
+  /**
+   * Holds the model data
+   * @var array
+   */
   protected $model = null;
 
+  /**
+   * Initialise our Kind
+   * @param Zizaco\FactoryMuff\Kind $kind
+   * @param array $model
+   */
   public function __construct($kind, $model)
   {
     $this->kind = $kind;
     $this->model = $model;
   }
 
+  /**
+   * Detect the type of Kind we are processing
+   * @param  string $kind
+   * @param  array $model
+   * @return Zizaco\FactoryMuff\Kind
+   */
   public static function detect($kind, $model = null)
   {
-    if($kind instanceof \Closure) {
+    if ($kind instanceof \Closure)
+    {
       return new Kind\Closure($kind, $model);
     }
-    elseif (is_string($kind)) {
-
+    elseif (is_string($kind))
+    {
       $available_kinds = array(
         'call',
         'closure',
@@ -46,6 +66,12 @@ abstract class Kind
     }
   }
 
+  /**
+   * Returns an option passed to the Kind
+   * @param  integer $index
+   * @param  mixed $default
+   * @return mixed
+   */
   public function getOption($index, $default = null)
   {
     $options = $this->getOptions();
@@ -56,6 +82,10 @@ abstract class Kind
     return $default;
   }
 
+  /**
+   * Return an array of all options passed to the Kind (after |)
+   * @return array
+   */
   public function getOptions()
   {
     $options = explode('|', $this->kind);
@@ -68,5 +98,10 @@ abstract class Kind
     return $options;
   }
 
+  /**
+   * Abstract class used by individual Kind's to return
+   * generated data
+   * @return string|integer
+   */
   abstract public function generate();
 }
