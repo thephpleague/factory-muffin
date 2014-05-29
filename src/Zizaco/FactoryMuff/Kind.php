@@ -5,6 +5,22 @@ namespace Zizaco\FactoryMuff;
 abstract class Kind
 {
   /**
+   * The Kind classes that are available.
+   * @var array
+   */
+  protected static $available_kinds = array(
+    'call',
+    'closure',
+    'date',
+    'email',
+    'factory',
+    'integer',
+    'none',
+    'string',
+    'text',
+  );
+
+  /**
    * Holds the Kind we are working on
    * @var Zizaco\FactoryMuff\Kind
    */
@@ -39,31 +55,18 @@ abstract class Kind
     {
       return new Kind\Closure($kind, $model);
     }
-    elseif (is_string($kind))
+
+    $class = '\\Zizaco\\FactoryMuff\\Kind\\None';
+    foreach (static::$available_kinds as $available_kind)
     {
-      $available_kinds = array(
-        'call',
-        'closure',
-        'date',
-        'email',
-        'factory',
-        'integer',
-        'none',
-        'string',
-        'text',
-      );
-
-      $class = '\\Zizaco\\FactoryMuff\\Kind\\None';
-      foreach ($available_kinds as $available_kind)
-      {
-        if (substr($kind, 0, strlen($available_kind)) === $available_kind) {
-          $class = '\\Zizaco\\FactoryMuff\\Kind\\' . ucfirst($available_kind);
-          break;
-        }
+      if (substr($kind, 0, strlen($available_kind)) === $available_kind) {
+        $class = '\\Zizaco\\FactoryMuff\\Kind\\' . ucfirst($available_kind);
+        break;
       }
-
-      return new $class($kind, $model);
     }
+
+    return new $class($kind, $model);
+
   }
 
   /**
