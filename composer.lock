@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "0c9fac7afc308e63bebd2d29991695c6",
+    "hash": "6d5e8cd89593bce4d2d43bfc9ec0a912",
     "packages": [
         {
             "name": "fzaninotto/faker",
-            "version": "dev-master",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "b54b2447aae9a027e8a6368276409e4daeb718b3"
+                "reference": "010c7efedd88bf31141a02719f51fb44c732d5a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/b54b2447aae9a027e8a6368276409e4daeb718b3",
-                "reference": "b54b2447aae9a027e8a6368276409e4daeb718b3",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/010c7efedd88bf31141a02719f51fb44c732d5a0",
+                "reference": "010c7efedd88bf31141a02719f51fb44c732d5a0",
                 "shasum": ""
             },
             "require": {
@@ -28,9 +28,7 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "1.4.x-dev"
-                }
+                "branch-alias": []
             },
             "autoload": {
                 "psr-0": {
@@ -53,12 +51,12 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2014-05-26 11:53:24"
+            "time": "2014-06-04 14:43:02"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [],
     "platform": {
         "php": ">=5.3.0"

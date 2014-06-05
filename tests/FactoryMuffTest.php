@@ -49,11 +49,11 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
     public function test_integer()
     {
         $this->factory->define('SampleModelA', array(
-            'number' => 'integer|10',
+            'number' => 'integer|9',
         ));
 
         $obj = $this->factory->create('SampleModelA');
-        $this->assertEquals(10, strlen($obj->number));
+        $this->assertEquals(9, strlen($obj->number));
     }
 
     public function test_should_create()
