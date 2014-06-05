@@ -8,7 +8,7 @@ class Date extends Kind
 {
   public function generate()
   {
-    $format = substr($this->kind, 5);
+    $format = $this->getOption(0, 'r');
     $faker = \Faker\Factory::create();
     return $faker->date($format);
   }

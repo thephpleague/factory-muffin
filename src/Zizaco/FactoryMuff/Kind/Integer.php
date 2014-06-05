@@ -8,7 +8,7 @@ class Integer extends Kind
 {
   public function generate()
   {
-    $length = substr($this->kind, 8);
+    $length = (int) $this->getOption(0, 5);
     $faker = \Faker\Factory::create();
     return $faker->randomNumber($length);
   }

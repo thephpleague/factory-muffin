@@ -56,11 +56,51 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(9, strlen($obj->number));
     }
 
+    public function test_string()
+    {
+        $this->factory->define('SampleModelA', array(
+            'string' => 'string|4',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+        $this->assertEquals(4, strlen($obj->string));
+    }
+
+    public function test_text()
+    {
+        $this->factory->define('SampleModelA', array(
+            'text' => 'text|4',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+        $this->assertEquals(4, strlen($obj->text));
+    }
+
+    public function test_text_default()
+    {
+        $this->factory->define('SampleModelA', array(
+            'text' => 'text',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+        $this->assertEquals(100, strlen($obj->text));
+    }
+
     public function test_should_create()
     {
         $obj = $this->factory->create('SampleModelA');
 
         $this->assertTrue( is_numeric($obj->id) );
+    }
+
+    public function test_get_ids()
+    {
+        $obj = $this->factory->create('SampleModelF');
+
+        $this->assertEquals(1, $obj->modelGetKey);
+        $this->assertEquals(1, $obj->modelPk);
+        $this->assertEquals(1, $obj->model_id);
+        $this->assertNull($obj->model_null);
     }
 
     public function test_should_throw_exception_on_model_save_failure()
@@ -217,6 +257,71 @@ class SampleModelD
 
 class SampleModelE
 {
+    public function save()
+    {
+        return true;
+    }
+}
+
+class SampleModelF
+{
+
+    public static $factory = array(
+        'modelGetKey' => 'factory|SampleModelGetKey',
+        'modelPk' => 'factory|SampleModelPk',
+        'model_id' => 'factory|SampleModel_id',
+        'model_null' => 'factory|SampleModel_null',
+    );
+
+    public function save()
+    {
+        return true;
+    }
+}
+
+class SampleModelGetKey
+{
+    public static $factory = array();
+    public function getKey()
+    {
+        return 1;
+    }
+
+    public function save()
+    {
+        return true;
+    }
+}
+
+class SampleModelPk
+{
+    public static $factory = array();
+    public function pk()
+    {
+        return 1;
+    }
+
+    public function save()
+    {
+        return true;
+    }
+}
+
+class SampleModel_id
+{
+    public static $factory = array();
+    public $_id = 1;
+
+    public function save()
+    {
+        return true;
+    }
+}
+
+class SampleModel_null
+{
+    public static $factory = array();
+
     public function save()
     {
         return true;
