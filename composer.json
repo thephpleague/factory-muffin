@@ -17,6 +17,5 @@
         "psr-0": {
             "Zizaco\\FactoryMuff": "src/"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
