@@ -69,6 +69,27 @@ class Message extends Eloquent
     }
 ```
 
+You can also declare a static method named `factory()` on your model. This allows more flexibility as PHP has restrictions on what you can use as array values when defining properties.
+
+Example:
+```php
+class Message extends Eloquent
+{
+    // Defined as a static method
+    public static factory()
+    {
+        return array(
+            'user_id' => 'factory|User',
+            // Not possible when defined as a static array
+            'greeting' => RandomGreeting::get(),
+            // Closures will be called automatically
+            'four' => function() {
+                return 2 + 2;
+            },
+        );
+    }
+```
+
 To create model instances do the following:
 ```php
 <?php

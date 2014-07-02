@@ -163,6 +163,16 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('just a string', $obj->text);
 
     }
+
+    public function test_can_create_from_static_method()
+    {
+        $this->factory->create('ModelWithStaticMethodFactory');
+
+        $obj = $this->factory->create('ModelWithStaticMethodFactory');
+
+        $this->assertEquals('just a string', $obj->string);
+        $this->assertEquals(4, $obj->four);
+    }
 }
 
 /**
@@ -321,6 +331,24 @@ class SampleModel_id
 class SampleModel_null
 {
     public static $factory = array();
+
+    public function save()
+    {
+        return true;
+    }
+}
+
+class ModelWithStaticMethodFactory
+{
+    public static function factory()
+    {
+        return array(
+            'string' => 'just a string',
+            'four' => function() {
+                return 2 + 2;
+            }
+        );
+    }
 
     public function save()
     {

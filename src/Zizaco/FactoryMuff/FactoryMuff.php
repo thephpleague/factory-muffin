@@ -138,6 +138,11 @@ class FactoryMuff
         if(isset($this->factories[$model])) {
             return $this->factories[$model];
         }
+
+        if(method_exists($model, 'factory'))
+        {
+            return $model::factory();
+        }
         else {
             // Get the $factory static and check for errors
             $static_vars = get_class_vars( $model );
@@ -146,6 +151,7 @@ class FactoryMuff
                 return $static_vars['factory'];
             }
         }
+
         throw new NoDefinedFactoryException('Factory not defined for class: ' . $model);
     }
 
