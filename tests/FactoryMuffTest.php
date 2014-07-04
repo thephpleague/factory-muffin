@@ -167,6 +167,14 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase
         $obj = $this->factory->create('SampleModelA');
 
         $this->assertEquals('just a string', $obj->text);
+
+        $this->factory->define('SampleModelA', array(
+            'text' => 'sneakyString',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+
+        $this->assertEquals('sneakyString', $obj->text);
     }
 
     public function test_faker_default_boolean()
