@@ -15,6 +15,7 @@ abstract class Kind
     'email',
     'factory',
     'integer',
+    'name',
     'none',
     'string',
     'text',
