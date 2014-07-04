@@ -6,19 +6,20 @@ use Zizaco\FactoryMuff\Kind;
 
 class Integer extends Kind
 {
-  public function generate()
-  {
-    $length = (int) $this->getOption(0, 5);
-    return $this->randomNumber($length);
-  }
+    public function generate()
+    {
+        $length = (int) $this->getOption(0, 5);
 
-  private function randomNumber($length)
-  {
-    $integer = null;
-    for($i = 0; $i < $length; $i++) {
-      $integer .= mt_rand(1, 9);
+        return $this->randomNumber($length);
     }
 
-    return (int) $integer;
-  }
+    private function randomNumber($length)
+    {
+        $integer = null;
+        for ($i = 0; $i < $length; $i++) {
+            $integer .= mt_rand(1, 9);
+        }
+
+        return (int) $integer;
+    }
 }

@@ -2,8 +2,8 @@
 
 use Zizaco\FactoryMuff\FactoryMuff;
 
-class FactoryMuffTest extends PHPUnit_Framework_TestCase {
-
+class FactoryMuffTest extends PHPUnit_Framework_TestCase
+{
     protected $factory;
 
     public function setUp()
@@ -26,10 +26,10 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
         $attr = $this->factory->attributesFor('SampleModelA');
 
         foreach ($attr as $value) {
-            $this->assertEquals( 'string' ,gettype($value) );
+            $this->assertInternalType('string', $value);
         }
 
-        $this->assertTrue( is_numeric($attr['modelb_id']) );
+        $this->assertTrue(is_numeric($attr['modelb_id']) );
     }
 
     public function test_date_kind()
@@ -117,7 +117,7 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
     {
         $obj = $this->factory->create('SampleModelA');
 
-        $this->assertTrue( is_numeric($obj->id) );
+        $this->assertTrue(is_numeric($obj->id));
     }
 
     public function test_get_ids()
@@ -169,6 +169,41 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('just a string', $obj->text);
     }
 
+    public function test_faker_default_boolean()
+    {
+        $this->factory->define('SampleModelA', array(
+            'something' => 'boolean',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+
+        $this->assertInternalType('boolean', $obj->something, "Asserting {$obj->something} is a boolean");
+    }
+
+    public function test_faker_default_latitude()
+    {
+        $this->factory->define('SampleModelA', array(
+            'lat' => 'latitude',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+
+        $this->assertGreaterThanOrEqual(-90, $obj->lat);
+        $this->assertLessThanOrEqual(90, $obj->lat);
+    }
+
+    public function test_faker_default_longitude()
+    {
+        $this->factory->define('SampleModelA', array(
+            'lon' => 'longitude',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+
+        $this->assertGreaterThanOrEqual(-180, $obj->lon);
+        $this->assertLessThanOrEqual(180, $obj->lon);
+    }
+
     /**
      * @expectedException Zizaco\FactoryMuff\NoDefinedFactoryException
      */
@@ -180,7 +215,7 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
     public function test_should_accept_closure_as_attribute_factory()
     {
         $this->factory->define('SampleModelA', array(
-            'text' => function() {
+            'text' => function () {
                 return 'just a string';
             },
         ));
@@ -220,10 +255,10 @@ class SampleModelA
     public function save()
     {
         $this->id = date('U');
+
         return true;
     }
 }
-
 
 /**
 * Testing only
@@ -240,7 +275,6 @@ class SampleModelB extends SampleModelA
         'card' => 'creditCardDetails'
     );
 }
-
 
 /**
 * Testing only
@@ -285,6 +319,7 @@ class SampleModelD
     public static function mungeModel($model)
     {
         $bits = explode('@', strtolower($model->email));
+
         return $bits[0];
     }
     public function save()
@@ -372,7 +407,7 @@ class ModelWithStaticMethodFactory
     {
         return array(
             'string' => 'just a string',
-            'four' => function() {
+            'four' => function () {
                 return 2 + 2;
             }
         );

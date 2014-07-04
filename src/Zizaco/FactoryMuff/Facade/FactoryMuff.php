@@ -17,11 +17,10 @@ class FactoryMuff
      * @static
      */
     private static $fmInstance;
-    
 
     /**
      * Get or stance FactoryMuff obj
-     * 
+     *
      * @access private
      * @static
      *
@@ -29,8 +28,7 @@ class FactoryMuff
      */
     private static function fmInstance()
     {
-        if (! static::$fmInstance)
-        {
+        if (! static::$fmInstance) {
             static::$fmInstance = new \Zizaco\FactoryMuff\FactoryMuff;
         }
 
@@ -40,7 +38,7 @@ class FactoryMuff
     /**
      * Creates and saves in db an instance
      * of Model with mock attributes
-     * 
+     *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
      *
@@ -57,7 +55,7 @@ class FactoryMuff
     /**
      * Return an instance of the model, which is
      * not saved in the database
-     * 
+     *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
      *
@@ -73,7 +71,7 @@ class FactoryMuff
     /**
      * Returns an array of mock attributes
      * for the especified model
-     * 
+     *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
      *

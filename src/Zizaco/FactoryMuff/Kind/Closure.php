@@ -9,6 +9,7 @@ class Closure extends Kind
   public function generate()
   {
     $kind = $this->kind;
+
     return $kind();
   }
 }
