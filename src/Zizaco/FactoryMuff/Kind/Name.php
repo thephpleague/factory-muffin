@@ -4,7 +4,7 @@ namespace Zizaco\FactoryMuff\Kind;
 
 use Zizaco\FactoryMuff\Kind;
 
-class Date extends Kind
+class Name extends Kind
 {
   public function generate()
   {
