@@ -53,7 +53,7 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
         ));
 
         $obj = $this->factory->create('SampleModelA');
-        $this->assertEquals(9, strlen($obj->number));
+        $this->assertLessThanOrEqual(9, strlen($obj->number));
     }
 
     public function test_name()
