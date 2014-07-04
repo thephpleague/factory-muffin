@@ -4,7 +4,7 @@ namespace Zizaco\FactoryMuff\Kind;
 
 use Zizaco\FactoryMuff\Kind;
 
-class None extends Kind
+class Generic extends Kind
 {
   /**
    * We attempt to use Faker for any string passed in, if a Faker property does

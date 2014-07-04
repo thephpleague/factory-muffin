@@ -16,7 +16,7 @@ abstract class Kind
     'factory',
     'integer',
     'name',
-    'none',
+    'generic',
     'string',
     'text',
   );
@@ -57,7 +57,7 @@ abstract class Kind
       return new Kind\Closure($kind, $model);
     }
 
-    $class = '\\Zizaco\\FactoryMuff\\Kind\\None';
+    $class = '\\Zizaco\\FactoryMuff\\Kind\\Generic';
     foreach (static::$available_kinds as $available_kind)
     {
       if (substr($kind, 0, strlen($available_kind)) === $available_kind) {
