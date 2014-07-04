@@ -2,8 +2,8 @@
 
 use Zizaco\FactoryMuff\FactoryMuff;
 
-class FactoryMuffTest extends PHPUnit_Framework_TestCase {
-
+class FactoryMuffTest extends PHPUnit_Framework_TestCase
+{
     protected $factory;
 
     public function setUp()
@@ -11,15 +11,25 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
         $this->factory = new FactoryMuff();
     }
 
+    public function test_defauling_to_faker()
+    {
+        $obj = $this->factory->create('SampleModelB');
+        $this->assertInternalType('array', $obj->card);
+        $this->assertArrayHasKey('type', $obj->card);
+        $this->assertArrayHasKey('number', $obj->card);
+        $this->assertArrayHasKey('name', $obj->card);
+        $this->assertArrayHasKey('expirationDate', $obj->card);
+    }
+
     public function test_should_get_attributes_for()
     {
         $attr = $this->factory->attributesFor('SampleModelA');
 
         foreach ($attr as $value) {
-            $this->assertEquals( 'string' ,gettype($value) );
+            $this->assertInternalType('string', $value);
         }
 
-        $this->assertTrue( is_numeric($attr['modelb_id']) );
+        $this->assertTrue(is_numeric($attr['modelb_id']) );
     }
 
     public function test_date_kind()
@@ -107,7 +117,7 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
     {
         $obj = $this->factory->create('SampleModelA');
 
-        $this->assertTrue( is_numeric($obj->id) );
+        $this->assertTrue(is_numeric($obj->id));
     }
 
     public function test_get_ids()
@@ -167,7 +177,7 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
 
         $obj = $this->factory->create('SampleModelA');
 
-        $this->assertTrue(is_bool($obj->something), "Asserting {$obj->something} is a boolean");
+        $this->assertInternalType('boolean', $obj->something, "Asserting {$obj->something} is a boolean");
     }
 
     public function test_faker_default_latitude()
@@ -205,7 +215,7 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
     public function test_should_accept_closure_as_attribute_factory()
     {
         $this->factory->define('SampleModelA', array(
-            'text' => function() {
+            'text' => function () {
                 return 'just a string';
             },
         ));
@@ -239,16 +249,16 @@ class SampleModelA
         'modelb_id' => 'factory|SampleModelB',
         'name' => 'string',
         'email' => 'email',
-        'message' => 'text',
+        'message' => 'text'
     );
 
     public function save()
     {
         $this->id = date('U');
+
         return true;
     }
 }
-
 
 /**
 * Testing only
@@ -262,9 +272,9 @@ class SampleModelB extends SampleModelA
         'title' => 'string',
         'email' => 'email',
         'content' => 'text',
+        'card' => 'creditCardDetails'
     );
 }
-
 
 /**
 * Testing only
@@ -309,6 +319,7 @@ class SampleModelD
     public static function mungeModel($model)
     {
         $bits = explode('@', strtolower($model->email));
+
         return $bits[0];
     }
     public function save()
@@ -396,7 +407,7 @@ class ModelWithStaticMethodFactory
     {
         return array(
             'string' => 'just a string',
-            'four' => function() {
+            'four' => function () {
                 return 2 + 2;
             }
         );
