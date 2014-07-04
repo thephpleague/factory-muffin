@@ -9,7 +9,7 @@ class Name extends Kind
   public function generate()
   {
     $gender = $this->getOption(0, null);
-    $faker = \Faker\Factory::create();
-    return $faker->name($gender);
+
+    return $this->faker->name($gender);
   }
 }

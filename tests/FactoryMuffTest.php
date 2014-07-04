@@ -159,6 +159,41 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('just a string', $obj->text);
     }
 
+    public function test_faker_default_boolean()
+    {
+        $this->factory->define('SampleModelA', array(
+            'something' => 'boolean',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+
+        $this->assertTrue(is_bool($obj->something), "Asserting {$obj->something} is a boolean");
+    }
+
+    public function test_faker_default_latitude()
+    {
+        $this->factory->define('SampleModelA', array(
+            'lat' => 'latitude',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+
+        $this->assertGreaterThanOrEqual(-90, $obj->lat);
+        $this->assertLessThanOrEqual(90, $obj->lat);
+    }
+
+    public function test_faker_default_longitude()
+    {
+        $this->factory->define('SampleModelA', array(
+            'lon' => 'longitude',
+        ));
+
+        $obj = $this->factory->create('SampleModelA');
+
+        $this->assertGreaterThanOrEqual(-180, $obj->lon);
+        $this->assertLessThanOrEqual(180, $obj->lon);
+    }
+
     /**
      * @expectedException Zizaco\FactoryMuff\NoDefinedFactoryException
      */
