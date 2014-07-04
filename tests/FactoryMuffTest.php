@@ -11,6 +11,16 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
         $this->factory = new FactoryMuff();
     }
 
+    public function test_defauling_to_faker()
+    {
+        $obj = $this->factory->create('SampleModelB');
+        $this->assertInternalType('array', $obj->card);
+        $this->assertArrayHasKey('type', $obj->card);
+        $this->assertArrayHasKey('number', $obj->card);
+        $this->assertArrayHasKey('name', $obj->card);
+        $this->assertArrayHasKey('expirationDate', $obj->card);
+    }
+
     public function test_should_get_attributes_for()
     {
         $attr = $this->factory->attributesFor('SampleModelA');
@@ -204,7 +214,7 @@ class SampleModelA
         'modelb_id' => 'factory|SampleModelB',
         'name' => 'string',
         'email' => 'email',
-        'message' => 'text',
+        'message' => 'text'
     );
 
     public function save()
@@ -227,6 +237,7 @@ class SampleModelB extends SampleModelA
         'title' => 'string',
         'email' => 'email',
         'content' => 'text',
+        'card' => 'creditCardDetails'
     );
 }
 
