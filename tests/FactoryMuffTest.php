@@ -131,7 +131,7 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase {
     {
         $obj = $this->factory->create('SampleModelD');
 
-        $expected = gmdate('Y-m-d H:i:s', strtotime('+40 days'));
+        $expected = gmdate('Y-m-d', strtotime('+40 days'));
 
         $this->assertEquals($expected, $obj->future);
     }
@@ -265,7 +265,7 @@ class SampleModelD
     );
     public static function fortyDaysFromNow()
     {
-        return gmdate('Y-m-d H:i:s', strtotime('+40 days'));
+        return gmdate('Y-m-d', strtotime('+40 days'));
     }
     public static function makeSlug($text)
     {
