@@ -94,6 +94,8 @@ To create model instances do the following:
 ```php
 <?php
 
+use Zizaco\FactoryMuff\FactoryMuff;
+
 class TestUserModel extends PHPUnit_Framework_TestCase {
 
     public function __construct()
