@@ -2,6 +2,7 @@
 
 namespace Zizaco\FactoryMuff\Kind;
 
+use InvalidArgumentException;
 use Zizaco\FactoryMuff\Kind;
 
 class Generic extends Kind
