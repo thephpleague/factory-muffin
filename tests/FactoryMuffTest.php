@@ -11,7 +11,7 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase
         $this->factory = new FactoryMuff();
     }
 
-    public function test_defauling_to_faker()
+    public function test_defaulting_to_faker()
     {
         $obj = $this->factory->create('SampleModelB');
         $this->assertInternalType('array', $obj->card);
@@ -34,26 +34,26 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase
 
     public function test_date_kind()
     {
-        $this->markTestSkipped('Need to check the date format is correct, no the exact date (it is random now)');
-
+        $format = 'Y-m-d';
         $this->factory->define('SampleModelA', array(
-            'created' => 'date|Ymd',
+            'created' => 'date|' . $format,
         ));
 
         $obj = $this->factory->create('SampleModelA');
-        $this->assertEquals($obj->created, date('Ymd'));
+        $dateTime = \DateTime::createFromFormat($format, $obj->created);
+        $this->assertEquals($obj->created, $dateTime->format($format));
     }
 
     public function test_date_kind_with_date()
     {
-        $this->markTestSkipped('Need to check the date format is correct, no the exact date (it is random now)');
-
+        $format = 'Ymd h:s';
         $this->factory->define('SampleModelA', array(
-            'created' => 'date|Ymd h:s',
+            'created' => 'date|' . $format,
         ));
 
         $obj = $this->factory->create('SampleModelA');
-        $this->assertEquals($obj->created, date('Ymd h:s'));
+        $dateTime = \DateTime::createFromFormat($format, $obj->created);
+        $this->assertEquals($obj->created, $dateTime->format($format));
     }
 
     public function test_integer()
