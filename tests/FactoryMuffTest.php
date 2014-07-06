@@ -34,26 +34,20 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase
 
     public function test_date_kind()
     {
-        $format = 'Y-m-d';
-        $this->factory->define('SampleModelA', array(
-            'created' => 'date|' . $format,
-        ));
+        $formats = array(
+            'Y-m-d', 'Ymd h:s', 'F d Y h:mA',
+            'l F j Y', 'G:i:s e', 'D g d-m-y'
+        );
+        
+        for ($i = 0; $i < count($formats); $i++) {
+			$this->factory->define('SampleModelA', array(
+				'created' => 'date|' . $formats[$i],
+			));
 
-        $obj = $this->factory->create('SampleModelA');
-        $dateTime = \DateTime::createFromFormat($format, $obj->created);
-        $this->assertEquals($obj->created, $dateTime->format($format));
-    }
-
-    public function test_date_kind_with_date()
-    {
-        $format = 'Ymd h:s';
-        $this->factory->define('SampleModelA', array(
-            'created' => 'date|' . $format,
-        ));
-
-        $obj = $this->factory->create('SampleModelA');
-        $dateTime = \DateTime::createFromFormat($format, $obj->created);
-        $this->assertEquals($obj->created, $dateTime->format($format));
+			$obj = $this->factory->create('SampleModelA');
+			$dateTime = \DateTime::createFromFormat($formats[$i], $obj->created);
+			$this->assertEquals($obj->created, $dateTime->format($formats[$i]));
+        }
     }
 
     public function test_integer()
