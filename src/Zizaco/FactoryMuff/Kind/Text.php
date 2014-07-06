@@ -12,7 +12,7 @@ class Text extends Kind
 
         // Generate a large amount of text. The reason for this is that
         // faker uses a maximum length, and not an exact length. We then substr this
-        $text = $this->faker->text($length * 3);
+        $text = $this->faker->text($length *  5);
 
         return substr($text, 0, $length);
     }
