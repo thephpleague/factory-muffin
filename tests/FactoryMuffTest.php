@@ -232,6 +232,25 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('just a string', $obj->string);
         $this->assertEquals(4, $obj->four);
     }
+    /**
+     * @expectedException \Zizaco\FactoryMuff\SaveException
+     * @expectedExceptionMessage Failed to save. - Could not save the model of type: SampleModelWithValidationErrors
+     */
+    public function test_with_validation_errors()
+    {
+        $obj = $this->factory->create('SampleModelWithValidationErrors');
+    }
+}
+
+class SampleModelWithValidationErrors
+{
+    public $factory = array();
+    public $validationErrors = 'Failed to save.';
+
+    public function save()
+    {
+
+    }
 }
 
 /**
