@@ -1,4 +1,6 @@
-<?php namespace Zizaco\FactoryMuff;
+<?php
+
+namespace Zizaco\FactoryMuff;
 
 class SaveException extends \Exception
 {

@@ -47,9 +47,9 @@ class FactoryMuff
      *
      * @return mixed Returns the model instance.
      */
-    public static function create( $model, $attr = array() )
+    public static function create($model, $attr = array())
     {
-        return static::fmInstance()->create( $model, $attr );
+        return static::fmInstance()->create($model, $attr);
     }
 
     /**
@@ -63,9 +63,9 @@ class FactoryMuff
      *
      * @return mixed Returns the model instance.
      */
-    public static function instance( $model, $attr = array() )
+    public static function instance($model, $attr = array())
     {
-        return static::fmInstance()->instance( $model, $attr );
+        return static::fmInstance()->instance($model, $attr);
     }
 
     /**
@@ -80,8 +80,8 @@ class FactoryMuff
      *
      * @return array Returns an attributes array.
      */
-    public static function attributesFor( $model, $attr = array() )
+    public static function attributesFor($model, $attr = array())
     {
-        return static::fmInstance()->attributesFor( $model, $attr );
+        return static::fmInstance()->attributesFor($model, $attr);
     }
 }

@@ -144,7 +144,7 @@ class FactoryMuff
      *
      * @return mixed String or an instance of related model.
      */
-    public function generateAttr($kind, $model = NULL)
+    public function generateAttr($kind, $model = null)
     {
         $kind = Kind::detect($kind, $model);
 
