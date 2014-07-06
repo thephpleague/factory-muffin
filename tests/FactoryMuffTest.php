@@ -35,7 +35,7 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase
     public function test_date_kind()
     {
         $format = 'Y-m-d';
-        
+
         $this->factory->define('SampleModelA', array(
             'created' => 'date|' . $format,
         ));
