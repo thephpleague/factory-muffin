@@ -232,6 +232,17 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('just a string', $obj->string);
         $this->assertEquals(4, $obj->four);
     }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage does not have a static doesNotExist method
+     */
+    public function test_throw_exception_when_invalid_static_method()
+    {
+        $obj = $this->factory->create('ModelWithMissingStaticMethod');
+        $obj->does_not_exist;
+    }
+
     /**
      * @expectedException \Zizaco\FactoryMuff\SaveException
      * @expectedExceptionMessage Failed to save. - Could not save the model of type: SampleModelWithValidationErrors
@@ -415,6 +426,13 @@ class SampleModel_null
     {
         return true;
     }
+}
+
+class ModelWithMissingStaticMethod
+{
+    public static $factory = array(
+        'does_not_exist' => 'call|doesNotExist'
+    );
 }
 
 class ModelWithStaticMethodFactory
