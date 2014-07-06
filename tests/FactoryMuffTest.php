@@ -40,13 +40,13 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase
         );
         
         for ($i = 0; $i < count($formats); $i++) {
-			$this->factory->define('SampleModelA', array(
-				'created' => 'date|' . $formats[$i],
-			));
+            $this->factory->define('SampleModelA', array(
+                'created' => 'date|' . $formats[$i],
+            ));
 
-			$obj = $this->factory->create('SampleModelA');
-			$dateTime = \DateTime::createFromFormat($formats[$i], $obj->created);
-			$this->assertEquals($obj->created, $dateTime->format($formats[$i]));
+            $obj = $this->factory->create('SampleModelA');
+            $dateTime = \DateTime::createFromFormat($formats[$i], $obj->created);
+            $this->assertEquals($obj->created, $dateTime->format($formats[$i]));
         }
     }
 
