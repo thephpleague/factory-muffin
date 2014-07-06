@@ -134,26 +134,16 @@ class TestUserModel extends PHPUnit_Framework_TestCase {
 
 ### Kinds of attribute supported
 
-* string
- * Grab a random word from the wordlist. Ex: "bucket","mouse","laptop","America"
-* email
- * An word from the wordlist + domain. Ex: "smart@example.com", "Brasil@nonexist.org"
-* text
- * A text of about 7 words from the list. Ex: "something table underrated blackboard"
-* integer|length
- * Return an integer of the specified length
-* date|format
- * Return the current date, using the supplied format. (See php.net/date for formats)
-* factory|ModelName
- * Will trigger the __create__ for the given model and return it's id.
-* call|staticMethodName
- * Will call staticMethodName() on the class being created.
-* call|staticMethodName|string
- * Will call staticMethodName() on the class being created, and pass in a parameter (use any of the kinds supported by FactoryMuff such as email, text, etc)
-* call|staticMethodName|factory|User
- * The gotcha here is that staticMethodName() will be passed the _model instance_ here, rather than the _id_ which is the case with the normal "factory|User" style.
-* Any thing else
- * Will be returned. Ex: kind "tuckemuffin" will become the value of the attribute in the instantiated object.
+| Kind          | Option  | Description                                                                        | Example
+| :-----------: | :-----: |:----------------------------------------------------------------------------------:| :----------------:|
+| string        | length  | Random string of text                                                              | string|12         |
+| email         | -       | Random email address                                                               | email             |
+| text          | length  | Random body of text                                                                | text|100          |
+| integer       | length  | Random integer/number                                                              | integer|10        |
+| date          | format  | Generate date with specific format                                                 | date|d-M-Y        |
+| factory       | model   | Will run ->create() on another model and return it's id                            | factory|User      |
+| call          | method  | Allows you to call any static methods                                              | call|staticMethod |
+| default       | string  | Any Kinds that are not reccognised will try and load from Faker, or return the text| creditCardDetails |
 
 
 ### Save Failures
