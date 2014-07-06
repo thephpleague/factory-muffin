@@ -1,9 +1,9 @@
 <?php
 
-namespace Zizaco\FactoryMuff\Kind;
+namespace Zizaco\FactoryMuffin\Kind;
 
 use InvalidArgumentException;
-use Zizaco\FactoryMuff\Kind;
+use Zizaco\FactoryMuffin\Kind;
 
 class Generic extends Kind
 {

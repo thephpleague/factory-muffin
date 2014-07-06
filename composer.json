@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Zizaco\\FactoryMuff": "src/"
+            "Zizaco\\FactoryMuffin": "src/"
         }
     }
 }

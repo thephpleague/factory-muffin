@@ -1,7 +1,5 @@
-FactoryMuff
+FactoryMuffin
 ===========
-
-![factory muff poster](https://dl.dropbox.com/u/12506137/libs_bundles/factorymuff.png)
 
 [![Build Status](https://api.travis-ci.org/Zizaco/factory-muff.png)](https://travis-ci.org/Zizaco/factory-muff)
 [![Latest Stable Version](https://poser.pugx.org/zizaco/factory-muff/v/stable.png)](https://packagist.org/packages/zizaco/factory-muff)
@@ -31,7 +29,7 @@ Run the Composer update command
 How it works
 ------------
 
-FactoryMuff (which stands for Factory Muffin) uses a list of 2300+ words with at least 4 characters. These words are scrambled at every execution and will not repeat unless you use all the words. In this case the list is re-started and scrambled again.
+FactoryMuffin (which stands for Factory Muffin) uses a list of 2300+ words with at least 4 characters. These words are scrambled at every execution and will not repeat unless you use all the words. In this case the list is re-started and scrambled again.
 
 Theoretically you will not need to worry about repeating values​​, unless your application has ALOT of tests to run which may cause the wordlist to restart. If this is your case, you can simply increase wordlist in _wordlist.php_
 
@@ -94,14 +92,14 @@ To create model instances do the following:
 ```php
 <?php
 
-use Zizaco\FactoryMuff\FactoryMuff;
+use Zizaco\FactoryMuffin\FactoryMuffin;
 
 class TestUserModel extends PHPUnit_Framework_TestCase {
 
     public function __construct()
     {
-        // Prepare FactoryMuff
-        $this->factory = new FactoryMuff;
+        // Prepare FactoryMuffin
+        $this->factory = new FactoryMuffin;
     }
 
     public function testSampleFactory()
@@ -148,7 +146,7 @@ class TestUserModel extends PHPUnit_Framework_TestCase {
 
 ### Save Failures
 
-If a model cannot be saved to the database, for example if it fails validation through a library like Ardent, a Zizaco\FactoryMuff\SaveException will be raised.
+If a model cannot be saved to the database, for example if it fails validation through a library like Ardent, a Zizaco\FactoryMuffin\SaveException will be raised.
 
 More help
 ---------
