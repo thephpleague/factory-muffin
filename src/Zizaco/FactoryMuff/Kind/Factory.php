@@ -6,24 +6,40 @@ use Zizaco\FactoryMuff\Kind;
 
 class Factory extends Kind
 {
+  private $methods = array(
+    'getKey',
+    'pk',
+  );
+
+  private $properties = array(
+    'id',
+    '_id'
+  );
+
   public function generate()
   {
     $factory = new \Zizaco\FactoryMuff\FactoryMuff;
-    $related = $factory->create(substr($this->kind, 8));
+    $model = $factory->create(substr($this->kind, 8));
+    return $this->getId($model);
+  }
 
-    if (method_exists($related, 'getKey')) {
-      return $related->getKey();
-    } elseif (method_exists($related, 'pk')) { // Kohana Primary Key
-
-      return $related->pk();
-    } elseif (isset($related->id)) { // id Attribute
-
-      return $related->id;
-    } elseif (isset($related->_id)) { // Mongo _id attribute
-
-      return $related->_id;
-    } else {
-      return null;
+  private function getId($model)
+  {
+    // Check to see if we can get an ID via our defined methods
+    foreach ($this->methods as $method) {
+      if (method_exists($model, $method)) {
+        return $model->$method();
+      }
     }
+
+    // Check to see if we can get an ID via our defined methods
+    foreach ($this->properties as $property) {
+      if (isset($model->$property)) {
+        return $model->$property;
+      }
+    }
+
+    // We cannot find an ID
+    return null;
   }
 }
