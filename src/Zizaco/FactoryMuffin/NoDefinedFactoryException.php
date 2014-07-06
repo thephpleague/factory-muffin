@@ -1,6 +1,6 @@
 <?php
 
-namespace Zizaco\FactoryMuff;
+namespace Zizaco\FactoryMuffin;
 
 class NoDefinedFactoryException extends \Exception
 {

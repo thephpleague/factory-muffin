@@ -1,8 +1,8 @@
 <?php
 
-namespace Zizaco\FactoryMuff\Kind;
+namespace Zizaco\FactoryMuffin\Kind;
 
-use Zizaco\FactoryMuff\Kind;
+use Zizaco\FactoryMuffin\Kind;
 
 class Text extends Kind
 {

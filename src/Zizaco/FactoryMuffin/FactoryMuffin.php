@@ -1,16 +1,16 @@
 <?php
 
-namespace Zizaco\FactoryMuff;
+namespace Zizaco\FactoryMuffin;
 
 /**
 * Creates models with random attributes
 *
-* @package  Zizaco\FactoryMuff
+* @package  Zizaco\FactoryMuffin
 * @author   Zizaco <zizaco@gmail.com>
 * @license  MIT
-* @link     https://github.com/Zizaco/factorymuff
+* @link     https://github.com/Zizaco/FactoryMuffin
 */
-class FactoryMuff
+class FactoryMuffin
 {
     /**
      * $factories

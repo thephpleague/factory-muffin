@@ -1,6 +1,6 @@
 <?php
 
-namespace Zizaco\FactoryMuff;
+namespace Zizaco\FactoryMuffin;
 
 use Faker\Factory as Faker;
 
@@ -24,7 +24,7 @@ abstract class Kind
 
     /**
     * Holds the Kind we are working on
-    * @var Zizaco\FactoryMuff\Kind
+    * @var Zizaco\FactoryMuffin\Kind
     */
     protected $kind = null;
 
@@ -36,7 +36,7 @@ abstract class Kind
 
     /**
     * Initialise our Kind
-    * @param Zizaco\FactoryMuff\Kind $kind
+    * @param Zizaco\FactoryMuffin\Kind $kind
     * @param array $model
     */
     public function __construct($kind, $model, $faker)
@@ -50,7 +50,7 @@ abstract class Kind
     * Detect the type of Kind we are processing
     * @param  string $kind
     * @param  array $model
-    * @return Zizaco\FactoryMuff\Kind
+    * @return Zizaco\FactoryMuffin\Kind
     */
     public static function detect($kind, $model = null)
     {
@@ -61,10 +61,10 @@ abstract class Kind
             return new Kind\Closure($kind, $model, $faker);
         }
 
-        $class = '\\Zizaco\\FactoryMuff\\Kind\\Generic';
+        $class = '\\Zizaco\\FactoryMuffin\\Kind\\Generic';
         foreach (static::$availableKinds as $availableKind) {
             if (substr($kind, 0, strlen($availableKind)) === $availableKind) {
-                $class = '\\Zizaco\\FactoryMuff\\Kind\\' . ucfirst($availableKind);
+                $class = '\\Zizaco\\FactoryMuffin\\Kind\\' . ucfirst($availableKind);
                 break;
             }
         }

@@ -1,14 +1,14 @@
 <?php
 
-use Zizaco\FactoryMuff\FactoryMuff;
+use Zizaco\FactoryMuffin\FactoryMuffin;
 
-class FactoryMuffTest extends PHPUnit_Framework_TestCase
+class FactoryMuffinTest extends PHPUnit_Framework_TestCase
 {
     protected $factory;
 
     public function setUp()
     {
-        $this->factory = new FactoryMuff();
+        $this->factory = new FactoryMuffin();
     }
 
     public function test_defaulting_to_faker()
@@ -121,7 +121,7 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase
 
     public function test_should_throw_exception_on_model_save_failure()
     {
-        $this->setExpectedException('\Zizaco\FactoryMuff\SaveException');
+        $this->setExpectedException('\Zizaco\FactoryMuffin\SaveException');
 
         $obj = $this->factory->create('SampleModelC');
     }
@@ -202,7 +202,7 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Zizaco\FactoryMuff\NoDefinedFactoryException
+     * @expectedException Zizaco\FactoryMuffin\NoDefinedFactoryException
      */
     public function test_should_throw_exception_when_no_defined_factory()
     {
@@ -244,7 +244,7 @@ class FactoryMuffTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Zizaco\FactoryMuff\SaveException
+     * @expectedException \Zizaco\FactoryMuffin\SaveException
      * @expectedExceptionMessage Failed to save. - Could not save the model of type: SampleModelWithValidationErrors
      */
     public function test_with_validation_errors()
