@@ -15,7 +15,7 @@ Via Composer
 ``` json
 {
     "require": {
-        "league/:package_name": "~1.0"
+        "league/factory-muffin": "~2.0"
     }
 }
 ```
