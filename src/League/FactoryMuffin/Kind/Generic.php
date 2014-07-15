@@ -1,9 +1,9 @@
 <?php
 
-namespace Zizaco\FactoryMuff\Kind;
+namespace League\FactoryMuffin\Kind;
 
 use InvalidArgumentException;
-use Zizaco\FactoryMuff\Kind;
+use League\FactoryMuffin\Kind;
 
 class Generic extends Kind
 {

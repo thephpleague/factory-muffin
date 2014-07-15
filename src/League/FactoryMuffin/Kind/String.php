@@ -1,8 +1,8 @@
 <?php
 
-namespace Zizaco\FactoryMuff\Kind;
+namespace League\FactoryMuffin\Kind;
 
-use Zizaco\FactoryMuff\Kind;
+use League\FactoryMuffin\Kind;
 
 class String extends Kind
 {

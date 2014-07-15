@@ -1,16 +1,16 @@
 <?php
 
-namespace Zizaco\FactoryMuff\Kind;
+namespace League\FactoryMuffin\Kind;
 
 use Exception;
-use Zizaco\FactoryMuff\FactoryMuff;
-use Zizaco\FactoryMuff\Kind;
+use League\FactoryMuffin\FactoryMuffin;
+use League\FactoryMuffin\Kind;
 
 class Call extends Kind
 {
     public function generate()
     {
-        $factory = new FactoryMuff;
+        $factory = new FactoryMuffin;
         $callable = substr($this->kind, 5);
         $params = array();
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Zizaco\FactoryMuff\Kind;
+namespace League\FactoryMuffin\Kind;
 
-use Zizaco\FactoryMuff\Kind;
+use League\FactoryMuffin\Kind;
 
 class Factory extends Kind
 {
@@ -18,7 +18,7 @@ class Factory extends Kind
 
     public function generate()
     {
-        $factory = new \Zizaco\FactoryMuff\FactoryMuff;
+        $factory = new \League\FactoryMuffin\FactoryMuffin;
         $model = $factory->create(substr($this->kind, 8));
         return $this->getId($model);
     }

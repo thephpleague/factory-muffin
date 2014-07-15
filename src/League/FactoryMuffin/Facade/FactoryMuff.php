@@ -1,17 +1,19 @@
-<?php namespace Zizaco\FactoryMuff\Facade;
+<?php
+
+namespace League\FactoryMuffin\Facade;
 
 /**
-* Optional FactoryMuff facade accesor with the only
+* Optional FactoryMuffin facade accesor with the only
 * purpose of being sleeker to use.
 *
 */
-class FactoryMuff
+class FactoryMuffin
 {
 
     /**
-     * FactoryMuff real instance
+     * FactoryMuffin real instance
      *
-     * @var Zizaco\FactoryMuff\FactoryMuff
+     * @var League\FactoryMuffin\FactoryMuffin
      *
      * @access private
      * @static
@@ -19,17 +21,17 @@ class FactoryMuff
     private static $fmInstance;
 
     /**
-     * Get or stance FactoryMuff obj
+     * Get or stance FactoryMuffin obj
      *
      * @access private
      * @static
      *
-     * @return Zizaco\FactoryMuff\FactoryMuff
+     * @return League\FactoryMuffin\FactoryMuffin
      */
     private static function fmInstance()
     {
         if (! static::$fmInstance) {
-            static::$fmInstance = new \Zizaco\FactoryMuff\FactoryMuff;
+            static::$fmInstance = new \League\FactoryMuffin\FactoryMuffin;
         }
 
         return static::$fmInstance;
