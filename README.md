@@ -7,7 +7,7 @@
 [![Total Downloads](https://poser.pugx.org/league/factory-muffin/downloads.png)](https://packagist.org/packages/league/factory-muffin)
 [![License](https://poser.pugx.org/league/factory-muffin/license.png)](https://packagist.org/packages/league/factory-muffin)
 
-The goal of this Package is to enable the rapid creation of objects for the purpose of testing. Basically a "[factory\_girl\_rails](https://github.com/thoughtbot/factory_girl_rails)" simplified for use with PHP.
+The goal of this Package is to enable the rapid creation of objects for the purpose of testing. Basically a "[factory\_girl](https://github.com/thoughtbot/factory_girl)" simplified for use with PHP.
 
 ## Install
 
