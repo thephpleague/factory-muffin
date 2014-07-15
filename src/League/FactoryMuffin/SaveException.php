@@ -1,6 +1,6 @@
 <?php
 
-namespace Zizaco\FactoryMuff;
+namespace League\FactoryMuffin;
 
 class SaveException extends \Exception
 {

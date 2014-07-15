@@ -1,5 +1,5 @@
 {
-    "name": "zizaco/factory-muff",
+    "name": "league/factory-muffin",
     "description": "The goal of this Package is to enable the rapid creation of objects for the purpose of testing.",
     "keywords": ["testing","factory","laravel"],
     "license": "MIT",
@@ -7,6 +7,10 @@
         {
             "name": "Zizaco Zizuini",
             "email": "zizaco@gmail.com"
+        },
+        {
+            "name": "Scott Robertson",
+            "email": "scottymeuk@gmail.com"
         }
     ],
     "require": {
@@ -15,7 +19,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Zizaco\\FactoryMuff": "src/"
+            "League\\FactoryMuffin": "src/"
         }
     }
 }

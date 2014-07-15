@@ -1,39 +1,24 @@
-FactoryMuff
-===========
+# FactoryMuffin
 
-![factory muff poster](https://dl.dropbox.com/u/12506137/libs_bundles/factorymuff.png)
-
-[![Build Status](https://api.travis-ci.org/Zizaco/factory-muff.png)](https://travis-ci.org/Zizaco/factory-muff)
-[![Latest Stable Version](https://poser.pugx.org/zizaco/factory-muff/v/stable.png)](https://packagist.org/packages/zizaco/factory-muff)
-[![Latest Unstable Version](https://poser.pugx.org/zizaco/factory-muff/v/unstable.png)](https://packagist.org/packages/zizaco/factory-muff)
-[![Total Downloads](https://poser.pugx.org/zizaco/factory-muff/downloads.png)](https://packagist.org/packages/zizaco/factory-muff)
-[![License](https://poser.pugx.org/zizaco/factory-muff/license.png)](https://packagist.org/packages/zizaco/factory-muff)
-[![ProjectStatus](http://stillmaintained.com/Zizaco/factory-muff.png)](http://stillmaintained.com/Zizaco/factory-muff)
+[![Build Status](https://travis-ci.org/thephpleague/factory-muffin.svg)](https://travis-ci.org/thephpleague/factory-muffin)
+[![Latest Stable Version](https://poser.pugx.org/league/factory-muffin/v/stable.png)](https://packagist.org/packages/league/factory-muffin)
+[![Latest Unstable Version](https://poser.pugx.org/league/factory-muffin/v/unstable.png)](https://packagist.org/packages/league/factory-muffin)
+[![Total Downloads](https://poser.pugx.org/league/factory-muffin/downloads.png)](https://packagist.org/packages/league/factory-muffin)
+[![License](https://poser.pugx.org/league/factory-muffin/license.png)](https://packagist.org/packages/league/factory-muffin)
 
 The goal of this Package is to enable the rapid creation of objects for the purpose of testing. Basically a "[factory\_girl\_rails](https://github.com/thoughtbot/factory_girl_rails)" simplified for use with PHP.
 
-### License
+## Install
 
-MIT
+Via Composer
 
-Installation
------------
-
-In the `require` key of `composer.json` file add the following
-
-    "zizaco/factory-muff": "dev-master"
-
-Run the Composer update command
-
-    $ composer update
-
-
-How it works
-------------
-
-FactoryMuff (which stands for Factory Muffin) uses a list of 2300+ words with at least 4 characters. These words are scrambled at every execution and will not repeat unless you use all the words. In this case the list is re-started and scrambled again.
-
-Theoretically you will not need to worry about repeating values​​, unless your application has ALOT of tests to run which may cause the wordlist to restart. If this is your case, you can simply increase wordlist in _wordlist.php_
+``` json
+{
+    "require": {
+        "league/factory-muffin": "~2.0"
+    }
+}
+```
 
 ### Usage
 
@@ -94,14 +79,14 @@ To create model instances do the following:
 ```php
 <?php
 
-use Zizaco\FactoryMuff\FactoryMuff;
+use League\FactoryMuffin\FactoryMuffin;
 
 class TestUserModel extends PHPUnit_Framework_TestCase {
 
     public function __construct()
     {
-        // Prepare FactoryMuff
-        $this->factory = new FactoryMuff;
+        // Prepare FactoryMuffin
+        $this->factory = new FactoryMuffin;
     }
 
     public function testSampleFactory()
@@ -132,7 +117,7 @@ class TestUserModel extends PHPUnit_Framework_TestCase {
     }
 ```
 
-### Kinds of attribute supported
+## Kinds of attribute supported
 
 | Kind          | Option  | Description                                                                        | Example
 | :-----------: | :-----: |:----------------------------------------------------------------------------------:| :----------------:|
@@ -146,13 +131,25 @@ class TestUserModel extends PHPUnit_Framework_TestCase {
 | default       | string  | Any Kinds that are not reccognised will try and load from Faker, or return the text| creditCardDetails |
 
 
-### Save Failures
+## Save Failures
 
-If a model cannot be saved to the database, for example if it fails validation through a library like Ardent, a Zizaco\FactoryMuff\SaveException will be raised.
+If a model cannot be saved to the database, for example if it fails validation through a library like Ardent, a League\FactoryMuffin\SaveException will be raised.
 
-More help
----------
+## Testing
 
-Read the source code. There is alot of comments there. __;)__
+``` bash
+$ phpunit
+```
 
-or contact me.
+## Contributing
+
+Please see [CONTRIBUTING](https://github.com/thephpleague/factory-muffin/blob/master/CONTRIBUTING.md) for details.
+
+## Credits
+
+- [Zizaco Zizuini](https://github.com/Zizaco)
+- [All Contributors](https://github.com/thephpleague/factory-muffin/contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](https://github.com/thephpleague/factory-muffin/blob/master/LICENSE) for more information.
