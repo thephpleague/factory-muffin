@@ -23,45 +23,43 @@ Via Composer
 
 ### Usage
 
-Declare a __public static__ array called __$factory__ in your model. This array should contain the kind of values you want for the attributes.
+Declare a __public static__ array called __$factory__, or a __public static__ method called factory() in your model. This should contain the kind of values you want for the attributes.
 
 Example:
 ```php
-class Message extends Eloquent
+class Message
 {
-    // Array that determines the kind of attributes
-    // you would like to have
     public static $factory = array(
-        'user_id' => 'factory|User',
+        'user_id' => 'factory|User', // This will create a new User object
         'subject' => 'string',
-        'address' => 'email',
         'message' => 'text',
         'phone_number' => 'integer|8',
         'created' => 'date|Ymd h:s',
         'slug' => 'call|makeSlug|string',
     );
 
-    // Relashionship with user
-    public function user()
-    {
-        return $this->belongs_to('User');
-    }
-
-    // this static method generates the 'slug'
     public static function makeSlug($factory_muff_generated_string)
     {
         $base = strtolower($factory_muff_generated_string);
         return preg_replace('|[^a-z0-9]+|', '-', $base);
     }
+}
+
+class User
+{
+    public static $factory = array(
+        'username' => 'string',
+        'email' => 'email'
+    );
+}
 ```
 
 You can also declare a static method named `factory()` on your model. This allows more flexibility as PHP has restrictions on what you can use as array values when defining properties.
 
 Example:
 ```php
-class Message extends Eloquent
+class Message
 {
-    // Defined as a static method
     public static factory()
     {
         return array(
@@ -82,40 +80,15 @@ To create model instances do the following:
 
 use League\FactoryMuffin\FactoryMuffin;
 
-class TestUserModel extends PHPUnit_Framework_TestCase {
-
-    public function __construct()
-    {
-        // Prepare FactoryMuffin
-        $this->factory = new FactoryMuffin;
-    }
-
+class TestUserModel extends PHPUnit_Framework_TestCase
+{
     public function testSampleFactory()
     {
-        // Creates a new instance
-        $message = $this->factory->create( 'Message' );
-
-        // Access the relationship, because attributes
-        // with kind "factory|<ModelName> creates and
-        // saves the <ModelName> object and return the
-        // id. And now, because of eloquent we can do
-        // this:
-        $message->user->username;
-
-        // And you can also get attributes for a new
-        // instance
-        $new_message = new Message( $this->factory->attributesFor( 'Message' ) )
-
-        // For both methods (create and attributesFor
-        // you can pass fixed attributes. Those will be
-        // merged into the object before save.
-        $muffin_message = $this->factory->create(
-            'Message', array(
-                'subject' => 'About Muffin',
-                'message' => 'Its tasty!',
-            ),
-        );
+        $message = FactoryMuffin::create('Message');
+        $this->assertInstanceOf('Message', $message);
+        $this->assertInstanceOf('User', $message->user);
     }
+}
 ```
 
 ## Kinds of attribute supported
