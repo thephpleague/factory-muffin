@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/thephpleague/factory-muffin.svg)](https://travis-ci.org/thephpleague/factory-muffin)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/thephpleague/factory-muffin/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/thephpleague/factory-muffin/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/league/factory-muffin/v/stable.png)](https://packagist.org/packages/league/factory-muffin)
-[![Latest Unstable Version](https://poser.pugx.org/league/factory-muffin/v/unstable.png)](https://packagist.org/packages/league/factory-muffin
+[![Latest Unstable Version](https://poser.pugx.org/league/factory-muffin/v/unstable.png)](https://packagist.org/packages/league/factory-muffin)
 [![Total Downloads](https://poser.pugx.org/league/factory-muffin/downloads.png)](https://packagist.org/packages/league/factory-muffin)
 [![License](https://poser.pugx.org/league/factory-muffin/license.png)](https://packagist.org/packages/league/factory-muffin)
 
