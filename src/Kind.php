@@ -40,6 +40,11 @@ abstract class Kind
     protected $model = null;
 
     /**
+     * @var Faker\Factory
+     */
+    protected $faker = null;
+
+    /**
      * Initialise our Kind
      *
      * @param $kind
