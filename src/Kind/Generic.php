@@ -5,6 +5,11 @@ namespace League\FactoryMuffin\Kind;
 use InvalidArgumentException;
 use League\FactoryMuffin\Kind;
 
+/**
+ * Class Generic
+ *
+ * @package League\FactoryMuffin\Kind
+ */
 class Generic extends Kind
 {
     /**

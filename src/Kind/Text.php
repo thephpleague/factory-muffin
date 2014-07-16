@@ -4,8 +4,16 @@ namespace League\FactoryMuffin\Kind;
 
 use League\FactoryMuffin\Kind;
 
+/**
+ * Class Text
+ *
+ * @package League\FactoryMuffin\Kind
+ */
 class Text extends Kind
 {
+    /**
+     * @return string
+     */
     public function generate()
     {
         $length = $this->getOption(0, 100);

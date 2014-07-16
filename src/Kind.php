@@ -4,6 +4,11 @@ namespace League\FactoryMuffin;
 
 use Faker\Factory as Faker;
 
+/**
+ * Class Kind
+ *
+ * @package \League\FactoryMuffin
+ */
 abstract class Kind
 {
     /**
@@ -35,10 +40,12 @@ abstract class Kind
     protected $model = null;
 
     /**
-    * Initialise our Kind
-    * @param League\FactoryMuffin\Kind $kind
-    * @param array $model
-    */
+     * Initialise our Kind
+     *
+     * @param $kind
+     * @param $model
+     * @param $faker
+     */
     public function __construct($kind, $model, $faker)
     {
         $this->kind = $kind;

@@ -3,7 +3,7 @@
 namespace League\FactoryMuffin\Facade;
 
 /**
-* Optional FactoryMuffin facade accesor with the only
+* Optional FactoryMuffin facade accessor with the only
 * purpose of being sleeker to use.
 *
 */
@@ -71,8 +71,7 @@ class FactoryMuffin
     }
 
     /**
-     * Returns an array of mock attributes
-     * for the especified model
+     * Returns an array of mock attributes for the specified model
      *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.

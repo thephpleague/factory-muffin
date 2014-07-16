@@ -6,30 +6,27 @@ use League\FactoryMuffin\Exception\NoDefinedFactory;
 use League\FactoryMuffin\Exception\Save;
 
 /**
-* Creates models with random attributes
-*
-* @package  League\FactoryMuffin
-* @author   Zizaco <zizaco@gmail.com>
-* @license  MIT
-* @link     https://github.com/thephpleague/factory-muffin/
-*/
+ * Class FactoryMuffin
+ *
+ * @package League\FactoryMuffin
+ * @author   Zizaco <zizaco@gmail.com>
+ * @license  MIT
+ * @link     https://github.com/thephpleague/factory-muffin/
+ */
 class FactoryMuffin
 {
     /**
-     * $factories
-     *
      * @var array
      */
     private $factories = array();
 
     /**
-     * Creates and saves in db an instance
-     * of Model with mock attributes
+     * Creates and saves in db an instance of Model with mock attributes
      *
-     * @param string $model Model class name.
-     * @param array  $attr  Model attributes.
-     *
-     * @return mixed Returns the model instance.
+     * @param       $model
+     * @param array $attr
+     * @return mixed The model instance.
+     * @throws Exception\Save
      */
     public function create($model, $attr = array())
     {
@@ -113,11 +110,9 @@ class FactoryMuffin
     }
 
     /**
-     * Returns an array with factory definition for the especified model
-     *
-     * @param string $model Model class name.
-     *
-     * @return array Returns an factory definition array.
+     * @param $model
+     * @return mixed A factory definition array.
+     * @throws Exception\NoDefinedFactory
      */
     private function getFactoryAttrs($model)
     {
@@ -140,7 +135,6 @@ class FactoryMuffin
     }
 
     /**
-     * Generate an attribute based in the wordlist
      *
      * @param string $kind  The kind of attribute that will be generate.
      * @param string $model The name of the model class
