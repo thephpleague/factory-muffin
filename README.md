@@ -1,11 +1,11 @@
 # FactoryMuffin
 
-[![Build Status](https://travis-ci.org/thephpleague/factory-muffin.svg)](https://travis-ci.org/thephpleague/factory-muffin)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/thephpleague/factory-muffin/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/thephpleague/factory-muffin/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/league/factory-muffin/v/stable.png)](https://packagist.org/packages/league/factory-muffin)
-[![Latest Unstable Version](https://poser.pugx.org/league/factory-muffin/v/unstable.png)](https://packagist.org/packages/league/factory-muffin)
-[![Total Downloads](https://poser.pugx.org/league/factory-muffin/downloads.png)](https://packagist.org/packages/league/factory-muffin)
-[![License](https://poser.pugx.org/league/factory-muffin/license.png)](https://packagist.org/packages/league/factory-muffin)
+[![Build Status](https://img.shields.io/travis/thephpleague/factory-muffin/master.svg?style=flat)](https://travis-ci.org/thephpleague/factory-muffin)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/thephpleague/factory-muffin.svg?style=flat)](https://scrutinizer-ci.com/g/thephpleague/factory-muffin/code-structure)
+[![Quality Score](https://img.shields.io/scrutinizer/g/thephpleague/factory-muffin.svg?style=flat)](https://scrutinizer-ci.com/g/thephpleague/factory-muffin)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md)
+[![Latest Version](https://img.shields.io/github/release/thephpleague/factory-muffin.svg?style=flat)](https://github.com/thephpleague/factory-muffin/releases)
+[![Total Downloads](https://img.shields.io/packagist/dt/league/factory-muffin.svg?style=flat)](https://packagist.org/packages/league/factory-muffin)
 
 The goal of this Package is to enable the rapid creation of objects for the purpose of testing. Basically a "[factory\_girl](https://github.com/thoughtbot/factory_girl)" simplified for use with PHP.
 
@@ -13,7 +13,7 @@ The goal of this Package is to enable the rapid creation of objects for the purp
 
 Via Composer
 
-``` json
+```json
 {
     "require": {
         "league/factory-muffin": "~2.0"
@@ -21,7 +21,7 @@ Via Composer
 }
 ```
 
-### Usage
+## Usage
 
 Declare a __public static__ array called __$factory__, or a __public static__ method called factory() in your model. This should contain the kind of values you want for the attributes.
 
@@ -111,7 +111,7 @@ If a model cannot be saved to the database, for example if it fails validation t
 
 ## Testing
 
-``` bash
+```bash
 $ phpunit
 ```
 
