@@ -28,6 +28,11 @@
             "League\\FactoryMuffin\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "League\\FactoryMuffin\\Test\\": "tests/"
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "2.0-dev"

@@ -1,8 +1,10 @@
 <?php
 
+namespace League\FactoryMuffin\Test;
+
 use League\FactoryMuffin\FactoryMuffin;
 
-class FactoryMuffinTest extends PHPUnit_Framework_TestCase
+class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
 {
     protected $factory;
 
