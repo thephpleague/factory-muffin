@@ -20,9 +20,17 @@
     "require-dev": {
         "phpunit/phpunit": "~4.0"
     },
+    "replace": {
+        "zizaco/factory-muff": "self.version"
+    },
     "autoload": {
         "psr-4": {
             "League\\FactoryMuffin\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev"
         }
     }
 }
