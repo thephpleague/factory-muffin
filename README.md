@@ -112,7 +112,7 @@ If a model cannot be saved to the database, for example if it fails validation t
 ## Testing
 
 ```bash
-$ phpunit
+$ ./vendor/bin/phpunit
 ```
 
 ## Contributing
