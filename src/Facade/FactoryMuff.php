@@ -3,10 +3,16 @@
 namespace League\FactoryMuffin\Facade;
 
 /**
-* Optional FactoryMuffin facade accessor with the only
-* purpose of being sleeker to use.
-*
-*/
+ * Class FactoryMuffin
+ *
+ * Optional FactoryMuffin facade accessor with the only
+ * purpose of being sleeker to use.
+ *
+ * @package League\FactoryMuffin\Facades
+ * @author  Zizaco <zizaco@gmail.com>
+ * @license MIT
+ * @link    https://github.com/thephpleague/factory-muffin/
+ */
 class FactoryMuffin
 {
 

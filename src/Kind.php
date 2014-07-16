@@ -7,7 +7,10 @@ use Faker\Factory as Faker;
 /**
  * Class Kind
  *
- * @package \League\FactoryMuffin
+ * @package League\FactoryMuffin
+ * @author  Zizaco <zizaco@gmail.com>
+ * @license MIT
+ * @link    https://github.com/thephpleague/factory-muffin/
  */
 abstract class Kind
 {
