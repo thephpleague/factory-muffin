@@ -9,9 +9,9 @@ use League\FactoryMuffin\Exception\Save;
  * Class FactoryMuffin
  *
  * @package League\FactoryMuffin
- * @author   Zizaco <zizaco@gmail.com>
- * @license  MIT
- * @link     https://github.com/thephpleague/factory-muffin/
+ * @author  Zizaco <zizaco@gmail.com>
+ * @license MIT
+ * @link    https://github.com/thephpleague/factory-muffin/
  */
 class FactoryMuffin
 {

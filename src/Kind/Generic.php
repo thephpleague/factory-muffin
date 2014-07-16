@@ -9,6 +9,9 @@ use League\FactoryMuffin\Kind;
  * Class Generic
  *
  * @package League\FactoryMuffin\Kind
+ * @author  Zizaco <zizaco@gmail.com>
+ * @license MIT
+ * @link    https://github.com/thephpleague/factory-muffin/
  */
 class Generic extends Kind
 {

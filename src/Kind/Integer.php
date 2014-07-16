@@ -8,6 +8,9 @@ use League\FactoryMuffin\Kind;
  * Class Integer
  *
  * @package League\FactoryMuffin\Kind
+ * @author  Zizaco <zizaco@gmail.com>
+ * @license MIT
+ * @link    https://github.com/thephpleague/factory-muffin/
  */
 class Integer extends Kind
 {
