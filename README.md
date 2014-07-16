@@ -107,7 +107,7 @@ class TestUserModel extends PHPUnit_Framework_TestCase
 
 ## Save Failures
 
-If a model cannot be saved to the database, for example if it fails validation through a library like Ardent, a League\FactoryMuffin\SaveException will be raised.
+If a model cannot be saved to the database, for example if it fails validation through a library like Ardent, a League\FactoryMuffin\Exception\Save will be raised.
 
 ## Testing
 
