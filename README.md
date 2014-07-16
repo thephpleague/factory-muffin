@@ -78,7 +78,7 @@ To create model instances do the following:
 ```php
 <?php
 
-use League\FactoryMuffin\FactoryMuffin;
+use League\FactoryMuffin\Facade\FactoryMuffin;
 
 class TestUserModel extends PHPUnit_Framework_TestCase
 {
