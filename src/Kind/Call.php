@@ -6,8 +6,17 @@ use Exception;
 use League\FactoryMuffin\FactoryMuffin;
 use League\FactoryMuffin\Kind;
 
+/**
+ * Class Call
+ *
+ * @package League\FactoryMuffin\Kind
+ */
 class Call extends Kind
 {
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
     public function generate()
     {
         $factory = new FactoryMuffin;
