@@ -2,6 +2,9 @@
 
 namespace League\FactoryMuffin;
 
+use League\FactoryMuffin\Exception\NoDefinedFactory;
+use League\FactoryMuffin\Exception\Save;
+
 /**
 * Creates models with random attributes
 *
@@ -43,7 +46,7 @@ class FactoryMuffin
                 }
             }
 
-            throw new SaveException($message.'Could not save the model of type: '.$model);
+            throw new Save($message.'Could not save the model of type: '.$model);
         }
 
         return $obj;
@@ -133,7 +136,7 @@ class FactoryMuffin
             }
         }
 
-        throw new NoDefinedFactoryException('Factory not defined for class: ' . $model);
+        throw new NoDefinedFactory('Factory not defined for class: ' . $model);
     }
 
     /**

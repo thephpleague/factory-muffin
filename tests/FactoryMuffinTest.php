@@ -120,11 +120,11 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $obj->model_id);
         $this->assertNull($obj->model_null);
     }
-
+    /**
+     * @expectedException League\FactoryMuffin\Exception\Save
+     */
     public function test_should_throw_exception_on_model_save_failure()
     {
-        $this->setExpectedException('\League\FactoryMuffin\SaveException');
-
         $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelC');
     }
 
@@ -204,7 +204,7 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException League\FactoryMuffin\NoDefinedFactoryException
+     * @expectedException League\FactoryMuffin\Exception\NoDefinedFactory
      */
     public function test_should_throw_exception_when_no_defined_factory()
     {
@@ -246,7 +246,7 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \League\FactoryMuffin\SaveException
+     * @expectedException \League\FactoryMuffin\Exception\Save
      * @expectedExceptionMessage Failed to save. - Could not save the model of type: League\FactoryMuffin\Test\SampleModelWithValidationErrors
      */
     public function test_with_validation_errors()
