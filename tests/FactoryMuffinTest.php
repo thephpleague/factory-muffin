@@ -15,7 +15,7 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
 
     public function test_defaulting_to_faker()
     {
-        $obj = $this->factory->create('SampleModelB');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelB');
         $this->assertInternalType('array', $obj->card);
         $this->assertArrayHasKey('type', $obj->card);
         $this->assertArrayHasKey('number', $obj->card);
@@ -25,7 +25,7 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
 
     public function test_should_get_attributes_for()
     {
-        $attr = $this->factory->attributesFor('SampleModelA');
+        $attr = $this->factory->attributesFor('League\FactoryMuffin\Test\SampleModelA');
 
         foreach ($attr as $value) {
             $this->assertInternalType('string', $value);
@@ -38,82 +38,82 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
     {
         $format = 'Y-m-d';
 
-        $this->factory->define('SampleModelA', array(
+        $this->factory->define('League\FactoryMuffin\Test\SampleModelA', array(
             'created' => 'date|' . $format,
         ));
 
-        $obj = $this->factory->create('SampleModelA');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelA');
         $dateTime = \DateTime::createFromFormat($format, $obj->created);
         $this->assertEquals($obj->created, $dateTime->format($format));
     }
 
     public function test_integer()
     {
-        $this->factory->define('SampleModelA', array(
+        $this->factory->define('League\FactoryMuffin\Test\SampleModelA', array(
             'number' => 'integer|9',
         ));
 
-        $obj = $this->factory->create('SampleModelA');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelA');
         $this->assertEquals(9, strlen($obj->number));
     }
 
     public function test_name()
     {
-        $this->factory->define('SampleModelA', array(
+        $this->factory->define('League\FactoryMuffin\Test\SampleModelA', array(
             'name' => 'name',
         ));
 
-        $obj = $this->factory->create('SampleModelA');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelA');
         $this->assertTrue(strlen($obj->name) > 0);
 
-        $this->factory->define('SampleModelA', array(
+        $this->factory->define('League\FactoryMuffin\Test\SampleModelA', array(
             'name' => 'name|female',
         ));
 
-        $obj = $this->factory->create('SampleModelA');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelA');
         $this->assertTrue(strlen($obj->name) > 0);
     }
 
     public function test_string()
     {
-        $this->factory->define('SampleModelA', array(
+        $this->factory->define('League\FactoryMuffin\Test\SampleModelA', array(
             'string' => 'string|4',
         ));
 
-        $obj = $this->factory->create('SampleModelA');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelA');
         $this->assertEquals(4, strlen($obj->string));
     }
 
     public function test_text()
     {
-        $this->factory->define('SampleModelA', array(
+        $this->factory->define('League\FactoryMuffin\Test\SampleModelA', array(
             'text' => 'text|4',
         ));
 
-        $obj = $this->factory->create('SampleModelA');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelA');
         $this->assertEquals(4, strlen($obj->text));
     }
 
     public function test_text_default()
     {
-        $this->factory->define('SampleModelA', array(
+        $this->factory->define('League\FactoryMuffin\Test\SampleModelA', array(
             'text' => 'text',
         ));
 
-        $obj = $this->factory->create('SampleModelA');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelA');
         $this->assertEquals(100, strlen($obj->text));
     }
 
     public function test_should_create()
     {
-        $obj = $this->factory->create('SampleModelA');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelA');
 
         $this->assertTrue(is_numeric($obj->id));
     }
 
     public function test_get_ids()
     {
-        $obj = $this->factory->create('SampleModelF');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelF');
 
         $this->assertEquals(1, $obj->modelGetKey);
         $this->assertEquals(1, $obj->modelPk);
@@ -125,12 +125,12 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('\League\FactoryMuffin\SaveException');
 
-        $obj = $this->factory->create('SampleModelC');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelC');
     }
 
     public function test_should_make_simple_calls()
     {
-        $obj = $this->factory->create('SampleModelD');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelD');
 
         $expected = gmdate('Y-m-d', strtotime('+40 days'));
 
@@ -138,54 +138,54 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
     }
     public function test_should_pass_simple_arguments_to_calls()
     {
-        $obj = $this->factory->create('SampleModelD');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelD');
 
         $this->assertRegExp('|^[a-z0-9-]+$|', $obj->slug);
     }
     public function test_should_pass_factory_models_to_calls()
     {
-        $obj = $this->factory->create('SampleModelD');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelD');
 
         $this->assertRegExp("|^[a-z0-9.']+$|", $obj->munged_model);
     }
 
     public function test_should_create_based_on_define_declaration()
     {
-        $this->factory->define('SampleModelA', array(
+        $this->factory->define('League\FactoryMuffin\Test\SampleModelA', array(
             'text' => 'just a string',
         ));
 
-        $obj = $this->factory->create('SampleModelA');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelA');
 
         $this->assertEquals('just a string', $obj->text);
 
-        $this->factory->define('SampleModelA', array(
+        $this->factory->define('League\FactoryMuffin\Test\SampleModelA', array(
             'text' => 'sneakyString',
         ));
 
-        $obj = $this->factory->create('SampleModelA');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelA');
 
         $this->assertEquals('sneakyString', $obj->text);
     }
 
     public function test_faker_default_boolean()
     {
-        $this->factory->define('SampleModelA', array(
+        $this->factory->define('League\FactoryMuffin\Test\SampleModelA', array(
             'something' => 'boolean',
         ));
 
-        $obj = $this->factory->create('SampleModelA');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelA');
 
         $this->assertInternalType('boolean', $obj->something, "Asserting {$obj->something} is a boolean");
     }
 
     public function test_faker_default_latitude()
     {
-        $this->factory->define('SampleModelA', array(
+        $this->factory->define('League\FactoryMuffin\Test\SampleModelA', array(
             'lat' => 'latitude',
         ));
 
-        $obj = $this->factory->create('SampleModelA');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelA');
 
         $this->assertGreaterThanOrEqual(-90, $obj->lat);
         $this->assertLessThanOrEqual(90, $obj->lat);
@@ -193,11 +193,11 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
 
     public function test_faker_default_longitude()
     {
-        $this->factory->define('SampleModelA', array(
+        $this->factory->define('League\FactoryMuffin\Test\SampleModelA', array(
             'lon' => 'longitude',
         ));
 
-        $obj = $this->factory->create('SampleModelA');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelA');
 
         $this->assertGreaterThanOrEqual(-180, $obj->lon);
         $this->assertLessThanOrEqual(180, $obj->lon);
@@ -208,18 +208,18 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
      */
     public function test_should_throw_exception_when_no_defined_factory()
     {
-        $obj = $this->factory->create('SampleModelE');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelE');
     }
 
     public function test_should_accept_closure_as_attribute_factory()
     {
-        $this->factory->define('SampleModelA', array(
+        $this->factory->define('League\FactoryMuffin\Test\SampleModelA', array(
             'text' => function () {
                 return 'just a string';
             },
         ));
 
-        $obj = $this->factory->create('SampleModelA');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelA');
 
         $this->assertEquals('just a string', $obj->text);
 
@@ -227,9 +227,9 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
 
     public function test_can_create_from_static_method()
     {
-        $this->factory->create('ModelWithStaticMethodFactory');
+        $this->factory->create('League\FactoryMuffin\Test\ModelWithStaticMethodFactory');
 
-        $obj = $this->factory->create('ModelWithStaticMethodFactory');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\ModelWithStaticMethodFactory');
 
         $this->assertEquals('just a string', $obj->string);
         $this->assertEquals(4, $obj->four);
@@ -241,17 +241,17 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
      */
     public function test_throw_exception_when_invalid_static_method()
     {
-        $obj = $this->factory->create('ModelWithMissingStaticMethod');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\ModelWithMissingStaticMethod');
         $obj->does_not_exist;
     }
 
     /**
      * @expectedException \League\FactoryMuffin\SaveException
-     * @expectedExceptionMessage Failed to save. - Could not save the model of type: SampleModelWithValidationErrors
+     * @expectedExceptionMessage Failed to save. - Could not save the model of type: League\FactoryMuffin\Test\SampleModelWithValidationErrors
      */
     public function test_with_validation_errors()
     {
-        $obj = $this->factory->create('SampleModelWithValidationErrors');
+        $obj = $this->factory->create('League\FactoryMuffin\Test\SampleModelWithValidationErrors');
     }
 }
 
@@ -275,7 +275,7 @@ class SampleModelA
     // Array that determines the kind of attributes
     // you would like to have
     public static $factory = array(
-        'modelb_id' => 'factory|SampleModelB',
+        'modelb_id' => 'factory|League\FactoryMuffin\Test\SampleModelB',
         'name' => 'string',
         'email' => 'email',
         'message' => 'text'
@@ -335,7 +335,7 @@ class SampleModelD
     public static $factory = array(
         'future' => 'call|fortyDaysFromNow',
         'slug' => 'call|makeSlug|text',
-        'munged_model' => 'call|mungeModel|factory|SampleModelA'
+        'munged_model' => 'call|mungeModel|factory|League\FactoryMuffin\Test\SampleModelA'
     );
     public static function fortyDaysFromNow()
     {
@@ -369,10 +369,10 @@ class SampleModelF
 {
 
     public static $factory = array(
-        'modelGetKey' => 'factory|SampleModelGetKey',
-        'modelPk' => 'factory|SampleModelPk',
-        'model_id' => 'factory|SampleModel_id',
-        'model_null' => 'factory|SampleModel_null',
+        'modelGetKey' => 'factory|League\FactoryMuffin\Test\SampleModelGetKey',
+        'modelPk' => 'factory|League\FactoryMuffin\Test\SampleModelPk',
+        'model_id' => 'factory|League\FactoryMuffin\Test\SampleModel_id',
+        'model_null' => 'factory|League\FactoryMuffin\Test\SampleModel_null',
     );
 
     public function save()
