@@ -10,8 +10,9 @@ namespace League\FactoryMuffin\Facade;
  *
  * @package League\FactoryMuffin\Facades
  * @author  Zizaco <zizaco@gmail.com>
+ * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license MIT
- * @link    https://github.com/thephpleague/factory-muffin/
+ * @link    https://github.com/thephpleague/factory-muffin
  */
 class FactoryMuffin
 {

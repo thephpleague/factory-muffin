@@ -9,8 +9,9 @@ use League\FactoryMuffin\Kind;
  *
  * @package League\FactoryMuffin\Kind
  * @author  Zizaco <zizaco@gmail.com>
+ * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license MIT
- * @link    https://github.com/thephpleague/factory-muffin/
+ * @link    https://github.com/thephpleague/factory-muffin
  */
 class Name extends Kind
 {
