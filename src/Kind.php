@@ -9,8 +9,9 @@ use Faker\Factory as Faker;
  *
  * @package League\FactoryMuffin
  * @author  Zizaco <zizaco@gmail.com>
+ * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license MIT
- * @link    https://github.com/thephpleague/factory-muffin/
+ * @link    https://github.com/thephpleague/factory-muffin
  */
 abstract class Kind
 {
