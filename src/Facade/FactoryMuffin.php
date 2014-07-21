@@ -60,6 +60,19 @@ class FactoryMuffin
     {
         return static::fmInstance()->create($model, $attr);
     }
+    
+    /**
+     * Define a new model factory
+     *
+     * @param string $model      Model class name.
+     * @param array  $definition Array with definition of attributes.
+     *
+     * @return void
+     */
+    public static function define($model, array $definition = array())
+    {
+        static::fmInstance()->define($model, $definition);
+    }
 
     /**
      * Return an instance of the model, which is
