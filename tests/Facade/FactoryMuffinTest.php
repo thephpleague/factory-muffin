@@ -20,6 +20,22 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
     $this->assertInternalType('boolean', $user->active);
     $this->assertContains('@', $user->email);
   }
+
+  public function testInstance()
+  {
+    FactoryMuffin::define('\League\FactoryMuffin\Test\Facade\User', array(
+      'name' => 'string',
+      'active' => 'boolean',
+      'email' => 'email'
+    ));
+
+    $user = FactoryMuffin::instance('\League\FactoryMuffin\Test\Facade\User');
+
+    $this->assertInternalType('string', $user->name);
+    $this->assertInternalType('boolean', $user->active);
+    $this->assertContains('@', $user->email);
+  }
+
 }
 
 class User
