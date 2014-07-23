@@ -8,12 +8,6 @@ class FactoryMuffinTest extends \League\FactoryMuffin\Test\TestCase
 {
   public function testDefine()
   {
-    FactoryMuffin::define('\League\FactoryMuffin\Test\Facade\User', array(
-      'name' => 'string',
-      'active' => 'boolean',
-      'email' => 'email'
-    ));
-
     $user = FactoryMuffin::create('\League\FactoryMuffin\Test\Facade\User');
 
     $this->assertInternalType('string', $user->name);
@@ -23,12 +17,6 @@ class FactoryMuffinTest extends \League\FactoryMuffin\Test\TestCase
 
   public function testInstance()
   {
-    FactoryMuffin::define('\League\FactoryMuffin\Test\Facade\User', array(
-      'name' => 'string',
-      'active' => 'boolean',
-      'email' => 'email'
-    ));
-
     $user = FactoryMuffin::instance('\League\FactoryMuffin\Test\Facade\User');
 
     $this->assertInternalType('string', $user->name);
@@ -38,23 +26,11 @@ class FactoryMuffinTest extends \League\FactoryMuffin\Test\TestCase
 
   public function testAttributesFor()
   {
-    FactoryMuffin::define('\League\FactoryMuffin\Test\Facade\User', array(
-      'name' => 'string',
-      'active' => 'boolean',
-      'email' => 'email'
-    ));
-
     $attributes = FactoryMuffin::attributesFor('\League\FactoryMuffin\Test\Facade\User');
 
     $this->assertInternalType('string', $attributes['name']);
     $this->assertInternalType('boolean', $attributes['active']);
     $this->assertContains('@', $attributes['email']);
-  }
-
-  public function testSetPath()
-  {
-    $attributes = FactoryMuffin::attributesFor('User1');
-    var_dump($attributes);
   }
 }
 
