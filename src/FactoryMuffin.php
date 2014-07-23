@@ -4,6 +4,8 @@ namespace League\FactoryMuffin;
 
 use League\FactoryMuffin\Exception\NoDefinedFactory;
 use League\FactoryMuffin\Exception\Save;
+use League\FactoryMuffin\Exception\PathNotSet;
+
 
 /**
  * Class FactoryMuffin
@@ -20,6 +22,19 @@ class FactoryMuffin
      * @var array
      */
     private $factories = array();
+
+    /**
+     * Holds the path to defintion files
+     * @var string
+     */
+    public static $path = null;
+
+    public function __construct()
+    {
+        if (! static::$path) {
+            throw new PathNotSet('You must set the path to your defintions with FactoryMuffin::setPath()');
+        }
+    }
 
     /**
      * Creates and saves in db an instance of Model with mock attributes
@@ -48,6 +63,38 @@ class FactoryMuffin
         }
 
         return $obj;
+    }
+
+    /**
+     * Set and load path
+     *
+     * @param $path
+     */
+    public static function setPath($path)
+    {
+        static::$path = $path;
+        static::loadDefinitionFiles();
+    }
+
+    /**
+     * Loads all of our defintion files
+     *
+     * @return array
+     */
+    private static function loadDefinitionFiles()
+    {
+        $directory = new \RecursiveDirectoryIterator(static::$path);
+        $iterator = new \RecursiveIteratorIterator($directory);
+        $definitionFiles = new \RegexIterator($iterator, '/^.+\.php$/i');
+
+        $loadedFiles = array();
+        foreach ($definitionFiles as $file)
+        {
+            include_once $file->getPathName();
+            $loadedFiles[] = $file->getPathName();
+        }
+
+        return $loadedFiles;
     }
 
     /**

@@ -30,7 +30,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "League\\FactoryMuffin\\Test\\": "tests/"
+            "League\\FactoryMuffin\\Test\\": "tests/test"
         }
     },
     "extra": {
