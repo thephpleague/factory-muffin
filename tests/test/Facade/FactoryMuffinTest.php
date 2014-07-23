@@ -4,7 +4,7 @@ namespace League\FactoryMuffin\Test\Facade;
 
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
-class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
+class FactoryMuffinTest extends \League\FactoryMuffin\Test\TestCase
 {
   public function testDefine()
   {
@@ -49,6 +49,12 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
     $this->assertInternalType('string', $attributes['name']);
     $this->assertInternalType('boolean', $attributes['active']);
     $this->assertContains('@', $attributes['email']);
+  }
+
+  public function testSetPath()
+  {
+    $attributes = FactoryMuffin::attributesFor('User1');
+    var_dump($attributes);
   }
 }
 
