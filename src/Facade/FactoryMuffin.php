@@ -60,7 +60,7 @@ class FactoryMuffin
     {
         return static::fmInstance()->create($model, $attr);
     }
-    
+
     /**
      * Define a new model factory
      *
@@ -104,5 +104,10 @@ class FactoryMuffin
     public static function attributesFor($model, $attr = array())
     {
         return static::fmInstance()->attributesFor($model, $attr);
+    }
+
+    public static function setPath($path)
+    {
+        return \League\FactoryMuffin\FactoryMuffin::setPath($path);
     }
 }
