@@ -21,6 +21,26 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
     $this->assertContains('@', $user->email);
   }
 
+  public function testDefineMultiple()
+  {
+    FactoryMuffin::define('\League\FactoryMuffin\Test\Facade\Profile', array(
+      'profile' => 'text',
+    ));
+
+    FactoryMuffin::define('\League\FactoryMuffin\Test\Facade\User', array(
+      'name' => 'string',
+      'active' => 'boolean',
+      'email' => 'email',
+      'profile' => 'factory|Profile'
+    ));
+
+    $user = FactoryMuffin::create('\League\FactoryMuffin\Test\Facade\User');
+
+    $this->assertInternalType('string', $user->name);
+    $this->assertInternalType('boolean', $user->active);
+    $this->assertContains('@', $user->email);
+  }
+
   public function testInstance()
   {
     FactoryMuffin::define('\League\FactoryMuffin\Test\Facade\User', array(
@@ -53,6 +73,14 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
 }
 
 class User
+{
+  public function save()
+  {
+    return true;
+  }
+}
+
+class Profile
 {
   public function save()
   {
