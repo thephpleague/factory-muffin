@@ -31,7 +31,7 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
       'name' => 'string',
       'active' => 'boolean',
       'email' => 'email',
-      'profile' => 'factory|Profile'
+      'profile' => 'factory|\League\FactoryMuffin\Test\Facade\Profile'
     ));
 
     $user = FactoryMuffin::create('\League\FactoryMuffin\Test\Facade\User');
