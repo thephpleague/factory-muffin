@@ -16,65 +16,40 @@ Via Composer
 ```json
 {
     "require": {
-        "league/factory-muffin": "~2.0"
+        "league/factory-muffin": "~2.0@dev"
     }
 }
 ```
 
 ## Usage
 
-Declare a __public static__ array called __$factory__, or a __public static__ method called factory() in your model. This should contain the kind of values you want for the attributes.
+To start with, we need to create some defintions. In this example, we will create them in the `/tests/factories.php`. Any files in your tests directory will be auto loaded by PHPUnit.
 
-Example:
 ```php
-class Message
-{
-    public static $factory = array(
-        'user_id' => 'factory|User', // This will create a new User object
-        'subject' => 'string',
-        'message' => 'text',
-        'phone_number' => 'integer|8',
-        'created' => 'date|Ymd h:s',
-        'slug' => 'call|makeSlug|string',
-    );
+<?php
+use League\FactoryMuffin\Facade\FactoryMuffin;
 
-    public static function makeSlug($factory_muff_generated_string)
-    {
-        $base = strtolower($factory_muff_generated_string);
-        return preg_replace('|[^a-z0-9]+|', '-', $base);
-    }
-}
+FactoryMuffin::define('Message', array(
+    'user_id' => 'factory|User',
+    'subject' => 'string',
+    'message' => 'text',
+    'phone_number' => 'integer|8',
+    'created' => 'date|Ymd h:s',
+    'slug' => 'call|makeSlug|string',
+));
 
-class User
-{
-    public static $factory = array(
-        'username' => 'string',
-        'email' => 'email'
-    );
-}
+FactoryMuffin::define('Message', array(
+    'username' => 'string',
+    'email' => 'email',
+    'greeting' => RandomGreeting::get(),
+    'four' => function() {
+        return 2 + 2;
+    },
+));
 ```
 
-You can also declare a static method named `factory()` on your model. This allows more flexibility as PHP has restrictions on what you can use as array values when defining properties.
+You can then use these factories in your tests.
 
-Example:
-```php
-class Message
-{
-    public static factory()
-    {
-        return array(
-            'user_id' => 'factory|User',
-            // Not possible when defined as a static array
-            'greeting' => RandomGreeting::get(),
-            // Closures will be called automatically
-            'four' => function() {
-                return 2 + 2;
-            },
-        );
-    }
-```
-
-To create model instances do the following:
 ```php
 <?php
 
