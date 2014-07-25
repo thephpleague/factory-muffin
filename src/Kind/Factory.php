@@ -3,6 +3,7 @@
 namespace League\FactoryMuffin\Kind;
 
 use League\FactoryMuffin\Kind;
+use League\FactoryMuffin\Facade\FactoryMuffin;
 
 /**
  * Class Factory
@@ -36,8 +37,7 @@ class Factory extends Kind
      */
     public function generate()
     {
-        $factory = new \League\FactoryMuffin\FactoryMuffin;
-        $model = $factory->create(substr($this->kind, 8));
+        $model = FactoryMuffin::create(substr($this->kind, 8));
         return $this->getId($model);
     }
 
