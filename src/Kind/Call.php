@@ -3,7 +3,7 @@
 namespace League\FactoryMuffin\Kind;
 
 use Exception;
-use League\FactoryMuffin\FactoryMuffin;
+use League\FactoryMuffin\Facade\FactoryMuffin;
 use League\FactoryMuffin\Kind;
 
 /**
@@ -23,7 +23,6 @@ class Call extends Kind
      */
     public function generate()
     {
-        $factory = new FactoryMuffin;
         $callable = substr($this->kind, 5);
         $params = array();
 
@@ -32,10 +31,10 @@ class Call extends Kind
             $callable = array_shift($parts);
 
             if ($parts[0] === 'factory' && count($parts) > 1) {
-                $params[] = $factory->create($parts[1]);
+                $params[] = FactoryMuffin::create($parts[1]);
             } else {
                 $attr = implode('|', $parts);
-                $params[] = $factory->generateAttr($attr, $this->model);
+                $params[] = FactoryMuffin::generateAttr($attr, $this->model);
             }
         }
 
