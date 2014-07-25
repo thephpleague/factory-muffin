@@ -105,4 +105,14 @@ class FactoryMuffin
     {
         return static::fmInstance()->attributesFor($model, $attr);
     }
+
+    /**
+     * Pass through method to generate attributes for model
+     * @param  string $model
+     * @return mixed
+     */
+    public static function generateAttr($model)
+    {
+        return static::fmInstance()->generateAttr($model);
+    }
 }
