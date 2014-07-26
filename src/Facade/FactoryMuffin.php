@@ -60,7 +60,7 @@ class FactoryMuffin
     {
         return static::fmInstance()->create($model, $attr);
     }
-    
+
     /**
      * Define a new model factory
      *
