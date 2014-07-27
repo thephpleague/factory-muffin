@@ -144,7 +144,7 @@ class FactoryMuffin
      * Generate attributes.
      *
      * @param string $kind  The kind of attribute that will be generate.
-     * @param string $model The name of the model class
+     * @param string $model The name of the model class.
      *
      * @return mixed String or an instance of related model.
      */
