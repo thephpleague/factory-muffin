@@ -6,18 +6,19 @@ use League\FactoryMuffin\Kind;
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
 /**
- * Class Factory
+ * Class Factory.
  *
  * @package League\FactoryMuffin\Kind
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
- * @license MIT
- * @link    https://github.com/thephpleague/factory-muffin
+ * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class Factory extends Kind
 {
     /**
-     * @var array
+     * The factory methods.
+     *
+     * @type array
      */
     private $methods = array(
         'getKey',
@@ -25,7 +26,9 @@ class Factory extends Kind
     );
 
     /**
-     * @var array
+     * The factory properties.
+     *
+     * @type array
      */
     private $properties = array(
       'id',
@@ -33,7 +36,9 @@ class Factory extends Kind
     );
 
     /**
-     * @return null
+     * Return generated data.
+     *
+     * @return int
      */
     public function generate()
     {
@@ -42,8 +47,11 @@ class Factory extends Kind
     }
 
     /**
-     * @param $model
-     * @return null
+     * Get the model id.
+     *
+     * @param string $model Model class name.
+     *
+     * @return int The model id if available.
      */
     private function getId($model)
     {
@@ -60,8 +68,5 @@ class Factory extends Kind
                 return $model->$property;
             }
         }
-
-        // We cannot find an ID
-        return null;
     }
 }

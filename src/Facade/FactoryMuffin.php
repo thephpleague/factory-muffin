@@ -3,37 +3,28 @@
 namespace League\FactoryMuffin\Facade;
 
 /**
- * Class FactoryMuffin
+ * Class FactoryMuffin.
  *
- * Optional FactoryMuffin facade accessor with the only
- * purpose of being sleeker to use.
+ * This is the optional, sleeker FactoryMuffin facade accessor.
  *
  * @package League\FactoryMuffin\Facades
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
- * @license MIT
- * @link    https://github.com/thephpleague/factory-muffin
+ * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class FactoryMuffin
 {
-
     /**
-     * FactoryMuffin real instance
+     * The underline FactoryMuffin instance.
      *
-     * @var League\FactoryMuffin\FactoryMuffin
-     *
-     * @access private
-     * @static
+     * @type \League\FactoryMuffin\FactoryMuffin
      */
     private static $fmInstance;
 
     /**
-     * Get or stance FactoryMuffin obj
+     * Get or stance FactoryMuffin obj.
      *
-     * @access private
-     * @static
-     *
-     * @return League\FactoryMuffin\FactoryMuffin
+     * @return \League\FactoryMuffin\FactoryMuffin
      */
     private static function fmInstance()
     {
@@ -45,14 +36,10 @@ class FactoryMuffin
     }
 
     /**
-     * Creates and saves in db an instance
-     * of Model with mock attributes
+     * Creates and saves in db an instance of Model with mock attributes.
      *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
-     *
-     * @access public
-     * @static
      *
      * @return mixed Returns the model instance.
      */
@@ -62,7 +49,7 @@ class FactoryMuffin
     }
 
     /**
-     * Define a new model factory
+     * Define a new model factory.
      *
      * @param string $model      Model class name.
      * @param array  $definition Array with definition of attributes.
@@ -75,13 +62,10 @@ class FactoryMuffin
     }
 
     /**
-     * Return an instance of the model, which is
-     * not saved in the database
+     * Return an instance of the model, which is not saved in the database.
      *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
-     *
-     * @access public
      *
      * @return mixed Returns the model instance.
      */
@@ -91,13 +75,10 @@ class FactoryMuffin
     }
 
     /**
-     * Returns an array of mock attributes for the specified model
+     * Returns an array of mock attributes for the specified model.
      *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
-     *
-     * @access public
-     * @static
      *
      * @return array Returns an attributes array.
      */
@@ -107,8 +88,10 @@ class FactoryMuffin
     }
 
     /**
-     * Pass through method to generate attributes for model
-     * @param  string $model
+     * Pass through method to generate attributes for model.
+     *
+     * @param string $model Model class name.
+     *
      * @return mixed
      */
     public static function generateAttr($model)

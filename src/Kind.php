@@ -5,20 +5,20 @@ namespace League\FactoryMuffin;
 use Faker\Factory as Faker;
 
 /**
- * Class Kind
+ * Class Kind.
  *
  * @package League\FactoryMuffin
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
- * @license MIT
- * @link    https://github.com/thephpleague/factory-muffin
+ * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 abstract class Kind
 {
     /**
-    * The Kind classes that are available.
-    * @var array
-    */
+     * The Kind classes that are available.
+     *
+     * @type array
+     */
     protected static $availableKinds = array(
         'call',
         'closure',
@@ -32,24 +32,28 @@ abstract class Kind
     );
 
     /**
-    * Holds the Kind we are working on
-    * @var League\FactoryMuffin\Kind
-    */
+     * Holds the Kind we are working on.
+     *
+     * @type \League\FactoryMuffin\Kind
+     */
     protected $kind = null;
 
     /**
-    * Holds the model data
-    * @var array
-    */
+     * Holds the model data.
+     *
+     * @type array
+     */
     protected $model = null;
 
     /**
-     * @var Faker\Factory
+     * Holds the faker factory.
+     *
+     * @type \Faker\Factory
      */
     protected $faker = null;
 
     /**
-     * Initialise our Kind
+     * Initialise our Kind.
      *
      * @param $kind
      * @param $model
@@ -63,11 +67,13 @@ abstract class Kind
     }
 
     /**
-    * Detect the type of Kind we are processing
-    * @param  string $kind
-    * @param  array $model
-    * @return League\FactoryMuffin\Kind
-    */
+     * Detect the type of Kind we are processing.
+     *
+     * @param string $kind
+     * @param array  $model
+     *
+     * @return \League\FactoryMuffin\Kind
+     */
     public static function detect($kind, $model = null)
     {
         // TODO Move this somewhere where its only instantiated once
@@ -90,11 +96,13 @@ abstract class Kind
     }
 
     /**
-    * Returns an option passed to the Kind
-    * @param  integer $index
-    * @param  mixed $default
-    * @return mixed
-    */
+     * Returns an option passed to the Kind.
+     *
+     * @param int   $index
+     * @param mixed $default
+     *
+     * @return mixed
+     */
     public function getOption($index, $default = null)
     {
         $options = $this->getOptions();
@@ -106,9 +114,10 @@ abstract class Kind
     }
 
     /**
-    * Return an array of all options passed to the Kind (after |)
-    * @return array
-    */
+     * Return an array of all options passed to the Kind (after |).
+     *
+     * @return array
+     */
     public function getOptions()
     {
         $options = explode('|', $this->kind);
@@ -122,9 +131,9 @@ abstract class Kind
     }
 
     /**
-    * Abstract class used by individual Kind's to return
-    * generated data
-    * @return string|integer
-    */
+     * Return generated data.
+     *
+     * @return mixed
+     */
     abstract public function generate();
 }

@@ -7,19 +7,21 @@ use League\FactoryMuffin\Facade\FactoryMuffin;
 use League\FactoryMuffin\Kind;
 
 /**
- * Class Call
+ * Class Call.
  *
  * @package League\FactoryMuffin\Kind
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
- * @license MIT
- * @link    https://github.com/thephpleague/factory-muffin
+ * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class Call extends Kind
 {
     /**
-     * @return mixed
+     * Return generated data.
+     *
      * @throws \Exception
+     *
+     * @return mixed
      */
     public function generate()
     {

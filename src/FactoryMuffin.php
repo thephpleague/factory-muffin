@@ -6,28 +6,31 @@ use League\FactoryMuffin\Exception\NoDefinedFactory;
 use League\FactoryMuffin\Exception\Save;
 
 /**
- * Class FactoryMuffin
+ * Class FactoryMuffin.
  *
  * @package League\FactoryMuffin
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
- * @license MIT
- * @link    https://github.com/thephpleague/factory-muffin
+ * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class FactoryMuffin
 {
     /**
-     * @var array
+     * The array of factories.
+     *
+     * @type array
      */
     private $factories = array();
 
     /**
-     * Creates and saves in db an instance of Model with mock attributes
+     * Creates and saves in db an instance of Model with mock attributes.
      *
-     * @param       $model
-     * @param array $attr
-     * @return mixed The model instance.
-     * @throws Exception\Save
+     * @param string $model Model class name.
+     * @param array  $attr  Model attributes.
+     *
+     * @throws \League\FactoryMuffin\Exception\Save
+     *
+     * @return object The model instance.
      */
     public function create($model, $attr = array())
     {
@@ -51,8 +54,7 @@ class FactoryMuffin
     }
 
     /**
-     * Return an instance of the model, which is
-     * not saved in the database
+     * Return an instance of the model, which is not saved in the database.
      *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
@@ -75,8 +77,7 @@ class FactoryMuffin
     }
 
     /**
-     * Returns an array of mock attributes
-     * for the specified model
+     * Returns an array of mock attributes for the specified model.
      *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
@@ -98,7 +99,7 @@ class FactoryMuffin
     }
 
     /**
-     * Define a new model factory
+     * Define a new model factory.
      *
      * @param string $model      Model class name.
      * @param array  $definition Array with definition of attributes.
@@ -111,9 +112,13 @@ class FactoryMuffin
     }
 
     /**
-     * @param $model
+     * Get factory attributes.
+     *
+     * @param string $model Model class name.
+     *
+     * @throws \League\FactoryMuffin\Exception\NoDefinedFactory
+     *
      * @return mixed A factory definition array.
-     * @throws Exception\NoDefinedFactory
      */
     private function getFactoryAttrs($model)
     {
@@ -136,6 +141,7 @@ class FactoryMuffin
     }
 
     /**
+     * Generate attributes.
      *
      * @param string $kind  The kind of attribute that will be generate.
      * @param string $model The name of the model class
