@@ -5,18 +5,19 @@ namespace League\FactoryMuffin\Kind;
 use League\FactoryMuffin\Kind;
 
 /**
- * Class String
+ * Class String.
  *
  * @package League\FactoryMuffin\Kind
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
- * @license MIT
- * @link    https://github.com/thephpleague/factory-muffin
+ * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class String extends Kind
 {
     /**
-     * @return mixed
+     * Return generated data.
+     *
+     * @return string
      */
     public function generate()
     {
