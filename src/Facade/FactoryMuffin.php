@@ -101,8 +101,15 @@ class FactoryMuffin
         return static::fmInstance()->generateAttr($model);
     }
 
-    public static function loadFactories($path)
+    /**
+     * Load the specified factories.
+     *
+     * @param string|string[] $paths
+     *
+     * @return void
+     */
+    public static function loadFactories($paths)
     {
-        return static::fmInstance()->loadFactories($path);
+        return static::fmInstance()->loadFactories($paths);
     }
 }
