@@ -3,6 +3,7 @@
 namespace League\FactoryMuffin\Kind;
 
 use Exception;
+use League\FactoryMuffin\Exception\MethodNotFound;
 use League\FactoryMuffin\Facade\FactoryMuffin;
 use League\FactoryMuffin\Kind;
 
@@ -41,7 +42,7 @@ class Call extends Kind
         }
 
         if (!method_exists($this->model, $callable)) {
-            throw new Exception("$this->model does not have a static $callable method");
+            throw new MethodNotFound($this->model, $callable);
         }
 
         return call_user_func_array("$this->model::$callable", $params);
