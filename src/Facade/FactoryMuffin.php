@@ -101,6 +101,16 @@ class FactoryMuffin
         return static::fmInstance()->generateAttr($model);
     }
 
+    /**
+     * Returns an array of saved objects.
+     *
+     * @return object[]
+     */
+    public static function saved()
+    {
+        return static::fmInstance()->saved();
+    }
+
     public static function loadFactories($path)
     {
         return static::fmInstance()->loadFactories($path);
