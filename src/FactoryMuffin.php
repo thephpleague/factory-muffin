@@ -27,8 +27,9 @@ class FactoryMuffin
     private $factories = array();
 
     /**
-     * Array of objects we have created
-     * @var array
+     * The array of objects we have created.
+     *
+     * @type array
      */
     private $objects = array();
 
@@ -44,10 +45,9 @@ class FactoryMuffin
      */
     public function create($model, $attr = array())
     {
-        $obj = $this->instance($model, $attr);
-        $result = $this->save($obj);
-        if (!$result) {
+        $result = $this->save($obj = $this->instance($model, $attr));
 
+        if (!$result) {
             $message = '';
 
             if (isset($obj->validationErrors)) {
@@ -63,8 +63,10 @@ class FactoryMuffin
     }
 
     /**
-     * Save our object to the DB, and keep track of it
-     * @param  object $object
+     * Save our object to the DB, and keep track of it.
+     *
+     * @param object $object
+     *
      * @return mixed
      */
     public function save($object)
