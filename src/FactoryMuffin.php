@@ -148,23 +148,39 @@ class FactoryMuffin
         return $kind->generate();
     }
 
-    public function loadFactories($path)
+    /**
+     * Load the specified factories.
+     *
+     * @param string|string[] $paths
+     *
+     * @return void
+     */
+    public function loadFactories($paths)
     {
-        if (!is_dir($path)) {
-            throw new DirectoryNotFound;
-        }
+        foreach ((array) $paths as $path) {
+            if (!is_dir($path)) {
+                throw new DirectoryNotFound();
+            }
 
+            $this->loadDirectory($path);
+        }
+    }
+
+    /**
+     * Load all the files in a directory.
+     *
+     * @param string $path
+     *
+     * @return void
+     */
+    private function loadDirectory($path)
+    {
         $directory = new RecursiveDirectoryIterator($path);
         $iterator = new RecursiveIteratorIterator($directory);
-        $definitionFiles = new RegexIterator($iterator, '/^.+\.php$/i');
+        $files = new RegexIterator($iterator, '/^.+\.php$/i');
 
-        $loadedFiles = array();
-        foreach ($definitionFiles as $file)
-        {
+        foreach ($files as $file) {
             include_once $file->getPathName();
-            $loadedFiles[] = $file->getPathName();
         }
-
-        return $loadedFiles;
     }
 }
