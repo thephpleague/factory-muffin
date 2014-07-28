@@ -40,9 +40,9 @@ class Save extends \Exception
         $this->errors = $errors;
 
         if ($errors) {
-            parent::__construct("$errors Could not save the model of type: '$model'.");
+            parent::__construct("$errors We could not save the model of type: '$model'.");
         } else {
-            parent::__construct("Could not save the model of type: '$model'.");
+            parent::__construct("We could not save the model of type: '$model'.");
         }
     }
 

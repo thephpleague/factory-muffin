@@ -39,7 +39,7 @@ class MethodNotFound extends \Exception
         $this->model = $model;
         $this->method = $method;
 
-        parent::__construct("'$model' does not have a static '$method' method.");
+        parent::__construct("The static method '$method' was not found on the model of type: '$model'.");
     }
 
     /**

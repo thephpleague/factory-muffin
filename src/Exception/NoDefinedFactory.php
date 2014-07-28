@@ -29,7 +29,7 @@ class NoDefinedFactory extends \Exception
     public function __construct($model)
     {
         $this->model = $model;
-        parent::__construct("No factory class was defined for the class '$model'.");
+        parent::__construct("No factory class was defined for the model of type: '$model'.");
     }
 
     /**
