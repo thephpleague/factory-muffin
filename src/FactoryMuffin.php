@@ -126,17 +126,6 @@ class FactoryMuffin
             return $this->factories[$model];
         }
 
-        if (method_exists($model, 'factory')) {
-            return $model::factory();
-        } else {
-            // Get the $factory static and check for errors
-            $static_vars = get_class_vars($model);
-
-            if (isset($static_vars['factory'])) {
-                return $static_vars['factory'];
-            }
-        }
-
         throw new NoDefinedFactory('Factory not defined for class: ' . $model);
     }
 
