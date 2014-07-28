@@ -4,6 +4,7 @@ namespace League\FactoryMuffin;
 
 use League\FactoryMuffin\Exception\NoDefinedFactory;
 use League\FactoryMuffin\Exception\Save;
+use League\FactoryMuffin\Exception\PathDoesNotExist;
 
 /**
  * Class FactoryMuffin.
@@ -142,5 +143,25 @@ class FactoryMuffin
         $kind = Kind::detect($kind, $model);
 
         return $kind->generate();
+    }
+
+    public function loadFactories($path)
+    {
+        if (! is_dir($path)) {
+            throw new PathDoesNotExist;
+        }
+
+        $directory = new \RecursiveDirectoryIterator($path);
+        $iterator = new \RecursiveIteratorIterator($directory);
+        $definitionFiles = new \RegexIterator($iterator, '/^.+\.php$/i');
+
+        $loadedFiles = array();
+        foreach ($definitionFiles as $file)
+        {
+            include_once $file->getPathName();
+            $loadedFiles[] = $file->getPathName();
+        }
+
+        return $loadedFiles;
     }
 }
