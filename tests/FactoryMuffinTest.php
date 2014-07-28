@@ -75,7 +75,8 @@ class FactoryMuffinTest extends TestCase
         $this->assertNull($obj->model_null);
     }
     /**
-     * @expectedException League\FactoryMuffin\Exception\Save
+     * @expectedException \League\FactoryMuffin\Exception\Save
+     * @expectedExceptionMessage We could not save the model of type: 'League\FactoryMuffin\Test\SampleModelC'.
      */
     public function testShouldThrowExceptionOnModelSaveFailure()
     {
@@ -127,7 +128,8 @@ class FactoryMuffinTest extends TestCase
     }
 
     /**
-     * @expectedException League\FactoryMuffin\Exception\NoDefinedFactory
+     * @expectedException \League\FactoryMuffin\Exception\NoDefinedFactory
+     * @expectedExceptionMessage No factory class was defined for the model of type: 'League\FactoryMuffin\Test\SampleModelE'.
      */
     public function testShouldThrowExceptionWhenNoDefinedFactory()
     {
@@ -149,8 +151,8 @@ class FactoryMuffinTest extends TestCase
     }
 
     /**
-     * @expectedException \Exception
-     * @expectedExceptionMessage does not have a static doesNotExist method
+     * @expectedException \League\FactoryMuffin\Exception\MethodNotFound
+     * @expectedExceptionMessage The static method 'doesNotExist' was not found on the model of type: 'League\FactoryMuffin\Test\ModelWithMissingStaticMethod'.
      */
     public function testThrowExceptionWhenInvalidStaticMethod()
     {
@@ -160,7 +162,7 @@ class FactoryMuffinTest extends TestCase
 
     /**
      * @expectedException \League\FactoryMuffin\Exception\Save
-     * @expectedExceptionMessage Failed to save. - Could not save the model of type: League\FactoryMuffin\Test\SampleModelWithValidationErrors
+     * @expectedExceptionMessage Failed to save. We could not save the model of type: 'League\FactoryMuffin\Test\SampleModelWithValidationErrors'.
      */
     public function testWithValidationErrors()
     {

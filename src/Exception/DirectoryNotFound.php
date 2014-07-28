@@ -12,5 +12,33 @@ namespace League\FactoryMuffin\Exception;
  */
 class DirectoryNotFound extends \Exception
 {
-    //
+    /**
+     * The path.
+     *
+     * @type string
+     */
+    private $path;
+
+    /**
+     * Create a new instance.
+     *
+     * @param string $path
+     *
+     * @return void
+     */
+    public function __construct($path)
+    {
+        $this->path = $path;
+        parent::__construct("The directory '$path' was not found.");
+    }
+
+    /**
+     * Get the path.
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
 }

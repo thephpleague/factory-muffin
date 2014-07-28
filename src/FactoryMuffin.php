@@ -40,18 +40,12 @@ class FactoryMuffin
     {
         $obj = $this->instance($model, $attr);
 
-        $result = $obj->save();
-        if (!$result) {
-
-            $message = '';
-
-            if (isset($obj->validationErrors)) {
-                if ($obj->validationErrors) {
-                    $message = $obj->validationErrors.' - ';
-                }
+        if (!$obj->save()) {
+            if (isset($obj->validationErrors) && $obj->validationErrors) {
+                throw new Save($model, $obj->validationErrors);
             }
 
-            throw new Save($message.'Could not save the model of type: '.$model);
+            throw new Save($model);
         }
 
         return $obj;
@@ -130,7 +124,7 @@ class FactoryMuffin
             return $this->factories[$model];
         }
 
-        throw new NoDefinedFactory('Factory not defined for class: ' . $model);
+        throw new NoDefinedFactory($model);
     }
 
     /**
@@ -159,7 +153,7 @@ class FactoryMuffin
     {
         foreach ((array) $paths as $path) {
             if (!is_dir($path)) {
-                throw new DirectoryNotFound();
+                throw new DirectoryNotFound($path);
             }
 
             $this->loadDirectory($path);

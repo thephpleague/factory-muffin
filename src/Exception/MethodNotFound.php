@@ -3,14 +3,14 @@
 namespace League\FactoryMuffin\Exception;
 
 /**
- * Class NoDefinedFactory.
+ * Class MethodNotFound.
  *
  * @package League\FactoryMuffin\Exception
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class NoDefinedFactory extends \Exception
+class MethodNotFound extends \Exception
 {
     /**
      * The model.
@@ -20,16 +20,26 @@ class NoDefinedFactory extends \Exception
     private $model;
 
     /**
+     * The method.
+     *
+     * @type string
+     */
+    private $method;
+
+    /**
      * Create a new instance.
      *
      * @param string $model
+     * @param string $method
      *
      * @return void
      */
-    public function __construct($model)
+    public function __construct($model, $method)
     {
         $this->model = $model;
-        parent::__construct("No factory class was defined for the model of type: '$model'.");
+        $this->method = $method;
+
+        parent::__construct("The static method '$method' was not found on the model of type: '$model'.");
     }
 
     /**
@@ -40,5 +50,15 @@ class NoDefinedFactory extends \Exception
     public function getModel()
     {
         return $this->model;
+    }
+
+    /**
+     * Get the method.
+     *
+     * @return string
+     */
+    public function getMethod()
+    {
+        return $this->method;
     }
 }
