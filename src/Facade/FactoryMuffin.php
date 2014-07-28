@@ -102,6 +102,16 @@ class FactoryMuffin
     }
 
     /**
+     * Returns an array of saved objects.
+     *
+     * @return object[]
+     */
+    public static function saved()
+    {
+        return static::fmInstance()->saved();
+    }
+
+    /**
      * Load the specified factories.
      *
      * @param string|string[] $paths

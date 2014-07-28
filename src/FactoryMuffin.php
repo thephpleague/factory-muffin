@@ -27,6 +27,13 @@ class FactoryMuffin
     private $factories = array();
 
     /**
+     * The array of objects we have created.
+     *
+     * @type array
+     */
+    private $saved = array();
+
+    /**
      * Creates and saves in db an instance of Model with mock attributes.
      *
      * @param string $model Model class name.
@@ -40,7 +47,7 @@ class FactoryMuffin
     {
         $obj = $this->instance($model, $attr);
 
-        if (!$obj->save()) {
+        if (!$this->save($obj)) {
             if (isset($obj->validationErrors) && $obj->validationErrors) {
                 throw new Save($model, $obj->validationErrors);
             }
@@ -49,6 +56,21 @@ class FactoryMuffin
         }
 
         return $obj;
+    }
+
+    /**
+     * Save our object to the DB, and keep track of it.
+     *
+     * @param object $object
+     *
+     * @return mixed
+     */
+    public function save($object)
+    {
+        $result = $object->save();
+        $this->saved[] = $object;
+
+        return $result;
     }
 
     /**
@@ -158,6 +180,16 @@ class FactoryMuffin
 
             $this->loadDirectory($path);
         }
+    }
+
+    /**
+     * Return an array of saved objects.
+     *
+     * @return object[]
+     */
+    public function saved()
+    {
+        return $this->saved;
     }
 
     /**
