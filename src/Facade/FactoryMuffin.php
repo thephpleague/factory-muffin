@@ -109,4 +109,9 @@ class FactoryMuffin
     {
         return static::fmInstance()->objects();
     }
+
+    public static function loadFactories($path)
+    {
+        return static::fmInstance()->loadFactories($path);
+    }
 }
