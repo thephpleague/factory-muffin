@@ -102,12 +102,13 @@ class FactoryMuffin
     }
 
     /**
-     * Returns an array of saved objects
-     * @return array
+     * Returns an array of saved objects.
+     *
+     * @return object[]
      */
-    public static function objects()
+    public static function saved()
     {
-        return static::fmInstance()->objects();
+        return static::fmInstance()->saved();
     }
 
     public static function loadFactories($path)
