@@ -3,8 +3,9 @@
 namespace League\FactoryMuffin\Test\Facade;
 
 use League\FactoryMuffin\Facade\FactoryMuffin;
+use League\FactoryMuffin\Test\TestCase;
 
-class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
+class FactoryMuffinTest extends TestCase
 {
     public function testDefine()
     {
