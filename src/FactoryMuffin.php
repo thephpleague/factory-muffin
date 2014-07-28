@@ -35,8 +35,7 @@ class FactoryMuffin
     public function create($model, $attr = array())
     {
         $obj = $this->instance($model, $attr);
-
-        $result = $obj->save();
+        $result = $this->save($obj);
         if (!$result) {
 
             $message = '';
@@ -51,6 +50,18 @@ class FactoryMuffin
         }
 
         return $obj;
+    }
+
+    /**
+     * Save our object to the DB, and keep track of it
+     * @param  object $object
+     * @return mixed
+     */
+    public function save($object)
+    {
+        $result = $object->save();
+
+        return $result;
     }
 
     /**
