@@ -23,6 +23,12 @@ class FactoryMuffin
     private $factories = array();
 
     /**
+     * Array of objects we have created
+     * @var array
+     */
+    private $objects = array();
+
+    /**
      * Creates and saves in db an instance of Model with mock attributes.
      *
      * @param string $model Model class name.
@@ -60,6 +66,7 @@ class FactoryMuffin
     public function save($object)
     {
         $result = $object->save();
+        $this->objects[] = $object;
 
         return $result;
     }
