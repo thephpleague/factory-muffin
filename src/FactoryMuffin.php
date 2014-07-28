@@ -45,7 +45,7 @@ class FactoryMuffin
      */
     public function create($model, $attr = array())
     {
-        $obj = $this->instance($model, $attr)
+        $obj = $this->instance($model, $attr);
 
         if (!$this->save($obj)) {
             $message = '';
