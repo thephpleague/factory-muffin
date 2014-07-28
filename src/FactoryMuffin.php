@@ -161,4 +161,13 @@ class FactoryMuffin
 
         return $kind->generate();
     }
+
+    /**
+     * Return an array of saved objects
+     * @return array
+     */
+    public function objects()
+    {
+        return $this->objects;
+    }
 }

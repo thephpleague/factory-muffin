@@ -100,4 +100,13 @@ class FactoryMuffin
     {
         return static::fmInstance()->generateAttr($model);
     }
+
+    /**
+     * Returns an array of saved objects
+     * @return array
+     */
+    public static function objects()
+    {
+        return static::fmInstance()->objects();
+    }
 }
