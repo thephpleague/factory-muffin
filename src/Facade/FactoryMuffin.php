@@ -22,13 +22,15 @@ class FactoryMuffin
     private static $fmInstance;
 
     /**
-     * Get or stance FactoryMuffin obj.
+     * Get the underline FactoryMuffin instance.
+     *
+     * We'll always cache the instance and reuse it.
      *
      * @return \League\FactoryMuffin\FactoryMuffin
      */
     private static function fmInstance()
     {
-        if (! static::$fmInstance) {
+        if (!static::$fmInstance) {
             static::$fmInstance = new \League\FactoryMuffin\FactoryMuffin;
         }
 
@@ -41,7 +43,7 @@ class FactoryMuffin
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
      *
-     * @return mixed Returns the model instance.
+     * @return object
      */
     public static function create($model, $attr = array())
     {
@@ -67,7 +69,7 @@ class FactoryMuffin
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
      *
-     * @return mixed Returns the model instance.
+     * @return object
      */
     public static function instance($model, $attr = array())
     {
@@ -80,7 +82,7 @@ class FactoryMuffin
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
      *
-     * @return array Returns an attributes array.
+     * @return array
      */
     public static function attributesFor($model, $attr = array())
     {

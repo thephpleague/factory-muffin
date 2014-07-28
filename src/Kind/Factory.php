@@ -16,24 +16,18 @@ use League\FactoryMuffin\Facade\FactoryMuffin;
 class Factory extends Kind
 {
     /**
-     * The factory methods.
+     * Generate, and return the attribute.
      *
-     * @type array
+     * @type string[]
      */
-    private $methods = array(
-        'getKey',
-        'pk',
-    );
+    private $methods = array('getKey', 'pk');
 
     /**
      * The factory properties.
      *
-     * @type array
+     * @type string[]
      */
-    private $properties = array(
-      'id',
-      '_id'
-    );
+    private $properties = array('id', '_id');
 
     /**
      * Return generated data.
@@ -51,7 +45,7 @@ class Factory extends Kind
      *
      * @param string $model Model class name.
      *
-     * @return int The model id if available.
+     * @return int
      */
     private function getId($model)
     {

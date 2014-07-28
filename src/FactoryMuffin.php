@@ -30,7 +30,7 @@ class FactoryMuffin
      *
      * @throws \League\FactoryMuffin\Exception\Save
      *
-     * @return object The model instance.
+     * @return object
      */
     public function create($model, $attr = array())
     {
@@ -59,7 +59,7 @@ class FactoryMuffin
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
      *
-     * @return mixed Returns the model instance.
+     * @return object
      */
     public function instance($model, $attr = array())
     {
@@ -82,7 +82,7 @@ class FactoryMuffin
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
      *
-     * @return array Returns an attributes array.
+     * @return array
      */
     public function attributesFor($model, $attr = array())
     {
@@ -118,7 +118,7 @@ class FactoryMuffin
      *
      * @throws \League\FactoryMuffin\Exception\NoDefinedFactory
      *
-     * @return mixed A factory definition array.
+     * @return mixed
      */
     private function getFactoryAttrs($model)
     {
@@ -141,12 +141,12 @@ class FactoryMuffin
     }
 
     /**
-     * Generate attributes.
+     * Generate the attributes and return a string, or an instance of the model.
      *
      * @param string $kind  The kind of attribute that will be generate.
      * @param string $model The name of the model class.
      *
-     * @return mixed String or an instance of related model.
+     * @return string|object
      */
     public function generateAttr($kind, $model = null)
     {

@@ -17,7 +17,7 @@ abstract class Kind
     /**
      * The Kind classes that are available.
      *
-     * @type array
+     * @type string[]
      */
     protected static $availableKinds = array(
         'call',
@@ -36,21 +36,21 @@ abstract class Kind
      *
      * @type \League\FactoryMuffin\Kind
      */
-    protected $kind = null;
+    protected $kind;
 
     /**
      * Holds the model data.
      *
      * @type array
      */
-    protected $model = null;
+    protected $model;
 
     /**
      * Holds the faker factory.
      *
      * @type \Faker\Factory
      */
-    protected $faker = null;
+    protected $faker;
 
     /**
      * Initialise our Kind.
@@ -76,7 +76,7 @@ abstract class Kind
      */
     public static function detect($kind, $model = null)
     {
-        // TODO Move this somewhere where its only instantiated once
+        // TODO: Move this somewhere where its only instantiated once
         $faker = new Faker;
 
         if ($kind instanceof \Closure) {
@@ -131,7 +131,7 @@ abstract class Kind
     }
 
     /**
-     * Return generated data.
+     * Generate, and return the attribute.
      *
      * @return mixed
      */

@@ -16,17 +16,17 @@ use League\FactoryMuffin\Kind;
 class Generic extends Kind
 {
     /**
-     * Return generated data.
+     * Generate, and return the attribute.
      *
-     * We attempt to use Faker for any string passed in, if a Faker property does
-     * not exist, then we just return the original string
+     * We attempt to use Faker for any string passed in.
+     * If a Faker property does not exist, we'll return the original string.
      *
      * @return mixed
      */
     public function generate()
     {
         // Only try and use Faker when there are no spaces in the string
-        if (! is_string($this->kind) or strpos($this->kind, ' ') !== false) {
+        if (!is_string($this->kind) or strpos($this->kind, ' ') !== false) {
             return $this->kind;
         }
 

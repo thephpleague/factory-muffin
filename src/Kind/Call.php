@@ -17,7 +17,7 @@ use League\FactoryMuffin\Kind;
 class Call extends Kind
 {
     /**
-     * Return generated data.
+     * Generate, and return the attribute.
      *
      * @throws \Exception
      *
