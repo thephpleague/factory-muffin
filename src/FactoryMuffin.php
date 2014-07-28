@@ -45,9 +45,9 @@ class FactoryMuffin
      */
     public function create($model, $attr = array())
     {
-        $result = $this->save($obj = $this->instance($model, $attr));
+        $obj = $this->instance($model, $attr)
 
-        if (!$result) {
+        if (!$this->save($obj)) {
             $message = '';
 
             if (isset($obj->validationErrors)) {
