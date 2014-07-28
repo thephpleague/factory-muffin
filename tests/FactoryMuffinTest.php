@@ -4,7 +4,7 @@ namespace League\FactoryMuffin\Test;
 
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
-class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
+class FactoryMuffinTest extends TestCase
 {
     public function testDefaultingToFaker()
     {

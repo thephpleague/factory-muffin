@@ -23,7 +23,7 @@ Via Composer
 
 ## Usage
 
-To start with, we need to create some defintions. In this example, we will create them in the `/tests/factories.php`. Any files in your tests directory will be auto loaded by PHPUnit.
+To start with, we need to create some defintions. In this example, we will create them in the `/tests/factories/all.php`.
 
 ```php
 <?php
@@ -38,7 +38,7 @@ FactoryMuffin::define('Message', array(
     'slug' => 'call|makeSlug|string',
 ));
 
-FactoryMuffin::define('Message', array(
+FactoryMuffin::define('User', array(
     'username' => 'string',
     'email' => 'email',
     'greeting' => RandomGreeting::get(),
@@ -57,6 +57,11 @@ use League\FactoryMuffin\Facade\FactoryMuffin;
 
 class TestUserModel extends PHPUnit_Framework_TestCase
 {
+    public static function setupBeforeClass()
+    {
+        FactoryMuffin::loadFactories(__DIR__ . '/factories');
+    }
+
     public function testSampleFactory()
     {
         $message = FactoryMuffin::create('Message');

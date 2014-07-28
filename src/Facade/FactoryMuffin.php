@@ -100,4 +100,9 @@ class FactoryMuffin
     {
         return static::fmInstance()->generateAttr($model);
     }
+
+    public static function loadFactories($path)
+    {
+        return static::fmInstance()->loadFactories($path);
+    }
 }

@@ -2,8 +2,12 @@
 
 namespace League\FactoryMuffin;
 
+use League\FactoryMuffin\Exception\DirectoryNotFound;
 use League\FactoryMuffin\Exception\NoDefinedFactory;
 use League\FactoryMuffin\Exception\Save;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use RegexIterator;
 
 /**
  * Class FactoryMuffin.
@@ -90,7 +94,7 @@ class FactoryMuffin
 
         // Prepare attributes
         foreach ($factory_attrs as $key => $kind) {
-            if (! isset($attr[$key])) {
+            if (!isset($attr[$key])) {
                 $attr[$key] = $this->generateAttr($kind, $model);
             }
         }
@@ -142,5 +146,41 @@ class FactoryMuffin
         $kind = Kind::detect($kind, $model);
 
         return $kind->generate();
+    }
+
+    /**
+     * Load the specified factories.
+     *
+     * @param string|string[] $paths
+     *
+     * @return void
+     */
+    public function loadFactories($paths)
+    {
+        foreach ((array) $paths as $path) {
+            if (!is_dir($path)) {
+                throw new DirectoryNotFound();
+            }
+
+            $this->loadDirectory($path);
+        }
+    }
+
+    /**
+     * Load all the files in a directory.
+     *
+     * @param string $path
+     *
+     * @return void
+     */
+    private function loadDirectory($path)
+    {
+        $directory = new RecursiveDirectoryIterator($path);
+        $iterator = new RecursiveIteratorIterator($directory);
+        $files = new RegexIterator($iterator, '/^.+\.php$/i');
+
+        foreach ($files as $file) {
+            include_once $file->getPathName();
+        }
     }
 }
