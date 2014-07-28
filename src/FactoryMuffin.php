@@ -2,9 +2,12 @@
 
 namespace League\FactoryMuffin;
 
+use League\FactoryMuffin\Exception\DirectoryNotFound;
 use League\FactoryMuffin\Exception\NoDefinedFactory;
 use League\FactoryMuffin\Exception\Save;
-use League\FactoryMuffin\Exception\DirectoryNotFound;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use RegexIterator;
 
 /**
  * Class FactoryMuffin.
@@ -151,9 +154,9 @@ class FactoryMuffin
             throw new DirectoryNotFound;
         }
 
-        $directory = new \RecursiveDirectoryIterator($path);
-        $iterator = new \RecursiveIteratorIterator($directory);
-        $definitionFiles = new \RegexIterator($iterator, '/^.+\.php$/i');
+        $directory = new RecursiveDirectoryIterator($path);
+        $iterator = new RecursiveIteratorIterator($directory);
+        $definitionFiles = new RegexIterator($iterator, '/^.+\.php$/i');
 
         $loadedFiles = array();
         foreach ($definitionFiles as $file)
