@@ -62,12 +62,12 @@ FactoryMuffin::define('League\FactoryMuffin\Test\ModelWithStaticMethodFactory', 
 ));
 
 FactoryMuffin::define('League\FactoryMuffin\Test\Facade\Profile', array(
-    'profile' => 'text',
+    'profile' => 'text'
 ));
 
 FactoryMuffin::define('League\FactoryMuffin\Test\Facade\User', array(
-    'name' => 'string',
-    'active' => 'boolean',
-    'email' => 'email',
+    'name'    => 'string',
+    'active'  => 'boolean',
+    'email'   => 'email',
     'profile' => 'factory|League\FactoryMuffin\Test\Facade\Profile'
 ));
