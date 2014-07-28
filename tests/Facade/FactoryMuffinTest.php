@@ -8,12 +8,6 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
 {
     public function testDefine()
     {
-        FactoryMuffin::define('League\FactoryMuffin\Test\Facade\User', array(
-            'name' => 'string',
-            'active' => 'boolean',
-            'email' => 'email'
-        ));
-
         $user = FactoryMuffin::create('League\FactoryMuffin\Test\Facade\User');
 
         $this->assertInternalType('string', $user->name);
@@ -23,17 +17,6 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
 
     public function testDefineMultiple()
     {
-        FactoryMuffin::define('League\FactoryMuffin\Test\Facade\Profile', array(
-            'profile' => 'text',
-        ));
-
-        FactoryMuffin::define('League\FactoryMuffin\Test\Facade\User', array(
-            'name' => 'string',
-            'active' => 'boolean',
-            'email' => 'email',
-            'profile' => 'factory|\League\FactoryMuffin\Test\Facade\Profile'
-        ));
-
         $user = FactoryMuffin::create('League\FactoryMuffin\Test\Facade\User');
 
         $this->assertInternalType('string', $user->name);
@@ -43,12 +26,6 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
 
     public function testInstance()
     {
-        FactoryMuffin::define('League\FactoryMuffin\Test\Facade\User', array(
-            'name' => 'string',
-            'active' => 'boolean',
-            'email' => 'email'
-        ));
-
         $user = FactoryMuffin::instance('League\FactoryMuffin\Test\Facade\User');
 
         $this->assertInternalType('string', $user->name);
@@ -58,12 +35,6 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
 
     public function testAttributesFor()
     {
-        FactoryMuffin::define('League\FactoryMuffin\Test\Facade\User', array(
-            'name' => 'string',
-            'active' => 'boolean',
-            'email' => 'email'
-        ));
-
         $attributes = FactoryMuffin::attributesFor('League\FactoryMuffin\Test\Facade\User');
 
         $this->assertInternalType('string', $attributes['name']);

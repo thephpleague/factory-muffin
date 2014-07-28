@@ -60,3 +60,14 @@ FactoryMuffin::define('League\FactoryMuffin\Test\ModelWithStaticMethodFactory', 
         return 2 + 2;
     }
 ));
+
+FactoryMuffin::define('League\FactoryMuffin\Test\Facade\Profile', array(
+    'profile' => 'text',
+));
+
+FactoryMuffin::define('League\FactoryMuffin\Test\Facade\User', array(
+    'name' => 'string',
+    'active' => 'boolean',
+    'email' => 'email',
+    'profile' => 'factory|League\FactoryMuffin\Test\Facade\Profile'
+));
