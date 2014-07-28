@@ -6,7 +6,7 @@ use League\FactoryMuffin\Facade\FactoryMuffin;
 
 class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
 {
-    public function test_defaulting_to_faker()
+    public function testDefaultingToFaker()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelB');
         $this->assertInternalType('array', $obj->card);
@@ -16,56 +16,56 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('expirationDate', $obj->card);
     }
 
-    public function test_should_get_attributes_for()
+    public function testShouldGetAttributesFor()
     {
         $attr = FactoryMuffin::attributesFor('League\FactoryMuffin\Test\SampleModelA');
         $this->assertTrue(is_numeric($attr['modelb_id']) );
     }
 
-    public function test_date_kind()
+    public function testDateKind()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelA');
         $dateTime = \DateTime::createFromFormat('Y-m-d', $obj->created);
         $this->assertEquals($obj->created, $dateTime->format('Y-m-d'));
     }
 
-    public function test_integer()
+    public function testInteger()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelA');
         $this->assertEquals(9, strlen($obj->number));
     }
 
-    public function test_name()
+    public function testName()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelA');
         $this->assertTrue(strlen($obj->full_name) > 0);
     }
 
-    public function test_string()
+    public function testString()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelA');
         $this->assertEquals(4, strlen($obj->string_4));
     }
 
-    public function test_text()
+    public function testText()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelA');
         $this->assertEquals(4, strlen($obj->text_4));
     }
 
-    public function test_text_default()
+    public function testTextDefault()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelA');
         $this->assertEquals(100, strlen($obj->text_100));
     }
 
-    public function test_should_create()
+    public function testShouldCreate()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelA');
         $this->assertTrue(is_numeric($obj->id));
     }
 
-    public function test_get_ids()
+    public function testGetIds()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelF');
 
@@ -77,12 +77,12 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException League\FactoryMuffin\Exception\Save
      */
-    public function test_should_throw_exception_on_model_save_failure()
+    public function testShouldThrowExceptionOnModelSaveFailure()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelC');
     }
 
-    public function test_should_make_simple_calls()
+    public function testShouldMakeSimpleCalls()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelD');
 
@@ -90,27 +90,27 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $obj->future);
     }
-    public function test_should_pass_simple_arguments_to_calls()
+    public function testShouldPassSimpleArgumentsToCalls()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelD');
 
         $this->assertRegExp('|^[a-z0-9-]+$|', $obj->slug);
     }
-    public function test_should_pass_factory_models_to_calls()
+    public function testShouldPassFactoryModelsToCalls()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelD');
 
         $this->assertRegExp("|^[a-z0-9.']+$|", $obj->munged_model);
     }
 
-    public function test_faker_default_boolean()
+    public function testFakerDefaultBoolean()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelA');
 
         $this->assertInternalType('boolean', $obj->boolean, "Asserting {$obj->boolean} is a boolean");
     }
 
-    public function test_faker_default_latitude()
+    public function testFakerDefaultLatitude()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelA');
 
@@ -118,7 +118,7 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
         $this->assertLessThanOrEqual(90, $obj->lat);
     }
 
-    public function test_faker_default_longitude()
+    public function testFakerDefaultLongitude()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelA');
 
@@ -129,18 +129,18 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException League\FactoryMuffin\Exception\NoDefinedFactory
      */
-    public function test_should_throw_exception_when_no_defined_factory()
+    public function testShouldThrowExceptionWhenNoDefinedFactory()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelE');
     }
 
-    public function test_should_accept_closure_as_attribute_factory()
+    public function testShouldAcceptClosureAsAttributeFactory()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelA');
         $this->assertEquals('just a string', $obj->text_closure);
     }
 
-    public function test_can_create_from_static_method()
+    public function testCanCreateFromStaticMethod()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\ModelWithStaticMethodFactory');
 
@@ -152,7 +152,7 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
      * @expectedException \Exception
      * @expectedExceptionMessage does not have a static doesNotExist method
      */
-    public function test_throw_exception_when_invalid_static_method()
+    public function testThrowExceptionWhenInvalidStaticMethod()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\ModelWithMissingStaticMethod');
         $obj->does_not_exist;
@@ -162,7 +162,7 @@ class FactoryMuffinTest extends \PHPUnit_Framework_TestCase
      * @expectedException \League\FactoryMuffin\Exception\Save
      * @expectedExceptionMessage Failed to save. - Could not save the model of type: League\FactoryMuffin\Test\SampleModelWithValidationErrors
      */
-    public function test_with_validation_errors()
+    public function testWithValidationErrors()
     {
         $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelWithValidationErrors');
     }
