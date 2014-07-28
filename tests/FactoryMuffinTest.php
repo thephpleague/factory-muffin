@@ -3,7 +3,6 @@
 namespace League\FactoryMuffin\Test;
 
 use League\FactoryMuffin\Facade\FactoryMuffin;
-use League\FactoryMuffin\Test\TestCase;
 
 class FactoryMuffinTest extends TestCase
 {
