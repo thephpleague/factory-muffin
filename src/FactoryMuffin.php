@@ -31,7 +31,7 @@ class FactoryMuffin
      *
      * @type array
      */
-    private $objects = array();
+    private $saved = array();
 
     /**
      * Creates and saves in db an instance of Model with mock attributes.
@@ -72,7 +72,7 @@ class FactoryMuffin
     public function save($object)
     {
         $result = $object->save();
-        $this->objects[] = $object;
+        $this->saved[] = $object;
 
         return $result;
     }
@@ -169,12 +169,13 @@ class FactoryMuffin
     }
 
     /**
-     * Return an array of saved objects
-     * @return array
+     * Return an array of saved objects.
+     *
+     * @return object[]
      */
-    public function objects()
+    public function saved()
     {
-        return $this->objects;
+        return $this->saved;
     }
 
     /**
