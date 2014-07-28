@@ -15,7 +15,7 @@ use League\FactoryMuffin\Kind;
 class Closure extends Kind
 {
     /**
-     * Return generated data.
+     * Generate, and return the attribute.
      *
      * @return mixed
      */
