@@ -28,13 +28,13 @@ class FactoryMuffin
      *
      * @return \League\FactoryMuffin\FactoryMuffin
      */
-    private static function fmInstance()
+    protected static function fmInstance()
     {
-        if (!static::$fmInstance) {
-            static::$fmInstance = new \League\FactoryMuffin\FactoryMuffin;
+        if (!self::$fmInstance) {
+            self::$fmInstance = new \League\FactoryMuffin\FactoryMuffin;
         }
 
-        return static::$fmInstance;
+        return self::$fmInstance;
     }
 
     /**
