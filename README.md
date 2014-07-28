@@ -1,4 +1,5 @@
-# FactoryMuffin
+FactoryMuffin
+=============
 
 [![Build Status](https://img.shields.io/travis/thephpleague/factory-muffin/master.svg?style=flat)](https://travis-ci.org/thephpleague/factory-muffin)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/thephpleague/factory-muffin.svg?style=flat)](https://scrutinizer-ci.com/g/thephpleague/factory-muffin/code-structure)
@@ -7,7 +8,9 @@
 [![Latest Version](https://img.shields.io/github/release/thephpleague/factory-muffin.svg?style=flat)](https://github.com/thephpleague/factory-muffin/releases)
 [![Total Downloads](https://img.shields.io/packagist/dt/league/factory-muffin.svg?style=flat)](https://packagist.org/packages/league/factory-muffin)
 
-The goal of this Package is to enable the rapid creation of objects for the purpose of testing. Basically a "[factory\_girl](https://github.com/thoughtbot/factory_girl)" simplified for use with PHP.
+The goal of this Package is to enable the rapid creation of objects for the purpose of testing.
+
+It's basically a "[factory\_girl](https://github.com/thoughtbot/factory_girl)", simplified for use with PHP.
 
 ## Install
 
@@ -23,10 +26,13 @@ Via Composer
 
 ## Usage
 
-To start with, we need to create some defintions. In this example, we will create them in the `/tests/factories/all.php`.
+To start with, we need to create some defintions.
+
+In this example, we will create them in the `/tests/factories/all.php`:
 
 ```php
 <?php
+
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
 FactoryMuffin::define('Message', array(
@@ -48,7 +54,7 @@ FactoryMuffin::define('User', array(
 ));
 ```
 
-You can then use these factories in your tests.
+You can then use these factories in your tests:
 
 ```php
 <?php
@@ -87,7 +93,7 @@ class TestUserModel extends PHPUnit_Framework_TestCase
 
 ## Save Failures
 
-If a model cannot be saved to the database, for example if it fails validation through a library like Ardent, a League\FactoryMuffin\Exception\Save will be raised.
+If a model cannot be saved to the database, for example if it fails validation through a library like Ardent, a `League\FactoryMuffin\Exception\Save` will be raised.
 
 ## Testing
 
