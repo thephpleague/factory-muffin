@@ -4,7 +4,7 @@ namespace League\FactoryMuffin;
 
 use League\FactoryMuffin\Exception\NoDefinedFactory;
 use League\FactoryMuffin\Exception\Save;
-use League\FactoryMuffin\Exception\PathDoesNotExist;
+use League\FactoryMuffin\Exception\DirectoryNotFound;
 
 /**
  * Class FactoryMuffin.
@@ -148,7 +148,7 @@ class FactoryMuffin
     public function loadFactories($path)
     {
         if (! is_dir($path)) {
-            throw new PathDoesNotExist;
+            throw new DirectoryNotFound;
         }
 
         $directory = new \RecursiveDirectoryIterator($path);

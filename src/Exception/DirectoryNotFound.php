@@ -3,14 +3,14 @@
 namespace League\FactoryMuffin\Exception;
 
 /**
- * Class PathDoesNotExist.
+ * Class DirectoryNotFound.
  *
  * @package League\FactoryMuffin\Exception
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class PathDoesNotExist extends \Exception
+class DirectoryNotFound extends \Exception
 {
     //
 }
