@@ -40,7 +40,7 @@ class Call extends Kind
             }
         }
 
-        if (! method_exists($this->model, $callable)) {
+        if (!method_exists($this->model, $callable)) {
             throw new Exception("$this->model does not have a static $callable method");
         }
 
