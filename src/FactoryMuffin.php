@@ -91,7 +91,7 @@ class FactoryMuffin
 
         // Prepare attributes
         foreach ($factory_attrs as $key => $kind) {
-            if (! isset($attr[$key])) {
+            if (!isset($attr[$key])) {
                 $attr[$key] = $this->generateAttr($kind, $model);
             }
         }
@@ -147,7 +147,7 @@ class FactoryMuffin
 
     public function loadFactories($path)
     {
-        if (! is_dir($path)) {
+        if (!is_dir($path)) {
             throw new DirectoryNotFound;
         }
 
