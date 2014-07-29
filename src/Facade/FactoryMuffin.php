@@ -56,6 +56,8 @@ class FactoryMuffin
     /**
      * Handle dynamic, static calls to the object.
      *
+     * @codeCoverageIgnore
+     *
      * @param string $method
      * @param array  $args
      *
