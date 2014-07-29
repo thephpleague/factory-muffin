@@ -2,6 +2,10 @@
 
 namespace League\FactoryMuffin\Test;
 
+use DateTime;
+use League\FactoryMuffin\Exception\NoDefinedFactory;
+use League\FactoryMuffin\Exception\MethodNotFound;
+use League\FactoryMuffin\Exception\SaveFailed;
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
 class FactoryMuffinTest extends TestCase
@@ -25,7 +29,7 @@ class FactoryMuffinTest extends TestCase
     public function testDateKind()
     {
         $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelA');
-        $dateTime = \DateTime::createFromFormat('Y-m-d', $obj->created);
+        $dateTime = DateTime::createFromFormat('Y-m-d', $obj->created);
         $this->assertEquals($obj->created, $dateTime->format('Y-m-d'));
     }
 
@@ -74,13 +78,16 @@ class FactoryMuffinTest extends TestCase
         $this->assertEquals(1, $obj->model_id);
         $this->assertNull($obj->model_null);
     }
-    /**
-     * @expectedException \League\FactoryMuffin\Exception\SaveFailed
-     * @expectedExceptionMessage We could not save the model of type: 'League\FactoryMuffin\Test\SampleModelC'.
-     */
+
     public function testShouldThrowExceptionOnModelSaveFailure()
     {
-        FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelC');
+        try {
+            FactoryMuffin::create($model = 'League\FactoryMuffin\Test\SampleModelC');
+        } catch (SaveFailed $e) {
+            $this->assertEquals("We could not save the model of type: '$model'.", $e->getMessage());
+            $this->assertEquals($model, $e->getModel());
+            $this->assertNull($e->getErrors());
+        }
     }
 
     public function testShouldMakeSimpleCalls()
@@ -127,13 +134,14 @@ class FactoryMuffinTest extends TestCase
         $this->assertLessThanOrEqual(180, $obj->lon);
     }
 
-    /**
-     * @expectedException \League\FactoryMuffin\Exception\NoDefinedFactory
-     * @expectedExceptionMessage No factory class was defined for the model of type: 'League\FactoryMuffin\Test\SampleModelE'.
-     */
     public function testShouldThrowExceptionWhenNoDefinedFactory()
     {
-        FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelE');
+        try {
+            FactoryMuffin::instance($model = 'League\FactoryMuffin\Test\SampleModelE');
+        } catch (NoDefinedFactory $e) {
+            $this->assertEquals("No factory class was defined for the model of type: '$model'.", $e->getMessage());
+            $this->assertEquals($model, $e->getModel());
+        }
     }
 
     public function testShouldAcceptClosureAsAttributeFactory()
@@ -150,23 +158,26 @@ class FactoryMuffinTest extends TestCase
         $this->assertEquals(4, $obj->four);
     }
 
-    /**
-     * @expectedException \League\FactoryMuffin\Exception\MethodNotFound
-     * @expectedExceptionMessage The static method 'doesNotExist' was not found on the model of type: 'League\FactoryMuffin\Test\ModelWithMissingStaticMethod'.
-     */
     public function testThrowExceptionWhenInvalidStaticMethod()
     {
-        $obj = FactoryMuffin::create('League\FactoryMuffin\Test\ModelWithMissingStaticMethod');
-        $obj->does_not_exist;
+        try {
+            $obj = FactoryMuffin::create($model = 'League\FactoryMuffin\Test\ModelWithMissingStaticMethod');
+        } catch (MethodNotFound $e) {
+            $this->assertEquals("The static method 'doesNotExist' was not found on the model of type: '$model'.", $e->getMessage());
+            $this->assertEquals($model, $e->getModel());
+            $this->assertEquals('doesNotExist', $e->getMethod());
+        }
     }
 
-    /**
-     * @expectedException \League\FactoryMuffin\Exception\SaveFailed
-     * @expectedExceptionMessage Failed to save. We could not save the model of type: 'League\FactoryMuffin\Test\SampleModelWithValidationErrors'.
-     */
     public function testWithValidationErrors()
     {
-        FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelWithValidationErrors');
+        try {
+            FactoryMuffin::create($model = 'League\FactoryMuffin\Test\SampleModelWithValidationErrors');
+        } catch (SaveFailed $e) {
+            $this->assertEquals("Failed to save. We could not save the model of type: '$model'.", $e->getMessage());
+            $this->assertEquals($model, $e->getModel());
+            $this->assertEquals('Failed to save.', $e->getErrors());
+        }
     }
 }
 
