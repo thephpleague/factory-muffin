@@ -39,6 +39,13 @@ class FactoryMuffin
     private $saved = array();
 
     /**
+     * This is the method used when saving objects.
+     *
+     * @type string
+     */
+    private $saveMethod = 'save';
+
+    /**
      * This is the method used when deleting objects.
      *
      * @type string
@@ -46,11 +53,28 @@ class FactoryMuffin
     private $deleteMethod = 'delete';
 
     /**
-     * This is the method used when saving objects.
+     * Set the method we use when saving objects.
      *
-     * @type string
+     * @param string $method
+     *
+     * @return void
      */
-    private $saveMethod = 'save';
+    public function setSaveMethod($method)
+    {
+        $this->saveMethod = $method;
+    }
+
+    /**
+     * Set the method we use when deleting objects.
+     *
+     * @param string $method
+     *
+     * @return void
+     */
+    public function setDeleteMethod($method)
+    {
+        $this->deleteMethod = $method;
+    }
 
     /**
      * Creates and saves in db an instance of Model with mock attributes.
@@ -101,6 +125,47 @@ class FactoryMuffin
     }
 
     /**
+     * Return an array of saved objects.
+     *
+     * @return object[]
+     */
+    public function saved()
+    {
+        return $this->saved;
+    }
+
+    /**
+     * Call the delete method on any saved objects.
+     *
+     * @throws \League\FactoryMuffin\Exception\DeletingFailed
+     * @throws \League\FactoryMuffin\Exception\DeleteMethodNotFound
+     *
+     * @return void
+     */
+    public function deleteSaved()
+    {
+        $exceptions = array();
+        $method = $this->deleteMethod;
+        foreach ($this->saved() as $saved) {
+            try {
+                if (!method_exists($saved, $method)) {
+                    throw new DeleteMethodNotFound($saved, $method);
+                }
+
+                $saved->$method();
+            } catch (Exception $e) {
+                $exceptions[] = $e;
+            }
+        }
+
+        $this->saved = array();
+
+        if ($exceptions) {
+            throw new DeletingFailed($exceptions);
+        }
+    }
+
+    /**
      * Return an instance of the model, which is not saved in the database.
      *
      * @param string $model Model class name.
@@ -148,19 +213,6 @@ class FactoryMuffin
     }
 
     /**
-     * Define a new model factory.
-     *
-     * @param string $model      Model class name.
-     * @param array  $definition Array with definition of attributes.
-     *
-     * @return void
-     */
-    public function define($model, array $definition = array())
-    {
-        $this->factories[$model] = $definition;
-    }
-
-    /**
      * Get factory attributes.
      *
      * @param string $model Model class name.
@@ -176,6 +228,18 @@ class FactoryMuffin
         }
 
         throw new NoDefinedFactory($model);
+    }
+    /**
+     * Define a new model factory.
+     *
+     * @param string $model      Model class name.
+     * @param array  $definition Array with definition of attributes.
+     *
+     * @return void
+     */
+    public function define($model, array $definition = array())
+    {
+        $this->factories[$model] = $definition;
     }
 
     /**
@@ -212,71 +276,6 @@ class FactoryMuffin
 
             $this->loadDirectory($path);
         }
-    }
-
-    /**
-     * Return an array of saved objects.
-     *
-     * @return object[]
-     */
-    public function saved()
-    {
-        return $this->saved;
-    }
-
-    /**
-     * Call the delete method on any saved objects.
-     *
-     * @throws \League\FactoryMuffin\Exception\DeletingFailed
-     * @throws \League\FactoryMuffin\Exception\DeleteMethodNotFound
-     *
-     * @return void
-     */
-    public function deleteSaved()
-    {
-        $exceptions = array();
-        $method = $this->deleteMethod;
-        foreach ($this->saved() as $saved) {
-            try {
-                if (!method_exists($saved, $method)) {
-                    throw new DeleteMethodNotFound($saved, $method);
-                }
-
-                $saved->$method();
-            } catch (Exception $e) {
-                $exceptions[] = $e;
-            }
-        }
-
-        $this->saved = array();
-
-        if ($exceptions) {
-            throw new DeletingFailed($exceptions);
-        }
-    }
-
-    /**
-     * Set the method we use when deleting objects.
-     *
-     * @param string $method
-     *
-     * @return void
-     */
-    public function setDeleteMethod($method)
-    {
-        $this->deleteMethod = $method;
-    }
-
-    /**
-     * Set the method we use when saving objects.
-     *
-     * @param string $method
-     *
-     * @return void
-     */
-    public function setSaveMethod($method)
-    {
-        $this->saveMethod = $method;
     }
 
     /**
