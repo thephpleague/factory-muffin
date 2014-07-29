@@ -33,9 +33,9 @@
         }
     },
     "autoload-dev": {
-        "psr-4": {
-            "League\\FactoryMuffin\\Test\\": "tests/"
-        }
+        "classmap": [
+            "tests/AbstractTestCase.php"
+        ]
     },
     "extra": {
         "branch-alias": {

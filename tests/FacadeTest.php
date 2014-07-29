@@ -1,15 +1,12 @@
 <?php
 
-namespace League\FactoryMuffin\Test\Facade;
-
 use League\FactoryMuffin\Facade\FactoryMuffin;
-use League\FactoryMuffin\Test\AbstractTestCase;
 
-class FactoryMuffinTest extends AbstractTestCase
+class FacadeTest extends AbstractTestCase
 {
     public function testDefine()
     {
-        $user = FactoryMuffin::create('League\FactoryMuffin\Test\Facade\User');
+        $user = FactoryMuffin::create('UserStub');
 
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('boolean', $user->active);
@@ -18,7 +15,7 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testDefineMultiple()
     {
-        $user = FactoryMuffin::create('League\FactoryMuffin\Test\Facade\User');
+        $user = FactoryMuffin::create('UserStub');
 
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('boolean', $user->active);
@@ -27,7 +24,7 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testInstance()
     {
-        $user = FactoryMuffin::instance('League\FactoryMuffin\Test\Facade\User');
+        $user = FactoryMuffin::instance('UserStub');
 
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('boolean', $user->active);
@@ -36,7 +33,7 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testAttributesFor()
     {
-        $attributes = FactoryMuffin::attributesFor('League\FactoryMuffin\Test\Facade\User');
+        $attributes = FactoryMuffin::attributesFor('UserStub');
 
         $this->assertInternalType('string', $attributes['name']);
         $this->assertInternalType('boolean', $attributes['active']);
@@ -44,7 +41,7 @@ class FactoryMuffinTest extends AbstractTestCase
     }
 }
 
-class User
+class UserStub
 {
     public function save()
     {
@@ -57,7 +54,7 @@ class User
     }
 }
 
-class Profile
+class ProfileStub
 {
     public function save()
     {

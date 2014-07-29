@@ -2,33 +2,33 @@
 
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
-FactoryMuffin::define('League\FactoryMuffin\Test\SampleModelWithValidationErrors', array());
-FactoryMuffin::define('League\FactoryMuffin\Test\SampleModelC', array());
-FactoryMuffin::define('League\FactoryMuffin\Test\SampleModelGetKey', array());
-FactoryMuffin::define('League\FactoryMuffin\Test\SampleModelPk', array());
-FactoryMuffin::define('League\FactoryMuffin\Test\SampleModel_id', array());
-FactoryMuffin::define('League\FactoryMuffin\Test\SampleModel_null', array());
+FactoryMuffin::define('SampleModelWithValidationErrors', array());
+FactoryMuffin::define('SampleModelC', array());
+FactoryMuffin::define('SampleModelGetKey', array());
+FactoryMuffin::define('SampleModelPk', array());
+FactoryMuffin::define('SampleModel_id', array());
+FactoryMuffin::define('SampleModel_null', array());
 
-FactoryMuffin::define('League\FactoryMuffin\Test\ModelWithMissingStaticMethod', array(
+FactoryMuffin::define('ModelWithMissingStaticMethod', array(
     'does_not_exist' => 'call|doesNotExist',
 ));
 
-FactoryMuffin::define('League\FactoryMuffin\Test\SampleModelF', array(
-    'modelGetKey' => 'factory|League\FactoryMuffin\Test\SampleModelGetKey',
-    'modelPk'     => 'factory|League\FactoryMuffin\Test\SampleModelPk',
-    'model_id'    => 'factory|League\FactoryMuffin\Test\SampleModel_id',
-    'model_null'  => 'factory|League\FactoryMuffin\Test\SampleModel_null',
+FactoryMuffin::define('SampleModelF', array(
+    'modelGetKey' => 'factory|SampleModelGetKey',
+    'modelPk'     => 'factory|SampleModelPk',
+    'model_id'    => 'factory|SampleModel_id',
+    'model_null'  => 'factory|SampleModel_null',
 ));
 
-FactoryMuffin::define('League\FactoryMuffin\Test\SampleModelB', array(
+FactoryMuffin::define('SampleModelB', array(
     'title'   => 'string',
     'email'   => 'email',
     'content' => 'text',
     'card'    => 'creditCardDetails',
 ));
 
-FactoryMuffin::define('League\FactoryMuffin\Test\SampleModelA', array(
-    'modelb_id'    => 'factory|League\FactoryMuffin\Test\SampleModelB',
+FactoryMuffin::define('SampleModelA', array(
+    'modelb_id'    => 'factory|SampleModelB',
     'name'         => 'string',
     'email'        => 'email',
     'message'      => 'text',
@@ -48,26 +48,26 @@ FactoryMuffin::define('League\FactoryMuffin\Test\SampleModelA', array(
     },
 ));
 
-FactoryMuffin::define('League\FactoryMuffin\Test\SampleModelD', array(
+FactoryMuffin::define('SampleModelD', array(
     'future'       => 'call|fortyDaysFromNow',
     'slug'         => 'call|makeSlug|text',
-    'munged_model' => 'call|mungeModel|factory|League\FactoryMuffin\Test\SampleModelA',
+    'munged_model' => 'call|mungeModel|factory|SampleModelA',
 ));
 
-FactoryMuffin::define('League\FactoryMuffin\Test\ModelWithStaticMethodFactory', array(
+FactoryMuffin::define('ModelWithStaticMethodFactory', array(
     'string' => 'just a string',
     'four'   => function () {
         return 2 + 2;
     },
 ));
 
-FactoryMuffin::define('League\FactoryMuffin\Test\Facade\Profile', array(
+FactoryMuffin::define('ProfileStub', array(
     'profile' => 'text',
 ));
 
-FactoryMuffin::define('League\FactoryMuffin\Test\Facade\User', array(
+FactoryMuffin::define('UserStub', array(
     'name'    => 'string',
     'active'  => 'boolean',
     'email'   => 'email',
-    'profile' => 'factory|League\FactoryMuffin\Test\Facade\Profile',
+    'profile' => 'factory|ProfileStub',
 ));
