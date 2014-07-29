@@ -47,7 +47,11 @@ class DefinitionTest extends AbstractTestCase
 
     public function testFactoryLoading()
     {
+        $count = count(get_included_files());
+
         FactoryMuffin::loadFactories(__DIR__ . '/stubs');
+
+        $this->assertSame(1, count(get_included_files()) - $count);
     }
 
     public function testShouldThrowExceptionWhenLoadingANonexistentDirectory()
