@@ -88,7 +88,7 @@ class FactoryMuffin
      *
      * @return object
      */
-    public function create($model, $attr = array())
+    public function create($model, array $attr = array())
     {
         $obj = $this->instance($model, $attr, true);
 
@@ -179,7 +179,7 @@ class FactoryMuffin
      *
      * @return object
      */
-    public function instance($model, $attr = array(), $save = false)
+    public function instance($model, array $attr = array(), $save = false)
     {
         // Get the factory attributes for that model
         $attr_array = $this->attributesFor($model, $attr, $save);
@@ -203,7 +203,7 @@ class FactoryMuffin
      *
      * @return array
      */
-    public function attributesFor($model, $attr = array(), $save = false)
+    public function attributesFor($model, array $attr = array(), $save = false)
     {
         $factory_attrs = $this->getFactoryAttrs($model);
 
