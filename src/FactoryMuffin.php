@@ -53,7 +53,7 @@ class FactoryMuffin
      */
     public function create($model, $attr = array())
     {
-        $obj = $this->instance($model, $attr);
+        $obj = $this->instance($model, $attr, true);
 
         if (!$this->save($obj)) {
             if (isset($obj->validationErrors) && $obj->validationErrors) {
@@ -85,14 +85,15 @@ class FactoryMuffin
      * Return an instance of the model, which is not saved in the database.
      *
      * @param string $model Model class name.
+     * @param bool   $save  Are we saving an object, or just creating an instance?
      * @param array  $attr  Model attributes.
      *
      * @return object
      */
-    public function instance($model, $attr = array())
+    public function instance($model, $attr = array(), $save = false)
     {
         // Get the factory attributes for that model
-        $attr_array = $this->attributesFor($model, $attr);
+        $attr_array = $this->attributesFor($model, $attr, $save);
 
         // Create, set, save and return instance
         $obj = new $model();
@@ -109,17 +110,18 @@ class FactoryMuffin
      *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
+     * @param bool   $save  Are we saving an object, or just creating an instance?
      *
      * @return array
      */
-    public function attributesFor($model, $attr = array())
+    public function attributesFor($model, $attr = array(), $save = false)
     {
         $factory_attrs = $this->getFactoryAttrs($model);
 
         // Prepare attributes
         foreach ($factory_attrs as $key => $kind) {
             if (!isset($attr[$key])) {
-                $attr[$key] = $this->generateAttr($kind, $model);
+                $attr[$key] = $this->generateAttr($kind, $model, $save);
             }
         }
 
@@ -162,12 +164,13 @@ class FactoryMuffin
      *
      * @param string $kind  The kind of attribute that will be generate.
      * @param string $model The name of the model class.
+     * @param bool   $save  Are we saving an object, or just creating an instance?
      *
      * @return string|object
      */
-    public function generateAttr($kind, $model = null)
+    public function generateAttr($kind, $model = null, $save = false)
     {
-        $kind = Kind::detect($kind, $model);
+        $kind = Kind::detect($kind, $model, $save);
 
         return $kind->generate();
     }

@@ -19,7 +19,7 @@ class FactoryMuffinTest extends TestCase
     public function testShouldGetAttributesFor()
     {
         $attr = FactoryMuffin::attributesFor('League\FactoryMuffin\Test\SampleModelA');
-        $this->assertTrue(is_numeric($attr['modelb_id']) );
+        $this->assertEquals(4, strlen($attr['string_4']));
     }
 
     public function testDateKind()

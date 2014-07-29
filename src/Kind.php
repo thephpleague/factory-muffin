@@ -53,17 +53,26 @@ abstract class Kind
     protected $faker;
 
     /**
+     * Have we saved the parent object, or just created an instance?
+     *
+     * @type boolean
+     */
+    protected $save;
+
+    /**
      * Initialise our Kind.
      *
      * @param $kind
      * @param $model
      * @param $faker
+     * @param $save Have we saved the parent object, or just created an instance?
      */
-    public function __construct($kind, $model, $faker)
+    public function __construct($kind, $model, $faker, $save = false)
     {
         $this->kind = $kind;
         $this->model = $model;
         $this->faker = $faker;
+        $this->save = $save;
     }
 
     /**
@@ -71,16 +80,17 @@ abstract class Kind
      *
      * @param string $kind
      * @param array  $model
+     * @param bool   $save
      *
      * @return \League\FactoryMuffin\Kind
      */
-    public static function detect($kind, $model = null)
+    public static function detect($kind, $model = null, $save = false)
     {
         // TODO: Move this somewhere where its only instantiated once
         $faker = new Faker;
 
         if ($kind instanceof \Closure) {
-            return new Kind\Closure($kind, $model, $faker);
+            return new Kind\Closure($kind, $model, $faker, $save);
         }
 
         $class = '\\League\\FactoryMuffin\\Kind\\Generic';
@@ -91,7 +101,7 @@ abstract class Kind
             }
         }
 
-        return new $class($kind, $model, $faker->create());
+        return new $class($kind, $model, $faker->create(), $save);
 
     }
 
