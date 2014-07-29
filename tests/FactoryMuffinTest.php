@@ -187,9 +187,6 @@ class SampleModelWithValidationErrors
 
     }
 
-    /**
-     * @todo This can be removed once we resolve #97
-     */
     public function delete()
     {
         return true;
@@ -209,9 +206,6 @@ class SampleModelA
         return true;
     }
 
-    /**
-     * @todo This can be removed once we resolve #97
-     */
     public function delete()
     {
         return true;
@@ -224,13 +218,7 @@ class SampleModelA
 */
 class SampleModelB extends SampleModelA
 {
-    /**
-     * @todo This can be removed once we resolve #97
-     */
-    public function delete()
-    {
-        return true;
-    }
+    //
 }
 
 /**
@@ -246,9 +234,6 @@ class SampleModelC
         return false;
     }
 
-    /**
-     * @todo This can be removed once we resolve #97
-     */
     public function delete()
     {
         return true;
@@ -308,14 +293,6 @@ class SampleModelGetKey
     {
         return true;
     }
-
-    /**
-     * @todo This can be removed once we resolve #97
-     */
-    public function delete()
-    {
-        return true;
-    }
 }
 
 class SampleModelPk
@@ -329,14 +306,6 @@ class SampleModelPk
     {
         return true;
     }
-
-    /**
-     * @todo This can be removed once we resolve #97
-     */
-    public function delete()
-    {
-        return true;
-    }
 }
 
 class SampleModel_id
@@ -347,27 +316,11 @@ class SampleModel_id
     {
         return true;
     }
-
-    /**
-     * @todo This can be removed once we resolve #97
-     */
-    public function delete()
-    {
-        return true;
-    }
 }
 
 class SampleModel_null
 {
     public function save()
-    {
-        return true;
-    }
-
-    /**
-     * @todo This can be removed once we resolve #97
-     */
-    public function delete()
     {
         return true;
     }
