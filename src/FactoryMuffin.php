@@ -248,6 +248,8 @@ class FactoryMuffin
             }
         }
 
+        $this->saved = array();
+
         if ($exceptions) {
             throw new DeletingFailed($exceptions);
         }
