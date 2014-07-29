@@ -4,6 +4,9 @@ use League\FactoryMuffin\Exception\NoDefinedFactory;
 use League\FactoryMuffin\Exception\MethodNotFound;
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
+/**
+ * @group main
+ */
 class FactoryMuffinTest extends AbstractTestCase
 {
     public function testDefaultingToFaker()

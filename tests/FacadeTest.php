@@ -2,6 +2,9 @@
 
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
+/**
+ * @group facade
+ */
 class FacadeTest extends AbstractTestCase
 {
     public function testDefine()

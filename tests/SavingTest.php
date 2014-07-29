@@ -4,6 +4,9 @@ use League\FactoryMuffin\Exception\SaveFailed;
 use League\FactoryMuffin\Exception\SaveMethodNotFound;
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
+/**
+ * @group saving
+ */
 class SavingTest extends AbstractTestCase
 {
     public function testShouldCreate()
