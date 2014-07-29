@@ -2,10 +2,12 @@
 
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
+use League\FactoryMuffin\Exception\DirectoryNotFound;
+
 /**
- * @group facade
+ * @group definition
  */
-class FacadeTest extends AbstractTestCase
+class DefinitionTest extends AbstractTestCase
 {
     public function testDefine()
     {
@@ -42,6 +44,21 @@ class FacadeTest extends AbstractTestCase
         $this->assertInternalType('boolean', $attributes['active']);
         $this->assertContains('@', $attributes['email']);
     }
+
+    public function testFactoryLoading()
+    {
+        FactoryMuffin::loadFactories(__DIR__ . '/stubs');
+    }
+
+    public function testShouldThrowExceptionWhenLoadingANonexistentDirectory()
+    {
+        try {
+            FactoryMuffin::loadFactories($path = __DIR__ . '/thisdirectorydoesntexist');
+        } catch (DirectoryNotFound $e) {
+            $this->assertEquals("The directory '$path' was not found.", $e->getMessage());
+            $this->assertEquals($path, $e->getPath());
+        }
+    }
 }
 
 class UserModelStub
@@ -58,6 +75,19 @@ class UserModelStub
 }
 
 class ProfileModelStub
+{
+    public function save()
+    {
+        return true;
+    }
+
+    public function delete()
+    {
+        return true;
+    }
+}
+
+class ExampleDefinedModelStub
 {
     public function save()
     {
