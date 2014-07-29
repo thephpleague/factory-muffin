@@ -34,6 +34,7 @@ class SavingTest extends AbstractTestCase
             $this->assertEquals("The save method 'save' was not found on the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
             $this->assertEquals('save', $e->getMethod());
+            $this->assertInstanceOf($model, $e->getObject());
         }
     }
 
