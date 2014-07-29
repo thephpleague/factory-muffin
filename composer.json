@@ -11,6 +11,10 @@
         {
             "name": "Scott Robertson",
             "email": "scottymeuk@gmail.com"
+        },
+        {
+            "name": "Graham Campbell",
+            "email": "graham@mineuk.com"
         }
     ],
     "require": {

@@ -103,13 +103,15 @@ $ ./vendor/bin/phpunit
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/thephpleague/factory-muffin/blob/master/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Credits
 
 - [Zizaco Zizuini](https://github.com/Zizaco)
+- [Scott Robertson](https://github.com/scottrobertson)
+- [Graham Campbell](https://github.com/GrahamCampbell)
 - [All Contributors](https://github.com/thephpleague/factory-muffin/contributors)
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/thephpleague/factory-muffin/blob/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
