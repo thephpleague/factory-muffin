@@ -79,9 +79,9 @@ abstract class Kind
     /**
      * Detect the type of Kind we are processing.
      *
-     * @param string $kind
-     * @param array  $model
-     * @param bool   $save
+     * @param mixed $kind
+     * @param array $model
+     * @param bool  $save
      *
      * @return \League\FactoryMuffin\Kind
      */
