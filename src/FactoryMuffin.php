@@ -34,6 +34,13 @@ class FactoryMuffin
     private $saved = array();
 
     /**
+     * This is the method used when deleting objects
+     *
+     * @type string
+     */
+    private $deleteMethod = 'delete';
+
+    /**
      * Creates and saves in db an instance of Model with mock attributes.
      *
      * @param string $model Model class name.
@@ -193,6 +200,16 @@ class FactoryMuffin
     }
 
     /**
+    /**
+     * Set the method we use when deleting objects
+     *
+     * @param string $method
+     */
+    public function setDeleteMethod($method)
+    {
+        $this->deleteMethod = $method;
+    }
+
      * Load all the files in a directory.
      *
      * @param string $path
