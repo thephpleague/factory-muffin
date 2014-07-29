@@ -32,7 +32,7 @@ class FactoryMuffin
     protected static function fmInstance()
     {
         if (!self::$fmInstance) {
-            self::$fmInstance = new \League\FactoryMuffin\FactoryMuffin;
+            self::$fmInstance = new \League\FactoryMuffin\FactoryMuffin();
         }
 
         return self::$fmInstance;

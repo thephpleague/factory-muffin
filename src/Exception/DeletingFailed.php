@@ -25,8 +25,8 @@ class DeletingFailed extends Exception
     /**
      * Create a new instance.
      *
-     * @param \Exception[]  $exceptions
-     * @param string        $message
+     * @param \Exception[] $exceptions
+     * @param string       $message
      *
      * @return void
      */
