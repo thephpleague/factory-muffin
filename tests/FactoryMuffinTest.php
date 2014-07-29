@@ -152,7 +152,6 @@ class FactoryMuffinTest extends AbstractTestCase
     }
 }
 
-
 class MainModelStub
 {
     public function save()

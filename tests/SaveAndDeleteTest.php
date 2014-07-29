@@ -135,7 +135,6 @@ class SaveAndDeleteTest extends AbstractTestCase
     }
 }
 
-
 class ModelThatWillSaveStub
 {
     public function save()
