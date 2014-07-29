@@ -75,7 +75,7 @@ class FactoryMuffinTest extends TestCase
         $this->assertNull($obj->model_null);
     }
     /**
-     * @expectedException \League\FactoryMuffin\Exception\Save
+     * @expectedException \League\FactoryMuffin\Exception\SaveFailed
      * @expectedExceptionMessage We could not save the model of type: 'League\FactoryMuffin\Test\SampleModelC'.
      */
     public function testShouldThrowExceptionOnModelSaveFailure()
@@ -161,7 +161,7 @@ class FactoryMuffinTest extends TestCase
     }
 
     /**
-     * @expectedException \League\FactoryMuffin\Exception\Save
+     * @expectedException \League\FactoryMuffin\Exception\SaveFailed
      * @expectedExceptionMessage Failed to save. We could not save the model of type: 'League\FactoryMuffin\Test\SampleModelWithValidationErrors'.
      */
     public function testWithValidationErrors()
