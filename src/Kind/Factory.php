@@ -11,6 +11,7 @@ use League\FactoryMuffin\Facade\FactoryMuffin;
  * @package League\FactoryMuffin\Kind
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
+ * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class Factory extends Kind
