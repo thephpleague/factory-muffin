@@ -2,6 +2,8 @@
 
 namespace League\FactoryMuffin\Exception;
 
+use Exception;
+
 /**
  * Class NoDefinedFactory.
  *
@@ -11,7 +13,7 @@ namespace League\FactoryMuffin\Exception;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class NoDefinedFactory extends \Exception
+class NoDefinedFactory extends Exception
 {
     /**
      * The model.

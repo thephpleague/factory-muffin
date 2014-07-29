@@ -2,6 +2,8 @@
 
 namespace League\FactoryMuffin\Exception;
 
+use Exception;
+
 /**
  * Class SaveFailed.
  *
@@ -11,7 +13,7 @@ namespace League\FactoryMuffin\Exception;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class SaveFailed extends \Exception
+class SaveFailed extends Exception
 {
     /**
      * The model.
