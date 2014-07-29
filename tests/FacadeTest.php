@@ -6,7 +6,7 @@ class FacadeTest extends AbstractTestCase
 {
     public function testDefine()
     {
-        $user = FactoryMuffin::create('UserStub');
+        $user = FactoryMuffin::create('UserModelStub');
 
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('boolean', $user->active);
@@ -15,7 +15,7 @@ class FacadeTest extends AbstractTestCase
 
     public function testDefineMultiple()
     {
-        $user = FactoryMuffin::create('UserStub');
+        $user = FactoryMuffin::create('UserModelStub');
 
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('boolean', $user->active);
@@ -24,7 +24,7 @@ class FacadeTest extends AbstractTestCase
 
     public function testInstance()
     {
-        $user = FactoryMuffin::instance('UserStub');
+        $user = FactoryMuffin::instance('UserModelStub');
 
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('boolean', $user->active);
@@ -33,7 +33,7 @@ class FacadeTest extends AbstractTestCase
 
     public function testAttributesFor()
     {
-        $attributes = FactoryMuffin::attributesFor('UserStub');
+        $attributes = FactoryMuffin::attributesFor('UserModelStub');
 
         $this->assertInternalType('string', $attributes['name']);
         $this->assertInternalType('boolean', $attributes['active']);
@@ -41,7 +41,7 @@ class FacadeTest extends AbstractTestCase
     }
 }
 
-class UserStub
+class UserModelStub
 {
     public function save()
     {
@@ -54,7 +54,7 @@ class UserStub
     }
 }
 
-class ProfileStub
+class ProfileModelStub
 {
     public function save()
     {

@@ -3,32 +3,32 @@
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
 FactoryMuffin::define('SampleModelWithValidationErrors', array());
-FactoryMuffin::define('SampleModelC', array());
-FactoryMuffin::define('SampleModelGetKey', array());
-FactoryMuffin::define('SampleModelPk', array());
-FactoryMuffin::define('SampleModel_id', array());
-FactoryMuffin::define('SampleModel_null', array());
+FactoryMuffin::define('ModelCStub', array());
+FactoryMuffin::define('ModelFGetKeyStub', array());
+FactoryMuffin::define('ModelFPkStub', array());
+FactoryMuffin::define('ModelFIdStub', array());
+FactoryMuffin::define('ModelFNullStub', array());
 
 FactoryMuffin::define('ModelWithMissingStaticMethod', array(
     'does_not_exist' => 'call|doesNotExist',
 ));
 
-FactoryMuffin::define('SampleModelF', array(
-    'modelGetKey' => 'factory|SampleModelGetKey',
-    'modelPk'     => 'factory|SampleModelPk',
-    'model_id'    => 'factory|SampleModel_id',
-    'model_null'  => 'factory|SampleModel_null',
+FactoryMuffin::define('ModelFStub', array(
+    'modelGetKey' => 'factory|ModelFGetKeyStub',
+    'modelPk'     => 'factory|ModelFPkStub',
+    'model_id'    => 'factory|ModelFIdStub',
+    'model_null'  => 'factory|ModelFNullStub',
 ));
 
-FactoryMuffin::define('SampleModelB', array(
+FactoryMuffin::define('ModelBStub', array(
     'title'   => 'string',
     'email'   => 'email',
     'content' => 'text',
     'card'    => 'creditCardDetails',
 ));
 
-FactoryMuffin::define('SampleModelA', array(
-    'modelb_id'    => 'factory|SampleModelB',
+FactoryMuffin::define('ModelAStub', array(
+    'modelb_id'    => 'factory|ModelBStub',
     'name'         => 'string',
     'email'        => 'email',
     'message'      => 'text',
@@ -48,10 +48,10 @@ FactoryMuffin::define('SampleModelA', array(
     },
 ));
 
-FactoryMuffin::define('SampleModelD', array(
+FactoryMuffin::define('ModelDStub', array(
     'future'       => 'call|fortyDaysFromNow',
     'slug'         => 'call|makeSlug|text',
-    'munged_model' => 'call|mungeModel|factory|SampleModelA',
+    'munged_model' => 'call|mungeModel|factory|ModelAStub',
 ));
 
 FactoryMuffin::define('ModelWithStaticMethodFactory', array(
@@ -61,13 +61,13 @@ FactoryMuffin::define('ModelWithStaticMethodFactory', array(
     },
 ));
 
-FactoryMuffin::define('ProfileStub', array(
+FactoryMuffin::define('ProfileModelStub', array(
     'profile' => 'text',
 ));
 
-FactoryMuffin::define('UserStub', array(
+FactoryMuffin::define('UserModelStub', array(
     'name'    => 'string',
     'active'  => 'boolean',
     'email'   => 'email',
-    'profile' => 'factory|ProfileStub',
+    'profile' => 'factory|ProfileModelStub',
 ));
