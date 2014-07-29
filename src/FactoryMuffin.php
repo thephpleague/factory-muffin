@@ -4,6 +4,7 @@ namespace League\FactoryMuffin;
 
 use League\FactoryMuffin\Exception\DirectoryNotFound;
 use League\FactoryMuffin\Exception\NoDefinedFactory;
+use League\FactoryMuffin\Exception\DeleteMethodNotFound;
 use League\FactoryMuffin\Exception\Save;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -200,6 +201,21 @@ class FactoryMuffin
     }
 
     /**
+     * Call the delete method on any saved objects
+     * @return nil
+     */
+    public function deleteSaved()
+    {
+        $deleteMethod = $this->deleteMethod;
+        foreach ($this->saved() as $saved) {
+            if (! method_exists($saved, $deleteMethod)) {
+                throw new DeleteMethodNotFound($saved, $deleteMethod);
+            }
+
+            $saved->$deleteMethod();
+        }
+    }
+
     /**
      * Set the method we use when deleting objects
      *
@@ -210,6 +226,7 @@ class FactoryMuffin
         $this->deleteMethod = $method;
     }
 
+    /**
      * Load all the files in a directory.
      *
      * @param string $path
