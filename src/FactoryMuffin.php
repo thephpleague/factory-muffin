@@ -77,7 +77,9 @@ class FactoryMuffin
     }
 
     /**
-     * Creates and saves in db an instance of Model with mock attributes.
+     * Creates and saves in db an instance of the model.
+     *
+     * This object will be generated with mock attributes.
      *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
@@ -102,7 +104,7 @@ class FactoryMuffin
     }
 
     /**
-     * Save our object to the DB, and keep track of it.
+     * Save our object to the db, and keep track of it.
      *
      * @param object $object
      *
@@ -166,7 +168,10 @@ class FactoryMuffin
     }
 
     /**
-     * Return an instance of the model, which is not saved in the database.
+     * Return an instance of the model.
+     *
+     * This does not save it in the database. Use the create method to create
+     * and save to the db, or pass the object from this method into the save method.
      *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
@@ -190,7 +195,7 @@ class FactoryMuffin
     }
 
     /**
-     * Returns an array of mock attributes for the specified model.
+     * Returns the mock attributes for the model.
      *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
@@ -219,7 +224,7 @@ class FactoryMuffin
      *
      * @throws \League\FactoryMuffin\Exception\NoDefinedFactory
      *
-     * @return mixed
+     * @return array
      */
     private function getFactoryAttrs($model)
     {
@@ -229,6 +234,7 @@ class FactoryMuffin
 
         throw new NoDefinedFactory($model);
     }
+
     /**
      * Define a new model factory.
      *
@@ -243,7 +249,9 @@ class FactoryMuffin
     }
 
     /**
-     * Generate the attributes and return a string, or an instance of the model.
+     * Generate the attributes.
+     *
+     * This method will return a string, or an instance of the model.
      *
      * @param string $kind  The kind of attribute that will be generate.
      * @param string $model The name of the model class.
@@ -260,6 +268,10 @@ class FactoryMuffin
 
     /**
      * Load the specified factories.
+     *
+     * This method expects either a single path to a directory containing php
+     * files, or an array of directory paths, and will include_once every file.
+     * These files should contain factory definitions for your models.
      *
      * @param string|string[] $paths
      *
