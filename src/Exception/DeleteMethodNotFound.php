@@ -10,72 +10,44 @@ namespace League\FactoryMuffin\Exception;
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class DeleteMethodNotFound extends \Exception
+class DeleteMethodNotFound extends MethodNotFound
 {
     /**
-     * The model.
+     * The model instance.
      *
      * @type object
      */
-    private $model;
-
-    /**
-     * The model name.
-     *
-     * @type string
-     */
-    private $model_name;
-
-    /**
-     * The method.
-     *
-     * @type string
-     */
-    private $method;
+    private $object;
 
     /**
      * Create a new instance.
      *
      * @param string $model
      * @param string $method
+     * @param string $message
      *
      * @return void
      */
-    public function __construct($model, $method)
+    public function __construct($object, $method, $message = null)
     {
-        $this->model = $model;
-        $this->model_name = get_class($model);
+        $this->object = $object;
 
-        parent::__construct("The delete method '$method' was not found on the model: '$this->model_name'.");
+        $model = get_class($object);
+
+        if (!$message) {
+            $message = "The delete method '$method' was not found on the model of type: '$model'.";
+        }
+
+        parent::__construct($model, $method, $message);
     }
 
     /**
-     * Get the model.
+     * Get the model instance.
      *
-     * @return string
+     * @return object
      */
-    public function getModel()
+    public function getObject()
     {
-        return $this->model;
-    }
-
-    /**
-     * Get the method.
-     *
-     * @return string
-     */
-    public function getMethod()
-    {
-        return $this->method;
-    }
-
-    /**
-     * Get the model name.
-     *
-     * @return string
-     */
-    public function getModelName()
-    {
-        return $this->model_name;
+        return $this->object;
     }
 }

@@ -31,6 +31,7 @@ class Save extends \Exception
      *
      * @param string $model
      * @param string $errors
+     * @param string $message
      *
      * @return void
      */
@@ -39,11 +40,15 @@ class Save extends \Exception
         $this->model = $model;
         $this->errors = $errors;
 
-        if ($errors) {
-            parent::__construct("$errors We could not save the model of type: '$model'.");
-        } else {
-            parent::__construct("We could not save the model of type: '$model'.");
+        if (!$message) {
+            if ($errors) {
+                $message = "$errors We could not save the model of type: '$model'.");
+            } else {
+                $message = "We could not save the model of type: '$model'.");
+            }
         }
+
+        parent::__construct($message);
     }
 
     /**
