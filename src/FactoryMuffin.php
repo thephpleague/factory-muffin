@@ -2,7 +2,9 @@
 
 namespace League\FactoryMuffin;
 
+use Exception;
 use League\FactoryMuffin\Exception\DeleteMethodNotFound;
+use League\FactoryMuffin\Exception\DeletingFailed;
 use League\FactoryMuffin\Exception\DirectoryNotFound;
 use League\FactoryMuffin\Exception\NoDefinedFactory;
 use League\FactoryMuffin\Exception\Save;
@@ -211,13 +213,22 @@ class FactoryMuffin
      */
     public function deleteSaved()
     {
-        $deleteMethod = $this->deleteMethod;
+        $exceptions = array();
+        $method = $this->deleteMethod;
         foreach ($this->saved() as $saved) {
-            if (! method_exists($saved, $deleteMethod)) {
-                throw new DeleteMethodNotFound($saved, $deleteMethod);
-            }
+            try {
+                if (!method_exists($saved, $method)) {
+                    throw new DeleteMethodNotFound($saved, $method);
+                }
 
-            $saved->$deleteMethod();
+                $saved->$method();
+            } catch (Exception $e) {
+                $exceptions[] = $e;
+            }
+        }
+
+        if ($exceptions) {
+            throw new DeletingFailed($exceptions);
         }
     }
 
