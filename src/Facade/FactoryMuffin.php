@@ -6,6 +6,9 @@ namespace League\FactoryMuffin\Facade;
  * Class FactoryMuffin.
  *
  * This is the optional, sleeker FactoryMuffin facade accessor.
+ * All methods available on the main class are available here, but statically.
+ *
+ * @see League\FactoryMuffin\FactoryMuffin
  *
  * @package League\FactoryMuffin\Facades
  * @author  Zizaco <zizaco@gmail.com>
@@ -39,122 +42,30 @@ class FactoryMuffin
     }
 
     /**
-     * Creates and saves in db an instance of Model with mock attributes.
+     * Handle dynamic, static calls to the object.
      *
-     * @param string $model Model class name.
-     * @param array  $attr  Model attributes.
-     *
-     * @return object
-     */
-    public static function create($model, $attr = array())
-    {
-        return static::fmInstance()->create($model, $attr);
-    }
-
-    /**
-     * Define a new model factory.
-     *
-     * @param string $model      Model class name.
-     * @param array  $definition Array with definition of attributes.
-     *
-     * @return void
-     */
-    public static function define($model, array $definition = array())
-    {
-        static::fmInstance()->define($model, $definition);
-    }
-
-    /**
-     * Return an instance of the model, which is not saved in the database.
-     *
-     * @param string $model Model class name.
-     * @param array  $attr  Model attributes.
-     *
-     * @return object
-     */
-    public static function instance($model, $attr = array())
-    {
-        return static::fmInstance()->instance($model, $attr);
-    }
-
-    /**
-     * Returns an array of mock attributes for the specified model.
-     *
-     * @param string $model Model class name.
-     * @param array  $attr  Model attributes.
-     *
-     * @return array
-     */
-    public static function attributesFor($model, $attr = array())
-    {
-        return static::fmInstance()->attributesFor($model, $attr);
-    }
-
-    /**
-     * Pass through method to generate attributes for model.
-     *
-     * @param string $model Model class name.
+     * @param string $method
+     * @param array  $args
      *
      * @return mixed
      */
-    public static function generateAttr($model)
+    public static function __callStatic($method, $args)
     {
-        return static::fmInstance()->generateAttr($model);
-    }
+        $instance = static::fmInstance();
 
-    /**
-     * Returns an array of saved objects.
-     *
-     * @return object[]
-     */
-    public static function saved()
-    {
-        return static::fmInstance()->saved();
-    }
-
-    /**
-     * Call delete on any saved objects.
-     *
-     * @return mixed
-     */
-    public static function deleteSaved()
-    {
-        return static::fmInstance()->deleteSaved();
-    }
-
-    /**
-     * Sets the method used to delete objects.
-     *
-     * @param string $method
-     *
-     * @return void
-     */
-    public static function setDeleteMethod($method)
-    {
-        return static::fmInstance()->setDeleteMethod($method);
-    }
-
-    /**
-     * Sets the method used to save objects.
-     *
-     * @param string $method
-     *
-     * @return void
-     */
-    public static function setSaveMethod($method)
-    {
-        return static::fmInstance()->setSaveMethod($method);
-    }
-
-    /**
-     * Load the specified factories.
-     *
-     * @param string|string[] $paths
-     *
-     * @return void
-     */
-    public static function loadFactories($paths)
-    {
-        return static::fmInstance()->loadFactories($paths);
+        switch (count($args)) {
+            case 0:
+                return $instance->$method();
+            case 1:
+                return $instance->$method($args[0]);
+            case 2:
+                return $instance->$method($args[0], $args[1]);
+            case 3:
+                return $instance->$method($args[0], $args[1], $args[2]);
+            case 4:
+                return $instance->$method($args[0], $args[1], $args[2], $args[3]);
+            default:
+                return call_user_func_array(array($instance, $method), $args);
+        }
     }
 }
