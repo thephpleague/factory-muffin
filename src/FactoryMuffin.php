@@ -214,13 +214,14 @@ class FactoryMuffin
     public function deleteSaved()
     {
         $exceptions = array();
+        $method = $this->deleteMethod;
         foreach ($this->saved() as $saved) {
             try {
-                if (!method_exists($saved, $this->deleteMethod)) {
-                    throw new DeleteMethodNotFound($saved, $this->deleteMethod);
+                if (!method_exists($saved, $method)) {
+                    throw new DeleteMethodNotFound($saved, $method);
                 }
 
-                $saved->$deleteMethod();
+                $saved->$method();
             } catch (Exception $e) {
                 $exceptions[] = $e;
             }
