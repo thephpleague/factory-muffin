@@ -135,6 +135,18 @@ class FactoryMuffin
     }
 
     /**
+     * Sets the method used to save objects.
+     *
+     * @param string $method
+     *
+     * @return void
+     */
+    public static function setSaveMethod($method)
+    {
+        return static::fmInstance()->setSaveMethod($method);
+    }
+
+    /**
      * Load the specified factories.
      *
      * @param string|string[] $paths

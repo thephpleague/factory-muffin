@@ -8,6 +8,7 @@ use League\FactoryMuffin\Exception\DeletingFailed;
 use League\FactoryMuffin\Exception\DirectoryNotFound;
 use League\FactoryMuffin\Exception\NoDefinedFactory;
 use League\FactoryMuffin\Exception\Save;
+use League\FactoryMuffin\Exception\SaveMethodNotFound;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RegexIterator;
@@ -45,6 +46,13 @@ class FactoryMuffin
     private $deleteMethod = 'delete';
 
     /**
+     * This is the method used when saving objects.
+     *
+     * @type string
+     */
+    private $saveMethod = 'save';
+
+    /**
      * Creates and saves in db an instance of Model with mock attributes.
      *
      * @param string $model Model class name.
@@ -78,7 +86,13 @@ class FactoryMuffin
      */
     public function save($object)
     {
-        $result = $object->save();
+        $method = $this->saveMethod;
+
+        if (! method_exists($object, $method)) {
+            throw new SaveMethodNotFound($object, $method);
+        }
+
+        $result = $object->$method();
         $this->saved[] = $object;
 
         return $result;
@@ -242,6 +256,18 @@ class FactoryMuffin
     public function setDeleteMethod($method)
     {
         $this->deleteMethod = $method;
+    }
+
+    /**
+     * Set the method we use when saving objects.
+     *
+     * @param string $method
+     *
+     * @return void
+     */
+    public function setSaveMethod($method)
+    {
+        $this->saveMethod = $method;
     }
 
     /**
