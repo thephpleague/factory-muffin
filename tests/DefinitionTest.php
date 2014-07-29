@@ -1,15 +1,17 @@
 <?php
 
-namespace League\FactoryMuffin\Test\Facade;
-
 use League\FactoryMuffin\Facade\FactoryMuffin;
-use League\FactoryMuffin\Test\AbstractTestCase;
 
-class FactoryMuffinTest extends AbstractTestCase
+use League\FactoryMuffin\Exception\DirectoryNotFound;
+
+/**
+ * @group definition
+ */
+class DefinitionTest extends AbstractTestCase
 {
     public function testDefine()
     {
-        $user = FactoryMuffin::create('League\FactoryMuffin\Test\Facade\User');
+        $user = FactoryMuffin::create('UserModelStub');
 
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('boolean', $user->active);
@@ -18,7 +20,7 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testDefineMultiple()
     {
-        $user = FactoryMuffin::create('League\FactoryMuffin\Test\Facade\User');
+        $user = FactoryMuffin::create('UserModelStub');
 
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('boolean', $user->active);
@@ -27,7 +29,7 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testInstance()
     {
-        $user = FactoryMuffin::instance('League\FactoryMuffin\Test\Facade\User');
+        $user = FactoryMuffin::instance('UserModelStub');
 
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('boolean', $user->active);
@@ -36,15 +38,34 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testAttributesFor()
     {
-        $attributes = FactoryMuffin::attributesFor('League\FactoryMuffin\Test\Facade\User');
+        $attributes = FactoryMuffin::attributesFor('UserModelStub');
 
         $this->assertInternalType('string', $attributes['name']);
         $this->assertInternalType('boolean', $attributes['active']);
         $this->assertContains('@', $attributes['email']);
     }
+
+    public function testFactoryLoading()
+    {
+        $count = count(get_included_files());
+
+        FactoryMuffin::loadFactories(__DIR__ . '/stubs');
+
+        $this->assertSame(1, count(get_included_files()) - $count);
+    }
+
+    public function testShouldThrowExceptionWhenLoadingANonexistentDirectory()
+    {
+        try {
+            FactoryMuffin::loadFactories($path = __DIR__ . '/thisdirectorydoesntexist');
+        } catch (DirectoryNotFound $e) {
+            $this->assertEquals("The directory '$path' was not found.", $e->getMessage());
+            $this->assertEquals($path, $e->getPath());
+        }
+    }
 }
 
-class User
+class UserModelStub
 {
     public function save()
     {
@@ -57,7 +78,20 @@ class User
     }
 }
 
-class Profile
+class ProfileModelStub
+{
+    public function save()
+    {
+        return true;
+    }
+
+    public function delete()
+    {
+        return true;
+    }
+}
+
+class ExampleDefinedModelStub
 {
     public function save()
     {

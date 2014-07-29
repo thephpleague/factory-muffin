@@ -1,18 +1,17 @@
 <?php
 
-namespace League\FactoryMuffin\Test;
-
-use DateTime;
 use League\FactoryMuffin\Exception\NoDefinedFactory;
 use League\FactoryMuffin\Exception\MethodNotFound;
-use League\FactoryMuffin\Exception\SaveFailed;
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
+/**
+ * @group main
+ */
 class FactoryMuffinTest extends AbstractTestCase
 {
     public function testDefaultingToFaker()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelB');
+        $obj = FactoryMuffin::instance('FakerDefaultingModelStub');
         $this->assertInternalType('array', $obj->card);
         $this->assertArrayHasKey('type', $obj->card);
         $this->assertArrayHasKey('number', $obj->card);
@@ -22,56 +21,50 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testShouldGetAttributesFor()
     {
-        $attr = FactoryMuffin::attributesFor('League\FactoryMuffin\Test\SampleModelA');
+        $attr = FactoryMuffin::attributesFor('MainModelStub');
         $this->assertEquals(4, strlen($attr['string_4']));
     }
 
     public function testDateKind()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelA');
+        $obj = FactoryMuffin::instance('MainModelStub');
         $dateTime = DateTime::createFromFormat('Y-m-d', $obj->created);
         $this->assertEquals($obj->created, $dateTime->format('Y-m-d'));
     }
 
     public function testInteger()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelA');
+        $obj = FactoryMuffin::instance('MainModelStub');
         $this->assertEquals(9, strlen($obj->number));
     }
 
     public function testName()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelA');
+        $obj = FactoryMuffin::instance('MainModelStub');
         $this->assertTrue(strlen($obj->full_name) > 0);
     }
 
     public function testString()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelA');
+        $obj = FactoryMuffin::instance('MainModelStub');
         $this->assertEquals(4, strlen($obj->string_4));
     }
 
     public function testText()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelA');
+        $obj = FactoryMuffin::instance('MainModelStub');
         $this->assertEquals(4, strlen($obj->text_4));
     }
 
     public function testTextDefault()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelA');
+        $obj = FactoryMuffin::instance('MainModelStub');
         $this->assertEquals(100, strlen($obj->text_100));
-    }
-
-    public function testShouldCreate()
-    {
-        $obj = FactoryMuffin::create('League\FactoryMuffin\Test\SampleModelA');
-        $this->assertTrue(is_numeric($obj->id));
     }
 
     public function testGetIds()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelF');
+        $obj = FactoryMuffin::instance('IdTestModelStub');
 
         $this->assertEquals(1, $obj->modelGetKey);
         $this->assertEquals(1, $obj->modelPk);
@@ -79,20 +72,9 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertNull($obj->model_null);
     }
 
-    public function testShouldThrowExceptionOnModelSaveFailure()
-    {
-        try {
-            FactoryMuffin::create($model = 'League\FactoryMuffin\Test\SampleModelC');
-        } catch (SaveFailed $e) {
-            $this->assertEquals("We could not save the model of type: '$model'.", $e->getMessage());
-            $this->assertEquals($model, $e->getModel());
-            $this->assertNull($e->getErrors());
-        }
-    }
-
     public function testShouldMakeSimpleCalls()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelD');
+        $obj = FactoryMuffin::instance('ComplexModelStub');
 
         $expected = gmdate('Y-m-d', strtotime('+40 days'));
 
@@ -100,27 +82,27 @@ class FactoryMuffinTest extends AbstractTestCase
     }
     public function testShouldPassSimpleArgumentsToCalls()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelD');
+        $obj = FactoryMuffin::instance('ComplexModelStub');
 
         $this->assertRegExp('|^[a-z0-9-]+$|', $obj->slug);
     }
     public function testShouldPassFactoryModelsToCalls()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelD');
+        $obj = FactoryMuffin::instance('ComplexModelStub');
 
         $this->assertRegExp("|^[a-z0-9.']+$|", $obj->munged_model);
     }
 
     public function testFakerDefaultBoolean()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelA');
+        $obj = FactoryMuffin::instance('MainModelStub');
 
         $this->assertInternalType('boolean', $obj->boolean, "Asserting {$obj->boolean} is a boolean");
     }
 
     public function testFakerDefaultLatitude()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelA');
+        $obj = FactoryMuffin::instance('MainModelStub');
 
         $this->assertGreaterThanOrEqual(-90, $obj->lat);
         $this->assertLessThanOrEqual(90, $obj->lat);
@@ -128,7 +110,7 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testFakerDefaultLongitude()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelA');
+        $obj = FactoryMuffin::instance('MainModelStub');
 
         $this->assertGreaterThanOrEqual(-180, $obj->lon);
         $this->assertLessThanOrEqual(180, $obj->lon);
@@ -137,7 +119,7 @@ class FactoryMuffinTest extends AbstractTestCase
     public function testShouldThrowExceptionWhenNoDefinedFactory()
     {
         try {
-            FactoryMuffin::instance($model = 'League\FactoryMuffin\Test\SampleModelE');
+            FactoryMuffin::instance($model = 'ModelWithNoFactoryClassStub');
         } catch (NoDefinedFactory $e) {
             $this->assertEquals("No factory class was defined for the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
@@ -146,13 +128,13 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testShouldAcceptClosureAsAttributeFactory()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\SampleModelA');
+        $obj = FactoryMuffin::instance('MainModelStub');
         $this->assertEquals('just a string', $obj->text_closure);
     }
 
     public function testCanCreateFromStaticMethod()
     {
-        $obj = FactoryMuffin::instance('League\FactoryMuffin\Test\ModelWithStaticMethodFactory');
+        $obj = FactoryMuffin::instance('ModelWithStaticMethodFactory');
 
         $this->assertEquals('just a string', $obj->string);
         $this->assertEquals(4, $obj->four);
@@ -161,49 +143,16 @@ class FactoryMuffinTest extends AbstractTestCase
     public function testThrowExceptionWhenInvalidStaticMethod()
     {
         try {
-            $obj = FactoryMuffin::create($model = 'League\FactoryMuffin\Test\ModelWithMissingStaticMethod');
+            $obj = FactoryMuffin::create($model = 'ModelWithMissingStaticMethod');
         } catch (MethodNotFound $e) {
             $this->assertEquals("The static method 'doesNotExist' was not found on the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
             $this->assertEquals('doesNotExist', $e->getMethod());
         }
     }
-
-    public function testWithValidationErrors()
-    {
-        try {
-            FactoryMuffin::create($model = 'League\FactoryMuffin\Test\SampleModelWithValidationErrors');
-        } catch (SaveFailed $e) {
-            $this->assertEquals("Failed to save. We could not save the model of type: '$model'.", $e->getMessage());
-            $this->assertEquals($model, $e->getModel());
-            $this->assertEquals('Failed to save.', $e->getErrors());
-        }
-    }
 }
 
-class SampleModelWithValidationErrors
-{
-    public $validationErrors = 'Failed to save.';
-
-    public function save()
-    {
-
-    }
-
-    /**
-     * @todo This can be removed once we resolve #97
-     */
-    public function delete()
-    {
-        return true;
-    }
-}
-
-/**
-* Testing only
-*
-*/
-class SampleModelA
+class MainModelStub
 {
     public function save()
     {
@@ -212,57 +161,18 @@ class SampleModelA
         return true;
     }
 
-    /**
-     * @todo This can be removed once we resolve #97
-     */
     public function delete()
     {
         return true;
     }
 }
 
-/**
-* Testing only
-*
-*/
-class SampleModelB extends SampleModelA
+class FakerDefaultingModelStub extends MainModelStub
 {
-    /**
-     * @todo This can be removed once we resolve #97
-     */
-    public function delete()
-    {
-        return true;
-    }
+    //
 }
 
-/**
-* Testing only
-*
-*/
-class SampleModelC
-{
-    // Eloquent models return False on save failure.
-    // We *might* want to throw exceptions in that case.
-    public function save()
-    {
-        return false;
-    }
-
-    /**
-     * @todo This can be removed once we resolve #97
-     */
-    public function delete()
-    {
-        return true;
-    }
-}
-
-/**
- * Testing only
- *
- */
-class SampleModelD
+class ComplexModelStub
 {
     public static function fortyDaysFromNow()
     {
@@ -284,7 +194,7 @@ class SampleModelD
     }
 }
 
-class SampleModelE
+class ModelWithNoFactoryClassStub
 {
     public function save()
     {
@@ -292,7 +202,7 @@ class SampleModelE
     }
 }
 
-class SampleModelF
+class IdTestModelStub
 {
     public function save()
     {
@@ -300,7 +210,7 @@ class SampleModelF
     }
 }
 
-class SampleModelGetKey
+class IdTestModelGetKeyStub
 {
     public function getKey()
     {
@@ -311,17 +221,9 @@ class SampleModelGetKey
     {
         return true;
     }
-
-    /**
-     * @todo This can be removed once we resolve #97
-     */
-    public function delete()
-    {
-        return true;
-    }
 }
 
-class SampleModelPk
+class IdTestModelPkStub
 {
     public function pk()
     {
@@ -332,17 +234,9 @@ class SampleModelPk
     {
         return true;
     }
-
-    /**
-     * @todo This can be removed once we resolve #97
-     */
-    public function delete()
-    {
-        return true;
-    }
 }
 
-class SampleModel_id
+class IdTestModelIdStub
 {
     public $_id = 1;
 
@@ -350,27 +244,11 @@ class SampleModel_id
     {
         return true;
     }
-
-    /**
-     * @todo This can be removed once we resolve #97
-     */
-    public function delete()
-    {
-        return true;
-    }
 }
 
-class SampleModel_null
+class IdTestModelNullStub
 {
     public function save()
-    {
-        return true;
-    }
-
-    /**
-     * @todo This can be removed once we resolve #97
-     */
-    public function delete()
     {
         return true;
     }
@@ -378,6 +256,7 @@ class SampleModel_null
 
 class ModelWithMissingStaticMethod
 {
+    //
 }
 
 class ModelWithStaticMethodFactory
