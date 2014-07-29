@@ -112,7 +112,7 @@ class FactoryMuffin
     }
 
     /**
-     * Call delete on any saved objects
+     * Call delete on any saved objects.
      *
      * @return mixed
      */
@@ -122,9 +122,11 @@ class FactoryMuffin
     }
 
     /**
-     * Sets the method used to delete objects
+     * Sets the method used to delete objects.
      *
      * @param string $method
+     *
+     * @return void
      */
     public static function setDeleteMethod($method)
     {

@@ -35,7 +35,7 @@ class FactoryMuffin
     private $saved = array();
 
     /**
-     * This is the method used when deleting objects
+     * This is the method used when deleting objects.
      *
      * @type string
      */
@@ -201,8 +201,9 @@ class FactoryMuffin
     }
 
     /**
-     * Call the delete method on any saved objects
-     * @return nil
+     * Call the delete method on any saved objects.
+     *
+     * @return void
      */
     public function deleteSaved()
     {
@@ -217,9 +218,11 @@ class FactoryMuffin
     }
 
     /**
-     * Set the method we use when deleting objects
+     * Set the method we use when deleting objects.
      *
      * @param string $method
+     *
+     * @return void
      */
     public function setDeleteMethod($method)
     {
