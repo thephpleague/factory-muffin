@@ -253,7 +253,7 @@ class FactoryMuffin
      *
      * This method will return a string, or an instance of the model.
      *
-     * @param string $kind  The kind of attribute that will be generate.
+     * @param string $kind  The kind of attribute that will be generated.
      * @param string $model The name of the model class.
      * @param bool   $save  Are we saving an object, or just creating an instance?
      *

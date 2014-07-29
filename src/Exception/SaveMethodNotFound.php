@@ -23,7 +23,7 @@ class SaveMethodNotFound extends MethodNotFound
     /**
      * Create a new instance.
      *
-     * @param string $model
+     * @param string $object
      * @param string $method
      * @param string $message
      *

@@ -33,23 +33,23 @@ abstract class Kind
     );
 
     /**
-     * Holds the Kind we are working on.
+     * The kind of attribute that will be generated.
      *
-     * @type \League\FactoryMuffin\Kind
+     * @type string
      */
     protected $kind;
 
     /**
-     * Holds the model data.
+     * The name of the model class.
      *
-     * @type array
+     * @type string
      */
     protected $model;
 
     /**
-     * Holds the faker factory.
+     * The faker factory or generator instance.
      *
-     * @type \Faker\Factory
+     * @type \Faker\Factory|\Faker\Generator
      */
     protected $faker;
 
@@ -63,10 +63,10 @@ abstract class Kind
     /**
      * Initialise our Kind.
      *
-     * @param $kind
-     * @param $model
-     * @param $faker
-     * @param $save Have we saved the parent object, or just created an instance?
+     * @param string                          $kind  The kind of attribute that will be generated.
+     * @param string                          $model The name of the model class.
+     * @param \Faker\Factory|\Faker\Generator $faker The faker factory or generator instance.
+     * @param bool                            $save  Have we saved the parent object?
      */
     public function __construct($kind, $model, $faker, $save = false)
     {
@@ -79,9 +79,9 @@ abstract class Kind
     /**
      * Detect the type of Kind we are processing.
      *
-     * @param mixed $kind
-     * @param array $model
-     * @param bool  $save
+     * @param string $kind  The kind of attribute that will be generated.
+     * @param string $model The name of the model class.
+     * @param bool   $save  Have we saved the parent object?
      *
      * @return \League\FactoryMuffin\Kind
      */
