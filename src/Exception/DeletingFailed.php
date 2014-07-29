@@ -37,7 +37,7 @@ class DeletingFailed extends Exception
         $count = count($exceptions);
 
         if (!$message) {
-            $message = "We encountered $count problems while trying to delete the saved models.";
+            $message = "We encountered $count problem(s) while trying to delete the saved models.";
         }
 
         parent::__construct($message);
