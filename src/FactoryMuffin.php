@@ -2,9 +2,9 @@
 
 namespace League\FactoryMuffin;
 
+use League\FactoryMuffin\Exception\DeleteMethodNotFound;
 use League\FactoryMuffin\Exception\DirectoryNotFound;
 use League\FactoryMuffin\Exception\NoDefinedFactory;
-use League\FactoryMuffin\Exception\DeleteMethodNotFound;
 use League\FactoryMuffin\Exception\Save;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
