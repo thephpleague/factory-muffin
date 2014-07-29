@@ -49,11 +49,12 @@ class SaveAndDeleteTest extends AbstractTestCase
         try {
             FactoryMuffin::deleteSaved();
         } catch (DeletingFailed $e) {
+            $exceptions = $e->getExceptions();
             $this->assertEquals("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
-            $this->assertEquals("The delete method 'bar' was not found on the model of type: '$model'.", $e->getExceptions()[0]->getMessage());
-            $this->assertEquals($model, $e->getExceptions()[0]->getModel());
-            $this->assertEquals('bar', $e->getExceptions()[0]->getMethod());
-            $this->assertInstanceOf($model, $e->getExceptions()[0]->getObject());
+            $this->assertEquals("The delete method 'bar' was not found on the model of type: '$model'.", $exceptions[0]->getMessage());
+            $this->assertEquals($model, $exceptions[0]->getModel());
+            $this->assertEquals('bar', $exceptions[0]->getMethod());
+            $this->assertInstanceOf($model, $exceptions[0]->getObject());
         }
     }
 
@@ -74,8 +75,9 @@ class SaveAndDeleteTest extends AbstractTestCase
             FactoryMuffin::create($model = 'ModelThatFailsToDeleteStub');
             FactoryMuffin::deleteSaved();
         } catch (DeletingFailed $e) {
+            $exceptions = $e->getExceptions();
             $this->assertEquals("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
-            $this->assertEquals("OH NOES!", $e->getExceptions()[0]->getMessage());
+            $this->assertEquals("OH NOES!", $exceptions[0]->getMessage());
         }
     }
 
@@ -97,11 +99,12 @@ class SaveAndDeleteTest extends AbstractTestCase
             FactoryMuffin::create($model = 'ModelWithNoDeleteMethodStub');
             FactoryMuffin::deleteSaved();
         } catch (DeletingFailed $e) {
+            $exceptions = $e->getExceptions();
             $this->assertEquals("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
-            $this->assertEquals("The delete method 'delete' was not found on the model of type: '$model'.", $e->getExceptions()[0]->getMessage());
-            $this->assertEquals($model, $e->getExceptions()[0]->getModel());
-            $this->assertEquals('delete', $e->getExceptions()[0]->getMethod());
-            $this->assertInstanceOf($model, $e->getExceptions()[0]->getObject());
+            $this->assertEquals("The delete method 'delete' was not found on the model of type: '$model'.", $exceptions[0]->getMessage());
+            $this->assertEquals($model, $exceptions[0]->getModel());
+            $this->assertEquals('delete', $exceptions[0]->getMethod());
+            $this->assertInstanceOf($model, $exceptions[0]->getObject());
         }
     }
 
@@ -123,12 +126,13 @@ class SaveAndDeleteTest extends AbstractTestCase
             FactoryMuffin::create($model = 'ModelWithNoDeleteMethodStub');
             FactoryMuffin::deleteSaved();
         } catch (DeletingFailed $e) {
+            $exceptions = $e->getExceptions();
             $this->assertEquals("We encountered 2 problem(s) while trying to delete the saved models.", $e->getMessage());
-            $this->assertEquals("OH NOES!", $e->getExceptions()[0]->getMessage());
-            $this->assertEquals("The delete method 'delete' was not found on the model of type: '$model'.", $e->getExceptions()[1]->getMessage());
-            $this->assertEquals($model, $e->getExceptions()[1]->getModel());
-            $this->assertEquals('delete', $e->getExceptions()[1]->getMethod());
-            $this->assertInstanceOf($model, $e->getExceptions()[1]->getObject());
+            $this->assertEquals("OH NOES!", $exceptions[0]->getMessage());
+            $this->assertEquals("The delete method 'delete' was not found on the model of type: '$model'.", $exceptions[1]->getMessage());
+            $this->assertEquals($model, $exceptions[1]->getModel());
+            $this->assertEquals('delete', $exceptions[1]->getMethod());
+            $this->assertInstanceOf($model, $exceptions[1]->getObject());
             $this->assertInternalType('array', $e->getExceptions());
             $this->assertCount(2, $e->getExceptions());
         }
