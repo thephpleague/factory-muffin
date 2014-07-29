@@ -112,6 +112,28 @@ class FactoryMuffin
     }
 
     /**
+     * Call delete on any saved objects.
+     *
+     * @return mixed
+     */
+    public static function deleteSaved()
+    {
+        return static::fmInstance()->deleteSaved();
+    }
+
+    /**
+     * Sets the method used to delete objects.
+     *
+     * @param string $method
+     *
+     * @return void
+     */
+    public static function setDeleteMethod($method)
+    {
+        return static::fmInstance()->setDeleteMethod($method);
+    }
+
+    /**
      * Load the specified factories.
      *
      * @param string|string[] $paths

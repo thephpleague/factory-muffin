@@ -50,11 +50,21 @@ class User
     {
         return true;
     }
+
+    public function delete()
+    {
+        return true;
+    }
 }
 
 class Profile
 {
     public function save()
+    {
+        return true;
+    }
+
+    public function delete()
     {
         return true;
     }

@@ -2,6 +2,7 @@
 
 namespace League\FactoryMuffin;
 
+use League\FactoryMuffin\Exception\DeleteMethodNotFound;
 use League\FactoryMuffin\Exception\DirectoryNotFound;
 use League\FactoryMuffin\Exception\NoDefinedFactory;
 use League\FactoryMuffin\Exception\Save;
@@ -32,6 +33,13 @@ class FactoryMuffin
      * @type array
      */
     private $saved = array();
+
+    /**
+     * This is the method used when deleting objects.
+     *
+     * @type string
+     */
+    private $deleteMethod = 'delete';
 
     /**
      * Creates and saves in db an instance of Model with mock attributes.
@@ -190,6 +198,35 @@ class FactoryMuffin
     public function saved()
     {
         return $this->saved;
+    }
+
+    /**
+     * Call the delete method on any saved objects.
+     *
+     * @return void
+     */
+    public function deleteSaved()
+    {
+        $deleteMethod = $this->deleteMethod;
+        foreach ($this->saved() as $saved) {
+            if (! method_exists($saved, $deleteMethod)) {
+                throw new DeleteMethodNotFound($saved, $deleteMethod);
+            }
+
+            $saved->$deleteMethod();
+        }
+    }
+
+    /**
+     * Set the method we use when deleting objects.
+     *
+     * @param string $method
+     *
+     * @return void
+     */
+    public function setDeleteMethod($method)
+    {
+        $this->deleteMethod = $method;
     }
 
     /**

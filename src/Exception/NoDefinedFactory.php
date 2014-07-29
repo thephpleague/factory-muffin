@@ -23,13 +23,19 @@ class NoDefinedFactory extends \Exception
      * Create a new instance.
      *
      * @param string $model
+     * @param string $message
      *
      * @return void
      */
-    public function __construct($model)
+    public function __construct($model, $message = null)
     {
         $this->model = $model;
-        parent::__construct("No factory class was defined for the model of type: '$model'.");
+
+        if (!$message) {
+            $message = "No factory class was defined for the model of type: '$model'.";
+        }
+
+        parent::__construct($message);
     }
 
     /**

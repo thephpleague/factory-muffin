@@ -23,13 +23,19 @@ class DirectoryNotFound extends \Exception
      * Create a new instance.
      *
      * @param string $path
+     * @param string $message
      *
      * @return void
      */
-    public function __construct($path)
+    public function __construct($path, $message = null)
     {
         $this->path = $path;
-        parent::__construct("The directory '$path' was not found.");
+
+        if (!$message) {
+            $message = "The directory '$path' was not found.";
+        }
+
+        parent::__construct($message);
     }
 
     /**

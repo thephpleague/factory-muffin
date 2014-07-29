@@ -10,4 +10,9 @@ class TestCase extends \PHPUnit_Framework_TestCase
     {
         FactoryMuffin::loadFactories(__DIR__ . '/factories');
     }
+
+    public static function tearDownAfterClass()
+    {
+      FactoryMuffin::deleteSaved();
+    }
 }
