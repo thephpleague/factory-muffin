@@ -3,9 +3,9 @@
 namespace League\FactoryMuffin\Test\Facade;
 
 use League\FactoryMuffin\Facade\FactoryMuffin;
-use League\FactoryMuffin\Test\TestCase;
+use League\FactoryMuffin\Test\AbstractTestCase;
 
-class FactoryMuffinTest extends TestCase
+class FactoryMuffinTest extends AbstractTestCase
 {
     public function testDefine()
     {
