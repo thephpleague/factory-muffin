@@ -55,9 +55,9 @@ abstract class Kind
     /**
      * Have we saved the parent object, or just created an instance?
      *
-     * @var boolean
+     * @type boolean
      */
-    protected $save = false;
+    protected $save;
 
     /**
      * Initialise our Kind.
@@ -80,7 +80,7 @@ abstract class Kind
      *
      * @param string $kind
      * @param array  $model
-     * @param boolean  $save
+     * @param bool   $save
      *
      * @return \League\FactoryMuffin\Kind
      */
