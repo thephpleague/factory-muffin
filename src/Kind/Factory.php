@@ -36,7 +36,13 @@ class Factory extends Kind
      */
     public function generate()
     {
-        $model = FactoryMuffin::create(substr($this->kind, 8));
+
+        if ($this->save) {
+            $model = FactoryMuffin::create(substr($this->kind, 8));
+        } else {
+            $model = FactoryMuffin::instance(substr($this->kind, 8));
+        }
+
         return $this->getId($model);
     }
 
