@@ -2,8 +2,6 @@
 
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
-FactoryMuffin::define('SampleModelWithValidationErrors', array());
-FactoryMuffin::define('ModelCStub', array());
 FactoryMuffin::define('ModelFGetKeyStub', array());
 FactoryMuffin::define('ModelFPkStub', array());
 FactoryMuffin::define('ModelFIdStub', array());
@@ -59,15 +57,4 @@ FactoryMuffin::define('ModelWithStaticMethodFactory', array(
     'four'   => function () {
         return 2 + 2;
     },
-));
-
-FactoryMuffin::define('ProfileModelStub', array(
-    'profile' => 'text',
-));
-
-FactoryMuffin::define('UserModelStub', array(
-    'name'    => 'string',
-    'active'  => 'boolean',
-    'email'   => 'email',
-    'profile' => 'factory|ProfileModelStub',
 ));
