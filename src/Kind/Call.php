@@ -21,7 +21,7 @@ class Call extends Kind
     /**
      * Generate, and return the attribute.
      *
-     * @throws \Exception
+     * @throws \League\FactoryMuffin\Exception\MethodNotFound
      *
      * @return mixed
      */

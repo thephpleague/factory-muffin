@@ -82,6 +82,8 @@ class FactoryMuffin
      *
      * @param object $object
      *
+     * @throws \League\FactoryMuffin\Exception\SaveMethodNotFound
+     *
      * @return mixed
      */
     public function save($object)
@@ -197,6 +199,8 @@ class FactoryMuffin
      *
      * @param string|string[] $paths
      *
+     * @throws \League\FactoryMuffin\Exception\DirectoryNotFound
+     *
      * @return void
      */
     public function loadFactories($paths)
@@ -222,6 +226,9 @@ class FactoryMuffin
 
     /**
      * Call the delete method on any saved objects.
+     *
+     * @throws \League\FactoryMuffin\Exception\DeletingFailed
+     * @throws \League\FactoryMuffin\Exception\DeleteMethodNotFound
      *
      * @return void
      */
