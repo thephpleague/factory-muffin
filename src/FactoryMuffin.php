@@ -39,13 +39,6 @@ class FactoryMuffin
     private $saved = array();
 
     /**
-     * This is the method used when deleting objects.
-     *
-     * @type string
-     */
-    private $deleteMethod = 'delete';
-
-    /**
      * This is the method used when saving objects.
      *
      * @type string
@@ -53,7 +46,40 @@ class FactoryMuffin
     private $saveMethod = 'save';
 
     /**
-     * Creates and saves in db an instance of Model with mock attributes.
+     * This is the method used when deleting objects.
+     *
+     * @type string
+     */
+    private $deleteMethod = 'delete';
+
+    /**
+     * Set the method we use when saving objects.
+     *
+     * @param string $method
+     *
+     * @return void
+     */
+    public function setSaveMethod($method)
+    {
+        $this->saveMethod = $method;
+    }
+
+    /**
+     * Set the method we use when deleting objects.
+     *
+     * @param string $method
+     *
+     * @return void
+     */
+    public function setDeleteMethod($method)
+    {
+        $this->deleteMethod = $method;
+    }
+
+    /**
+     * Creates and saves in db an instance of the model.
+     *
+     * This object will be generated with mock attributes.
      *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
@@ -78,7 +104,7 @@ class FactoryMuffin
     }
 
     /**
-     * Save our object to the DB, and keep track of it.
+     * Save our object to the db, and keep track of it.
      *
      * @param object $object
      *
@@ -98,120 +124,6 @@ class FactoryMuffin
         $this->saved[] = $object;
 
         return $result;
-    }
-
-    /**
-     * Return an instance of the model, which is not saved in the database.
-     *
-     * @param string $model Model class name.
-     * @param bool   $save  Are we saving an object, or just creating an instance?
-     * @param array  $attr  Model attributes.
-     *
-     * @return object
-     */
-    public function instance($model, $attr = array(), $save = false)
-    {
-        // Get the factory attributes for that model
-        $attr_array = $this->attributesFor($model, $attr, $save);
-
-        // Create, set, save and return instance
-        $obj = new $model();
-
-        foreach ($attr_array as $attr => $value) {
-            $obj->$attr = $value;
-        }
-
-        return $obj;
-    }
-
-    /**
-     * Returns an array of mock attributes for the specified model.
-     *
-     * @param string $model Model class name.
-     * @param array  $attr  Model attributes.
-     * @param bool   $save  Are we saving an object, or just creating an instance?
-     *
-     * @return array
-     */
-    public function attributesFor($model, $attr = array(), $save = false)
-    {
-        $factory_attrs = $this->getFactoryAttrs($model);
-
-        // Prepare attributes
-        foreach ($factory_attrs as $key => $kind) {
-            if (!isset($attr[$key])) {
-                $attr[$key] = $this->generateAttr($kind, $model, $save);
-            }
-        }
-
-        return $attr;
-    }
-
-    /**
-     * Define a new model factory.
-     *
-     * @param string $model      Model class name.
-     * @param array  $definition Array with definition of attributes.
-     *
-     * @return void
-     */
-    public function define($model, array $definition = array())
-    {
-        $this->factories[$model] = $definition;
-    }
-
-    /**
-     * Get factory attributes.
-     *
-     * @param string $model Model class name.
-     *
-     * @throws \League\FactoryMuffin\Exception\NoDefinedFactory
-     *
-     * @return mixed
-     */
-    private function getFactoryAttrs($model)
-    {
-        if (isset($this->factories[$model])) {
-            return $this->factories[$model];
-        }
-
-        throw new NoDefinedFactory($model);
-    }
-
-    /**
-     * Generate the attributes and return a string, or an instance of the model.
-     *
-     * @param string $kind  The kind of attribute that will be generate.
-     * @param string $model The name of the model class.
-     * @param bool   $save  Are we saving an object, or just creating an instance?
-     *
-     * @return string|object
-     */
-    public function generateAttr($kind, $model = null, $save = false)
-    {
-        $kind = Kind::detect($kind, $model, $save);
-
-        return $kind->generate();
-    }
-
-    /**
-     * Load the specified factories.
-     *
-     * @param string|string[] $paths
-     *
-     * @throws \League\FactoryMuffin\Exception\DirectoryNotFound
-     *
-     * @return void
-     */
-    public function loadFactories($paths)
-    {
-        foreach ((array) $paths as $path) {
-            if (!is_dir($path)) {
-                throw new DirectoryNotFound($path);
-            }
-
-            $this->loadDirectory($path);
-        }
     }
 
     /**
@@ -256,27 +168,126 @@ class FactoryMuffin
     }
 
     /**
-     * Set the method we use when deleting objects.
+     * Return an instance of the model.
      *
-     * @param string $method
+     * This does not save it in the database. Use the create method to create
+     * and save to the db, or pass the object from this method into the save method.
      *
-     * @return void
+     * @param string $model Model class name.
+     * @param array  $attr  Model attributes.
+     * @param bool   $save  Are we saving an object, or just creating an instance?
+     *
+     * @return object
      */
-    public function setDeleteMethod($method)
+    public function instance($model, $attr = array(), $save = false)
     {
-        $this->deleteMethod = $method;
+        // Get the factory attributes for that model
+        $attr_array = $this->attributesFor($model, $attr, $save);
+
+        // Create, set, save and return instance
+        $obj = new $model();
+
+        foreach ($attr_array as $attr => $value) {
+            $obj->$attr = $value;
+        }
+
+        return $obj;
     }
 
     /**
-     * Set the method we use when saving objects.
+     * Returns the mock attributes for the model.
      *
-     * @param string $method
+     * @param string $model Model class name.
+     * @param array  $attr  Model attributes.
+     * @param bool   $save  Are we saving an object, or just creating an instance?
+     *
+     * @return array
+     */
+    public function attributesFor($model, $attr = array(), $save = false)
+    {
+        $factory_attrs = $this->getFactoryAttrs($model);
+
+        // Prepare attributes
+        foreach ($factory_attrs as $key => $kind) {
+            if (!isset($attr[$key])) {
+                $attr[$key] = $this->generateAttr($kind, $model, $save);
+            }
+        }
+
+        return $attr;
+    }
+
+    /**
+     * Get factory attributes.
+     *
+     * @param string $model Model class name.
+     *
+     * @throws \League\FactoryMuffin\Exception\NoDefinedFactory
+     *
+     * @return array
+     */
+    private function getFactoryAttrs($model)
+    {
+        if (isset($this->factories[$model])) {
+            return $this->factories[$model];
+        }
+
+        throw new NoDefinedFactory($model);
+    }
+
+    /**
+     * Define a new model factory.
+     *
+     * @param string $model      Model class name.
+     * @param array  $definition Array with definition of attributes.
      *
      * @return void
      */
-    public function setSaveMethod($method)
+    public function define($model, array $definition = array())
     {
-        $this->saveMethod = $method;
+        $this->factories[$model] = $definition;
+    }
+
+    /**
+     * Generate the attributes.
+     *
+     * This method will return a string, or an instance of the model.
+     *
+     * @param string $kind  The kind of attribute that will be generate.
+     * @param string $model The name of the model class.
+     * @param bool   $save  Are we saving an object, or just creating an instance?
+     *
+     * @return string|object
+     */
+    public function generateAttr($kind, $model = null, $save = false)
+    {
+        $kind = Kind::detect($kind, $model, $save);
+
+        return $kind->generate();
+    }
+
+    /**
+     * Load the specified factories.
+     *
+     * This method expects either a single path to a directory containing php
+     * files, or an array of directory paths, and will include_once every file.
+     * These files should contain factory definitions for your models.
+     *
+     * @param string|string[] $paths
+     *
+     * @throws \League\FactoryMuffin\Exception\DirectoryNotFound
+     *
+     * @return void
+     */
+    public function loadFactories($paths)
+    {
+        foreach ((array) $paths as $path) {
+            if (!is_dir($path)) {
+                throw new DirectoryNotFound($path);
+            }
+
+            $this->loadDirectory($path);
+        }
     }
 
     /**
