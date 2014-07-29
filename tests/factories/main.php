@@ -2,31 +2,31 @@
 
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
-FactoryMuffin::define('ModelFGetKeyStub', array());
-FactoryMuffin::define('ModelFPkStub', array());
-FactoryMuffin::define('ModelFIdStub', array());
-FactoryMuffin::define('ModelFNullStub', array());
+FactoryMuffin::define('IdTestModelGetKeyStub', array());
+FactoryMuffin::define('IdTestModelPkStub', array());
+FactoryMuffin::define('IdTestModelIdStub', array());
+FactoryMuffin::define('IdTestModelNullStub', array());
 
 FactoryMuffin::define('ModelWithMissingStaticMethod', array(
     'does_not_exist' => 'call|doesNotExist',
 ));
 
-FactoryMuffin::define('ModelFStub', array(
-    'modelGetKey' => 'factory|ModelFGetKeyStub',
-    'modelPk'     => 'factory|ModelFPkStub',
-    'model_id'    => 'factory|ModelFIdStub',
-    'model_null'  => 'factory|ModelFNullStub',
+FactoryMuffin::define('IdTestModelStub', array(
+    'modelGetKey' => 'factory|IdTestModelGetKeyStub',
+    'modelPk'     => 'factory|IdTestModelPkStub',
+    'model_id'    => 'factory|IdTestModelIdStub',
+    'model_null'  => 'factory|IdTestModelNullStub',
 ));
 
-FactoryMuffin::define('ModelBStub', array(
+FactoryMuffin::define('FakerDefaultingModelStub', array(
     'title'   => 'string',
     'email'   => 'email',
     'content' => 'text',
     'card'    => 'creditCardDetails',
 ));
 
-FactoryMuffin::define('ModelAStub', array(
-    'modelb_id'    => 'factory|ModelBStub',
+FactoryMuffin::define('MainModelStub', array(
+    'modelb_id'    => 'factory|FakerDefaultingModelStub',
     'name'         => 'string',
     'email'        => 'email',
     'message'      => 'text',
@@ -46,10 +46,10 @@ FactoryMuffin::define('ModelAStub', array(
     },
 ));
 
-FactoryMuffin::define('ModelDStub', array(
+FactoryMuffin::define('ComplexModelStub', array(
     'future'       => 'call|fortyDaysFromNow',
     'slug'         => 'call|makeSlug|text',
-    'munged_model' => 'call|mungeModel|factory|ModelAStub',
+    'munged_model' => 'call|mungeModel|factory|MainModelStub',
 ));
 
 FactoryMuffin::define('ModelWithStaticMethodFactory', array(

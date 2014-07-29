@@ -11,7 +11,7 @@ class FactoryMuffinTest extends AbstractTestCase
 {
     public function testDefaultingToFaker()
     {
-        $obj = FactoryMuffin::instance('ModelBStub');
+        $obj = FactoryMuffin::instance('FakerDefaultingModelStub');
         $this->assertInternalType('array', $obj->card);
         $this->assertArrayHasKey('type', $obj->card);
         $this->assertArrayHasKey('number', $obj->card);
@@ -21,50 +21,50 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testShouldGetAttributesFor()
     {
-        $attr = FactoryMuffin::attributesFor('ModelAStub');
+        $attr = FactoryMuffin::attributesFor('MainModelStub');
         $this->assertEquals(4, strlen($attr['string_4']));
     }
 
     public function testDateKind()
     {
-        $obj = FactoryMuffin::instance('ModelAStub');
+        $obj = FactoryMuffin::instance('MainModelStub');
         $dateTime = DateTime::createFromFormat('Y-m-d', $obj->created);
         $this->assertEquals($obj->created, $dateTime->format('Y-m-d'));
     }
 
     public function testInteger()
     {
-        $obj = FactoryMuffin::instance('ModelAStub');
+        $obj = FactoryMuffin::instance('MainModelStub');
         $this->assertEquals(9, strlen($obj->number));
     }
 
     public function testName()
     {
-        $obj = FactoryMuffin::instance('ModelAStub');
+        $obj = FactoryMuffin::instance('MainModelStub');
         $this->assertTrue(strlen($obj->full_name) > 0);
     }
 
     public function testString()
     {
-        $obj = FactoryMuffin::instance('ModelAStub');
+        $obj = FactoryMuffin::instance('MainModelStub');
         $this->assertEquals(4, strlen($obj->string_4));
     }
 
     public function testText()
     {
-        $obj = FactoryMuffin::instance('ModelAStub');
+        $obj = FactoryMuffin::instance('MainModelStub');
         $this->assertEquals(4, strlen($obj->text_4));
     }
 
     public function testTextDefault()
     {
-        $obj = FactoryMuffin::instance('ModelAStub');
+        $obj = FactoryMuffin::instance('MainModelStub');
         $this->assertEquals(100, strlen($obj->text_100));
     }
 
     public function testGetIds()
     {
-        $obj = FactoryMuffin::instance('ModelFStub');
+        $obj = FactoryMuffin::instance('IdTestModelStub');
 
         $this->assertEquals(1, $obj->modelGetKey);
         $this->assertEquals(1, $obj->modelPk);
@@ -74,7 +74,7 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testShouldMakeSimpleCalls()
     {
-        $obj = FactoryMuffin::instance('ModelDStub');
+        $obj = FactoryMuffin::instance('ComplexModelStub');
 
         $expected = gmdate('Y-m-d', strtotime('+40 days'));
 
@@ -82,27 +82,27 @@ class FactoryMuffinTest extends AbstractTestCase
     }
     public function testShouldPassSimpleArgumentsToCalls()
     {
-        $obj = FactoryMuffin::instance('ModelDStub');
+        $obj = FactoryMuffin::instance('ComplexModelStub');
 
         $this->assertRegExp('|^[a-z0-9-]+$|', $obj->slug);
     }
     public function testShouldPassFactoryModelsToCalls()
     {
-        $obj = FactoryMuffin::instance('ModelDStub');
+        $obj = FactoryMuffin::instance('ComplexModelStub');
 
         $this->assertRegExp("|^[a-z0-9.']+$|", $obj->munged_model);
     }
 
     public function testFakerDefaultBoolean()
     {
-        $obj = FactoryMuffin::instance('ModelAStub');
+        $obj = FactoryMuffin::instance('MainModelStub');
 
         $this->assertInternalType('boolean', $obj->boolean, "Asserting {$obj->boolean} is a boolean");
     }
 
     public function testFakerDefaultLatitude()
     {
-        $obj = FactoryMuffin::instance('ModelAStub');
+        $obj = FactoryMuffin::instance('MainModelStub');
 
         $this->assertGreaterThanOrEqual(-90, $obj->lat);
         $this->assertLessThanOrEqual(90, $obj->lat);
@@ -110,7 +110,7 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testFakerDefaultLongitude()
     {
-        $obj = FactoryMuffin::instance('ModelAStub');
+        $obj = FactoryMuffin::instance('MainModelStub');
 
         $this->assertGreaterThanOrEqual(-180, $obj->lon);
         $this->assertLessThanOrEqual(180, $obj->lon);
@@ -119,7 +119,7 @@ class FactoryMuffinTest extends AbstractTestCase
     public function testShouldThrowExceptionWhenNoDefinedFactory()
     {
         try {
-            FactoryMuffin::instance($model = 'ModelEStub');
+            FactoryMuffin::instance($model = 'ModelWithNoFactoryClassStub');
         } catch (NoDefinedFactory $e) {
             $this->assertEquals("No factory class was defined for the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
@@ -128,7 +128,7 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testShouldAcceptClosureAsAttributeFactory()
     {
-        $obj = FactoryMuffin::instance('ModelAStub');
+        $obj = FactoryMuffin::instance('MainModelStub');
         $this->assertEquals('just a string', $obj->text_closure);
     }
 
@@ -153,7 +153,7 @@ class FactoryMuffinTest extends AbstractTestCase
 }
 
 
-class ModelAStub
+class MainModelStub
 {
     public function save()
     {
@@ -168,12 +168,12 @@ class ModelAStub
     }
 }
 
-class ModelBStub extends ModelAStub
+class FakerDefaultingModelStub extends MainModelStub
 {
     //
 }
 
-class ModelDStub
+class ComplexModelStub
 {
     public static function fortyDaysFromNow()
     {
@@ -195,7 +195,7 @@ class ModelDStub
     }
 }
 
-class ModelEStub
+class ModelWithNoFactoryClassStub
 {
     public function save()
     {
@@ -203,7 +203,7 @@ class ModelEStub
     }
 }
 
-class ModelFStub
+class IdTestModelStub
 {
     public function save()
     {
@@ -211,7 +211,7 @@ class ModelFStub
     }
 }
 
-class ModelFGetKeyStub
+class IdTestModelGetKeyStub
 {
     public function getKey()
     {
@@ -224,7 +224,7 @@ class ModelFGetKeyStub
     }
 }
 
-class ModelFPkStub
+class IdTestModelPkStub
 {
     public function pk()
     {
@@ -237,7 +237,7 @@ class ModelFPkStub
     }
 }
 
-class ModelFIdStub
+class IdTestModelIdStub
 {
     public $_id = 1;
 
@@ -247,7 +247,7 @@ class ModelFIdStub
     }
 }
 
-class ModelFNullStub
+class IdTestModelNullStub
 {
     public function save()
     {
