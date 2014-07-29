@@ -74,6 +74,12 @@ class TestUserModel extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Message', $message);
         $this->assertInstanceOf('User', $message->user);
     }
+
+    public static function tearDownAfterClass()
+    {
+        FactoryMuffin::setDeleteMethod('delete');
+        FactoryMuffin::deleteSaved();
+    }
 }
 ```
 
