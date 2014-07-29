@@ -4,7 +4,7 @@ namespace League\FactoryMuffin\Test;
 
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
-class FactoryMuffinTest extends TestCase
+class FactoryMuffinTest extends AbstractTestCase
 {
     public function testDefaultingToFaker()
     {

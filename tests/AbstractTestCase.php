@@ -3,8 +3,9 @@
 namespace League\FactoryMuffin\Test;
 
 use League\FactoryMuffin\Facade\FactoryMuffin;
+use PHPUnit_Framework_TestCase as BaseTestCase;
 
-class TestCase extends \PHPUnit_Framework_TestCase
+abstract class AbstractTestCase extends BaseTestCase
 {
     public static function setupBeforeClass()
     {
