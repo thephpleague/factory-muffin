@@ -35,16 +35,16 @@ class Save extends \Exception
      *
      * @return void
      */
-    public function __construct($model, $errors = null)
+    public function __construct($model, $errors = null, $message = null)
     {
         $this->model = $model;
         $this->errors = $errors;
 
         if (!$message) {
             if ($errors) {
-                $message = "$errors We could not save the model of type: '$model'.");
+                $message = "$errors We could not save the model of type: '$model'.";
             } else {
-                $message = "We could not save the model of type: '$model'.");
+                $message = "We could not save the model of type: '$model'.";
             }
         }
 
