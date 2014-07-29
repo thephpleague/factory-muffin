@@ -2,7 +2,6 @@
 
 use League\FactoryMuffin\Exception\NoDefinedFactory;
 use League\FactoryMuffin\Exception\MethodNotFound;
-use League\FactoryMuffin\Exception\SaveFailed;
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
 class FactoryMuffinTest extends AbstractTestCase
@@ -60,12 +59,6 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertEquals(100, strlen($obj->text_100));
     }
 
-    public function testShouldCreate()
-    {
-        $obj = FactoryMuffin::create('ModelAStub');
-        $this->assertTrue(is_numeric($obj->id));
-    }
-
     public function testGetIds()
     {
         $obj = FactoryMuffin::instance('ModelFStub');
@@ -74,17 +67,6 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertEquals(1, $obj->modelPk);
         $this->assertEquals(1, $obj->model_id);
         $this->assertNull($obj->model_null);
-    }
-
-    public function testShouldThrowExceptionOnModelSaveFailure()
-    {
-        try {
-            FactoryMuffin::create($model = 'ModelCStub');
-        } catch (SaveFailed $e) {
-            $this->assertEquals("We could not save the model of type: '$model'.", $e->getMessage());
-            $this->assertEquals($model, $e->getModel());
-            $this->assertNull($e->getErrors());
-        }
     }
 
     public function testShouldMakeSimpleCalls()
@@ -165,34 +147,8 @@ class FactoryMuffinTest extends AbstractTestCase
             $this->assertEquals('doesNotExist', $e->getMethod());
         }
     }
-
-    public function testWithValidationErrors()
-    {
-        try {
-            FactoryMuffin::create($model = 'SampleModelWithValidationErrors');
-        } catch (SaveFailed $e) {
-            $this->assertEquals("Failed to save. We could not save the model of type: '$model'.", $e->getMessage());
-            $this->assertEquals($model, $e->getModel());
-            $this->assertEquals('Failed to save.', $e->getErrors());
-        }
-    }
 }
 
-
-class SampleModelWithValidationErrors
-{
-    public $validationErrors = 'Failed to save.';
-
-    public function save()
-    {
-
-    }
-
-    public function delete()
-    {
-        return true;
-    }
-}
 
 class ModelAStub
 {
@@ -212,21 +168,6 @@ class ModelAStub
 class ModelBStub extends ModelAStub
 {
     //
-}
-
-class ModelCStub
-{
-    // Eloquent models return False on save failure.
-    // We *might* want to throw exceptions in that case.
-    public function save()
-    {
-        return false;
-    }
-
-    public function delete()
-    {
-        return true;
-    }
 }
 
 class ModelDStub
