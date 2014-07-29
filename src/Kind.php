@@ -88,7 +88,7 @@ abstract class Kind
     public static function detect($kind, $model = null, $save = false)
     {
         // TODO: Move this somewhere where its only instantiated once
-        $faker = new Faker;
+        $faker = new Faker();
 
         if ($kind instanceof \Closure) {
             return new Kind\Closure($kind, $model, $faker, $save);
