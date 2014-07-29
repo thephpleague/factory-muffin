@@ -90,7 +90,7 @@ class FactoryMuffin
     {
         $method = $this->saveMethod;
 
-        if (! method_exists($object, $method)) {
+        if (!method_exists($object, $method)) {
             throw new SaveMethodNotFound($object, $method);
         }
 
