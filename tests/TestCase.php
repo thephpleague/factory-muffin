@@ -14,6 +14,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
+        FactoryMuffin::setDeleteMethod('delete');
         FactoryMuffin::deleteSaved();
     }
 }
