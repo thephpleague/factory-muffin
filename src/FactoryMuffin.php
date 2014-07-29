@@ -7,7 +7,7 @@ use League\FactoryMuffin\Exception\DeleteMethodNotFound;
 use League\FactoryMuffin\Exception\DeletingFailed;
 use League\FactoryMuffin\Exception\DirectoryNotFound;
 use League\FactoryMuffin\Exception\NoDefinedFactory;
-use League\FactoryMuffin\Exception\Save;
+use League\FactoryMuffin\Exception\SaveFailed;
 use League\FactoryMuffin\Exception\SaveMethodNotFound;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -58,7 +58,7 @@ class FactoryMuffin
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
      *
-     * @throws \League\FactoryMuffin\Exception\Save
+     * @throws \League\FactoryMuffin\Exception\SaveFailed
      *
      * @return object
      */
@@ -68,10 +68,10 @@ class FactoryMuffin
 
         if (!$this->save($obj)) {
             if (isset($obj->validationErrors) && $obj->validationErrors) {
-                throw new Save($model, $obj->validationErrors);
+                throw new SaveFailed($model, $obj->validationErrors);
             }
 
-            throw new Save($model);
+            throw new SaveFailed($model);
         }
 
         return $obj;
@@ -81,6 +81,8 @@ class FactoryMuffin
      * Save our object to the DB, and keep track of it.
      *
      * @param object $object
+     *
+     * @throws \League\FactoryMuffin\Exception\SaveMethodNotFound
      *
      * @return mixed
      */
@@ -197,6 +199,8 @@ class FactoryMuffin
      *
      * @param string|string[] $paths
      *
+     * @throws \League\FactoryMuffin\Exception\DirectoryNotFound
+     *
      * @return void
      */
     public function loadFactories($paths)
@@ -222,6 +226,9 @@ class FactoryMuffin
 
     /**
      * Call the delete method on any saved objects.
+     *
+     * @throws \League\FactoryMuffin\Exception\DeletingFailed
+     * @throws \League\FactoryMuffin\Exception\DeleteMethodNotFound
      *
      * @return void
      */
