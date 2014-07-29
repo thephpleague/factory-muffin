@@ -33,7 +33,7 @@ abstract class Kind
     );
 
     /**
-     * The kind of attribute that will be generate.
+     * The kind of attribute that will be generated.
      *
      * @type string
      */
@@ -63,7 +63,7 @@ abstract class Kind
     /**
      * Initialise our Kind.
      *
-     * @param string                          $kind  The kind of attribute that will be generate.
+     * @param string                          $kind  The kind of attribute that will be generated.
      * @param string                          $model The name of the model class.
      * @param \Faker\Factory|\Faker\Generator $faker The faker factory or generator instance.
      * @param bool                            $save  Have we saved the parent object?
@@ -79,7 +79,7 @@ abstract class Kind
     /**
      * Detect the type of Kind we are processing.
      *
-     * @param string $kind  The kind of attribute that will be generate.
+     * @param string $kind  The kind of attribute that will be generated.
      * @param string $model The name of the model class.
      * @param bool   $save  Have we saved the parent object?
      *
