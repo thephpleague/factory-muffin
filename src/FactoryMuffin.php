@@ -77,7 +77,7 @@ class FactoryMuffin
      * Return an instance of the model, which is not saved in the database.
      *
      * @param string $model Model class name.
-     * @param boolean $save Are we saving an object, or just creating an instance?
+     * @param bool   $save  Are we saving an object, or just creating an instance?
      * @param array  $attr  Model attributes.
      *
      * @return object
@@ -102,7 +102,7 @@ class FactoryMuffin
      *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
-     * @param boolean $save Are we saving an object, or just creating an instance?
+     * @param bool   $save  Are we saving an object, or just creating an instance?
      *
      * @return array
      */
@@ -156,7 +156,7 @@ class FactoryMuffin
      *
      * @param string $kind  The kind of attribute that will be generate.
      * @param string $model The name of the model class.
-     * @param boolean $save Are we saving an object, or just creating an instance?
+     * @param bool   $save  Are we saving an object, or just creating an instance?
      *
      * @return string|object
      */
