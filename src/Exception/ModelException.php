@@ -2,8 +2,10 @@
 
 namespace League\FactoryMuffin\Exception;
 
+use Exception;
+
 /**
- * Class NoDefinedFactoryException.
+ * Class ModelException.
  *
  * @package League\FactoryMuffin\Exception
  * @author  Zizaco <zizaco@gmail.com>
@@ -11,8 +13,15 @@ namespace League\FactoryMuffin\Exception;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class NoDefinedFactoryException extends ModelException
+class ModelException extends Exception
 {
+    /**
+     * The model.
+     *
+     * @type string
+     */
+    private $model;
+
     /**
      * Create a new instance.
      *
@@ -21,12 +30,20 @@ class NoDefinedFactoryException extends ModelException
      *
      * @return void
      */
-    public function __construct($model, $message = null)
+    public function __construct($model, $message)
     {
-        if (!$message) {
-            $message = "No factory class was defined for the model of type: '$model'.";
-        }
+        $this->model = $model;
 
-        parent::__construct($model, $message);
+        parent::__construct($message);
+    }
+
+    /**
+     * Get the model.
+     *
+     * @return string
+     */
+    public function getModel()
+    {
+        return $this->model;
     }
 }

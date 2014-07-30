@@ -2,8 +2,6 @@
 
 namespace League\FactoryMuffin\Exception;
 
-use Exception;
-
 /**
  * Class MethodNotFoundException.
  *
@@ -13,15 +11,8 @@ use Exception;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class MethodNotFoundException extends Exception
+class MethodNotFoundException extends ModelException
 {
-    /**
-     * The model.
-     *
-     * @type string
-     */
-    private $model;
-
     /**
      * The method.
      *
@@ -40,24 +31,13 @@ class MethodNotFoundException extends Exception
      */
     public function __construct($model, $method, $message = null)
     {
-        $this->model = $model;
         $this->method = $method;
 
         if (!$message) {
             $message = "The static method '$method' was not found on the model of type: '$model'.";
         }
 
-        parent::__construct($message);
-    }
-
-    /**
-     * Get the model.
-     *
-     * @return string
-     */
-    public function getModel()
-    {
-        return $this->model;
+        parent::__construct($model, $message);
     }
 
     /**
