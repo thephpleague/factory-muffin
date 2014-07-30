@@ -91,7 +91,7 @@ class TestUserModel extends PHPUnit_Framework_TestCase
 | :-----------: | :-----: |:----------------------------------------------------------------------------------:| :-------------------:|
 | factory       | model   | Will run ->create() on another model and return it's id                            | factory|User         |
 | call          | method  | Allows you to call any static methods                                              | call|staticMethod    |
-| closure       | closue  | Allows you to call pass a closure that will be called                              | function {return 1;} |
+| closure       | closure  | Allows you to call pass a closure that will be called                              | function {return 1;} |
 | default       | string  | Any Kinds that are not reccognised will try and load from Faker, or return the text| creditCardDetails    |
 
 
