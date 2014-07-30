@@ -5,7 +5,7 @@ namespace League\FactoryMuffin\Exception;
 use Exception;
 
 /**
- * Class SaveFailed.
+ * Class NoDefinedFactoryException.
  *
  * @package League\FactoryMuffin\Exception
  * @author  Zizaco <zizaco@gmail.com>
@@ -13,7 +13,7 @@ use Exception;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class SaveFailed extends Exception
+class NoDefinedFactoryException extends Exception
 {
     /**
      * The model.
@@ -23,32 +23,19 @@ class SaveFailed extends Exception
     private $model;
 
     /**
-     * The errors.
-     *
-     * @type string
-     */
-    private $errors;
-
-    /**
      * Create a new instance.
      *
      * @param string $model
-     * @param string $errors
      * @param string $message
      *
      * @return void
      */
-    public function __construct($model, $errors = null, $message = null)
+    public function __construct($model, $message = null)
     {
         $this->model = $model;
-        $this->errors = $errors;
 
         if (!$message) {
-            if ($errors) {
-                $message = "$errors We could not save the model of type: '$model'.";
-            } else {
-                $message = "We could not save the model of type: '$model'.";
-            }
+            $message = "No factory class was defined for the model of type: '$model'.";
         }
 
         parent::__construct($message);
@@ -62,15 +49,5 @@ class SaveFailed extends Exception
     public function getModel()
     {
         return $this->model;
-    }
-
-    /**
-     * Get the errors.
-     *
-     * @return string
-     */
-    public function getErrors()
-    {
-        return $this->errors;
     }
 }

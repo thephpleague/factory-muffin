@@ -5,7 +5,7 @@ namespace League\FactoryMuffin\Exception;
 use Exception;
 
 /**
- * Class MethodNotFound.
+ * Class MethodNotFoundException.
  *
  * @package League\FactoryMuffin\Exception
  * @author  Zizaco <zizaco@gmail.com>
@@ -13,7 +13,7 @@ use Exception;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class MethodNotFound extends Exception
+class MethodNotFoundException extends Exception
 {
     /**
      * The model.

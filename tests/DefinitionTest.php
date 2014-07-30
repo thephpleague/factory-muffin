@@ -2,7 +2,7 @@
 
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
-use League\FactoryMuffin\Exception\DirectoryNotFound;
+use League\FactoryMuffin\Exception\DirectoryNotFoundException;
 
 /**
  * @group definition
@@ -58,7 +58,7 @@ class DefinitionTest extends AbstractTestCase
     {
         try {
             FactoryMuffin::loadFactories($path = __DIR__ . '/thisdirectorydoesntexist');
-        } catch (DirectoryNotFound $e) {
+        } catch (DirectoryNotFoundException $e) {
             $this->assertEquals("The directory '$path' was not found.", $e->getMessage());
             $this->assertEquals($path, $e->getPath());
         }

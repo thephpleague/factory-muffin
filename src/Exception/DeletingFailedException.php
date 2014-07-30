@@ -5,7 +5,7 @@ namespace League\FactoryMuffin\Exception;
 use Exception;
 
 /**
- * Class DeletingFailed.
+ * Class DeletingFailedException.
  *
  * @package League\FactoryMuffin\Exception
  * @author  Zizaco <zizaco@gmail.com>
@@ -13,7 +13,7 @@ use Exception;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class DeletingFailed extends Exception
+class DeletingFailedException extends Exception
 {
     /**
      * The array of exceptions.

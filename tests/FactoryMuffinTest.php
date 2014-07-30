@@ -1,7 +1,7 @@
 <?php
 
-use League\FactoryMuffin\Exception\NoDefinedFactory;
-use League\FactoryMuffin\Exception\MethodNotFound;
+use League\FactoryMuffin\Exception\NoDefinedFactoryException;
+use League\FactoryMuffin\Exception\MethodNotFoundException;
 use League\FactoryMuffin\Facade\FactoryMuffin;
 
 /**
@@ -116,11 +116,11 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertLessThanOrEqual(180, $obj->lon);
     }
 
-    public function testShouldThrowExceptionWhenNoDefinedFactory()
+    public function testShouldThrowExceptionWhenNoDefinedFactoryException()
     {
         try {
             FactoryMuffin::instance($model = 'ModelWithNoFactoryClassStub');
-        } catch (NoDefinedFactory $e) {
+        } catch (NoDefinedFactoryException $e) {
             $this->assertEquals("No factory class was defined for the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
         }
@@ -144,7 +144,7 @@ class FactoryMuffinTest extends AbstractTestCase
     {
         try {
             $obj = FactoryMuffin::create($model = 'ModelWithMissingStaticMethod');
-        } catch (MethodNotFound $e) {
+        } catch (MethodNotFoundException $e) {
             $this->assertEquals("The static method 'doesNotExist' was not found on the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
             $this->assertEquals('doesNotExist', $e->getMethod());
