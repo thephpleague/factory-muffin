@@ -17,6 +17,8 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertArrayHasKey('number', $obj->card);
         $this->assertArrayHasKey('name', $obj->card);
         $this->assertArrayHasKey('expirationDate', $obj->card);
+
+        $this->assertEquals('http://lorempixel.com/400/600/', $obj->image);
     }
 
     public function testShouldGetAttributesFor()
