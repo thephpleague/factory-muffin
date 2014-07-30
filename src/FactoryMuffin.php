@@ -90,7 +90,7 @@ class FactoryMuffin
      */
     public function create($model, array $attr = array())
     {
-        $obj = $this->instance($model, $attr, true);
+        $obj = $this->make($model, $attr, true);
 
         if (!$this->save($obj)) {
             if (isset($obj->validationErrors) && $obj->validationErrors) {
@@ -98,6 +98,30 @@ class FactoryMuffin
             }
 
             throw new SaveFailedException($model);
+        }
+
+        return $obj;
+    }
+
+    /**
+     * Make an instance of the model.
+     *
+     * @param string $model Model class name.
+     * @param array  $attr  Model attributes.
+     * @param bool   $save  Are we saving an object, or just creating an instance?
+     *
+     * @return object
+     */
+    private function make($model, array $attr, $save)
+    {
+        // Get the factory attributes for that model
+        $attr_array = $this->attributesFor($model, $attr, $save);
+
+        // Create, set, save and return instance
+        $obj = new $model();
+
+        foreach ($attr_array as $attr => $value) {
+            $obj->$attr = $value;
         }
 
         return $obj;
@@ -175,23 +199,12 @@ class FactoryMuffin
      *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
-     * @param bool   $save  Are we saving an object, or just creating an instance?
      *
      * @return object
      */
-    public function instance($model, array $attr = array(), $save = false)
+    public function instance($model, array $attr = array())
     {
-        // Get the factory attributes for that model
-        $attr_array = $this->attributesFor($model, $attr, $save);
-
-        // Create, set, save and return instance
-        $obj = new $model();
-
-        foreach ($attr_array as $attr => $value) {
-            $obj->$attr = $value;
-        }
-
-        return $obj;
+        return $this->make($model, array $attr, false);
     }
 
     /**
