@@ -142,6 +142,17 @@ abstract class Kind
     }
 
     /**
+     * Returns the name of the kind supplied (exploding at |)
+     *
+     * @return string
+     */
+    public function getKind()
+    {
+        $kind = explode('|', $this->kind);
+        return reset($kind);
+    }
+
+    /**
      * Generate, and return the attribute.
      *
      * @return mixed
