@@ -102,24 +102,6 @@ abstract class Kind
     }
 
     /**
-     * Returns an option passed to the Kind.
-     *
-     * @param int   $index
-     * @param mixed $default
-     *
-     * @return mixed
-     */
-    public function getOption($index, $default = null)
-    {
-        $options = $this->getOptions();
-        if (isset($options[$index])) {
-            return $options[$index];
-        }
-
-        return $default;
-    }
-
-    /**
      * Return an array of all options passed to the Kind (after |).
      *
      * @return array
