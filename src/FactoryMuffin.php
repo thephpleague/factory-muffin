@@ -3,12 +3,12 @@
 namespace League\FactoryMuffin;
 
 use Exception;
-use League\FactoryMuffin\Exception\DeleteMethodNotFound;
-use League\FactoryMuffin\Exception\DeletingFailed;
-use League\FactoryMuffin\Exception\DirectoryNotFound;
-use League\FactoryMuffin\Exception\NoDefinedFactory;
-use League\FactoryMuffin\Exception\SaveFailed;
-use League\FactoryMuffin\Exception\SaveMethodNotFound;
+use League\FactoryMuffin\Exception\DeleteMethodNotFoundException;
+use League\FactoryMuffin\Exception\DeletingFailedException;
+use League\FactoryMuffin\Exception\DirectoryNotFoundException;
+use League\FactoryMuffin\Exception\NoDefinedFactoryException;
+use League\FactoryMuffin\Exception\SaveFailedException;
+use League\FactoryMuffin\Exception\SaveMethodNotFoundException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RegexIterator;
@@ -84,7 +84,7 @@ class FactoryMuffin
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
      *
-     * @throws \League\FactoryMuffin\Exception\SaveFailed
+     * @throws \League\FactoryMuffin\Exception\SaveFailedException
      *
      * @return object
      */
@@ -94,10 +94,10 @@ class FactoryMuffin
 
         if (!$this->save($obj)) {
             if (isset($obj->validationErrors) && $obj->validationErrors) {
-                throw new SaveFailed($model, $obj->validationErrors);
+                throw new SaveFailedException($model, $obj->validationErrors);
             }
 
-            throw new SaveFailed($model);
+            throw new SaveFailedException($model);
         }
 
         return $obj;
@@ -108,7 +108,7 @@ class FactoryMuffin
      *
      * @param object $object
      *
-     * @throws \League\FactoryMuffin\Exception\SaveMethodNotFound
+     * @throws \League\FactoryMuffin\Exception\SaveMethodNotFoundException
      *
      * @return mixed
      */
@@ -117,7 +117,7 @@ class FactoryMuffin
         $method = $this->saveMethod;
 
         if (!method_exists($object, $method)) {
-            throw new SaveMethodNotFound($object, $method);
+            throw new SaveMethodNotFoundException($object, $method);
         }
 
         $result = $object->$method();
@@ -139,8 +139,8 @@ class FactoryMuffin
     /**
      * Call the delete method on any saved objects.
      *
-     * @throws \League\FactoryMuffin\Exception\DeletingFailed
-     * @throws \League\FactoryMuffin\Exception\DeleteMethodNotFound
+     * @throws \League\FactoryMuffin\Exception\DeletingFailedException
+     * @throws \League\FactoryMuffin\Exception\DeleteMethodNotFoundException
      *
      * @return void
      */
@@ -151,7 +151,7 @@ class FactoryMuffin
         foreach ($this->saved() as $saved) {
             try {
                 if (!method_exists($saved, $method)) {
-                    throw new DeleteMethodNotFound($saved, $method);
+                    throw new DeleteMethodNotFoundException($saved, $method);
                 }
 
                 $saved->$method();
@@ -163,7 +163,7 @@ class FactoryMuffin
         $this->saved = array();
 
         if ($exceptions) {
-            throw new DeletingFailed($exceptions);
+            throw new DeletingFailedException($exceptions);
         }
     }
 
@@ -222,7 +222,7 @@ class FactoryMuffin
      *
      * @param string $model Model class name.
      *
-     * @throws \League\FactoryMuffin\Exception\NoDefinedFactory
+     * @throws \League\FactoryMuffin\Exception\NoDefinedFactoryException
      *
      * @return array
      */
@@ -232,7 +232,7 @@ class FactoryMuffin
             return $this->factories[$model];
         }
 
-        throw new NoDefinedFactory($model);
+        throw new NoDefinedFactoryException($model);
     }
 
     /**
@@ -275,7 +275,7 @@ class FactoryMuffin
      *
      * @param string|string[] $paths
      *
-     * @throws \League\FactoryMuffin\Exception\DirectoryNotFound
+     * @throws \League\FactoryMuffin\Exception\DirectoryNotFoundException
      *
      * @return void
      */
@@ -283,7 +283,7 @@ class FactoryMuffin
     {
         foreach ((array) $paths as $path) {
             if (!is_dir($path)) {
-                throw new DirectoryNotFound($path);
+                throw new DirectoryNotFoundException($path);
             }
 
             $this->loadDirectory($path);

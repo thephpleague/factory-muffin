@@ -3,7 +3,7 @@
 namespace League\FactoryMuffin\Exception;
 
 /**
- * Class DeleteMethodNotFound.
+ * Class DeleteMethodNotFoundException.
  *
  * @package League\FactoryMuffin\Exception
  * @author  Zizaco <zizaco@gmail.com>
@@ -11,7 +11,7 @@ namespace League\FactoryMuffin\Exception;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class DeleteMethodNotFound extends MethodNotFound
+class DeleteMethodNotFoundException extends MethodNotFoundException
 {
     /**
      * The model instance.
@@ -23,7 +23,7 @@ class DeleteMethodNotFound extends MethodNotFound
     /**
      * Create a new instance.
      *
-     * @param string $object
+     * @param object $object
      * @param string $method
      * @param string $message
      *

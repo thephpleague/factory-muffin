@@ -5,7 +5,7 @@ namespace League\FactoryMuffin\Exception;
 use Exception;
 
 /**
- * Class DirectoryNotFound.
+ * Class DirectoryNotFoundException.
  *
  * @package League\FactoryMuffin\Exception
  * @author  Zizaco <zizaco@gmail.com>
@@ -13,7 +13,7 @@ use Exception;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class DirectoryNotFound extends Exception
+class DirectoryNotFoundException extends Exception
 {
     /**
      * The path.

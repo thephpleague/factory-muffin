@@ -3,7 +3,7 @@
 namespace League\FactoryMuffin\Exception;
 
 /**
- * Class SaveMethodNotFound.
+ * Class SaveMethodNotFoundException.
  *
  * @package League\FactoryMuffin\Exception
  * @author  Zizaco <zizaco@gmail.com>
@@ -11,7 +11,7 @@ namespace League\FactoryMuffin\Exception;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class SaveMethodNotFound extends MethodNotFound
+class SaveMethodNotFoundException extends MethodNotFoundException
 {
     /**
      * The model instance.

@@ -2,10 +2,8 @@
 
 namespace League\FactoryMuffin\Exception;
 
-use Exception;
-
 /**
- * Class SaveFailed.
+ * Class SaveFailedException.
  *
  * @package League\FactoryMuffin\Exception
  * @author  Zizaco <zizaco@gmail.com>
@@ -13,15 +11,8 @@ use Exception;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class SaveFailed extends Exception
+class SaveFailedException extends ModelException
 {
-    /**
-     * The model.
-     *
-     * @type string
-     */
-    private $model;
-
     /**
      * The errors.
      *
@@ -40,7 +31,6 @@ class SaveFailed extends Exception
      */
     public function __construct($model, $errors = null, $message = null)
     {
-        $this->model = $model;
         $this->errors = $errors;
 
         if (!$message) {
@@ -51,17 +41,7 @@ class SaveFailed extends Exception
             }
         }
 
-        parent::__construct($message);
-    }
-
-    /**
-     * Get the model.
-     *
-     * @return string
-     */
-    public function getModel()
-    {
-        return $this->model;
+        parent::__construct($model, $message);
     }
 
     /**

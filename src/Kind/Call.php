@@ -3,7 +3,7 @@
 namespace League\FactoryMuffin\Kind;
 
 use Exception;
-use League\FactoryMuffin\Exception\MethodNotFound;
+use League\FactoryMuffin\Exception\MethodNotFoundException;
 use League\FactoryMuffin\Facade\FactoryMuffin;
 use League\FactoryMuffin\Kind;
 
@@ -21,7 +21,7 @@ class Call extends Kind
     /**
      * Generate, and return the attribute.
      *
-     * @throws \League\FactoryMuffin\Exception\MethodNotFound
+     * @throws \League\FactoryMuffin\Exception\MethodNotFoundException
      *
      * @return mixed
      */
@@ -43,7 +43,7 @@ class Call extends Kind
         }
 
         if (!method_exists($this->model, $callable)) {
-            throw new MethodNotFound($this->model, $callable);
+            throw new MethodNotFoundException($this->model, $callable);
         }
 
         return call_user_func_array("$this->model::$callable", $params);
