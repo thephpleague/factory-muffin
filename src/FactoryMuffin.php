@@ -204,7 +204,7 @@ class FactoryMuffin
      */
     public function instance($model, array $attr = array())
     {
-        return $this->make($model, array $attr, false);
+        return $this->make($model, $attr, false);
     }
 
     /**
