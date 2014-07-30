@@ -23,7 +23,7 @@ class SaveMethodNotFoundException extends MethodNotFoundException
     /**
      * Create a new instance.
      *
-     * @param string $object
+     * @param object $object
      * @param string $method
      * @param string $message
      *
