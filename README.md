@@ -37,15 +37,15 @@ use League\FactoryMuffin\Facade\FactoryMuffin;
 
 FactoryMuffin::define('Message', array(
     'user_id' => 'factory|User',
-    'subject' => 'string',
+    'subject' => 'sentence',
     'message' => 'text',
-    'phone_number' => 'integer|8',
+    'phone_number' => 'randomNumber|8',
     'created' => 'date|Ymd h:s',
     'slug' => 'call|makeSlug|string',
 ));
 
 FactoryMuffin::define('User', array(
-    'username' => 'string',
+    'username' => 'firstNameMale',
     'email' => 'email',
     'greeting' => RandomGreeting::get(),
     'four' => function() {
@@ -87,15 +87,11 @@ class TestUserModel extends PHPUnit_Framework_TestCase
 ## Kinds of attribute supported
 
 | Kind          | Option  | Description                                                                        | Example
-| :-----------: | :-----: |:----------------------------------------------------------------------------------:| :----------------:|
-| string        | length  | Random string of text                                                              | string|12         |
-| email         | -       | Random email address                                                               | email             |
-| text          | length  | Random body of text                                                                | text|100          |
-| integer       | length  | Random integer/number                                                              | integer|10        |
-| date          | format  | Generate date with specific format                                                 | date|d-M-Y        |
-| factory       | model   | Will run ->create() on another model and return it's id                            | factory|User      |
-| call          | method  | Allows you to call any static methods                                              | call|staticMethod |
-| default       | string  | Any Kinds that are not reccognised will try and load from Faker, or return the text| creditCardDetails |
+| :-----------: | :-----: |:----------------------------------------------------------------------------------:| :-------------------:|
+| factory       | model   | Will run ->create() on another model and return it's id                            | factory|User         |
+| call          | method  | Allows you to call any static methods                                              | call|staticMethod    |
+| clusure       | closue  | Allows you to call pass a closure that will be called                              | function {return 1;} |
+| default       | string  | Any Kinds that are not reccognised will try and load from Faker, or return the text| creditCardDetails    |
 
 
 ## Save Failures
