@@ -23,13 +23,8 @@ abstract class Kind
     protected static $availableKinds = array(
         'call',
         'closure',
-        'date',
         'factory',
         'generic',
-        'integer',
-        'name',
-        'string',
-        'text',
     );
 
     /**

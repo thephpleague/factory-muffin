@@ -22,44 +22,7 @@ class FactoryMuffinTest extends AbstractTestCase
     public function testShouldGetAttributesFor()
     {
         $attr = FactoryMuffin::attributesFor('MainModelStub');
-        $this->assertEquals(4, strlen($attr['string_4']));
-    }
-
-    public function testDateKind()
-    {
-        $obj = FactoryMuffin::instance('MainModelStub');
-        $dateTime = DateTime::createFromFormat('Y-m-d', $obj->created);
-        $this->assertEquals($obj->created, $dateTime->format('Y-m-d'));
-    }
-
-    public function testInteger()
-    {
-        $obj = FactoryMuffin::instance('MainModelStub');
-        $this->assertEquals(9, strlen($obj->number));
-    }
-
-    public function testName()
-    {
-        $obj = FactoryMuffin::instance('MainModelStub');
-        $this->assertTrue(strlen($obj->full_name) > 0);
-    }
-
-    public function testString()
-    {
-        $obj = FactoryMuffin::instance('MainModelStub');
-        $this->assertEquals(4, strlen($obj->string_4));
-    }
-
-    public function testText()
-    {
-        $obj = FactoryMuffin::instance('MainModelStub');
-        $this->assertEquals(4, strlen($obj->text_4));
-    }
-
-    public function testTextDefault()
-    {
-        $obj = FactoryMuffin::instance('MainModelStub');
-        $this->assertEquals(100, strlen($obj->text_100));
+        $this->assertInternalType('string', $attr['text_closure']);
     }
 
     public function testGetIds()
