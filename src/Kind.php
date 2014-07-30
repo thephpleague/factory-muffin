@@ -135,7 +135,7 @@ abstract class Kind
         array_shift($options);
 
         if (count($options) > 0) {
-            $options = explode(',', $options[0]);
+            $options = explode(';', $options[0]);
         }
 
         return $options;
