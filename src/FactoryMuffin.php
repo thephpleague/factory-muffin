@@ -106,7 +106,7 @@ class FactoryMuffin
     /**
      * Save our object to the db, and keep track of it.
      *
-     * @param object $object
+     * @param object $object The model instance.
      *
      * @throws \League\FactoryMuffin\Exception\SaveMethodNotFoundException
      *
