@@ -37,37 +37,37 @@ class Factory extends Kind
      */
     public function generate()
     {
-        $factory_name = substr($this->kind, 8);
+        $factory = substr($this->kind, 8);
 
         if ($this->save) {
-            $model = FactoryMuffin::create($factory_name);
+            $object = FactoryMuffin::create($factory);
         } else {
-            $model = FactoryMuffin::instance($factory_name);
+            $object = FactoryMuffin::instance($factory);
         }
 
-        return $this->getId($model);
+        return $this->getId($object);
     }
 
     /**
      * Get the model id.
      *
-     * @param string $model Model class name.
+     * @param object $object The model instance.
      *
      * @return int
      */
-    private function getId($model)
+    private function getId($object)
     {
         // Check to see if we can get an ID via our defined methods
         foreach ($this->methods as $method) {
-            if (method_exists($model, $method)) {
-                return $model->$method();
+            if (method_exists($object, $method)) {
+                return $object->$method();
             }
         }
 
         // Check to see if we can get an ID via our defined methods
         foreach ($this->properties as $property) {
-            if (isset($model->$property)) {
-                return $model->$property;
+            if (isset($object->$property)) {
+                return $object->$property;
             }
         }
     }
