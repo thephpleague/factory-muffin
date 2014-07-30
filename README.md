@@ -47,6 +47,7 @@ FactoryMuffin::define('Message', array(
 FactoryMuffin::define('User', array(
     'username' => 'firstNameMale',
     'email' => 'email',
+    'avatar' => 'imageUrl|400;600',
     'greeting' => RandomGreeting::get(),
     'four' => function() {
         return 2 + 2;

@@ -130,10 +130,21 @@ abstract class Kind
         array_shift($options);
 
         if (count($options) > 0) {
-            $options = explode(',', $options[0]);
+            $options = explode(';', $options[0]);
         }
 
         return $options;
+    }
+
+    /**
+     * Returns the name of the kind supplied (exploding at |)
+     *
+     * @return string
+     */
+    public function getKind()
+    {
+        $kind = explode('|', $this->kind);
+        return reset($kind);
     }
 
     /**
