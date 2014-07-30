@@ -27,8 +27,8 @@ class Generic extends Kind
     public function generate()
     {
         // Only try and use Faker when there are no spaces in the string
-        if (!is_string($this->kind) or strpos($this->kind, ' ') !== false) {
-            return $this->kind;
+        if (!is_string($this->getKind()) or strpos($this->getKind(), ' ') !== false) {
+            return $this->getKind();
         }
 
         // If it fails to call it, it must not be a real thing
@@ -39,6 +39,6 @@ class Generic extends Kind
         }
 
         // Just return the literal string
-        return $this->kind;
+        return $this->getKind();
     }
 }
