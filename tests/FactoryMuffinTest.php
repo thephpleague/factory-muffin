@@ -23,7 +23,8 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testShouldGetAttributesFor()
     {
-        $attr = FactoryMuffin::attributesFor('MainModelStub');
+        $object = new MainModelStub();
+        $attr = FactoryMuffin::attributesFor($object);
         $this->assertInternalType('string', $attr['text_closure']);
     }
 
@@ -221,7 +222,10 @@ class IdTestModelNullStub
 
 class ModelWithMissingStaticMethod
 {
-    //
+    public function delete()
+    {
+        return true;
+    }
 }
 
 class ModelWithStaticMethodFactory

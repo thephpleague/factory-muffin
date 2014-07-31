@@ -35,11 +35,11 @@ abstract class Kind
     protected $kind;
 
     /**
-     * The name of the model class.
+     * The model instance.
      *
-     * @type string
+     * @type object
      */
-    protected $model;
+    protected $object;
 
     /**
      * The faker factory or generator instance.
@@ -49,44 +49,34 @@ abstract class Kind
     protected $faker;
 
     /**
-     * Have we saved the parent object, or just created an instance?
-     *
-     * @type boolean
-     */
-    protected $save;
-
-    /**
      * Initialise our Kind.
      *
-     * @param string                          $kind  The kind of attribute that will be generated.
-     * @param string                          $model The name of the model class.
-     * @param \Faker\Factory|\Faker\Generator $faker The faker factory or generator instance.
-     * @param bool                            $save  Have we saved the parent object?
+     * @param string                          $kind   The kind of attribute that will be generated.
+     * @param object                          $object The model instance.
+     * @param \Faker\Factory|\Faker\Generator $faker  The faker factory or generator instance.
      */
-    public function __construct($kind, $model, $faker, $save = false)
+    public function __construct($kind, $object, $faker)
     {
         $this->kind = $kind;
-        $this->model = $model;
+        $this->object = $object;
         $this->faker = $faker;
-        $this->save = $save;
     }
 
     /**
      * Detect the type of Kind we are processing.
      *
-     * @param string $kind  The kind of attribute that will be generated.
-     * @param string $model The name of the model class.
-     * @param bool   $save  Have we saved the parent object?
+     * @param string $kind   The kind of attribute that will be generated.
+     * @param object $object The model instance.
      *
      * @return \League\FactoryMuffin\Kind
      */
-    public static function detect($kind, $model = null, $save = false)
+    public static function detect($kind, $object = null)
     {
         // TODO: Move this somewhere where its only instantiated once
         $faker = new Faker();
 
         if ($kind instanceof \Closure) {
-            return new Kind\Closure($kind, $model, $faker, $save);
+            return new Kind\Closure($kind, $object, $faker);
         }
 
         $class = '\\League\\FactoryMuffin\\Kind\\Generic';
@@ -97,8 +87,7 @@ abstract class Kind
             }
         }
 
-        return new $class($kind, $model, $faker->create(), $save);
-
+        return new $class($kind, $object, $faker->create());
     }
 
     /**

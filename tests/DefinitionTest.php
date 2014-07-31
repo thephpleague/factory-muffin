@@ -49,7 +49,8 @@ class DefinitionTest extends AbstractTestCase
 
     public function testAttributesFor()
     {
-        $attributes = FactoryMuffin::attributesFor('UserModelStub');
+        $object = new UserModelStub();
+        $attributes = FactoryMuffin::attributesFor($object);
 
         $this->assertInternalType('string', $attributes['name']);
         $this->assertInternalType('boolean', $attributes['active']);
