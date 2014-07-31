@@ -41,7 +41,7 @@ FactoryMuffin::define('Message', array(
     'message' => 'text',
     'phone_number' => 'randomNumber|8',
     'created' => 'date|Ymd h:s',
-    'slug' => 'call|makeSlug|string',
+    'slug' => 'call|makeSlug|word',
 ));
 
 FactoryMuffin::define('User', array(
@@ -91,8 +91,8 @@ class TestUserModel extends PHPUnit_Framework_TestCase
 | :-----------: | :-----: |:----------------------------------------------------------------------------------:| :-------------------:|
 | factory       | model   | Will run ->create() on another model and return it's id                            | factory|User         |
 | call          | method  | Allows you to call any static methods                                              | call|staticMethod    |
-| closure       | closure  | Allows you to call pass a closure that will be called                              | function {return 1;} |
-| default       | string  | Any Kinds that are not reccognised will try and load from Faker, or return the text| creditCardDetails    |
+| closure       | closure | Allows you to call pass a closure that will be called                              | function {return 1;} |
+| default       | word    | Any Kinds that are not reccognised will try and load from Faker, or return the text| creditCardDetails    |
 
 
 ## Save Failures

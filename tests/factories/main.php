@@ -19,7 +19,7 @@ FactoryMuffin::define('IdTestModelStub', array(
 ));
 
 FactoryMuffin::define('FakerDefaultingModelStub', array(
-    'title'   => 'string',
+    'title'   => 'word',
     'email'   => 'email',
     'content' => 'text',
     'card'    => 'creditCardDetails',
@@ -28,13 +28,13 @@ FactoryMuffin::define('FakerDefaultingModelStub', array(
 
 FactoryMuffin::define('MainModelStub', array(
     'modelb_id'    => 'factory|FakerDefaultingModelStub',
-    'name'         => 'string',
+    'name'         => 'word',
     'email'        => 'email',
     'message'      => 'text',
     'number'       => 'integer|9',
     'created'      => 'date|Y-m-d',
     'full_name'    => 'name',
-    'string_4'     => 'string|4',
+    'string_4'     => 'word|4',
     'text_4'       => 'text|4',
     'text_100'     => 'text',
     'text'         => 'text',

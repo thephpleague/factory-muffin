@@ -7,7 +7,7 @@ FactoryMuffin::define('ProfileModelStub', array(
 ));
 
 FactoryMuffin::define('UserModelStub', array(
-    'name'    => 'string',
+    'name'    => 'word',
     'active'  => 'boolean',
     'email'   => 'email',
     'profile' => 'factory|ProfileModelStub',
