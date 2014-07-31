@@ -14,6 +14,7 @@ class SaveAndDeleteTest extends AbstractTestCase
     public function testShouldCreateAndDelete()
     {
         $obj = FactoryMuffin::create('ModelThatWillSaveStub');
+        $this->assertTrue(FactoryMuffin::isSaved($obj));
         $this->assertTrue(is_numeric($obj->id));
         $this->assertInternalType('array', FactoryMuffin::saved());
         $this->assertCount(1, FactoryMuffin::saved());
@@ -21,15 +22,11 @@ class SaveAndDeleteTest extends AbstractTestCase
         FactoryMuffin::deleteSaved();
     }
 
-    public function testShouldByAbleToSaveExisting()
+    public function testShouldNotSave()
     {
         $obj = FactoryMuffin::instance('ModelThatWillSaveStub');
+        $this->assertCount(0, FactoryMuffin::saved());
         $this->assertFalse(FactoryMuffin::isSaved($obj));
-
-        FactoryMuffin::save($obj);
-        $this->assertTrue(FactoryMuffin::isSaved($obj));
-
-        FactoryMuffin::deleteSaved();
     }
 
     /**
