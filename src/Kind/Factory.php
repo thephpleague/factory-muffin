@@ -2,8 +2,8 @@
 
 namespace League\FactoryMuffin\Kind;
 
-use League\FactoryMuffin\Kind;
 use League\FactoryMuffin\Facade\FactoryMuffin;
+use League\FactoryMuffin\Kind;
 
 /**
  * Class Factory.
