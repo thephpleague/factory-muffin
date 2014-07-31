@@ -12,6 +12,7 @@ namespace League\FactoryMuffin\Facade;
  *
  * @method static void setSaveMethod(string $method) Set the method we use when saving objects.
  * @method static void setDeleteMethod(string $method) Set the method we use when deleting objects.
+ * @method static object[] seed(string $model, int $times = 1, array $attr = array()) Returns multiple versions of an object.
  * @method static object create(string $model, array $attr = array()) Creates and saves in db an instance of the model.
  * @method static mixed save(object $object) Save our object to the db, and keep track of it.
  * @method static object[] saved() Return an array of saved objects.
