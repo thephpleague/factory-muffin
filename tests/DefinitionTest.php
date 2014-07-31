@@ -57,6 +57,10 @@ class DefinitionTest extends AbstractTestCase
         $this->assertContains('@', $attributes['email']);
     }
 
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
     public function testFactoryLoading()
     {
         $count = count(get_included_files());
