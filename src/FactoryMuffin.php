@@ -162,12 +162,8 @@ class FactoryMuffin
      *
      * @return mixed
      */
-    public function save($object)
+    private function save($object)
     {
-        if (!$this->isSaved($object)) {
-            $this->saved[] = $object;
-        }
-
         if (!method_exists($object, $method = $this->saveMethod)) {
             throw new SaveMethodNotFoundException($object, $method);
         }
@@ -188,7 +184,7 @@ class FactoryMuffin
     /**
      * Is the object saved?
      *
-     * @param object $object
+     * @param object $object The model instance.
      *
      * @return bool
      */
@@ -231,8 +227,7 @@ class FactoryMuffin
     /**
      * Return an instance of the model.
      *
-     * This does not save it in the database. Use the create method to create
-     * and save to the db, or pass the object from this method into the save method.
+     * This does not save it in the database. Use create for that.
      *
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
