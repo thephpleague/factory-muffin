@@ -27,6 +27,17 @@ class DefinitionTest extends AbstractTestCase
         $this->assertContains('@', $user->email);
     }
 
+    public function testSeed()
+    {
+        $users = FactoryMuffin::seed(2, 'UserModelStub');
+        $this->assertCount(2, $users);
+        $this->assertInstanceOf('UserModelStub', $users[0]);
+        $this->assertInstanceOf('UserModelStub', $users[1]);
+
+        // Make sure these are not the same object returned twice for some reason
+        $this->assertNotEquals($users[0], $users[1]);
+    }
+
     public function testInstance()
     {
         $user = FactoryMuffin::instance('UserModelStub');
