@@ -77,6 +77,24 @@ class FactoryMuffin
     }
 
     /**
+     * Returns multiple versions of an object
+     * @param  integer $times How many times do you wih to return this object?
+     * @param  string $object
+     * @param  array  $attr
+     * @return array
+     */
+    public function seed($times, $object, array $attr = array())
+    {
+        $seeds = array();
+        while ($times > 0) {
+            $seeds[] = $this->create($object, $attr);
+            $times--;
+        }
+
+        return $seeds;
+    }
+
+    /**
      * Creates and saves in db an instance of the model.
      *
      * This object will be generated with mock attributes.
