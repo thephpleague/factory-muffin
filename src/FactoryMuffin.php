@@ -188,7 +188,7 @@ class FactoryMuffin
     /**
      * Is the object saved?
      *
-     * @param object $object
+     * @param object $object The model instance.
      *
      * @return bool
      */
