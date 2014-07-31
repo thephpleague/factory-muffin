@@ -31,11 +31,10 @@ class Generic extends Kind
             return $this->getKind();
         }
 
-        // If it fails to call it, it must not be a real thing
         try {
             return call_user_func_array(array($this->faker, $this->getKind()), $this->getOptions());
         } catch (InvalidArgumentException $e) {
-
+            // If it fails to call it, it must not be a real thing
         }
 
         // Just return the literal string
