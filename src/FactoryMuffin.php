@@ -137,13 +137,16 @@ class FactoryMuffin
      */
     private function make($model, array $attr, $save)
     {
-        // Get the factory attributes for that model
-        $attr_array = $this->attributesFor($model, $attr, $save);
-
-        // Create, set, save and return instance
         $obj = new $model();
 
-        foreach ($attr_array as $attr => $value) {
+        if ($save) {
+            $this->saved[] = $obj;
+        }
+
+        // Get the factory attributes for that model
+        $attributes = $this->attributesFor($obj, $attr);
+
+        foreach ($attributes as $attr => $value) {
             $obj->$attr = $value;
         }
 
@@ -168,7 +171,10 @@ class FactoryMuffin
         }
 
         $result = $object->$method();
-        $this->saved[] = $object;
+
+        if (!$this->isSaved($object)) {
+            $this->saved[] = $object;
+        }
 
         return $result;
     }
@@ -181,6 +187,18 @@ class FactoryMuffin
     public function saved()
     {
         return $this->saved;
+    }
+
+    /**
+     * Is the object saved?
+     *
+     * @param object $object
+     *
+     * @return bool
+     */
+    public function isSaved($object)
+    {
+        return in_array($object, $this->saved, true);
     }
 
     /**
@@ -233,20 +251,19 @@ class FactoryMuffin
     /**
      * Returns the mock attributes for the model.
      *
-     * @param string $model Model class name.
-     * @param array  $attr  Model attributes.
-     * @param bool   $save  Are we saving an object, or just creating an instance?
+     * @param object $object The model instance.
+     * @param array  $attr   Model attributes.
      *
      * @return array
      */
-    public function attributesFor($model, array $attr = array(), $save = false)
+    public function attributesFor($object, array $attr = array())
     {
-        $factory_attrs = $this->getFactoryAttrs($model);
+        $factory_attrs = $this->getFactoryAttrs(get_class($object));
 
         // Prepare attributes
         foreach ($factory_attrs as $key => $kind) {
             if (!isset($attr[$key])) {
-                $attr[$key] = $this->generateAttr($kind, $model, $save);
+                $attr[$key] = $this->generateAttr($kind, $object);
             }
         }
 
@@ -289,15 +306,14 @@ class FactoryMuffin
      *
      * This method will return a string, or an instance of the model.
      *
-     * @param string $kind  The kind of attribute that will be generated.
-     * @param string $model The name of the model class.
-     * @param bool   $save  Are we saving an object, or just creating an instance?
+     * @param string $kind   The kind of attribute that will be generated.
+     * @param object $object The model instance.
      *
      * @return string|object
      */
-    public function generateAttr($kind, $model = null, $save = false)
+    public function generateAttr($kind, $object = null)
     {
-        $kind = Kind::detect($kind, $model, $save);
+        $kind = Kind::detect($kind, $object);
 
         return $kind->generate();
     }

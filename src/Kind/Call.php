@@ -38,14 +38,16 @@ class Call extends Kind
                 $params[] = FactoryMuffin::create($parts[1]);
             } else {
                 $attr = implode('|', $parts);
-                $params[] = FactoryMuffin::generateAttr($attr, $this->model);
+                $params[] = FactoryMuffin::generateAttr($attr, $this->object);
             }
         }
 
-        if (!method_exists($this->model, $callable)) {
-            throw new MethodNotFoundException($this->model, $callable);
+        $model = get_class($this->object);
+
+        if (!method_exists($model, $callable)) {
+            throw new MethodNotFoundException($model, $callable);
         }
 
-        return call_user_func_array("$this->model::$callable", $params);
+        return call_user_func_array("$model::$callable", $params);
     }
 }

@@ -39,7 +39,7 @@ class Factory extends Kind
     {
         $factory = substr($this->kind, 8);
 
-        if ($this->save) {
+        if (FactoryMuffin::isSaved($this->object)) {
             $object = FactoryMuffin::create($factory);
         } else {
             $object = FactoryMuffin::instance($factory);
