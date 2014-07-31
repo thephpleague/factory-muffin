@@ -164,19 +164,15 @@ class FactoryMuffin
      */
     public function save($object)
     {
-        $method = $this->saveMethod;
-
-        if (!method_exists($object, $method)) {
-            throw new SaveMethodNotFoundException($object, $method);
-        }
-
-        $result = $object->$method();
-
         if (!$this->isSaved($object)) {
             $this->saved[] = $object;
         }
 
-        return $result;
+        if (!method_exists($object, $method = $this->saveMethod)) {
+            throw new SaveMethodNotFoundException($object, $method);
+        }
+
+        return $object->$method();
     }
 
     /**

@@ -21,6 +21,17 @@ class SaveAndDeleteTest extends AbstractTestCase
         FactoryMuffin::deleteSaved();
     }
 
+    public function testShouldByAbleToSaveExisting()
+    {
+        $obj = FactoryMuffin::instance('ModelThatWillSaveStub');
+        $this->assertFalse(FactoryMuffin::isSaved($obj));
+
+        FactoryMuffin::save($obj);
+        $this->assertTrue(FactoryMuffin::isSaved($obj));
+
+        FactoryMuffin::deleteSaved();
+    }
+
     /**
      * @runInSeparateProcess
      * @preserveGlobalState disabled
