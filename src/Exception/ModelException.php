@@ -18,7 +18,7 @@ class ModelException extends Exception
     /**
      * The model.
      *
-     * @type string
+     * @var string
      */
     private $model;
 

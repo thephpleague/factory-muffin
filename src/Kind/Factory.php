@@ -19,14 +19,14 @@ class Factory extends Kind
     /**
      * Generate, and return the attribute.
      *
-     * @type string[]
+     * @var string[]
      */
     private $methods = array('getKey', 'pk');
 
     /**
      * The factory properties.
      *
-     * @type string[]
+     * @var string[]
      */
     private $properties = array('id', '_id');
 

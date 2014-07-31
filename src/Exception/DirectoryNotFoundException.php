@@ -18,7 +18,7 @@ class DirectoryNotFoundException extends Exception
     /**
      * The path.
      *
-     * @type string
+     * @var string
      */
     private $path;
 

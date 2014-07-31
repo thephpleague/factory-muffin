@@ -16,7 +16,7 @@ class DeleteMethodNotFoundException extends MethodNotFoundException
     /**
      * The model instance.
      *
-     * @type object
+     * @var object
      */
     private $object;
 

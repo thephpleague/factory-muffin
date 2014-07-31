@@ -18,7 +18,7 @@ class DeletingFailedException extends Exception
     /**
      * The array of exceptions.
      *
-     * @type \Exception[]
+     * @var \Exception[]
      */
     private $exceptions;
 
