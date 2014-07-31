@@ -34,7 +34,7 @@ class FactoryMuffin
     /**
      * The underline FactoryMuffin instance.
      *
-     * @type \League\FactoryMuffin\FactoryMuffin
+     * @var \League\FactoryMuffin\FactoryMuffin
      */
     private static $fmInstance;
 

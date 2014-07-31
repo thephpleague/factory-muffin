@@ -16,7 +16,7 @@ class SaveFailedException extends ModelException
     /**
      * The errors.
      *
-     * @type string
+     * @var string
      */
     private $errors;
 

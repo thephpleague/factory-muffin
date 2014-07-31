@@ -27,28 +27,28 @@ class FactoryMuffin
     /**
      * The array of factories.
      *
-     * @type array
+     * @var array
      */
     private $factories = array();
 
     /**
      * The array of objects we have created.
      *
-     * @type array
+     * @var array
      */
     private $saved = array();
 
     /**
      * This is the method used when saving objects.
      *
-     * @type string
+     * @var string
      */
     private $saveMethod = 'save';
 
     /**
      * This is the method used when deleting objects.
      *
-     * @type string
+     * @var string
      */
     private $deleteMethod = 'delete';
 

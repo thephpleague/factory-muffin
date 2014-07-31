@@ -18,7 +18,7 @@ abstract class Kind
     /**
      * The Kind classes that are available.
      *
-     * @type string[]
+     * @var string[]
      */
     protected static $availableKinds = array(
         'call',
@@ -30,21 +30,21 @@ abstract class Kind
     /**
      * The kind of attribute that will be generated.
      *
-     * @type string
+     * @var string
      */
     protected $kind;
 
     /**
      * The model instance.
      *
-     * @type object
+     * @var object
      */
     protected $object;
 
     /**
      * The faker factory or generator instance.
      *
-     * @type \Faker\Factory|\Faker\Generator
+     * @var \Faker\Factory|\Faker\Generator
      */
     protected $faker;
 

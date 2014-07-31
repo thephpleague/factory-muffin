@@ -16,7 +16,7 @@ class MethodNotFoundException extends ModelException
     /**
      * The method.
      *
-     * @type string
+     * @var string
      */
     private $method;
 
