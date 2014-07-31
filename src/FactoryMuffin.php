@@ -77,17 +77,19 @@ class FactoryMuffin
     }
 
     /**
-     * Returns multiple versions of an object
-     * @param  integer $times How many times do you wih to return this object?
-     * @param  string $object
-     * @param  array  $attr
-     * @return array
+     * Returns multiple versions of an object.
+     *
+     * @param int    $times
+     * @param string $model
+     * @param array  $attr
+     *
+     * @return object[]
      */
-    public function seed($times, $object, array $attr = array())
+    public function seed($times, $model, array $attr = array())
     {
         $seeds = array();
         while ($times > 0) {
-            $seeds[] = $this->create($object, $attr);
+            $seeds[] = $this->create($model, $attr);
             $times--;
         }
 
