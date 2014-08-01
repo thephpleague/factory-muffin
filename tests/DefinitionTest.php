@@ -29,7 +29,7 @@ class DefinitionTest extends AbstractTestCase
 
     public function testSeed()
     {
-        $users = FactoryMuffin::seed('UserModelStub', 2);
+        $users = FactoryMuffin::seed(2, 'UserModelStub');
         $this->assertCount(2, $users);
         $this->assertInstanceOf('UserModelStub', $users[0]);
         $this->assertInstanceOf('UserModelStub', $users[1]);
