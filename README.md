@@ -36,20 +36,20 @@ In this example, we will create them in the `/tests/factories/all.php`:
 use League\FactoryMuffin\Facade as FactoryMuffin;
 
 FactoryMuffin::define('Message', array(
-    'user_id' => 'factory|User',
-    'subject' => 'sentence',
-    'message' => 'text',
+    'user_id'      => 'factory|User',
+    'subject'      => 'sentence',
+    'message'      => 'text',
     'phone_number' => 'randomNumber|8',
-    'created' => 'date|Ymd h:s',
-    'slug' => 'call|makeSlug|word',
+    'created'      => 'date|Ymd h:s',
+    'slug'         => 'call|makeSlug|word',
 ));
 
 FactoryMuffin::define('User', array(
     'username' => 'firstNameMale',
-    'email' => 'email',
-    'avatar' => 'imageUrl|400;600',
+    'email'    => 'email',
+    'avatar'   => 'imageUrl|400;600',
     'greeting' => RandomGreeting::get(),
-    'four' => function() {
+    'four'     => function() {
         return 2 + 2;
     },
 ));
