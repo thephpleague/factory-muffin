@@ -2,7 +2,7 @@
 
 namespace League\FactoryMuffin;
 
-use Faker\Factory as Faker;
+use Faker\Generator;
 
 /**
  * Class Kind.
@@ -44,16 +44,18 @@ abstract class Kind
     /**
      * The faker factory or generator instance.
      *
-     * @var \Faker\Factory|\Faker\Generator
+     * @var \Faker\Generator
      */
     protected $faker;
 
     /**
      * Initialise our Kind.
      *
-     * @param string                          $kind   The kind of attribute that will be generated.
-     * @param object                          $object The model instance.
-     * @param \Faker\Factory|\Faker\Generator $faker  The faker factory or generator instance.
+     * @param string           $kind   The kind of attribute that will be generated.
+     * @param object           $object The model instance.
+     * @param \Faker\Generator $faker  The faker instance.
+     *
+     * @return void
      */
     public function __construct($kind, $object, $faker)
     {
@@ -65,16 +67,14 @@ abstract class Kind
     /**
      * Detect the type of Kind we are processing.
      *
-     * @param string $kind   The kind of attribute that will be generated.
-     * @param object $object The model instance.
+     * @param string           $kind   The kind of attribute that will be generated.
+     * @param object           $object The model instance.
+     * @param \Faker\Generator $faker  The faker instance.
      *
      * @return \League\FactoryMuffin\Kind
      */
-    public static function detect($kind, $object = null)
+    public static function detect($kind, $object = null, $faker = null)
     {
-        // TODO: Move this somewhere where its only instantiated once
-        $faker = new Faker();
-
         if ($kind instanceof \Closure) {
             return new Kind\Closure($kind, $object, $faker);
         }
@@ -87,7 +87,7 @@ abstract class Kind
             }
         }
 
-        return new $class($kind, $object, $faker->create());
+        return new $class($kind, $object, $faker);
     }
 
     /**

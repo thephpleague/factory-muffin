@@ -3,6 +3,7 @@
 namespace League\FactoryMuffin;
 
 use Exception;
+use Faker\Factory;
 use League\FactoryMuffin\Exception\DeleteMethodNotFoundException;
 use League\FactoryMuffin\Exception\DeletingFailedException;
 use League\FactoryMuffin\Exception\DirectoryNotFoundException;
@@ -51,6 +52,35 @@ class FactoryMuffin
      * @var string
      */
     private $deleteMethod = 'delete';
+
+    /**
+     * The faker instance.
+     *
+     * @var \Faker\Generator
+     */
+    private $faker;
+
+    /**
+     * The faker localization.
+     *
+     * @var string
+     */
+    private $fakerLocale = 'en_EN';
+
+    /**
+     * Set the faker locale.
+     *
+     * @param string $local
+     *
+     * @return void
+     */
+    public function setFakerLocale($local)
+    {
+        $this->fakerLocale = $local;
+
+        // The faker class must be instantiated again with a new the new locale
+        $this->faker = null;
+    }
 
     /**
      * Set the method we use when saving objects.
@@ -304,9 +334,23 @@ class FactoryMuffin
      */
     public function generateAttr($kind, $object = null)
     {
-        $kind = Kind::detect($kind, $object);
+        $kind = Kind::detect($kind, $object, $this->getFaker());
 
         return $kind->generate();
+    }
+
+    /**
+     * Get the faker instance.
+     *
+     * @return \Faker\Generator
+     */
+    private function getFaker()
+    {
+        if (!$this->faker) {
+            $this->faker = Factory::create($this->fakerLocale);
+        }
+
+        return $this->faker;
     }
 
     /**
