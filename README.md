@@ -86,7 +86,7 @@ class TestUserModel extends PHPUnit_Framework_TestCase
 }
 ```
 
-## Generators of attribute supported
+## Generators
 
 | Generator     | Option  | Description                                                                      | Example
 | :-----------: | :-----: | :------------------------------------------------------------------------------: | :------------------: |
