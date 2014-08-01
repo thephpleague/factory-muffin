@@ -58,11 +58,27 @@ class FactoryMuffin
     private $faker;
 
     /**
+     * Faker Localization
+     * @var string
+     */
+    private $fakerLocale = 'en_EN';
+
+    /**
      * Constructor for FactoryMuffin
      */
     public function __construct()
     {
-        $this->faker = \Faker\Factory::create();;
+        $this->faker = \Faker\Factory::create($this->fakerLocale);;
+    }
+
+    /**
+     * Set the Faker Locale
+     *
+     * @param string $local
+     */
+    public function setFakerLocale($local)
+    {
+        $this->fakerLocale = $local;
     }
 
     /**
