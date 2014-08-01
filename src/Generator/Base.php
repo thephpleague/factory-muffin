@@ -1,11 +1,9 @@
 <?php
 
-namespace League\FactoryMuffin;
-
-use Faker\Generator;
+namespace League\FactoryMuffin\Generator;
 
 /**
- * Class Kind.
+ * Class Base.
  *
  * @package League\FactoryMuffin
  * @author  Zizaco <zizaco@gmail.com>
@@ -13,14 +11,14 @@ use Faker\Generator;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-abstract class Kind
+abstract class Base
 {
     /**
-     * The Kind classes that are available.
+     * The Generator classes that are available.
      *
      * @var string[]
      */
-    protected static $availableKinds = array(
+    protected static $availableGenerators = array(
         'call',
         'closure',
         'factory',
@@ -49,7 +47,7 @@ abstract class Kind
     protected $faker;
 
     /**
-     * Initialise our Kind.
+     * Initialise our Generator.
      *
      * @param string           $kind   The kind of attribute that will be generated.
      * @param object           $object The model instance.
@@ -65,24 +63,24 @@ abstract class Kind
     }
 
     /**
-     * Detect the type of Kind we are processing.
+     * Detect the type of Generator we are processing.
      *
      * @param string           $kind   The kind of attribute that will be generated.
      * @param object           $object The model instance.
      * @param \Faker\Generator $faker  The faker instance.
      *
-     * @return \League\FactoryMuffin\Kind
+     * @return \League\FactoryMuffin\Generator
      */
     public static function detect($kind, $object = null, $faker = null)
     {
         if ($kind instanceof \Closure) {
-            return new Kind\Closure($kind, $object, $faker);
+            return new Closure($kind, $object, $faker);
         }
 
-        $class = '\\League\\FactoryMuffin\\Kind\\Generic';
-        foreach (static::$availableKinds as $availableKind) {
-            if (substr($kind, 0, strlen($availableKind)) === $availableKind) {
-                $class = '\\League\\FactoryMuffin\\Kind\\' . ucfirst($availableKind);
+        $class = '\\League\\FactoryMuffin\\Generator\\Generic';
+        foreach (static::$availableGenerators as $availableGenerator) {
+            if (substr($kind, 0, strlen($availableGenerator)) === $availableGenerator) {
+                $class = '\\League\\FactoryMuffin\\Generator\\' . ucfirst($availableGenerator);
                 break;
             }
         }
@@ -91,7 +89,7 @@ abstract class Kind
     }
 
     /**
-     * Return an array of all options passed to the Kind (after |).
+     * Return an array of all options passed to the Generator (after |).
      *
      * @return array
      */
@@ -112,7 +110,7 @@ abstract class Kind
      *
      * @return string
      */
-    protected function getKind()
+    protected function getGenerator()
     {
         $kind = explode('|', $this->kind);
         return reset($kind);
@@ -123,24 +121,24 @@ abstract class Kind
      *
      * @return string
      */
-    protected function getKindWithoutPrefix()
+    protected function getGeneratorWithoutPrefix()
     {
         if ($prefix = $this->getPrefix()) {
-            return str_replace($prefix . ':', '', $this->getKind());
+            return str_replace($prefix . ':', '', $this->getGenerator());
         }
 
-        return $this->getKind();
+        return $this->getGenerator();
     }
 
     /**
-     * Returns the prefix to the Kind. This can be "unique", or "optional".
+     * Returns the prefix to the Generator. This can be "unique", or "optional".
      *
      * @return string
      */
     protected function getPrefix()
     {
         $prefixes = array('unique', 'optional');
-        $prefix = current(explode(':', $this->getKind()));
+        $prefix = current(explode(':', $this->getGenerator()));
         return in_array($prefix, $prefixes) ? $prefix : false;
     }
 

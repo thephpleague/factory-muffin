@@ -1,20 +1,19 @@
 <?php
 
-namespace League\FactoryMuffin\Kind;
+namespace League\FactoryMuffin\Generator;
 
 use League\FactoryMuffin\Facade\FactoryMuffin;
-use League\FactoryMuffin\Kind;
 
 /**
  * Class Factory.
  *
- * @package League\FactoryMuffin\Kind
+ * @package League\FactoryMuffin\Generator
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class Factory extends Kind
+class Factory extends Base
 {
     /**
      * Generate, and return the attribute.

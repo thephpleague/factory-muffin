@@ -1,20 +1,19 @@
 <?php
 
-namespace League\FactoryMuffin\Kind;
+namespace League\FactoryMuffin\Generator;
 
 use InvalidArgumentException;
-use League\FactoryMuffin\Kind;
 
 /**
  * Class Generic.
  *
- * @package League\FactoryMuffin\Kind
+ * @package League\FactoryMuffin\Generator
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class Generic extends Kind
+class Generic extends Base
 {
     /**
      * Generate, and return the attribute.
@@ -27,8 +26,8 @@ class Generic extends Kind
     public function generate()
     {
         // Only try and use Faker when there are no spaces in the string
-        if (!is_string($this->getKind()) || strpos($this->getKind(), ' ') !== false) {
-            return $this->getKind();
+        if (!is_string($this->getGenerator()) || strpos($this->getGenerator(), ' ') !== false) {
+            return $this->getGenerator();
         }
 
         try {
@@ -38,12 +37,12 @@ class Generic extends Kind
                 $faker = $this->faker;
             }
 
-            return call_user_func_array(array($faker, $this->getKindWithoutPrefix()), $this->getOptions());
+            return call_user_func_array(array($faker, $this->getGeneratorWithoutPrefix()), $this->getOptions());
         } catch (InvalidArgumentException $e) {
             // If it fails to call it, it must not be a real thing
         }
 
         // Just return the literal string
-        return $this->getKind();
+        return $this->getGenerator();
     }
 }

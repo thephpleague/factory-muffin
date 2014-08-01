@@ -1,19 +1,17 @@
 <?php
 
-namespace League\FactoryMuffin\Kind;
-
-use League\FactoryMuffin\Kind;
+namespace League\FactoryMuffin\Generator;
 
 /**
  * Class Closure.
  *
- * @package League\FactoryMuffin\Kind
+ * @package League\FactoryMuffin\Generator
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class Closure extends Kind
+class Closure extends Base
 {
     /**
      * Generate, and return the attribute.
