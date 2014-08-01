@@ -108,14 +108,40 @@ abstract class Kind
     }
 
     /**
-     * Returns the name of the kind supplied (exploding at |)
+     * Returns the name of the kind supplied (exploding at |).
      *
      * @return string
      */
-    public function getKind()
+    protected function getKind()
     {
         $kind = explode('|', $this->kind);
         return reset($kind);
+    }
+
+    /**
+     * Returns the name of the kind without a prefix.
+     *
+     * @return string
+     */
+    protected function getKindWithoutPrefix()
+    {
+        if ($prefix = $this->getPrefix()) {
+            return str_replace($prefix . ':', '', $this->getKind());
+        }
+
+        return $this->getKind();
+    }
+
+    /**
+     * Returns the prefix to the Kind. This can be "unique", or "optional".
+     *
+     * @return string
+     */
+    protected function getPrefix()
+    {
+        $prefixes = array('unique', 'optional');
+        $prefix = current(explode(':', $this->getKind()));
+        return in_array($prefix, $prefixes) ? $prefix : false;
     }
 
     /**

@@ -32,7 +32,13 @@ class Generic extends Kind
         }
 
         try {
-            return call_user_func_array(array($this->faker, $this->getKind()), $this->getOptions());
+            if ($prefix = $this->getPrefix()) {
+                $faker = $this->faker->$prefix();
+            } else {
+                $faker = $this->faker;
+            }
+
+            return call_user_func_array(array($faker, $this->getKindWithoutPrefix()), $this->getOptions());
         } catch (InvalidArgumentException $e) {
             // If it fails to call it, it must not be a real thing
         }

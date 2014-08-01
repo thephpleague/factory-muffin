@@ -19,11 +19,13 @@ FactoryMuffin::define('IdTestModelStub', array(
 ));
 
 FactoryMuffin::define('FakerDefaultingModelStub', array(
-    'title'   => 'word',
-    'email'   => 'email',
-    'content' => 'text',
-    'card'    => 'creditCardDetails',
-    'image' => 'imageUrl|400;600'
+    'title'         => 'word',
+    'email'         => 'email',
+    'content'       => 'text',
+    'card'          => 'creditCardDetails',
+    'image'         => 'imageUrl|400;600',
+    'unique_text'   => 'unique:text',
+    'optional_text' => 'optional:text',
 ));
 
 FactoryMuffin::define('MainModelStub', array(
