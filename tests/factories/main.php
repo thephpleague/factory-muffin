@@ -23,7 +23,9 @@ FactoryMuffin::define('FakerDefaultingModelStub', array(
     'email'   => 'email',
     'content' => 'text',
     'card'    => 'creditCardDetails',
-    'image' => 'imageUrl|400;600'
+    'image'   => 'imageUrl|400;600',
+    'unique_text'    => 'unique:text',
+    'optional_text'    => 'optional:text',
 ));
 
 FactoryMuffin::define('MainModelStub', array(
