@@ -86,14 +86,14 @@ class TestUserModel extends PHPUnit_Framework_TestCase
 }
 ```
 
-## Kinds of attribute supported
+## Generators of attribute supported
 
-| Kind          | Option  | Description                                                                        | Example
-| :-----------: | :-----: |:----------------------------------------------------------------------------------:| :-------------------:|
-| factory       | model   | Will run ->create() on another model and return it's id                            | factory|User         |
-| call          | method  | Allows you to call any static methods                                              | call|staticMethod    |
-| closure       | closure | Allows you to call pass a closure that will be called                              | function {return 1;} |
-| default       |         | Any Kinds that are not reccognised will try and load from Faker, or return the text| creditCardDetails    |
+| Generator     | Option  | Description                                                                      | Example
+| :-----------: | :-----: | :------------------------------------------------------------------------------: | :------------------: |
+| factory       | model   | Will run ->create() on another model and return it's id                          | factory|User         |
+| call          | method  | Allows you to call any static methods                                            | call|staticMethod    |
+| closure       | closure | Allows you to call pass a closure that will be called                            | function {return 1;} |
+| default       |         | Any Generators that are not reccognised will load from Faker, or return the text | creditCardDetails    |
 
 
 ## Save Failures
