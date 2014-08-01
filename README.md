@@ -100,6 +100,10 @@ class TestUserModel extends PHPUnit_Framework_TestCase
 
 If a model cannot be saved to the database, for example if it fails validation through a library like Ardent, a `League\FactoryMuffin\Exceptions\SaveFailedException` will be raised.
 
+## Delete Failures
+
+If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underline exception, in the order they were thrown during the whole process, with the `getExceptions` method which will return an array of exceptions.
+
 ## Testing
 
 ```bash
