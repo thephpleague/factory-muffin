@@ -10,6 +10,7 @@ use League\FactoryMuffin\Exception\DirectoryNotFoundException;
 use League\FactoryMuffin\Exception\NoDefinedFactoryException;
 use League\FactoryMuffin\Exception\SaveFailedException;
 use League\FactoryMuffin\Exception\SaveMethodNotFoundException;
+use League\FactoryMuffin\Generator\Base as Generator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RegexIterator;
@@ -334,7 +335,7 @@ class FactoryMuffin
      */
     public function generateAttr($kind, $object = null)
     {
-        $kind = Kind::detect($kind, $object, $this->getFaker());
+        $kind = Generator::detect($kind, $object, $this->getFaker());
 
         return $kind->generate();
     }
