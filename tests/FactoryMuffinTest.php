@@ -1,8 +1,8 @@
 <?php
 
-use League\FactoryMuffin\Exception\NoDefinedFactoryException;
-use League\FactoryMuffin\Exception\MethodNotFoundException;
-use League\FactoryMuffin\Facade\FactoryMuffin;
+use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
+use League\FactoryMuffin\Exceptions\MethodNotFoundException;
+use League\FactoryMuffin\Facade as FactoryMuffin;
 
 /**
  * @group main

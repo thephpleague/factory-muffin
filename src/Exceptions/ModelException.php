@@ -1,11 +1,11 @@
 <?php
 
-namespace League\FactoryMuffin\Exception;
+namespace League\FactoryMuffin\Exceptions;
 
 use Exception;
 
 /**
- * Class DirectoryNotFoundException.
+ * Class ModelException.
  *
  * @package League\FactoryMuffin\Exception
  * @author  Zizaco <zizaco@gmail.com>
@@ -13,41 +13,37 @@ use Exception;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class DirectoryNotFoundException extends Exception
+class ModelException extends Exception
 {
     /**
-     * The path.
+     * The model.
      *
      * @var string
      */
-    private $path;
+    private $model;
 
     /**
      * Create a new instance.
      *
-     * @param string $path
+     * @param string $model
      * @param string $message
      *
      * @return void
      */
-    public function __construct($path, $message = null)
+    public function __construct($model, $message)
     {
-        $this->path = $path;
-
-        if (!$message) {
-            $message = "The directory '$path' was not found.";
-        }
+        $this->model = $model;
 
         parent::__construct($message);
     }
 
     /**
-     * Get the path.
+     * Get the model.
      *
      * @return string
      */
-    public function getPath()
+    public function getModel()
     {
-        return $this->path;
+        return $this->model;
     }
 }

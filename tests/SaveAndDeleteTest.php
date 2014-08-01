@@ -1,10 +1,10 @@
 <?php
 
-use League\FactoryMuffin\Exception\DeleteMethodNotFoundException;
-use League\FactoryMuffin\Exception\DeletingFailedException;
-use League\FactoryMuffin\Exception\SaveFailedException;
-use League\FactoryMuffin\Exception\SaveMethodNotFoundException;
-use League\FactoryMuffin\Facade\FactoryMuffin;
+use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
+use League\FactoryMuffin\Exceptions\DeletingFailedException;
+use League\FactoryMuffin\Exceptions\SaveFailedException;
+use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
+use League\FactoryMuffin\Facade as FactoryMuffin;
 
 /**
  * @group savedelete

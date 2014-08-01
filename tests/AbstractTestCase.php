@@ -1,6 +1,6 @@
 <?php
 
-use League\FactoryMuffin\Facade\FactoryMuffin;
+use League\FactoryMuffin\Facade as FactoryMuffin;
 
 abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 {

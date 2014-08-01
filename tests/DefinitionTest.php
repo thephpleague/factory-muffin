@@ -1,8 +1,8 @@
 <?php
 
-use League\FactoryMuffin\Facade\FactoryMuffin;
+use League\FactoryMuffin\Facade as FactoryMuffin;
 
-use League\FactoryMuffin\Exception\DirectoryNotFoundException;
+use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
 
 /**
  * @group definition

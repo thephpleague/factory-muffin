@@ -1,6 +1,6 @@
 <?php
 
-namespace League\FactoryMuffin\Exception;
+namespace League\FactoryMuffin\Exceptions;
 
 /**
  * Class NoDefinedFactoryException.
