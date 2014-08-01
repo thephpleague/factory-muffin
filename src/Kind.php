@@ -112,7 +112,7 @@ abstract class Kind
      *
      * @return string
      */
-    public function getKind()
+    protected function getKind()
     {
         $kind = explode('|', $this->kind);
         return reset($kind);
@@ -123,7 +123,7 @@ abstract class Kind
      *
      * @return string
      */
-    public function getKindWithoutPrefix()
+    protected function getKindWithoutPrefix()
     {
         if ($prefix = $this->getPrefix()) {
             return str_replace($prefix . ':', '', $this->getKind());
@@ -137,7 +137,7 @@ abstract class Kind
      *
      * @return string
      */
-    public function getPrefix()
+    protected function getPrefix()
     {
         $prefixes = array('unique', 'optional');
         $prefix = current(explode(':', $this->getKind()));
