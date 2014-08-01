@@ -1,6 +1,6 @@
 <?php
 
-namespace League\FactoryMuffin\Generator;
+namespace League\FactoryMuffin\Generators;
 
 /**
  * Class Base.
@@ -77,10 +77,10 @@ abstract class Base
             return new Closure($kind, $object, $faker);
         }
 
-        $class = '\\League\\FactoryMuffin\\Generator\\Generic';
+        $class = '\\League\\FactoryMuffin\\Generators\\Generic';
         foreach (static::$availableGenerators as $availableGenerator) {
             if (substr($kind, 0, strlen($availableGenerator)) === $availableGenerator) {
-                $class = '\\League\\FactoryMuffin\\Generator\\' . ucfirst($availableGenerator);
+                $class = '\\League\\FactoryMuffin\\Generators\\' . ucfirst($availableGenerator);
                 break;
             }
         }

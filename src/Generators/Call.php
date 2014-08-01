@@ -1,10 +1,10 @@
 <?php
 
-namespace League\FactoryMuffin\Generator;
+namespace League\FactoryMuffin\Generators;
 
 use Exception;
-use League\FactoryMuffin\Exception\MethodNotFoundException;
-use League\FactoryMuffin\Facade\FactoryMuffin;
+use League\FactoryMuffin\Exceptions\MethodNotFoundException;
+use League\FactoryMuffin\Facade as FactoryMuffin;
 
 /**
  * Class Call.
@@ -20,7 +20,7 @@ class Call extends Base
     /**
      * Generate, and return the attribute.
      *
-     * @throws \League\FactoryMuffin\Exception\MethodNotFoundException
+     * @throws \League\FactoryMuffin\Exceptions\MethodNotFoundException
      *
      * @return mixed
      */

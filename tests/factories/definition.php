@@ -1,6 +1,6 @@
 <?php
 
-use League\FactoryMuffin\Facade\FactoryMuffin;
+use League\FactoryMuffin\Facade as FactoryMuffin;
 
 FactoryMuffin::define('ProfileModelStub', array(
     'profile' => 'text',

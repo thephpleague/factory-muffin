@@ -33,7 +33,7 @@ In this example, we will create them in the `/tests/factories/all.php`:
 ```php
 <?php
 
-use League\FactoryMuffin\Facade\FactoryMuffin;
+use League\FactoryMuffin\Facade as FactoryMuffin;
 
 FactoryMuffin::define('Message', array(
     'user_id' => 'factory|User',
@@ -60,7 +60,7 @@ You can then use these factories in your tests:
 ```php
 <?php
 
-use League\FactoryMuffin\Facade\FactoryMuffin;
+use League\FactoryMuffin\Facade as FactoryMuffin;
 
 class TestUserModel extends PHPUnit_Framework_TestCase
 {
@@ -98,7 +98,7 @@ class TestUserModel extends PHPUnit_Framework_TestCase
 
 ## Save Failures
 
-If a model cannot be saved to the database, for example if it fails validation through a library like Ardent, a `League\FactoryMuffin\Exception\SaveFailedException` will be raised.
+If a model cannot be saved to the database, for example if it fails validation through a library like Ardent, a `League\FactoryMuffin\Exceptions\SaveFailedException` will be raised.
 
 ## Testing
 

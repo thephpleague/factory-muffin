@@ -1,8 +1,8 @@
 <?php
 
-namespace League\FactoryMuffin\Generator;
+namespace League\FactoryMuffin\Generators;
 
-use League\FactoryMuffin\Facade\FactoryMuffin;
+use League\FactoryMuffin\Facade as FactoryMuffin;
 
 /**
  * Class Factory.

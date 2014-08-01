@@ -3,20 +3,20 @@
 namespace League\FactoryMuffin;
 
 use Exception;
-use Faker\Factory;
-use League\FactoryMuffin\Exception\DeleteMethodNotFoundException;
-use League\FactoryMuffin\Exception\DeletingFailedException;
-use League\FactoryMuffin\Exception\DirectoryNotFoundException;
-use League\FactoryMuffin\Exception\NoDefinedFactoryException;
-use League\FactoryMuffin\Exception\SaveFailedException;
-use League\FactoryMuffin\Exception\SaveMethodNotFoundException;
-use League\FactoryMuffin\Generator\Base as Generator;
+use Faker\Factory as Faker;
+use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
+use League\FactoryMuffin\Exceptions\DeletingFailedException;
+use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
+use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
+use League\FactoryMuffin\Exceptions\SaveFailedException;
+use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
+use League\FactoryMuffin\Generators\Base as Generator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RegexIterator;
 
 /**
- * Class FactoryMuffin.
+ * Class Factory.
  *
  * @package League\FactoryMuffin
  * @author  Zizaco <zizaco@gmail.com>
@@ -24,7 +24,7 @@ use RegexIterator;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class FactoryMuffin
+class Factory
 {
     /**
      * The array of factories.
@@ -138,7 +138,7 @@ class FactoryMuffin
      * @param string $model Model class name.
      * @param array  $attr  Model attributes.
      *
-     * @throws \League\FactoryMuffin\Exception\SaveFailedException
+     * @throws \League\FactoryMuffin\Exceptions\SaveFailedException
      *
      * @return object
      */
@@ -189,7 +189,7 @@ class FactoryMuffin
      *
      * @param object $object The model instance.
      *
-     * @throws \League\FactoryMuffin\Exception\SaveMethodNotFoundException
+     * @throws \League\FactoryMuffin\Exceptions\SaveMethodNotFoundException
      *
      * @return mixed
      */
@@ -227,8 +227,8 @@ class FactoryMuffin
     /**
      * Call the delete method on any saved objects.
      *
-     * @throws \League\FactoryMuffin\Exception\DeletingFailedException
-     * @throws \League\FactoryMuffin\Exception\DeleteMethodNotFoundException
+     * @throws \League\FactoryMuffin\Exceptions\DeletingFailedException
+     * @throws \League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException
      *
      * @return void
      */
@@ -297,7 +297,7 @@ class FactoryMuffin
      *
      * @param string $model Model class name.
      *
-     * @throws \League\FactoryMuffin\Exception\NoDefinedFactoryException
+     * @throws \League\FactoryMuffin\Exceptions\NoDefinedFactoryException
      *
      * @return array
      */
@@ -348,7 +348,7 @@ class FactoryMuffin
     private function getFaker()
     {
         if (!$this->faker) {
-            $this->faker = Factory::create($this->fakerLocale);
+            $this->faker = Faker::create($this->fakerLocale);
         }
 
         return $this->faker;
@@ -363,7 +363,7 @@ class FactoryMuffin
      *
      * @param string|string[] $paths
      *
-     * @throws \League\FactoryMuffin\Exception\DirectoryNotFoundException
+     * @throws \League\FactoryMuffin\Exceptions\DirectoryNotFoundException
      *
      * @return void
      */

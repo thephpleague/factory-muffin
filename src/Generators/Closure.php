@@ -1,6 +1,6 @@
 <?php
 
-namespace League\FactoryMuffin\Generator;
+namespace League\FactoryMuffin\Generators;
 
 /**
  * Class Closure.

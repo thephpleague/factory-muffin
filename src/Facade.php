@@ -1,14 +1,14 @@
 <?php
 
-namespace League\FactoryMuffin\Facade;
+namespace League\FactoryMuffin;
 
 /**
- * Class FactoryMuffin.
+ * Class Facade.
  *
- * This is the optional, sleeker FactoryMuffin facade accessor.
+ * This is the optional, sleeker Factory facade accessor.
  * All methods available on the main class are available here, but statically.
  *
- * @see League\FactoryMuffin\FactoryMuffin
+ * @see League\FactoryMuffin\Factory
  *
  * @method static void setSaveMethod(string $method) Set the method we use when saving objects.
  * @method static void setDeleteMethod(string $method) Set the method we use when deleting objects.
@@ -23,35 +23,35 @@ namespace League\FactoryMuffin\Facade;
  * @method static string|object generateAttr(string $kind, object $object = null) Generate the attributes.
  * @method static void loadFactories(string|string[] $paths) Load the specified factories.
  *
- * @package League\FactoryMuffin\Facades
+ * @package League\FactoryMuffin
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class FactoryMuffin
+class Facade
 {
     /**
-     * The underline FactoryMuffin instance.
+     * The underline Factory instance.
      *
-     * @var \League\FactoryMuffin\FactoryMuffin
+     * @var \League\FactoryMuffin\Factory
      */
-    private static $fmInstance;
+    private static $instance;
 
     /**
      * Get the underline FactoryMuffin instance.
      *
      * We'll always cache the instance and reuse it.
      *
-     * @return \League\FactoryMuffin\FactoryMuffin
+     * @return \League\FactoryMuffin\Factory
      */
-    protected static function fmInstance()
+    private static function instance()
     {
-        if (!self::$fmInstance) {
-            self::$fmInstance = new \League\FactoryMuffin\FactoryMuffin();
+        if (!self::$instance) {
+            self::$instance = new Factory();
         }
 
-        return self::$fmInstance;
+        return self::$instance;
     }
 
     /**
@@ -66,19 +66,17 @@ class FactoryMuffin
      */
     public static function __callStatic($method, $args)
     {
-        $instance = static::fmInstance();
-
         switch (count($args)) {
             case 0:
-                return $instance->$method();
+                return self::instance()->$method();
             case 1:
-                return $instance->$method($args[0]);
+                return self::instance()->$method($args[0]);
             case 2:
-                return $instance->$method($args[0], $args[1]);
+                return self::instance()->$method($args[0], $args[1]);
             case 3:
-                return $instance->$method($args[0], $args[1], $args[2]);
+                return self::instance()->$method($args[0], $args[1], $args[2]);
             default:
-                return call_user_func_array(array($instance, $method), $args);
+                return call_user_func_array(array(self::instance(), $method), $args);
         }
     }
 }
