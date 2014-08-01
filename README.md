@@ -36,20 +36,20 @@ In this example, we will create them in the `/tests/factories/all.php`:
 use League\FactoryMuffin\Facade as FactoryMuffin;
 
 FactoryMuffin::define('Message', array(
-    'user_id' => 'factory|User',
-    'subject' => 'sentence',
-    'message' => 'text',
+    'user_id'      => 'factory|User',
+    'subject'      => 'sentence',
+    'message'      => 'text',
     'phone_number' => 'randomNumber|8',
-    'created' => 'date|Ymd h:s',
-    'slug' => 'call|makeSlug|word',
+    'created'      => 'date|Ymd h:s',
+    'slug'         => 'call|makeSlug|word',
 ));
 
 FactoryMuffin::define('User', array(
     'username' => 'firstNameMale',
-    'email' => 'email',
-    'avatar' => 'imageUrl|400;600',
+    'email'    => 'email',
+    'avatar'   => 'imageUrl|400;600',
     'greeting' => RandomGreeting::get(),
-    'four' => function() {
+    'four'     => function() {
         return 2 + 2;
     },
 ));
@@ -99,6 +99,10 @@ class TestUserModel extends PHPUnit_Framework_TestCase
 ## Save Failures
 
 If a model cannot be saved to the database, for example if it fails validation through a library like Ardent, a `League\FactoryMuffin\Exceptions\SaveFailedException` will be raised.
+
+## Delete Failures
+
+If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underline exception, in the order they were thrown during the whole process, with the `getExceptions` method which will return an array of exceptions.
 
 ## Testing
 
