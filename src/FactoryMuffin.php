@@ -344,7 +344,7 @@ class FactoryMuffin
      *
      * @return \Faker\Generator
      */
-    protected function getFaker()
+    private function getFaker()
     {
         if (!$this->faker) {
             $this->faker = Factory::create($this->fakerLocale);
