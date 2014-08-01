@@ -119,6 +119,33 @@ abstract class Kind
     }
 
     /**
+     * Returns the name of the kind without a prefix
+     *
+     * @return string
+     */
+    public function getKindWithoutPrefix()
+    {
+        $prefix = $this->getPrefix();
+        if (! $prefix) {
+            return $this->getKind();
+        }
+
+        return str_replace($prefix . ':', null, $this->getKind());
+    }
+
+    /**
+     * Returns the prefix to the Kind. This can be "unique", or "optional"
+     *
+     * @return string
+     */
+    public function getPrefix()
+    {
+        $prefixes = array('unique', 'optional');
+        $prefix = current(explode(':', $this->getKind()));
+        return in_array($prefix, $prefixes) ? $prefix : false;
+    }
+
+    /**
      * Generate, and return the attribute.
      *
      * @return mixed
