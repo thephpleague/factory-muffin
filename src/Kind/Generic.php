@@ -32,9 +32,7 @@ class Generic extends Kind
         }
 
         try {
-
-            $prefix = $this->getPrefix();
-            if ($prefix) {
+            if ($prefix = $this->getPrefix()) {
                 $faker = $this->faker->$prefix();
             } else {
                 $faker = $this->faker;
