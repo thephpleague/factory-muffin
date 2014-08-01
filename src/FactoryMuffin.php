@@ -68,16 +68,6 @@ class FactoryMuffin
     private $fakerLocale = 'en_EN';
 
     /**
-     * Create a new instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->faker = Factory::create($this->fakerLocale);
-    }
-
-    /**
      * Set the faker locale.
      *
      * @param string $local
@@ -87,6 +77,9 @@ class FactoryMuffin
     public function setFakerLocale($local)
     {
         $this->fakerLocale = $local;
+
+        // The faker class must be instantiated again with a new the new locale
+        $this->faker = null;
     }
 
     /**
@@ -341,9 +334,23 @@ class FactoryMuffin
      */
     public function generateAttr($kind, $object = null)
     {
-        $kind = Kind::detect($kind, $object, $this->faker);
+        $kind = Kind::detect($kind, $object, $this->getFaker());
 
         return $kind->generate();
+    }
+
+    /**
+     * Get the faker instance.
+     *
+     * @return \Faker\Generator
+     */
+    private function getFaker()
+    {
+        if (!$this->faker) {
+            $this->faker = Factory::create($this->fakerLocale);
+        }
+
+        return $this->faker;
     }
 
     /**
