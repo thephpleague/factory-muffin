@@ -53,6 +53,19 @@ class FactoryMuffin
     private $deleteMethod = 'delete';
 
     /**
+     * @var Faker
+     */
+    private $faker;
+
+    /**
+     * Constructor for FactoryMuffin
+     */
+    public function __construct()
+    {
+        $this->faker = \Faker\Factory::create();;
+    }
+
+    /**
      * Set the method we use when saving objects.
      *
      * @param string $method
@@ -304,7 +317,7 @@ class FactoryMuffin
      */
     public function generateAttr($kind, $object = null)
     {
-        $kind = Kind::detect($kind, $object);
+        $kind = Kind::detect($kind, $object, $this->faker);
 
         return $kind->generate();
     }

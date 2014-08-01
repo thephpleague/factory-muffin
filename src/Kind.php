@@ -67,14 +67,12 @@ abstract class Kind
      *
      * @param string $kind   The kind of attribute that will be generated.
      * @param object $object The model instance.
+     * @param Faker  $object The Faker instance.
      *
      * @return \League\FactoryMuffin\Kind
      */
-    public static function detect($kind, $object = null)
+    public static function detect($kind, $object = null, $faker = null)
     {
-        // TODO: Move this somewhere where its only instantiated once
-        $faker = new Faker();
-
         if ($kind instanceof \Closure) {
             return new Kind\Closure($kind, $object, $faker);
         }
@@ -87,7 +85,7 @@ abstract class Kind
             }
         }
 
-        return new $class($kind, $object, $faker->create());
+        return new $class($kind, $object, $faker);
     }
 
     /**
