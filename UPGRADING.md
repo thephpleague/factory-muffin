@@ -2,7 +2,7 @@ Upgrading
 =========
 
 
-Welcome to the upgrade guide for Factory Muffin. We've tried to cover all changed from 1.4 through to the current release. If we've missed anything, feel free to shout at us, or send a pull request.
+Welcome to the upgrade guide for Factory Muffin. We've tried to cover all changed from 1.4 through to the current release. If we've missed anything, feel free to shout at us, or send a pull request. From 2.0, we are following the PSR-2 coding standard, and will be following semantic versioning, so there will be no BC breaks until 3.0 other than essential fixes, and any changes will be documented here.
 
 
 ## Upgrading from 1.6.x to 2.0.x
