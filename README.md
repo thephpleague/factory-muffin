@@ -129,17 +129,14 @@ class TestUserModel extends PHPUnit_Framework_TestCase
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please check out our [contribution guidelines](CONTRIBUTING.md) for details.
 
 
 ## Credits
 
-- [Zizaco Zizuini](https://github.com/Zizaco)
-- [Scott Robertson](https://github.com/scottrobertson)
-- [Graham Campbell](https://github.com/GrahamCampbell)
-- [All Contributors](https://github.com/thephpleague/factory-muffin/contributors)
+Factory Muffin is based on [Zizaco Zizuini](https://github.com/Zizaco)'s original work on "Factory Muff", and is currently maintained by [Scott Robertson](https://github.com/scottrobertson) and [Graham Campbell](https://github.com/GrahamCampbell). Thank you to all our wonderful [contributors](https://github.com/thephpleague/factory-muffin/contributors) too.
 
 
 ## License
 
-We're licensed under the [MIT License (MIT)](LICENSE).
+Factory Muffin is licensed under the [MIT License (MIT)](LICENSE).
