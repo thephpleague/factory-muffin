@@ -31,18 +31,28 @@ class Generic extends Base
         }
 
         try {
-            if ($prefix = $this->getPrefix()) {
-                $faker = $this->faker->$prefix();
-            } else {
-                $faker = $this->faker;
-            }
-
-            return call_user_func_array(array($faker, $this->getGeneratorWithoutPrefix()), $this->getOptions());
+            return $this->execute();
         } catch (InvalidArgumentException $e) {
-            // If it fails to call it, it must not be a real thing
+            // If it fails to call it, it must not exist
+            return $this->getGenerator();
+        }
+    }
+
+    /**
+     * Call faker to generate the attribute.
+     *
+     * @return mixed
+     */
+    private function execute()
+    {
+        if ($prefix = $this->getPrefix()) {
+            $faker = $this->faker->$prefix();
+        } else {
+            $faker = $this->faker;
         }
 
-        // Just return the literal string
-        return $this->getGenerator();
+        $generator = $this->getGeneratorWithoutPrefix();
+
+        return call_user_func_array(array($faker, $generator), $this->getOptions());
     }
 }

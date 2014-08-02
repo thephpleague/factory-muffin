@@ -25,27 +25,37 @@ class Call extends Base
      */
     public function generate()
     {
-        $callable = substr($this->kind, 5);
-        $params = array();
+        $method = substr($this->kind, 5);
+        $args = array();
 
-        if (strstr($callable, '|')) {
-            $parts = explode('|', $callable);
-            $callable = array_shift($parts);
+        if (strstr($method, '|')) {
+            $parts = explode('|', $method);
+            $method = array_shift($parts);
 
             if ($parts[0] === 'factory' && count($parts) > 1) {
-                $params[] = FactoryMuffin::create($parts[1]);
+                $args[] = $this->factory($parts[1]);
             } else {
-                $attr = implode('|', $parts);
-                $params[] = FactoryMuffin::generateAttr($attr, $this->object);
+                $args[] = FactoryMuffin::generateAttr(implode('|', $parts), $this->object);
             }
         }
 
-        $model = get_class($this->object);
+        return $this->execute($method, $args);
+    }
 
-        if (!method_exists($model, $callable)) {
-            throw new MethodNotFoundException($model, $callable);
+    /**
+     * Call a static method on the model.
+     *
+     * @param string $method
+     * @param array  $args
+     *
+     * @return mixed
+     */
+    private function execute($method, $args)
+    {
+        if (method_exists($model = get_class($this->object), $method)) {
+            return call_user_func_array(array($model, $method), $args);
         }
 
-        return call_user_func_array("$model::$callable", $params);
+        throw new MethodNotFoundException($model, $method);
     }
 }

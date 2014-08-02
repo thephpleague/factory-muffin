@@ -36,13 +36,9 @@ class Factory extends Base
      */
     public function generate()
     {
-        $factory = substr($this->kind, 8);
+        $model = substr($this->kind, 8);
 
-        if (FactoryMuffin::isSaved($this->object)) {
-            $object = FactoryMuffin::create($factory);
-        } else {
-            $object = FactoryMuffin::instance($factory);
-        }
+        $object = $this->factory($model);
 
         return $this->getId($object);
     }
