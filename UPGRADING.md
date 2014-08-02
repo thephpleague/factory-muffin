@@ -7,11 +7,11 @@ Upgrading
 ### Class Name Changes
 
 Every class has moved. So here's a summary of the changes:
-* The root namespace has been moved to `League\FactoryMuffin`, and you should now access the facade using `Zizaco\FactoryMuff\Facade::method()`.
+* The root namespace has been moved from `Zizaco\FactoryMuff` to `League\FactoryMuffin`. You should now access the facade using `Zizaco\FactoryMuff\Facade::fooBar()`.
 * Many kind classes have been removed in favour of the faker alternatives. Those remaining can be found under the `Zizaco\FactoryMuff\Generators` namespace.
 * There are many more exceptions, and the names of the existing ones have changed. The exceptions can be found under the `Zizaco\FactoryMuff\Exception` namespace.
 
-A detailed list of every change, with the fully qualified names are listed below:
+A detailed list of every change, with the fully qualified names is listed below:
 * Moved: `Zizaco\FactoryMuff\FactoryMuff` => `League\FactoryMuffin\Factory`
 * Moved: `Zizaco\FactoryMuff\Facade\FactoryMuff` => `League\FactoryMuffin\Factory`
 * Moved: `Zizaco\FactoryMuff\SaveException` => `League\FactoryMuffin\Exceptions\SaveFailedException`
@@ -37,14 +37,42 @@ A detailed list of every change, with the fully qualified names are listed below
 
 We have moved from PSR-0 to PSR-4 for autoloading.
 
-## Factory Definitions
+### Factory Definitions
 
-Having a public static factory property is no longer supported. You must use the define method introduced in the 1.5.x series. You may call it like this: `League\FactoryMuffin\Factory::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`. We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` method. Within that method you can call `League\FactoryMuffin\Factory::loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define method). A full example in included on our readme.
+Having a public static factory property is no longer supported. You must use the define method introduced in the 1.5.x series. You may call it like this: `League\FactoryMuffin\Factory::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`. We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` method. Within that method you can call `League\FactoryMuffin\Factory::loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define method). The `loadFactories` method will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found. A full example is included in the readme.
+
+### Generator (Kind) Changes
+
+We now refer to what was previously the Kind classes, as Generator classes. We've removed some of these in favour of the faker alternatives. We currently provide the following generators: `Call`, `Closure`, `Factory`, and `Generic`. The call, closure, and factory generators have not changed significantly since previous versions, and the generic generator still provides access to the faker generators. Note that you can use a `;` to send multiple arguments to the generators.
+
+The removed generators are `Date`, `Integer`, `Name`, `String`, and `Text`, however, these are still callable (some name changes required), as they are available on the generic generator through faker.
+* Instead of using `integer|8`, you can use `randomNumber|8`.
+* Instead of using `string`, you can use `sentence`, or `word`.
+* Instead of using `name`, you can use things like `firstNameMale`.
+* `date` and `text` can be used in the same way you were using them before.
+
+### Creating And Seeding
+
+This `create` function can be called in the same way, but has internal improvements. Now, it will also save anything you generate with the `Factory` kind too. We now have a new function called `seed`, which accepts an additional argument at the start which is the number of models to generate in the process. The `seed` function will affectively be calling the `create` function over and over. It should be noted that you can set a custom save method before you get going with the `setSaveMethod` function. Also, a reminder that the `instance` function is still available if you don't want database persistence.
+
+You may encounter the following exceptions:
+* `League\FactoryMuffin\Exceptions\NoDefinedFactoryException` will be thrown if you try to create a model and you haven't defined a factory definition for it earlier.
+* `League\FactoryMuffin\Exceptions\SaveFailedException` will be thrown if the save function on your model returns false.
+* `League\FactoryMuffin\Exceptions\SaveMethodNotFoundException` will be thrown if the save function on your model does not exist.
+
+There are 2 other helper functions available. You may call `saved` to return an array of all the saved objects. You may call `isSaved` with an instance of a model to check if it's saved.
+
+### Deleting
+
+You can delete all your saved models with the `deleteSaved` function.  If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underline exception, in the order they were thrown during the whole process, with the `getExceptions` method which will return an array of exceptions. It should be noted that you can set a custom delete method before you get going with the `setDeleteMethod` function. It's recommended that you call the `deleteSaved` function from PHPUnit's `tearDownAfterClass` function. A full example is included in the readme.
+
+### Other BC Breaks
+
+The `attributesFor` method no longer accepts a class name as the first argument, and the `generateAttr` method no longer accepts a class name as a second argument. Please pass an actual model instance to both functions instead.
 
 ### Installing This Version
 
 In your composer.json, add:
-
 ```json
 {
     "require-dev": {
@@ -58,12 +86,11 @@ In your composer.json, add:
 
 ### Faker Usage
 
-* We now use the faker package, so our `Zizaco\FactoryMuff\Wordlist` class has been removed. All your previous definitions should still work in as close to the same way as possible, but watch out for any minor differences. With the addition of the faker library, far more definitions are now possible since any definitions not natively provided by us, fall back to the faker package. Also, it should be noted you may use closures now to generate completely custom attributes.
+* We now use the faker package, so our `Zizaco\FactoryMuff\Wordlist` class has been removed. All your previous definitions should still work in as close to the same way as possible, but watch out for any minor differences. With the addition of the faker library, far more definitions are now possible since any definitions not natively provided by us, fall back to the faker package. Also, it should be noted you may use closures now to generate completely custom attributes. The new classes can be found under the `Zizaco\FactoryMuff\Kind` namespace.
 
 ### Installing This Version
 
 In your composer.json, add:
-
 ```json
 {
     "require-dev": {
@@ -88,7 +115,6 @@ As well as having a `public static $factory = array('foo' => 'bar')` property on
 ### Installing This Version
 
 In your composer.json, add:
-
 ```json
 {
     "require-dev": {
