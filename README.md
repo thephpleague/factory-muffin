@@ -29,7 +29,7 @@ In your composer.json, simply add `"league/factory-muffin": "~2.0@dev"` to your 
 
 ## Upgrading
 
-It maybe be useful for existing users to check out the [upgrade guide](UOGRADING.md).
+It maybe be useful for existing users to check out the [upgrade guide](UPGRADING.md).
 
 
 ## Usage
@@ -51,7 +51,7 @@ You can define model factories using the `define` function. You may call it like
 | closure       | closure | Allows you to call pass a closure that will be called                            | function {return 1;} |
 | default       |         | Any Generators that are not reccognised will load from Faker, or return the text | creditCardDetails    |
 
-It may be useful for long standing users to checkout the generator changes from 1.6 to 2.0 in the [upgrade guide](UOGRADING.md).
+It may be useful for long standing users to checkout the generator changes from 1.6 to 2.0 in the [upgrade guide](UPGRADING.md).
 
 ### Creating And Seeding
 
