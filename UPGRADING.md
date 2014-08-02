@@ -123,7 +123,7 @@ We've added some exceptions for certain events:
 
 ### Factory Definitions
 
-As well as having a `public static $factory = array('foo' => 'bar')` property on your model, you may also call `Zizaco\FactoryMuff\Facade\FactoryMuff::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))` to define your model's factory.
+Instead of having a `public static $factory = array('foo' => 'bar')` property on your model, you mcan call `Zizaco\FactoryMuff\Facade\FactoryMuff::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))` to define your model's factory. Note that the property on the model is deprecated from this point onwards, and will be removed in 2.0.
 
 ### Installing This Version
 
