@@ -18,7 +18,7 @@ Via Composer
 
 ```json
 {
-    "require": {
+    "require-dev": {
         "league/factory-muffin": "~2.0@dev"
     }
 }
