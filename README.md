@@ -73,7 +73,8 @@ You can delete all your saved models with the `deleteSaved` function.  If one or
 Each exception is documented with the documentation for the functions that throw them.
 
 You can see an diagram showing the exception hierarchy here:
-![diagram](https://cloud.githubusercontent.com/assets/2829600/3787973/fbc11518-1a47-11e4-9d17-2edeb4a4055d.png)
+
+![diagram](https://cloud.githubusercontent.com/assets/2829600/3788001/e0df6a08-1a4a-11e4-834b-2c323c044dd7.png)
 
 ### Real Examples
 
