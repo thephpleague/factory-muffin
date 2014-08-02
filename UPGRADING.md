@@ -2,7 +2,14 @@ Upgrading
 =========
 
 
+Welcome to the upgrade guide for Factory Muffin. We've tried to cover all changed from 1.4 through to the current release. If we've missed anything, feel free to shout at us, or send a pull request.
+
+
 ## Upgrading from 1.6.x to 2.0.x
+
+### Introduction
+
+Version 2.0 marks a major file milestone in this project, under the new name of "Factory Muffin". We see a large number improvements and some breaking changes. Within this section of the upgrading guide, you will see "the `xyz` function can be called". You should assume that these functions should be called statically on the `League\FactoryMuffin\Facade` class.
 
 ### Class Name Changes
 
@@ -13,7 +20,7 @@ Every class has moved. So here's a summary of the changes:
 
 A detailed list of every change, with the fully qualified names is listed below:
 * Moved: `Zizaco\FactoryMuff\FactoryMuff` => `League\FactoryMuffin\Factory`
-* Moved: `Zizaco\FactoryMuff\Facade\FactoryMuff` => `League\FactoryMuffin\Factory`
+* Moved: `Zizaco\FactoryMuff\Facade\FactoryMuff` => `League\FactoryMuffin\Facade`
 * Moved: `Zizaco\FactoryMuff\SaveException` => `League\FactoryMuffin\Exceptions\SaveFailedException`
 * Moved: `Zizaco\FactoryMuff\NoDefinedFactoryException` => `League\FactoryMuffin\Exceptions\NoDefinedFactoryException`
 * Moved: `Zizaco\FactoryMuff\Kind` => `League\FactoryMuffin\Generators\Base`
@@ -37,7 +44,7 @@ It also should be noted that we've moved from PSR-0 to PSR-4 for autoloading.
 
 ### Factory Definitions
 
-Having a public static factory property is no longer supported. You must use the define method introduced in the 1.5.x series. You may call it like this: `League\FactoryMuffin\Factory::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`. We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` method. Within that method you can call `League\FactoryMuffin\Factory::loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define method). The `loadFactories` method will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found. A full example is included in the readme.
+Having a public static factory property is no longer supported. You must use the define function introduced in the 1.5.x series. You may call it like this: `League\FactoryMuffin\Factory::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`. We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `League\FactoryMuffin\Factory::loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found. A full example is included in the readme.
 
 ### Generator (Kind) Changes
 
@@ -51,7 +58,7 @@ The removed generators are `Date`, `Integer`, `Name`, `String`, and `Text`, howe
 
 ### Creating And Seeding
 
-This `create` function can be called in the same way, but has internal improvements. Now, it will also save anything you generate with the `Factory` kind too. We now have a new function called `seed`, which accepts an additional argument at the start which is the number of models to generate in the process. The `seed` function will affectively be calling the `create` function over and over. It should be noted that you can set a custom save method before you get going with the `setSaveMethod` function. Also, a reminder that the `instance` function is still available if you don't want database persistence.
+This `create` function can be called in the same way, but has internal improvements. Now, it will also save anything you generate with the `Factory` kind too. We now have a new function called `seed`, which accepts an additional argument at the start which is the number of models to generate in the process. The `seed` function will affectively be calling the `create` function over and over. It should be noted that you can set a custom save function before you get going with the `setSaveMethod` function. Also, a reminder that the `instance` function is still available if you don't want database persistence.
 
 You may encounter the following exceptions:
 * `League\FactoryMuffin\Exceptions\NoDefinedFactoryException` will be thrown if you try to create a model and you haven't defined a factory definition for it earlier.
@@ -62,11 +69,11 @@ There are 2 other helper functions available. You may call `saved` to return an 
 
 ### Deleting
 
-You can delete all your saved models with the `deleteSaved` function.  If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underline exception, in the order they were thrown during the whole process, with the `getExceptions` method which will return an array of exceptions. It should be noted that you can set a custom delete method before you get going with the `setDeleteMethod` function. It's recommended that you call the `deleteSaved` function from PHPUnit's `tearDownAfterClass` function. A full example is included in the readme.
+You can delete all your saved models with the `deleteSaved` function.  If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underline exception, in the order they were thrown during the whole process, with the `getExceptions` function which will return an array of exceptions. It should be noted that you can set a custom delete function before you get going with the `setDeleteMethod` function. It's recommended that you call the `deleteSaved` function from PHPUnit's `tearDownAfterClass` function. A full example is included in the readme.
 
 ### Other BC Breaks
 
-The `attributesFor` method no longer accepts a class name as the first argument, and the `generateAttr` method no longer accepts a class name as a second argument. Please pass an actual model instance to both functions instead.
+The `attributesFor` function no longer accepts a class name as the first argument, and the `generateAttr` function no longer accepts a class name as a second argument. Please pass an actual model instance to both functions instead.
 
 ### Installing This Version
 
