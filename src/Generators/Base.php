@@ -5,7 +5,7 @@ namespace League\FactoryMuffin\Generators;
 /**
  * Class Base.
  *
- * @package League\FactoryMuffin
+ * @package League\FactoryMuffin\Generators
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
