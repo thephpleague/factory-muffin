@@ -195,11 +195,11 @@ class Factory
      */
     private function save($object)
     {
-        if (!method_exists($object, $method = $this->saveMethod)) {
-            throw new SaveMethodNotFoundException($object, $method);
+        if (method_exists($object, $method = $this->saveMethod)) {
+            return $object->$method();
         }
 
-        return $object->$method();
+        throw new SaveMethodNotFoundException($object, $method);
     }
 
     /**
