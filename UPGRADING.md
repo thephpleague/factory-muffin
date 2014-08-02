@@ -33,9 +33,7 @@ A detailed list of every change, with the fully qualified names is listed below:
 * Removed: `Zizaco\FactoryMuff\Kind\String`
 * Removed: `Zizaco\FactoryMuff\Kind\Text`
 
-### Autoloading
-
-We have moved from PSR-0 to PSR-4 for autoloading.
+It also should be noted that we've moved from PSR-0 to PSR-4 for autoloading.
 
 ### Factory Definitions
 
