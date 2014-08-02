@@ -15,7 +15,7 @@ Version 2.0 marks a major file milestone in this project, under the new name of 
 
 Every class has moved. So here's a summary of the changes:
 * The root namespace has been moved from `Zizaco\FactoryMuff` to `League\FactoryMuffin`. You should now access the facade using `Zizaco\FactoryMuff\Facade::fooBar()`.
-* Many kind classes have been removed in favour of the faker alternatives. Those remaining can be found under the `Zizaco\FactoryMuff\Generators` namespace.
+* Many generator (kind) classes have been removed in favour of the faker alternatives. Those remaining can be found under the `Zizaco\FactoryMuff\Generators` namespace.
 * There are many more exceptions, and the names of the existing ones have changed. The exceptions can be found under the `Zizaco\FactoryMuff\Exception` namespace.
 
 A detailed list of every change, with the fully qualified names is listed below:
@@ -44,7 +44,7 @@ It also should be noted that we've moved from PSR-0 to PSR-4 for autoloading.
 
 ### Factory Definitions
 
-Having a public static factory property is no longer supported. You must use the define function introduced in the 1.5.x series. You may call it like this: `League\FactoryMuffin\Factory::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`. We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `League\FactoryMuffin\Factory::loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found. A full example is included in the readme.
+Having a public static factory property is no longer supported. You must use the `define` function introduced in the 1.5.x series. You may call it like this: `League\FactoryMuffin\Factory::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`. We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `League\FactoryMuffin\Factory::loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found. A full example is included in the readme.
 
 ### Generator (Kind) Changes
 
@@ -58,7 +58,7 @@ The removed generators are `Date`, `Integer`, `Name`, `String`, and `Text`, howe
 
 ### Creating And Seeding
 
-This `create` function can be called in the same way, but has internal improvements. Now, it will also save anything you generate with the `Factory` kind too. We now have a new function called `seed`, which accepts an additional argument at the start which is the number of models to generate in the process. The `seed` function will affectively be calling the `create` function over and over. It should be noted that you can set a custom save function before you get going with the `setSaveMethod` function. Also, a reminder that the `instance` function is still available if you don't want database persistence.
+This `create` function can be called in the same way, but has internal improvements. Now, it will also save anything you generate with the `Factory` generator too. We now have a new function called `seed`, which accepts an additional argument at the start which is the number of models to generate in the process. The `seed` function will affectively be calling the `create` function over and over. It should be noted that you can set a custom save function before you get going with the `setSaveMethod` function. Also, a reminder that the `instance` function is still available if you don't want database persistence.
 
 You may encounter the following exceptions:
 * `League\FactoryMuffin\Exceptions\NoDefinedFactoryException` will be thrown if you try to create a model and you haven't defined a factory definition for it earlier.
