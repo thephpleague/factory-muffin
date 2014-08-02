@@ -29,7 +29,7 @@ In your composer.json, simply add `"league/factory-muffin": "~2.0@dev"` to your 
 
 ## Upgrading
 
-It maybe be useful for existing users to check out the [upgrade guide](UOGRADING.md), especially for those migrating from 1.x to 2.x.
+It maybe be useful for existing users to check out the [upgrade guide](UOGRADING.md).
 
 
 ## Usage
@@ -139,4 +139,4 @@ Factory Muffin is based on [Zizaco Zizuini](https://github.com/Zizaco)'s origina
 
 ## License
 
-Factory Muffin is licensed under the [MIT License (MIT)](LICENSE).
+Factory Muffin is licensed under [The MIT License (MIT)](LICENSE).
