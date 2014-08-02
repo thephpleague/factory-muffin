@@ -68,6 +68,13 @@ There are 2 other helper functions available. You may call `saved` to return an 
 
 You can delete all your saved models with the `deleteSaved` function.  If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underline exception, in the order they were thrown during the whole process, with the `getExceptions` function which will return an array of exceptions. It should be noted that you can set a custom delete function before you get going with the `setDeleteMethod` function. It's recommended that you call the `deleteSaved` function from PHPUnit's `tearDownAfterClass` function.
 
+### Exceptions
+
+Each exception is documented with the documentation for the functions that throw them.
+
+You can see an diagram showing the exception hierarchy here:
+![diagram](https://cloud.githubusercontent.com/assets/2829600/3787973/fbc11518-1a47-11e4-9d17-2edeb4a4055d.png)
+
 ### Real Examples
 
 To start with, we need to create some defintions:
