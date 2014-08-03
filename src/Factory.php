@@ -195,11 +195,11 @@ class Factory
      */
     private function save($object)
     {
-        if (!method_exists($object, $method = $this->saveMethod)) {
-            throw new SaveMethodNotFoundException($object, $method);
+        if (method_exists($object, $method = $this->saveMethod)) {
+            return $object->$method();
         }
 
-        return $object->$method();
+        throw new SaveMethodNotFoundException($object, $method);
     }
 
     /**
@@ -235,24 +235,39 @@ class Factory
     public function deleteSaved()
     {
         $exceptions = array();
-        $method = $this->deleteMethod;
-        foreach ($this->saved() as $saved) {
+        foreach ($this->saved() as $object) {
             try {
-                if (!method_exists($saved, $method)) {
-                    throw new DeleteMethodNotFoundException($saved, $method);
-                }
-
-                $saved->$method();
+                $this->delete($object);
             } catch (Exception $e) {
                 $exceptions[] = $e;
             }
         }
 
+        // Flush the saved models list
         $this->saved = array();
 
+        // If we ran into problem, throw the exception now
         if ($exceptions) {
             throw new DeletingFailedException($exceptions);
         }
+    }
+
+    /**
+     * Delete our object from the db.
+     *
+     * @param object $object The model instance.
+     *
+     * @throws \League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException
+     *
+     * @return mixed
+     */
+    private function delete($object)
+    {
+        if (method_exists($object, $method = $this->deleteMethod)) {
+            return $object->$method();
+        }
+
+        throw new DeleteMethodNotFoundException($object, $method);
     }
 
     /**
