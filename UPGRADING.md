@@ -78,8 +78,8 @@ There are 2 other helper functions available. You may call `saved` to return an 
 You can now delete all your saved models with the `deleteSaved` function. It should be noted that you can set a custom delete function before you get going with the `setDeleteMethod` function.
 
 If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underlying exception, in the order they were thrown during the whole process, with the `getExceptions` function which will return an array of exceptions. You may encounter the following exceptions:
-* `League\FactoryMuffin\Exceptions\DeleteFailedException` will be thrown if the save function on your model returns false.
-* `League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException` will be thrown if the save function on your model does not exist.
+* `League\FactoryMuffin\Exceptions\DeleteFailedException` will be thrown if the delete function on your model returns false.
+* `League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException` will be thrown if the delete function on your model does not exist.
 * Any other exception thrown by your model while trying to delete it.
 
 It's recommended that you call the `deleteSaved` function from PHPUnit's `tearDownAfterClass` function. A full example is included in the readme.
@@ -88,7 +88,7 @@ It's recommended that you call the `deleteSaved` function from PHPUnit's `tearDo
 
 The exceptions have been completely overhauled. Each exception is documented with the documentation for the functions that throw them.
 
-You can see an diagram showing the exception hierarchy here:
+You can see a diagram showing the exception hierarchy here:
 
 ![diagram](https://cloud.githubusercontent.com/assets/2829600/3790579/8fc52572-1b0d-11e4-96b1-7f0eac0dc10d.png)
 
