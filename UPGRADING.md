@@ -42,6 +42,10 @@ A detailed list of every change, with the fully qualified names is listed below:
 
 It also should be noted that we've moved from PSR-0 to PSR-4 for autoloading.
 
+### Facade Changes
+
+Under it's new name, the facade class now uses `__callStatic` to dynamically call the underline factory instance.
+
 ### Factory Definitions
 
 Having a public static factory property is no longer supported. You must use the `define` function introduced in the 1.5.x series. You may call it like this: `League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`. We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `League\FactoryMuffin\Facade::loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found. A full example is included in the readme.
