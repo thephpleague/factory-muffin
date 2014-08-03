@@ -53,7 +53,7 @@ Having a public static factory property is no longer supported. You must use the
 
 ### Generator (Kind) Changes
 
-We now refer to what was previously the Kind classes, as Generator classes. We've removed some of these in favour of the faker alternatives. We currently provide the following generators: `Call`, `Closure`, `Factory`, and `Generic`. The call, closure, and factory generators have not changed significantly since previous versions, and the generic generator still provides access to the faker generators. Note that you can use a `;` to send multiple arguments to the generators.
+We now refer to what was previously the Kind classes, as Generator classes. We've removed some of these in favour of the faker alternatives. We currently provide the following generators: `Call`, `Closure`, `Factory`, and `Generic`. The call, closure, and factory generators have not changed significantly since previous versions, and the generic generator still provides access to the faker generators. Note that you can use a `;` to send multiple arguments to the generators. The `Closure` generator will now pass the instance of your model into your closure as the first parameter too.
 
 The removed generators are `Date`, `Integer`, `Name`, `String`, and `Text`, however, these are still callable (some name changes required), as they are available on the generic generator through faker.
 * Instead of using `integer|8`, you can use `randomNumber|8`.

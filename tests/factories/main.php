@@ -57,7 +57,7 @@ FactoryMuffin::define('ComplexModelStub', array(
 
 FactoryMuffin::define('ModelWithStaticMethodFactory', array(
     'string' => 'just a string',
-    'four'   => function () {
-        return 2 + 2;
+    'object' => function ($object) {
+        return $object;
     },
 ));
