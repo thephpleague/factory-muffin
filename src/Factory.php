@@ -4,6 +4,7 @@ namespace League\FactoryMuffin;
 
 use Exception;
 use Faker\Factory as Faker;
+use League\FactoryMuffin\Exceptions\DeleteFailedException;
 use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
 use League\FactoryMuffin\Exceptions\DeletingFailedException;
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
@@ -231,7 +232,6 @@ class Factory
      * Call the delete method on any saved objects.
      *
      * @throws \League\FactoryMuffin\Exceptions\DeletingFailedException
-     * @throws \League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException
      *
      * @return void
      */
@@ -240,7 +240,9 @@ class Factory
         $exceptions = array();
         foreach ($this->saved() as $object) {
             try {
-                $this->delete($object);
+                if (!$this->delete($object)) {
+                    throw new DeleteFailedException(get_class($object));
+                }
             } catch (Exception $e) {
                 $exceptions[] = $e;
             }

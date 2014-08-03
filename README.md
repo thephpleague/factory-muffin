@@ -65,12 +65,20 @@ You may encounter the following exceptions:
 * `League\FactoryMuffin\Exceptions\NoDefinedFactoryException` will be thrown if you try to create a model and you haven't defined a factory definition for it earlier.
 * `League\FactoryMuffin\Exceptions\SaveFailedException` will be thrown if the save function on your model returns false.
 * `League\FactoryMuffin\Exceptions\SaveMethodNotFoundException` will be thrown if the save function on your model does not exist.
+* Any other exception thrown by your model while trying to create or save it.
 
 There are 2 other helper functions available. You may call `saved` to return an array of all the saved objects. You may call `isSaved` with an instance of a model to check if it's saved.
 
 ### Deleting
 
-You can delete all your saved models with the `deleteSaved` function.  If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underline exception, in the order they were thrown during the whole process, with the `getExceptions` function which will return an array of exceptions. It should be noted that you can set a custom delete function before you get going with the `setDeleteMethod` function. It's recommended that you call the `deleteSaved` function from PHPUnit's `tearDownAfterClass` function.
+You can delete all your saved models with the `deleteSaved` function. It should be noted that you can set a custom delete function before you get going with the `setDeleteMethod` function.
+
+If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underline exception, in the order they were thrown during the whole process, with the `getExceptions` function which will return an array of exceptions. You may encounter the following exceptions:
+* `League\FactoryMuffin\Exceptions\DeleteFailedException` will be thrown if the save function on your model returns false.
+* `League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException` will be thrown if the save function on your model does not exist.
+* Any other exception thrown by your model while trying to delete it.
+
+It's recommended that you call the `deleteSaved` function from PHPUnit's `tearDownAfterClass` function.
 
 ### Exceptions
 
@@ -78,7 +86,7 @@ Each exception is documented with the documentation for the functions that throw
 
 You can see an diagram showing the exception hierarchy here:
 
-![diagram](https://cloud.githubusercontent.com/assets/2829600/3788001/e0df6a08-1a4a-11e4-834b-2c323c044dd7.png)
+![diagram](https://cloud.githubusercontent.com/assets/2829600/3790579/8fc52572-1b0d-11e4-96b1-7f0eac0dc10d.png)
 
 ### Real Examples
 
