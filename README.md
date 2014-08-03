@@ -38,6 +38,10 @@ It maybe be useful for existing users to check out the [upgrade guide](UPGRADING
 
 This is the usage guide for Factory Muffin 2.0. Within this guide, you will see "the `xyz` function can be called". You should assume that these functions should be called statically on the `League\FactoryMuffin\Facade` class. It should also be noted that you can see a real example at the end of the guide.
 
+### The Facade
+
+The facade class (`League\FactoryMuffin\Facade`) should always be your main point of entry for communicating with Factory Muffin. It will dynamically proxy static method calls to the underline factory instance. The other classes, including the factory class (`League\FactoryMuffin\Factory`), are not intended for direct public use.
+
 ### Factory Definitions
 
 You can define model factories using the `define` function. You may call it like this: `League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`. We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `League\FactoryMuffin\Facade::loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found.

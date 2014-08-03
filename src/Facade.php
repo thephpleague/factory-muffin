@@ -5,8 +5,8 @@ namespace League\FactoryMuffin;
 /**
  * Class Facade.
  *
- * This is the optional, sleeker Factory facade accessor.
- * All methods available on the main class are available here, but statically.
+ * This is the main point of entry for using Factory Muffin.
+ * This class dynamically proxies static method calls to the underline factory instance.
  *
  * @see League\FactoryMuffin\Factory
  *

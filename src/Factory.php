@@ -18,6 +18,9 @@ use RegexIterator;
 /**
  * Class Factory.
  *
+ * This class is not intended to be used directly.
+ * Please use the provided facade.
+ *
  * @package League\FactoryMuffin
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
