@@ -22,7 +22,8 @@
         "fzaninotto/faker" : "~1.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.0"
+        "phpunit/phpunit": "~4.0",
+        "illuminate/database": "~4.1"
     },
     "replace": {
         "zizaco/factory-muff": "self.version"
