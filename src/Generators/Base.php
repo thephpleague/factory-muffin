@@ -20,11 +20,10 @@ abstract class Base
      *
      * @var string[]
      */
-    protected static $availableGenerators = array(
+    private static $generators = array(
         'call',
         'closure',
         'factory',
-        'generic',
     );
 
     /**
@@ -79,10 +78,10 @@ abstract class Base
             return new Closure($kind, $object, $faker);
         }
 
-        $class = '\\League\\FactoryMuffin\\Generators\\Generic';
-        foreach (static::$availableGenerators as $availableGenerator) {
-            if (substr($kind, 0, strlen($availableGenerator)) === $availableGenerator) {
-                $class = '\\League\\FactoryMuffin\\Generators\\' . ucfirst($availableGenerator);
+        $class = __NAMESPACE__ . '\\Generic';
+        foreach (self::$generators as $generator) {
+            if (substr($kind, 0, strlen($generator)) === $generator) {
+                $class = __NAMESPACE__ . '\\' . ucfirst($generator);
                 break;
             }
         }
