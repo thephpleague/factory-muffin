@@ -9,29 +9,27 @@ use League\FactoryMuffin\Facade as FactoryMuffin;
  */
 class EloquentTest extends AbstractTestCase
 {
-    private static $db;
-
     public static function setupBeforeClass()
     {
-        self::$db = new DB();
+        $db = new DB();
 
-        self::$db->addConnection(array(
-            'driver' => 'sqlite',
+        $db->addConnection(array(
+            'driver'   => 'sqlite',
             'database' => ':memory:',
-            'prefix' => ''
+            'prefix'   => ''
         ));
 
-        self::$db->setAsGlobal();
-        self::$db->bootEloquent();
+        $db->setAsGlobal();
+        $db->bootEloquent();
 
-        self::$db->schema()->create('users', function ($table) {
+        $db->schema()->create('users', function ($table) {
             $table->increments('id');
             $table->string('name');
             $table->string('email');
             $table->timestamps();
         });
 
-        self::$db->schema()->create('cats', function ($table) {
+        $db->schema()->create('cats', function ($table) {
             $table->increments('id');
             $table->string('name');
             $table->integer('user_id');
