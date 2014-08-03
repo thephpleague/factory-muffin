@@ -32,26 +32,26 @@ namespace League\FactoryMuffin;
 class Facade
 {
     /**
-     * The underline Factory instance.
+     * The underline factory instance.
      *
      * @var \League\FactoryMuffin\Factory
      */
-    private static $instance;
+    private static $factory;
 
     /**
-     * Get the underline FactoryMuffin instance.
+     * Get the underline factory instance.
      *
      * We'll always cache the instance and reuse it.
      *
      * @return \League\FactoryMuffin\Factory
      */
-    private static function instance()
+    private static function factory()
     {
-        if (!self::$instance) {
-            self::$instance = new Factory();
+        if (!self::$factory) {
+            self::$factory = new Factory();
         }
 
-        return self::$instance;
+        return self::$factory;
     }
 
     /**
@@ -68,15 +68,15 @@ class Facade
     {
         switch (count($args)) {
             case 0:
-                return self::instance()->$method();
+                return self::factory()->$method();
             case 1:
-                return self::instance()->$method($args[0]);
+                return self::factory()->$method($args[0]);
             case 2:
-                return self::instance()->$method($args[0], $args[1]);
+                return self::factory()->$method($args[0], $args[1]);
             case 3:
-                return self::instance()->$method($args[0], $args[1], $args[2]);
+                return self::factory()->$method($args[0], $args[1], $args[2]);
             default:
-                return call_user_func_array(array(self::instance(), $method), $args);
+                return call_user_func_array(array(self::factory(), $method), $args);
         }
     }
 }
