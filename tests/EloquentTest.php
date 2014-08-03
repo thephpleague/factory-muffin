@@ -56,7 +56,6 @@ class EloquentTest extends AbstractTestCase
         $this->assertInstanceOf('Cat', $cats[0]);
     }
 
-
     public function testNumberOfCatOwners()
     {
         $users = array();
