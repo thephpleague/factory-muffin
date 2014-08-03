@@ -2,6 +2,8 @@
 
 namespace League\FactoryMuffin\Generators;
 
+use League\FactoryMuffin\Facade as FactoryMuffin;
+
 /**
  * Class Base.
  *
@@ -14,7 +16,7 @@ namespace League\FactoryMuffin\Generators;
 abstract class Base
 {
     /**
-     * The Generator classes that are available.
+     * The generator classes that are available.
      *
      * @var string[]
      */
@@ -140,6 +142,25 @@ abstract class Base
         $prefixes = array('unique', 'optional');
         $prefix = current(explode(':', $this->getGenerator()));
         return in_array($prefix, $prefixes) ? $prefix : false;
+    }
+
+    /**
+     * Create an instance of the model.
+     *
+     * This model will be automatically saved to the db if
+     * the model we are generating it for has been saved.
+     *
+     * @param string $model Model class name.
+     *
+     * @return object
+     */
+    protected function factory($model)
+    {
+        if (FactoryMuffin::isSaved($this->object)) {
+            return FactoryMuffin::create($model);
+        }
+
+        return FactoryMuffin::instance($model);
     }
 
     /**
