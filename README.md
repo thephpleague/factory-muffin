@@ -126,9 +126,9 @@ class TestUserModel extends PHPUnit_Framework_TestCase
 {
     public static function setupBeforeClass()
     {
+        FactoryMuffin::setSaveMethod('save'); // optional step
         FactoryMuffin::setFakerLocale('en_EN'); // optional step
         FactoryMuffin::loadFactories(__DIR__ . '/factories');
-        FactoryMuffin::setSaveMethod('save'); // optional step
     }
 
     public function testSampleFactory()
