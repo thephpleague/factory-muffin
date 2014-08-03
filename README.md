@@ -40,7 +40,7 @@ This is the usage guide for Factory Muffin 2.0. Within this guide, you will see 
 
 ### The Facade
 
-The facade class (`League\FactoryMuffin\Facade`) should always be your main point of entry for communicating with Factory Muffin. It will dynamically proxy static method calls to the underline factory instance. The other classes, including the factory class (`League\FactoryMuffin\Factory`), are not intended for direct public use.
+The facade class (`League\FactoryMuffin\Facade`) should always be your main point of entry for communicating with Factory Muffin. It will dynamically proxy static method calls to the underlying factory instance. The other classes, including the factory class (`League\FactoryMuffin\Factory`), are not intended for direct public use.
 
 ### Factory Definitions
 
@@ -59,7 +59,7 @@ It may be useful for long standing users to checkout the generator changes from 
 
 ### Creating And Seeding
 
-This `create` function will create and save your model, and will also save anything you generate with the `Factory` generator too. If you want to create multiple instances, check out the seed `seed` function, which accepts an additional argument at the start which is the number of models to generate in the process. The `seed` function will affectively be calling the `create` function over and over. It should be noted that you can set a custom save function before you get going with the `setSaveMethod` function. Also, a reminder that the `instance` function is still available if you don't want database persistence.
+The `create` function will create and save your model, and will also save anything you generate with the `Factory` generator too. If you want to create multiple instances, check out the seed `seed` function, which accepts an additional argument at the start which is the number of models to generate in the process. The `seed` function will effectively be calling the `create` function over and over. It should be noted that you can set a custom save function before you get going with the `setSaveMethod` function. Also, a reminder that the `instance` function is still available if you don't want database persistence.
 
 You may encounter the following exceptions:
 * `League\FactoryMuffin\Exceptions\NoDefinedFactoryException` will be thrown if you try to create a model and you haven't defined a factory definition for it earlier.
@@ -73,7 +73,7 @@ There are 2 other helper functions available. You may call `saved` to return an 
 
 You can delete all your saved models with the `deleteSaved` function. It should be noted that you can set a custom delete function before you get going with the `setDeleteMethod` function.
 
-If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underline exception, in the order they were thrown during the whole process, with the `getExceptions` function which will return an array of exceptions. You may encounter the following exceptions:
+If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underlying exception, in the order they were thrown during the whole process, with the `getExceptions` function which will return an array of exceptions. You may encounter the following exceptions:
 * `League\FactoryMuffin\Exceptions\DeleteFailedException` will be thrown if the save function on your model returns false.
 * `League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException` will be thrown if the save function on your model does not exist.
 * Any other exception thrown by your model while trying to delete it.

@@ -6,7 +6,7 @@ namespace League\FactoryMuffin;
  * Class Facade.
  *
  * This is the main point of entry for using Factory Muffin.
- * This class dynamically proxies static method calls to the underline factory instance.
+ * This class dynamically proxies static method calls to the underlying factory instance.
  *
  * @see League\FactoryMuffin\Factory
  *
@@ -32,14 +32,14 @@ namespace League\FactoryMuffin;
 class Facade
 {
     /**
-     * The underline factory instance.
+     * The underlying factory instance.
      *
      * @var \League\FactoryMuffin\Factory
      */
     private static $factory;
 
     /**
-     * Get the underline factory instance.
+     * Get the underlying factory instance.
      *
      * We'll always cache the instance and reuse it.
      *
