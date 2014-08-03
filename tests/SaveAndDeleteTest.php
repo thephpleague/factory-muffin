@@ -85,6 +85,18 @@ class SaveAndDeleteTest extends AbstractTestCase
         } catch (DeletingFailedException $e) {
             $exceptions = $e->getExceptions();
             $this->assertEquals("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
+            $this->assertEquals("We could not delete the model of type: '$model'.", $exceptions[0]->getMessage());
+        }
+    }
+
+    public function testShouldAlsoThrowExceptionOnModelDeleteFailure()
+    {
+        try {
+            FactoryMuffin::create($model = 'ModelThatAlsoFailsToDeleteStub');
+            FactoryMuffin::deleteSaved();
+        } catch (DeletingFailedException $e) {
+            $exceptions = $e->getExceptions();
+            $this->assertEquals("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
             $this->assertEquals("OH NOES!", $exceptions[0]->getMessage());
         }
     }
@@ -130,7 +142,7 @@ class SaveAndDeleteTest extends AbstractTestCase
     public function testShouldThrowMultipleDeletionExceptions()
     {
         try {
-            FactoryMuffin::create($model = 'ModelThatFailsToDeleteStub');
+            FactoryMuffin::create($model = 'ModelThatAlsoFailsToDeleteStub');
             FactoryMuffin::create($model = 'ModelWithNoDeleteMethodStub');
             FactoryMuffin::deleteSaved();
         } catch (DeletingFailedException $e) {
@@ -176,6 +188,19 @@ class ModelThatFailsToSaveStub
 }
 
 class ModelThatFailsToDeleteStub
+{
+    public function save()
+    {
+        return true;
+    }
+
+    public function delete()
+    {
+        return false;
+    }
+}
+
+class ModelThatAlsoFailsToDeleteStub
 {
     public function save()
     {
