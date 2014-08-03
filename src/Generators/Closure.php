@@ -22,6 +22,6 @@ class Closure extends Base
     {
         $kind = $this->kind;
 
-        return $kind();
+        return $kind($this->object);
     }
 }
