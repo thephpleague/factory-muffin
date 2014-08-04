@@ -163,7 +163,6 @@ League\FactoryMuffin\Facade::define('Foo', array(
 League\FactoryMuffin\Facade::define('Bar', array(
     'baz' => 'date|Y-m-d'
 ));
-
 ```
 
 #### Call
@@ -212,14 +211,13 @@ As you can see from this example, the ability to use a closure to generate attri
 League\FactoryMuffin\Facade::define('MyModel', array(
     'title' => 'sentence|5',
     'slug' => function ($object) {
-        $slug = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $object->name);
+        $slug = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $object->title);
         $slug = strtolower(trim($slug, '-'));
         $slug = preg_replace("/[\/_|+ -]+/", '-', $slug);
 
         return $slug;
     },
 ));
-
 ```
 
 ### Creating And Seeding
