@@ -44,18 +44,183 @@ The facade class (`League\FactoryMuffin\Facade`) should always be your main poin
 
 ### Factory Definitions
 
-You can define model factories using the `define` function. You may call it like this: `League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`. We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `League\FactoryMuffin\Facade::loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found.
+You can define model factories using the `define` function. You may call it like this: `League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`, where `foo` is the name of the attribute you want set on your model, and `bar` describes how you wish to generate the attribute. Please see the generators section for more information on how this works.
+
+We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `League\FactoryMuffin\Facade::loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found.
 
 ### Generators
 
-| Generator     | Option  | Description                                                                      | Example
-| :-----------: | :-----: | :------------------------------------------------------------------------------: | :------------------: |
-| factory       | model   | Will run ->create() on another model and return it's id                          | factory|User         |
-| call          | method  | Allows you to call any static methods                                            | call|staticMethod    |
-| closure       | closure | Allows you to call pass a closure that will be called                            | function {return 1;} |
-| default       |         | Any Generators that are not reccognised will load from Faker, or return the text | creditCardDetails    |
+#### Generic
 
-It may be useful for long standing users to checkout the generator changes from 1.6 to 2.0 in the [upgrade guide](UPGRADING.md).
+The generic generator will be the generator you use the most. It will communicate with the faker library in order to generate your attribute.
+
+##### Example 1
+
+This will set the `foo` attribute to a random word.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'foo' => 'word',
+));
+```
+
+##### Example 2
+
+This will set the `name` attribute to a random male first name.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'name' => 'firstNameMale',
+));
+```
+
+##### Example 3
+
+This will set the `email` attribute to a random email address.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'email' => 'email',
+));
+```
+
+##### Example 4
+
+This will set the `body` attribute to a random string of text.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'body' => 'text',
+));
+```
+
+##### Example 5
+
+This will set the `slogan` attribute to a random sentence.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'slogan' => 'sentence',
+));
+```
+
+##### Example 6
+
+This will set the `card` attribute to a random array of card details.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'card' => 'creditCardDetails',
+));
+```
+
+##### Example 7
+
+This will set the `slogan` attribute to a random sentence.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'slogan' => 'sentence',
+));
+```
+
+##### Example 8
+
+This will set the `age` attribute to a random number between 20 and 40. Note how we're using the `;` here to pass multiple arguments to the faker method.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'age' => 'numberBetween|20;40',
+));
+```
+
+##### Example 9
+
+This will set the `name` attribute to a random female first name. It will ensure that it is unique between all your model.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'name' => 'unique:firstNameFamale',
+));
+```
+
+##### Example 10
+
+This will set the `profile_pic` attribute to a random image url of dimensions 400 by 400. Because we've added the optional flag at the start, not all the generated models will have an image url set; sometimes we will return null.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'profile_pic' => 'optional:imageUrl|400;400',
+));
+```
+
+##### More
+
+Check out the [faker library](https://github.com/fzaninotto/Faker) itself to see all the available methods. There are far too many to cover in the documentation here, and far too many for them to cover in their documentation too.
+
+#### Factory
+
+This can be useful for setting up relationships between models. The factory generator will return the model id of the model you ask it to generate.
+
+##### Example 1
+
+When we create a Foo object, we will find that the Bar object will been generated and saved too, and it's id will be assigned to the `bar_id` attribute of the Foo model.
+```php
+League\FactoryMuffin\Facade::define('Foo', array(
+    'bar_id' => 'factory|Bar'
+));
+
+League\FactoryMuffin\Facade::define('Bar', array(
+    'baz' => 'date|Y-m-d'
+));
+
+```
+
+#### Call
+
+This allows you to generate attributes by calling **static** methods on your models.
+
+##### Example 1
+
+This will set the `foo` attribute to whatever calling `MyModel::exampleMethod()` returns.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'foo' => 'call|exampleMethod',
+));
+```
+
+##### Example 2
+
+This will set the `bar` attribute to whatever calling `MyModel::anotherMethod('hello')` returns.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'bar' => 'call|anotherMethod|hello',
+));
+```
+
+##### Example 3
+
+This will set the `baz` attribute to whatever calling the `exampleMethod` method on the `OtherModel` after we generate and save it.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'baz' => 'call|exampleMethod|factory|OtherModel',
+));
+
+League\FactoryMuffin\Facade::define('OtherModel', array(
+    'example' => 'boolean',
+));
+```
+
+#### Closure
+
+This generator can be used if you want a more custom solution. What ever you return from the closure you write will be set as the attribute. Note that we pass an instance of your model as the first parameter of the closure to give you even more flexibility to modify it as you wish.
+
+##### Example 1
+
+As you can see from this example, the ability to use a closure to generate attributes can be so useful and flexible. Here we use it to generate a slug based on the initially randomly generated 5 word long title.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'title' => 'sentence|5',
+    'slug' => function ($object) {
+        $slug = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $object->name);
+        $slug = strtolower(trim($slug, '-'));
+        $slug = preg_replace("/[\/_|+ -]+/", '-', $slug);
+
+        return $slug;
+    },
+));
+
+```
 
 ### Creating And Seeding
 
