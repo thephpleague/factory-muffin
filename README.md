@@ -128,7 +128,7 @@ League\FactoryMuffin\Facade::define('MyModel', array(
 
 ##### Example 9
 
-This will set the `name` attribute to a random female first name. It will ensure that it is unique between all your model.
+This will set the `name` attribute to a random female first name. It will ensure that it is unique between all your generated models.
 ```php
 League\FactoryMuffin\Facade::define('MyModel', array(
     'name' => 'unique:firstNameFamale',
