@@ -35,7 +35,8 @@ class SaveAndDeleteTest extends AbstractTestCase
      */
     public function testShouldThrowExceptionAfterSaveMethodRename()
     {
-        FactoryMuffin::setSaveMethod('foo');
+        $return = FactoryMuffin::setSaveMethod('foo');
+        $this->assertInstanceOf('League\FactoryMuffin\Factory', $return);
         try {
             FactoryMuffin::create($model = 'ModelThatWillSaveStub');
         } catch (SaveMethodNotFoundException $e) {
@@ -52,7 +53,8 @@ class SaveAndDeleteTest extends AbstractTestCase
      */
     public function testShouldThrowExceptionAfterDeleteMethodRename()
     {
-        FactoryMuffin::setDeleteMethod('bar');
+        $return = FactoryMuffin::setDeleteMethod('bar');
+        $this->assertInstanceOf('League\FactoryMuffin\Factory', $return);
         FactoryMuffin::create($model = 'ModelThatWillSaveStub');
         try {
             FactoryMuffin::deleteSaved();
