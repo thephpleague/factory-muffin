@@ -100,7 +100,7 @@ Check out the [faker library](https://github.com/fzaninotto/Faker) itself to see
 
 #### Factory
 
-This can be useful for setting up relationships between models. The factory generator will return the model id of the model you ask it to generate.
+The factory generator can be useful for setting up relationships between models. The factory generator will return the model id of the model you ask it to generate.
 
 ##### Example 1
 
@@ -117,7 +117,7 @@ League\FactoryMuffin\Facade::define('Bar', array(
 
 #### Call
 
-This allows you to generate attributes by calling **static** methods on your models.
+The call generator allows you to generate attributes by calling **static** methods on your models.
 
 ##### Example 1
 
@@ -152,7 +152,7 @@ League\FactoryMuffin\Facade::define('OtherModel', array(
 
 #### Closure
 
-This generator can be used if you want a more custom solution. What ever you return from the closure you write will be set as the attribute. Note that we pass an instance of your model as the first parameter of the closure to give you even more flexibility to modify it as you wish.
+The closure generator can be used if you want a more custom solution. Whatever you return from the closure you write will be set as the attribute. Note that we pass an instance of your model as the first parameter of the closure to give you even more flexibility to modify it as you wish.
 
 ##### Example 1
 
