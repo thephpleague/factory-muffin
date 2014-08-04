@@ -6,22 +6,23 @@ namespace League\FactoryMuffin;
  * Class Facade.
  *
  * This is the main point of entry for using Factory Muffin.
- * This class dynamically proxies static method calls to the underlying factory instance.
+ * This class dynamically proxies static method calls to
+ * the underlying factory instance.
  *
  * @see League\FactoryMuffin\Factory
  *
- * @method static void setSaveMethod(string $method) Set the method we use when saving objects.
- * @method static void setDeleteMethod(string $method) Set the method we use when deleting objects.
+ * @method static Factory setSaveMethod(string $method) Set the method we use when saving objects.
+ * @method static Factory setDeleteMethod(string $method) Set the method we use when deleting objects.
  * @method static object[] seed(int $times, string $model, array $attr = array()) Returns multiple versions of an object.
  * @method static object create(string $model, array $attr = array()) Creates and saves in db an instance of the model.
  * @method static object[] saved() Return an array of saved objects.
  * @method static bool isSaved(object $object) Is the object saved?
- * @method static void deleteSaved() Call the delete method on any saved objects.
+ * @method static Factory deleteSaved() Call the delete method on any saved objects.
  * @method static object instance(string $model, array $attr = array()) Return an instance of the model.
  * @method static array attributesFor(object $object, array $attr = array()) Returns the mock attributes for the model.
- * @method static void define(string $model, array $definition = array()) Define a new model factory.
+ * @method static Factory define(string $model, array $definition = array()) Define a new model factory.
  * @method static string|object generateAttr(string $kind, object $object = null) Generate the attributes.
- * @method static void loadFactories(string|string[] $paths) Load the specified factories.
+ * @method static Factory loadFactories(string|string[] $paths) Load the specified factories.
  *
  * @package League\FactoryMuffin
  * @author  Zizaco <zizaco@gmail.com>

@@ -19,8 +19,9 @@ use RegexIterator;
 /**
  * Class Factory.
  *
- * This class is not intended to be used directly.
- * Please use the provided facade.
+ * This class is not intended to be used directly. Please
+ * use the provided facade. This class may be used a result
+ * of method chaining after initially using the facade.
  *
  * @package League\FactoryMuffin
  * @author  Zizaco <zizaco@gmail.com>
@@ -77,7 +78,7 @@ class Factory
      *
      * @param string $local
      *
-     * @return void
+     * @return $this
      */
     public function setFakerLocale($local)
     {
@@ -85,6 +86,8 @@ class Factory
 
         // The faker class must be instantiated again with a new the new locale
         $this->faker = null;
+
+        return $this;
     }
 
     /**
@@ -92,11 +95,13 @@ class Factory
      *
      * @param string $method
      *
-     * @return void
+     * @return $this
      */
     public function setSaveMethod($method)
     {
         $this->saveMethod = $method;
+
+        return $this;
     }
 
     /**
@@ -104,11 +109,13 @@ class Factory
      *
      * @param string $method
      *
-     * @return void
+     * @return $this
      */
     public function setDeleteMethod($method)
     {
         $this->deleteMethod = $method;
+
+        return $this;
     }
 
     /**
@@ -233,7 +240,7 @@ class Factory
      *
      * @throws \League\FactoryMuffin\Exceptions\DeletingFailedException
      *
-     * @return void
+     * return $this
      */
     public function deleteSaved()
     {
@@ -255,6 +262,8 @@ class Factory
         if ($exceptions) {
             throw new DeletingFailedException($exceptions);
         }
+
+        return $this;
     }
 
     /**
@@ -336,11 +345,13 @@ class Factory
      * @param string $model      Model class name.
      * @param array  $definition Array with definition of attributes.
      *
-     * @return void
+     * @return $this
      */
     public function define($model, array $definition = array())
     {
         $this->factories[$model] = $definition;
+
+        return $this;
     }
 
     /**
@@ -385,7 +396,7 @@ class Factory
      *
      * @throws \League\FactoryMuffin\Exceptions\DirectoryNotFoundException
      *
-     * @return void
+     * @return $this
      */
     public function loadFactories($paths)
     {
@@ -396,6 +407,8 @@ class Factory
 
             $this->loadDirectory($path);
         }
+
+        return $this;
     }
 
     /**
