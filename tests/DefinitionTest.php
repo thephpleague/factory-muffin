@@ -13,6 +13,7 @@ class DefinitionTest extends AbstractTestCase
     {
         $user = FactoryMuffin::create('UserModelStub');
 
+        $this->assertInstanceOf('UserModelStub', $user);
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('boolean', $user->active);
         $this->assertContains('@', $user->email);
@@ -22,6 +23,7 @@ class DefinitionTest extends AbstractTestCase
     {
         $user = FactoryMuffin::create('UserModelStub');
 
+        $this->assertInstanceOf('UserModelStub', $user);
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('boolean', $user->active);
         $this->assertContains('@', $user->email);
@@ -30,11 +32,10 @@ class DefinitionTest extends AbstractTestCase
     public function testSeed()
     {
         $users = FactoryMuffin::seed(2, 'UserModelStub');
+
         $this->assertCount(2, $users);
         $this->assertInstanceOf('UserModelStub', $users[0]);
         $this->assertInstanceOf('UserModelStub', $users[1]);
-
-        // Make sure these are not the same object returned twice for some reason
         $this->assertNotEquals($users[0], $users[1]);
     }
 
@@ -42,6 +43,7 @@ class DefinitionTest extends AbstractTestCase
     {
         $user = FactoryMuffin::instance('UserModelStub');
 
+        $this->assertInstanceOf('UserModelStub', $user);
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('boolean', $user->active);
         $this->assertContains('@', $user->email);
@@ -65,9 +67,10 @@ class DefinitionTest extends AbstractTestCase
     {
         $count = count(get_included_files());
 
-        FactoryMuffin::loadFactories(__DIR__ . '/stubs');
+        $return = FactoryMuffin::loadFactories(__DIR__ . '/stubs');
 
         $this->assertSame(1, count(get_included_files()) - $count);
+        $this->assertInstanceOf('League\FactoryMuffin\Factory', $return);
     }
 
     public function testShouldThrowExceptionWhenLoadingANonexistentDirectory()

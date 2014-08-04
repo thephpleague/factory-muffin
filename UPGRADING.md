@@ -45,7 +45,7 @@ It also should be noted that we've moved from PSR-0 to PSR-4 for autoloading.
 
 ### Facade Changes
 
-Under it's new name, the facade class now uses `__callStatic` to dynamically call the underlying factory instance.
+Under it's new name, the facade class now uses `__callStatic` to dynamically call the underlying factory instance. Also, note that all public methods that would have returned void, return the factory instance in order to support method chaining.
 
 ### Factory Definitions
 
