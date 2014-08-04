@@ -36,27 +36,27 @@ abstract class Base
     /**
      * The model instance.
      *
-     * @var object
+     * @var object|null
      */
     protected $object;
 
     /**
      * The faker factory or generator instance.
      *
-     * @var \Faker\Generator
+     * @var \Faker\Generator|null
      */
     protected $faker;
 
     /**
      * Initialise our Generator.
      *
-     * @param string           $kind   The kind of attribute that will be generated.
-     * @param object           $object The model instance.
-     * @param \Faker\Generator $faker  The faker instance.
+     * @param string                $kind   The kind of attribute that will be generated.
+     * @param object|null           $object The model instance.
+     * @param \Faker\Generator|null $faker  The faker instance.
      *
      * @return void
      */
-    public function __construct($kind, $object, $faker)
+    public function __construct($kind, $object = null, $faker = null)
     {
         $this->kind = $kind;
         $this->object = $object;
@@ -66,9 +66,9 @@ abstract class Base
     /**
      * Detect the type of Generator we are processing.
      *
-     * @param string           $kind   The kind of attribute that will be generated.
-     * @param object           $object The model instance.
-     * @param \Faker\Generator $faker  The faker instance.
+     * @param string                $kind   The kind of attribute that will be generated.
+     * @param object|null           $object The model instance.
+     * @param \Faker\Generator|null $faker  The faker instance.
      *
      * @return \League\FactoryMuffin\Generator
      */

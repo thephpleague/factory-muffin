@@ -359,8 +359,8 @@ class Factory
      *
      * This method will return a string, or an instance of the model.
      *
-     * @param string $kind   The kind of attribute that will be generated.
-     * @param object $object The model instance.
+     * @param string      $kind   The kind of attribute that will be generated.
+     * @param object|null $object The model instance.
      *
      * @return string|object
      */
