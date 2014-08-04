@@ -3,7 +3,11 @@
 namespace League\FactoryMuffin\Exceptions;
 
 /**
- * Class DeleteMethodNotFoundException.
+ * This is the delete method not found exception class.
+ *
+ * This is thrown when the delete method of a model does not exist. This class
+ * extends MethodNotFoundException and ModelException, so you may want to try
+ * to catch one of those exceptions instead, if you want to be more general.
  *
  * @package League\FactoryMuffin\Exceptions
  * @author  Scott Robertson <scottymeuk@gmail.com>

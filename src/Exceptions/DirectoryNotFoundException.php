@@ -5,7 +5,10 @@ namespace League\FactoryMuffin\Exceptions;
 use Exception;
 
 /**
- * Class DirectoryNotFoundException.
+ * This is the directory not found exception class.
+ *
+ * This is thrown if you try to load factory definitions from a directory that
+ * doesn't exit.
  *
  * @package League\FactoryMuffin\Exceptions
  * @author  Scott Robertson <scottymeuk@gmail.com>

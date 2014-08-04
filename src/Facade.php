@@ -3,11 +3,10 @@
 namespace League\FactoryMuffin;
 
 /**
- * Class Facade.
+ * This is the facade class.
  *
- * This is the main point of entry for using Factory Muffin.
- * This class dynamically proxies static method calls to
- * the underlying factory instance.
+ * This is the main point of entry for using Factory Muffin. This class
+ * dynamically proxies static method calls to the underlying factory.
  *
  * @see League\FactoryMuffin\Factory
  *

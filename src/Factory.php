@@ -17,11 +17,12 @@ use RecursiveIteratorIterator;
 use RegexIterator;
 
 /**
- * Class Factory.
+ * This is the factory class.
  *
- * This class is not intended to be used directly. Please
- * use the provided facade. This class may be used a result
- * of method chaining after initially using the facade.
+ * This class is not intended to be used directly, but should be used through
+ * the provided facade. The only time where you should be directly calling
+ * methods here should be when you're using method chaining after initially
+ * using the facade.
  *
  * @package League\FactoryMuffin
  * @author  Zizaco <zizaco@gmail.com>
