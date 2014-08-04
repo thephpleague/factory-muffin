@@ -24,8 +24,8 @@ class DirectoryNotFoundException extends Exception
     /**
      * Create a new instance.
      *
-     * @param string $path
-     * @param string $message
+     * @param string      $path
+     * @param string|null $message
      *
      * @return void
      */

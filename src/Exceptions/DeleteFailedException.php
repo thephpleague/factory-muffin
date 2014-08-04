@@ -15,8 +15,8 @@ class DeleteFailedException extends ModelException
     /**
      * Create a new instance.
      *
-     * @param string $model
-     * @param string $message
+     * @param string      $model
+     * @param string|null $message
      *
      * @return void
      */
