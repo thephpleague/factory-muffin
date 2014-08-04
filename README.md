@@ -56,68 +56,18 @@ The generic generator will be the generator you use the most. It will communicat
 
 ##### Example 1
 
-This will set the `foo` attribute to a random word.
+There is a simple example of setting a few different attributes.
 ```php
 League\FactoryMuffin\Facade::define('MyModel', array(
-    'foo' => 'word',
+    'foo'    => 'word',          // Set the foo attribute to a random word
+    'name'   => 'firstNameMale', // Set the name attribute to a random male first name
+    'email'  => 'email',         // Set the email attribute to a random email address
+    'body'   => 'text',          // Set the body attribute to a random string of text
+    'slogan' => 'sentence',      // Set the slogan attribute to a random sentence
 ));
 ```
 
 ##### Example 2
-
-This will set the `name` attribute to a random male first name.
-```php
-League\FactoryMuffin\Facade::define('MyModel', array(
-    'name' => 'firstNameMale',
-));
-```
-
-##### Example 3
-
-This will set the `email` attribute to a random email address.
-```php
-League\FactoryMuffin\Facade::define('MyModel', array(
-    'email' => 'email',
-));
-```
-
-##### Example 4
-
-This will set the `body` attribute to a random string of text.
-```php
-League\FactoryMuffin\Facade::define('MyModel', array(
-    'body' => 'text',
-));
-```
-
-##### Example 5
-
-This will set the `slogan` attribute to a random sentence.
-```php
-League\FactoryMuffin\Facade::define('MyModel', array(
-    'slogan' => 'sentence',
-));
-```
-
-##### Example 6
-
-This will set the `card` attribute to a random array of card details.
-```php
-League\FactoryMuffin\Facade::define('MyModel', array(
-    'card' => 'creditCardDetails',
-));
-```
-
-##### Example 7
-
-This will set the `slogan` attribute to a random sentence.
-```php
-League\FactoryMuffin\Facade::define('MyModel', array(
-    'slogan' => 'sentence',
-));
-```
-
-##### Example 8
 
 This will set the `age` attribute to a random number between 20 and 40. Note how we're using the `;` here to pass multiple arguments to the faker method.
 ```php
@@ -126,7 +76,7 @@ League\FactoryMuffin\Facade::define('MyModel', array(
 ));
 ```
 
-##### Example 9
+##### Example 3
 
 This will set the `name` attribute to a random female first name. It will ensure that it is unique between all your generated models.
 ```php
@@ -135,7 +85,7 @@ League\FactoryMuffin\Facade::define('MyModel', array(
 ));
 ```
 
-##### Example 10
+##### Example 4
 
 This will set the `profile_pic` attribute to a random image url of dimensions 400 by 400. Because we've added the optional flag at the start, not all the generated models will have an image url set; sometimes we will return null.
 ```php
