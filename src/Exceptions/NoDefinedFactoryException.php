@@ -3,7 +3,11 @@
 namespace League\FactoryMuffin\Exceptions;
 
 /**
- * Class NoDefinedFactoryException.
+ * This is the no defined factory exception class.
+ *
+ * This is thrown when you try to create a model without defining its factory.
+ * This class extends ModelException, so you may want to try to catch that
+ * exception instead, if you want to be more general.
  *
  * @package League\FactoryMuffin\Exceptions
  * @author  Scott Robertson <scottymeuk@gmail.com>

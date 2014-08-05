@@ -5,7 +5,12 @@ namespace League\FactoryMuffin\Generators;
 use InvalidArgumentException;
 
 /**
- * Class Generic.
+ * This is the generic generator class.
+ *
+ * The generic generator will be the generator you use the most. It will
+ * communicate with the faker library in order to generate your attribute.
+ * Please note that class is not be considered part of the public api, and
+ * should only be used internally by Factory Muffin.
  *
  * @package League\FactoryMuffin\Generators
  * @author  Zizaco <zizaco@gmail.com>

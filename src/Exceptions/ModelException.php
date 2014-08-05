@@ -5,7 +5,10 @@ namespace League\FactoryMuffin\Exceptions;
 use Exception;
 
 /**
- * Class ModelException.
+ * This is the model exception class.
+ *
+ * This exception is never directly thrown, but you may try to catch this
+ * exception rather than the many other exceptions that extend this class.
  *
  * @package League\FactoryMuffin\Exceptions
  * @author  Scott Robertson <scottymeuk@gmail.com>

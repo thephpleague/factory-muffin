@@ -3,7 +3,10 @@
 namespace League\FactoryMuffin\Exceptions;
 
 /**
- * Class MethodNotFoundException.
+ * This is the method not found exception class.
+ *
+ * This exception is never directly thrown, but you may try to catch this
+ * exception rather than the 2 other exceptions that extend this class.
  *
  * @package League\FactoryMuffin\Exceptions
  * @author  Scott Robertson <scottymeuk@gmail.com>

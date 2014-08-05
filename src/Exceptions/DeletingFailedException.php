@@ -5,7 +5,13 @@ namespace League\FactoryMuffin\Exceptions;
 use Exception;
 
 /**
- * Class DeletingFailedException.
+ * This is the deleting failed exception class.
+ *
+ * This is thrown if one or more models threw an exception when we tried to
+ * delete them. It's important to note that this exception will only be thrown
+ * after we've attempted to delete all the saved models. You may access each
+ * underlying exception, in the order they were thrown during the whole
+ * process, by calling getExceptions to return an array of exceptions.
  *
  * @package League\FactoryMuffin\Exceptions
  * @author  Scott Robertson <scottymeuk@gmail.com>

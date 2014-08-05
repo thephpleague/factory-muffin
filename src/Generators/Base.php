@@ -5,7 +5,10 @@ namespace League\FactoryMuffin\Generators;
 use League\FactoryMuffin\Facade as FactoryMuffin;
 
 /**
- * Class Base.
+ * This is the abstract base generator class.
+ *
+ * Please note that class is not be considered part of the public api, and
+ * should only be used internally by Factory Muffin.
  *
  * @package League\FactoryMuffin\Generators
  * @author  Zizaco <zizaco@gmail.com>
