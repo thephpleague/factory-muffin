@@ -37,5 +37,10 @@
         "classmap": [
             "tests/AbstractTestCase.php"
         ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.1-dev"
+        }
     }
 }
