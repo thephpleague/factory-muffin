@@ -7,9 +7,9 @@ Welcome to the upgrade guide for Factory Muffin. We've tried to cover all change
 
 ## Upgrading from 2.0.x to 2.1.x
 
-### Introduction
+### Multiple Factory Definitions
 
-There are no notable changes so far.
+Now you can define multiple factory definitions for your models. More documentation will be added once this feature is complete.
 
 ### Installing This Version
 
