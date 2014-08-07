@@ -61,6 +61,8 @@ The removed generators are `Date`, `Integer`, `Name`, `String`, and `Text`, howe
 * Instead of using `name`, you can use things like `firstNameMale`.
 * `date` and `text` can be used in the same way you were using them before.
 
+It should be noted that we are using faker 1.4 which is a change since the previous release. We've made a more strict version requirement to avoid potential bc breakes caused by faker.
+
 ### Creating And Seeding
 
 The `create` function can be called in the same way, but has internal improvements. Now, it will also save anything you generate with the `Factory` generator too. We now have a new function called `seed`, which accepts an additional argument at the start which is the number of models to generate in the process. The `seed` function will effectively be calling the `create` function over and over. It should be noted that you can set a custom save function before you get going with the `setSaveMethod` function. Also, a reminder that the `instance` function is still available if you don't want database persistence.
@@ -95,6 +97,8 @@ You can see a diagram showing the exception hierarchy here:
 ### Other BC Breaks
 
 The `attributesFor` function no longer accepts a class name as the first argument, and the `generateAttr` function no longer accepts a class name as a second argument. Please pass an actual model instance to both functions instead.
+
+We now require php 5.3.3 as a minimum version. This is an increase on our previous requirement of php 5.3.0.
 
 ### Installing This Version
 
