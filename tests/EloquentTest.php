@@ -88,7 +88,7 @@ class EloquentTest extends AbstractTestCase
         $this->assertGreaterThan(1, strlen($cat->name));
         $this->assertTrue($cat->user_id == true);
         $this->assertFalse($cat->created_at == true);
-        $this->assertFalse($cat->uodated_at == true);
+        $this->assertFalse($cat->updated_at == true);
         $this->assertFalse($cat->xyz == true);
     }
 }
