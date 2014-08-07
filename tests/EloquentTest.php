@@ -109,8 +109,6 @@ class Cat extends Eloquent
 
     public $table = 'cats';
 
-    public static $name = 'cat';
-
     public function user()
     {
         return $this->belongsTo('User');
