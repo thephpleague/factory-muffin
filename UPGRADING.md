@@ -18,7 +18,7 @@ Every class has moved, so here's a summary of the changes:
 * Many generator (kind) classes have been removed in favour of the faker alternatives. Those remaining can be found under the `Zizaco\FactoryMuff\Generators` namespace.
 * There are many more exceptions and the names of the existing exceptions have changed. The exceptions can be found under the `Zizaco\FactoryMuff\Exception` namespace.
 
-A detailed list of every change, with the fully qualified names is listed below:
+A detailed list of every change with the fully qualified names is listed below:
 * Moved: `Zizaco\FactoryMuff\FactoryMuff` => `League\FactoryMuffin\Factory`
 * Moved: `Zizaco\FactoryMuff\Facade\FactoryMuff` => `League\FactoryMuffin\Facade`
 * Moved: `Zizaco\FactoryMuff\SaveException` => `League\FactoryMuffin\Exceptions\SaveFailedException`
@@ -49,7 +49,7 @@ Under it's new name, the facade class now uses `__callStatic` to dynamically cal
 
 ### Factory Definitions
 
-Having a public static factory property is no longer supported. You must use the `define` function introduced in the 1.5.x series. You may call it like this: `League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`. We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `League\FactoryMuffin\Facade::loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found. A full example is included in the readme.
+Having a public static factory property is no longer supported. You must use the `define` function introduced in the v1.5.x series. You may call it like this: `League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`. We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `League\FactoryMuffin\Facade::loadFactories(__DIR__ . '/factories');` and it will include all files in the factories folder. Within those PHP files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory the loading is not found. A full example is included in the readme.
 
 ### Generator (Kind) Changes
 
