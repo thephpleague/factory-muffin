@@ -76,6 +76,9 @@ class EloquentTest extends AbstractTestCase
         $this->assertGreaterThan(5, strlen($user->email));
         $this->assertContains('@', $user->email);
         $this->assertContains('.', $user->email);
+        $this->assertInstanceOf('DateTime', $user->created_at);
+        $this->assertInstanceOf('DateTime', $user->updated_at);
+        $this->assertSame((string) $user->created_at, (string) $user->updated_at);
         $this->assertFalse($user->xyz == true);
     }
 
@@ -85,6 +88,9 @@ class EloquentTest extends AbstractTestCase
 
         $this->assertGreaterThan(1, strlen($cat->name));
         $this->assertTrue($cat->user_id == true);
+        $this->assertInstanceOf('DateTime', $cat->created_at);
+        $this->assertInstanceOf('DateTime', $cat->updated_at);
+        $this->assertSame((string) $cat->created_at, (string) $cat->updated_at);
         $this->assertFalse($cat->xyz == true);
     }
 }
