@@ -52,6 +52,8 @@ class Call extends Base
      * @param string $method
      * @param array  $args
      *
+     * @throws \League\FactoryMuffin\Exceptions\MethodNotFoundException
+     *
      * @return mixed
      */
     private function execute($method, $args)

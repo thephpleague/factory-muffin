@@ -51,7 +51,7 @@ class Factory extends Base
      *
      * @param object $object The model instance.
      *
-     * @return int
+     * @return int|null
      */
     private function getId($object)
     {
