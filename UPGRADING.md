@@ -2,23 +2,23 @@ Upgrading
 =========
 
 
-Welcome to the upgrade guide for Factory Muffin. We've tried to cover all changes from 1.4 through to the current release. If we've missed anything, feel free to create an issue, or send a pull request. From 2.0, we are following the PSR-2 coding standard, and semantic versioning, so there will be no BC breaks until 3.0 other than essential fixes, and any changes will be documented here.
+Welcome to the upgrade guide for **Factory Muffin**. We've tried to cover all changes from v1.4 through to the current release. If we've missed anything, feel free to create an issue or send a pull request. From v2.0 we are following the PSR-2 coding standard and semantic versioning. There will be no BC breaks until 3.0 other than essential fixes and any changes will be documented here.
 
 
 ## Upgrading from 1.6.x to 2.0.x
 
 ### Introduction
 
-Version 2.0 marks a major file milestone in this project, under the new name of "Factory Muffin". We see a large number of improvements and some breaking changes. Within this section of the upgrading guide, you will see "the `xyz` function can be called". You should assume that these functions should be called statically on the `League\FactoryMuffin\Facade` class.
+Version 2.0 marks a major milestone in this project. Under the new name **Factory Muffin** we see a large number of improvements and some breaking changes. Within this section of the upgrading guide, you will see 'the `xyz` function can be called'. You should assume that these should be called as static functions on the `League\FactoryMuffin\Facade` class.
 
 ### Class Name Changes
 
-Every class has moved. So here's a summary of the changes:
+Every class has moved, so here's a summary of the changes:
 * The root namespace has been moved from `Zizaco\FactoryMuff` to `League\FactoryMuffin`. You should now access the facade using `Zizaco\FactoryMuff\Facade::fooBar()`.
 * Many generator (kind) classes have been removed in favour of the faker alternatives. Those remaining can be found under the `Zizaco\FactoryMuff\Generators` namespace.
-* There are many more exceptions, and the names of the existing exceptions have changed. The exceptions can be found under the `Zizaco\FactoryMuff\Exception` namespace.
+* There are many more exceptions and the names of the existing exceptions have changed. The exceptions can be found under the `Zizaco\FactoryMuff\Exception` namespace.
 
-A detailed list of every change, with the fully qualified names is listed below:
+A detailed list of every change with the fully qualified names is listed below:
 * Moved: `Zizaco\FactoryMuff\FactoryMuff` => `League\FactoryMuffin\Factory`
 * Moved: `Zizaco\FactoryMuff\Facade\FactoryMuff` => `League\FactoryMuffin\Facade`
 * Moved: `Zizaco\FactoryMuff\SaveException` => `League\FactoryMuffin\Exceptions\SaveFailedException`
@@ -49,19 +49,19 @@ Under it's new name, the facade class now uses `__callStatic` to dynamically cal
 
 ### Factory Definitions
 
-Having a public static factory property is no longer supported. You must use the `define` function introduced in the 1.5.x series. You may call it like this: `League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`. We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `League\FactoryMuffin\Facade::loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found. A full example is included in the readme.
+Having a public static factory property is no longer supported. You must use the `define` function introduced in the v1.5.x series. You may call it like this: `League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`. We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `League\FactoryMuffin\Facade::loadFactories(__DIR__ . '/factories');` and it will include all files in the factories folder. Within those PHP files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory the loading is not found. A full example is included in the readme.
 
 ### Generator (Kind) Changes
 
-We now refer to what was previously the Kind classes, as Generator classes. We've removed some of these in favour of the faker alternatives. We currently provide the following generators: `Call`, `Closure`, `Factory`, and `Generic`. The call, closure, and factory generators have not changed significantly since previous versions, and the generic generator still provides access to the faker generators. Note that you can use a `;` to send multiple arguments to the generators, and unique and optional attributes are now supported by prefixing the definition with `unique:` or `optional:`. The `Closure` generator will now pass the instance of your model into your closure as the first parameter too.
+We now refer to what was previously the *kind* classes, as *generator* classes. We've removed some of these in favour of the faker alternatives. We currently provide the following generators: `Call`, `Closure`, `Factory`, and `Generic`. The call, closure, and factory generators have not changed significantly since previous versions, and the generic generator still provides access to the faker generators. Note that you can use a `;` to send multiple arguments to the generators. Unique and optional attributes are now supported by prefixing the definition with `unique:` or `optional:`. The `Closure` generator will now pass the instance of your model into your closure as the first parameter too.
 
-The removed generators are `Date`, `Integer`, `Name`, `String`, and `Text`, however, these are still callable (some name changes required), as they are available on the generic generator through faker.
+The removed generators are `Date`, `Integer`, `Name`, `String`, and `Text`. However, these are still callable (some name changes required) as they are available on the generic generator through faker.
 * Instead of using `integer|8`, you can use `randomNumber|8`.
 * Instead of using `string`, you can use `sentence`, or `word`.
 * Instead of using `name`, you can use things like `firstNameMale`.
 * `date` and `text` can be used in the same way you were using them before.
 
-It should be noted that we are using faker 1.4 which is a change since the previous release. We've made a more strict version requirement to avoid potential bc breakes caused by faker.
+It should be noted that we are using faker 1.4 which is a change since the previous release. We've made a more strict version requirement to avoid potential BC breaks caused by faker.
 
 ### Creating And Seeding
 
@@ -79,7 +79,7 @@ There are 2 other helper functions available. You may call `saved` to return an 
 
 You can now delete all your saved models with the `deleteSaved` function. It should be noted that you can set a custom delete function before you get going with the `setDeleteMethod` function.
 
-If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underlying exception, in the order they were thrown during the whole process, with the `getExceptions` function which will return an array of exceptions. You may encounter the following exceptions:
+If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underlying exception in the order they were thrown during the whole process with the `getExceptions` function which will return an array of exceptions. You may encounter the following exceptions:
 * `League\FactoryMuffin\Exceptions\DeleteFailedException` will be thrown if the delete function on your model returns false.
 * `League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException` will be thrown if the delete function on your model does not exist.
 * Any other exception thrown by your model while trying to delete it.
@@ -98,7 +98,7 @@ You can see a diagram showing the exception hierarchy here:
 
 The `attributesFor` function no longer accepts a class name as the first argument, and the `generateAttr` function no longer accepts a class name as a second argument. Please pass an actual model instance to both functions instead.
 
-We now require php 5.3.3 as a minimum version. This is an increase on our previous requirement of php 5.3.0.
+We now require PHP 5.3.3 as a minimum version. This is an increase on our previous requirement of PHP 5.3.0.
 
 ### Installing This Version
 
@@ -116,7 +116,7 @@ In your composer.json, add:
 
 ### Faker Usage
 
-* We now use the faker package, so our `Zizaco\FactoryMuff\Wordlist` class has been removed. All your previous definitions should still work in as close to the same way as possible, but watch out for any minor differences. With the addition of the faker library, far more definitions are now possible since any definitions not natively provided by us, fall back to the faker package. Also, it should be noted you may use closures now to generate completely custom attributes. The new classes can be found under the `Zizaco\FactoryMuff\Kind` namespace.
+* We now use the faker package, so our `Zizaco\FactoryMuff\Wordlist` class has been removed. All your previous definitions should still work in as close to the same way as possible, but watch out for any minor differences. With the addition of the faker library far more definitions are now possible since any definitions not natively provided by us, fall back to the faker package. Also, it should be noted you may use closures now to generate completely custom attributes. The new classes can be found under the `Zizaco\FactoryMuff\Kind` namespace.
 
 ### Installing This Version
 
