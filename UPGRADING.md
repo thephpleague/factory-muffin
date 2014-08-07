@@ -9,7 +9,7 @@ Welcome to the upgrade guide for Factory Muffin. We've tried to cover all change
 
 ### Introduction
 
-Version 2.0 marks a major milestone in this project. Under the new name *Factory Muffin* we see a large number of improvements and some breaking changes. Within this section of the upgrading guide, you will see *the `xyz` function can be called*. You should assume that these should be called as static functions on the `League\FactoryMuffin\Facade` class.
+Version 2.0 marks a major milestone in this project. Under the new name *Factory Muffin* we see a large number of improvements and some breaking changes. Within this section of the upgrading guide, you will see 'the `xyz` function can be called'. You should assume that these should be called as static functions on the `League\FactoryMuffin\Facade` class.
 
 ### Class Name Changes
 
