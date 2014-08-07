@@ -35,7 +35,7 @@ class Factory extends Base
     /**
      * Return generated data.
      *
-     * @return int
+     * @return int|null
      */
     public function generate()
     {
