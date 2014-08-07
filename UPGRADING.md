@@ -98,7 +98,7 @@ You can see a diagram showing the exception hierarchy here:
 
 The `attributesFor` function no longer accepts a class name as the first argument, and the `generateAttr` function no longer accepts a class name as a second argument. Please pass an actual model instance to both functions instead.
 
-We now require php 5.3.3 as a minimum version. This is an increase on our previous requirement of php 5.3.0.
+We now require PHP 5.3.3 as a minimum version. This is an increase on our previous requirement of PHP 5.3.0.
 
 ### Installing This Version
 
@@ -116,7 +116,7 @@ In your composer.json, add:
 
 ### Faker Usage
 
-* We now use the faker package, so our `Zizaco\FactoryMuff\Wordlist` class has been removed. All your previous definitions should still work in as close to the same way as possible, but watch out for any minor differences. With the addition of the faker library, far more definitions are now possible since any definitions not natively provided by us, fall back to the faker package. Also, it should be noted you may use closures now to generate completely custom attributes. The new classes can be found under the `Zizaco\FactoryMuff\Kind` namespace.
+* We now use the faker package, so our `Zizaco\FactoryMuff\Wordlist` class has been removed. All your previous definitions should still work in as close to the same way as possible, but watch out for any minor differences. With the addition of the faker library far more definitions are now possible since any definitions not natively provided by us, fall back to the faker package. Also, it should be noted you may use closures now to generate completely custom attributes. The new classes can be found under the `Zizaco\FactoryMuff\Kind` namespace.
 
 ### Installing This Version
 
