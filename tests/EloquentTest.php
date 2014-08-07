@@ -33,7 +33,6 @@ class EloquentTest extends AbstractTestCase
             $table->increments('id');
             $table->string('name');
             $table->integer('user_id');
-            $table->timestamps();
         });
 
         parent::setupBeforeClass();
@@ -88,9 +87,8 @@ class EloquentTest extends AbstractTestCase
 
         $this->assertGreaterThan(1, strlen($cat->name));
         $this->assertTrue($cat->user_id == true);
-        $this->assertInstanceOf('DateTime', $cat->created_at);
-        $this->assertInstanceOf('DateTime', $cat->updated_at);
-        $this->assertSame((string) $cat->created_at, (string) $cat->updated_at);
+        $this->assertFalse($cat->created_at == true);
+        $this->assertFalse($cat->uodated_at == true);
         $this->assertFalse($cat->xyz == true);
     }
 }
@@ -107,9 +105,9 @@ class User extends Eloquent
 
 class Cat extends Eloquent
 {
-    public $table = 'cats';
+    public $timestamps = false;
 
-    public static $name = 'cat';
+    public $table = 'cats';
 
     public function user()
     {
