@@ -53,7 +53,7 @@ abstract class Base
     /**
      * Initialise our Generator.
      *
-     * @param string                $kind   The kind of attribute that will be generated.
+     * @param string                $kind   The kind of attribute
      * @param object|null           $object The model instance.
      * @param \Faker\Generator|null $faker  The faker instance.
      *
@@ -69,7 +69,7 @@ abstract class Base
     /**
      * Detect the type of Generator we are processing.
      *
-     * @param string                $kind   The kind of attribute that will be generated.
+     * @param string                $kind   The kind of attribute.
      * @param object|null           $object The model instance.
      * @param \Faker\Generator|null $faker  The faker instance.
      *
@@ -149,8 +149,8 @@ abstract class Base
     /**
      * Create an instance of the model.
      *
-     * This model will be automatically saved to the db if
-     * the model we are generating it for has been saved.
+     * This model will be automatically saved to the database if the model we
+     * are generating it for has been saved (the create function was used).
      *
      * @param string $model Model class name.
      *

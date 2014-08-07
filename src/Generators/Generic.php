@@ -23,8 +23,8 @@ class Generic extends Base
     /**
      * Generate, and return the attribute.
      *
-     * We attempt to use Faker for any string passed in.
-     * If a Faker property does not exist, we'll return the original string.
+     * We attempt to use Faker for any string passed in. If a Faker property
+     * does not exist, we'll return the original string.
      *
      * @return mixed
      */
