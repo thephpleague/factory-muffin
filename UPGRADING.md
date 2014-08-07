@@ -59,7 +59,7 @@ There are two syntax changes to watch out for:
 * You can now use a `;` to send multiple arguments to the generators.
 * Unique and optional attributes are now supported by prefixing the definition with `unique:` or `optional:`.
 
-The removed generators are `Date`, `Integer`, `Name`, `String`, and `Text`, however, these are still callable (some name changes required) as they are available on the generic generator through faker.
+The removed generators are `Date`, `Integer`, `Name`, `String`, and `Text`, however, these are still callable as they are available through the generic generator using faker. Here are some possible changes you will need to make:
 * Instead of using `integer|8`, you can use `randomNumber|8`.
 * Instead of using `string`, you can use `sentence`, or `word`.
 * Instead of using `name`, you can use things like `firstNameMale`.
