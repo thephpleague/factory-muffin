@@ -1,7 +1,6 @@
 <?php
 
 use League\FactoryMuffin\Facade as FactoryMuffin;
-
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
 
 /**
