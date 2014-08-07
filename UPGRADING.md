@@ -53,15 +53,19 @@ Having a public static factory property is no longer supported. You must use the
 
 ### Generator (Kind) Changes
 
-We now refer to what was previously the kind classes, as generator classes. We've removed some of these in favour of the faker alternatives. We currently provide the following generators: `Call`, `Closure`, `Factory`, and `Generic`. The call, closure, and factory generators have not changed significantly since previous versions, and the generic generator still provides access to the faker generators. Note that you can use a `;` to send multiple arguments to the generators, and unique and optional attributes are now supported by prefixing the definition with `unique:` or `optional:`. The `Closure` generator will now pass the instance of your model into your closure as the first parameter too.
+We now refer to what was previously the kind classes, as generator classes. We've removed some of these in favour of the faker alternatives. We currently provide the following generators: `Call`, `Closure`, `Factory`, and `Generic`. The call, closure, and factory generators have not changed significantly since previous versions, and the generic generator still provides access to the faker generators. The closure generator will now pass the instance of your model into your closure as the first parameter too.
 
-The removed generators are `Date`, `Integer`, `Name`, `String`, and `Text`, however, these are still callable (some name changes required), as they are available on the generic generator through faker.
+There are two syntax changes to watch out for:
+* You can now use a `;` to send multiple arguments to the generators.
+* Unique and optional attributes are now supported by prefixing the definition with `unique:` or `optional:`.
+
+The removed generators are `Date`, `Integer`, `Name`, `String`, and `Text`, however, these are still callable (some name changes required) as they are available on the generic generator through faker.
 * Instead of using `integer|8`, you can use `randomNumber|8`.
 * Instead of using `string`, you can use `sentence`, or `word`.
 * Instead of using `name`, you can use things like `firstNameMale`.
 * `date` and `text` can be used in the same way you were using them before.
 
-It should be noted that we are using faker 1.4 which is a change since the previous release. We've made a more strict version requirement to avoid potential bc breakes caused by faker.
+It should be noted that we are using faker 1.4 which is a change since the previous release. We've made a more strict version requirement to avoid potential BC breaks caused by faker.
 
 ### Creating And Seeding
 
