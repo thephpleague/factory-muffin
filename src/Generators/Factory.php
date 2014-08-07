@@ -2,8 +2,6 @@
 
 namespace League\FactoryMuffin\Generators;
 
-use League\FactoryMuffin\Facade as FactoryMuffin;
-
 /**
  * This is the factory generator class.
  *
