@@ -73,7 +73,7 @@ abstract class Base
      * @param object|null           $object The model instance.
      * @param \Faker\Generator|null $faker  The faker instance.
      *
-     * @return \League\FactoryMuffin\Generator
+     * @return \League\FactoryMuffin\Generators\Base
      */
     public static function detect($kind, $object = null, $faker = null)
     {
