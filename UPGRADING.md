@@ -2,21 +2,21 @@ Upgrading
 =========
 
 
-Welcome to the upgrade guide for Factory Muffin. We've tried to cover all changes from v1.4 through to the current release. If we've missed anything, feel free to create an issue or send a pull request. From v2.0 we are following the PSR-2 coding standard and semantic versioning. There will be no BC breaks until 3.0 other than essential fixes and any changes will be documented here.
+Welcome to the upgrade guide for **Factory Muffin**. We've tried to cover all changes from v1.4 through to the current release. If we've missed anything, feel free to create an issue or send a pull request. From v2.0 we are following the PSR-2 coding standard and semantic versioning. There will be no BC breaks until 3.0 other than essential fixes and any changes will be documented here.
 
 
 ## Upgrading from 1.6.x to 2.0.x
 
 ### Introduction
 
-Version 2.0 marks a major milestone in this project. Under the new name *Factory Muffin* we see a large number of improvements and some breaking changes. Within this section of the upgrading guide, you will see 'the `xyz` function can be called'. You should assume that these should be called as static functions on the `League\FactoryMuffin\Facade` class.
+Version 2.0 marks a major milestone in this project. Under the new name **Factory Muffin** we see a large number of improvements and some breaking changes. Within this section of the upgrading guide, you will see 'the `xyz` function can be called'. You should assume that these should be called as static functions on the `League\FactoryMuffin\Facade` class.
 
 ### Class Name Changes
 
-Every class has moved. So here's a summary of the changes:
+Every class has moved, so here's a summary of the changes:
 * The root namespace has been moved from `Zizaco\FactoryMuff` to `League\FactoryMuffin`. You should now access the facade using `Zizaco\FactoryMuff\Facade::fooBar()`.
 * Many generator (kind) classes have been removed in favour of the faker alternatives. Those remaining can be found under the `Zizaco\FactoryMuff\Generators` namespace.
-* There are many more exceptions, and the names of the existing exceptions have changed. The exceptions can be found under the `Zizaco\FactoryMuff\Exception` namespace.
+* There are many more exceptions and the names of the existing exceptions have changed. The exceptions can be found under the `Zizaco\FactoryMuff\Exception` namespace.
 
 A detailed list of every change, with the fully qualified names is listed below:
 * Moved: `Zizaco\FactoryMuff\FactoryMuff` => `League\FactoryMuffin\Factory`
