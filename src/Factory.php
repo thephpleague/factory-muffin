@@ -224,8 +224,8 @@ class Factory
     /**
      * Returns the real model class without the group prefix.
      *
-     * @param string $model The model class name.
-     * @param string $group The model group name.
+     * @param string      $model The model class name.
+     * @param string|null $group The model group name.
      *
      * @return string
      */
