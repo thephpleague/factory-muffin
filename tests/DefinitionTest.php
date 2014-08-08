@@ -2,6 +2,7 @@
 
 use League\FactoryMuffin\Facade as FactoryMuffin;
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
+use League\FactoryMuffin\Exceptions\ModelNotFoundException;
 
 /**
  * @group definition
@@ -32,13 +33,14 @@ class DefinitionTest extends AbstractTestCase
         $this->assertContains('@', $user->email);
     }
 
-    /**
-     * @expectedException League\FactoryMuffin\Exceptions\ModelNotFoundException
-     * @expectedExceptionMessage Class cannot be found when creating Factory: 'notAClass'
-     */
     public function testModelNotFound()
     {
-        FactoryMuffin::create('notAClass');
+        try {
+            FactoryMuffin::create($model = 'NotAClass');
+        } catch (ModelNotFoundException $e) {
+            $this->assertEquals("No class was defined for the model of type: '$model'.", $e->getMessage());
+            $this->assertEquals($model, $e->getModel());
+        }
     }
 
     public function testGroupDefine()
