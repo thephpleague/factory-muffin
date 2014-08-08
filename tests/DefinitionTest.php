@@ -86,6 +86,9 @@ class DefinitionTest extends AbstractTestCase
         $this->assertInstanceOf('League\FactoryMuffin\Factory', $return);
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\DirectoryNotFoundException
+     */
     public function testShouldThrowExceptionWhenLoadingANonexistentDirectory()
     {
         try {
@@ -93,6 +96,7 @@ class DefinitionTest extends AbstractTestCase
         } catch (DirectoryNotFoundException $e) {
             $this->assertEquals("The directory '$path' was not found.", $e->getMessage());
             $this->assertEquals($path, $e->getPath());
+            throw $e;
         }
     }
 }
