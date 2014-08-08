@@ -61,6 +61,7 @@ class DefinitionTest extends AbstractTestCase
 
         $this->assertInstanceOf('UserModelStub', $user);
         $this->assertInternalType('string', $user->address);
+        $this->assertNotEquals('address', $user->address);
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('boolean', $user->active);
         $this->assertContains('@', $user->email);
