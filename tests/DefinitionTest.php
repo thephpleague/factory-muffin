@@ -33,6 +33,9 @@ class DefinitionTest extends AbstractTestCase
         $this->assertContains('@', $user->email);
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\ModelNotFoundException
+     */
     public function testModelNotFound()
     {
         try {
@@ -40,6 +43,7 @@ class DefinitionTest extends AbstractTestCase
         } catch (ModelNotFoundException $e) {
             $this->assertEquals("No class was defined for the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
+            throw $e;
         }
     }
 
