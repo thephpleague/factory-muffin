@@ -3,6 +3,7 @@
 use League\FactoryMuffin\Facade as FactoryMuffin;
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
 use League\FactoryMuffin\Exceptions\ModelNotFoundException;
+use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
 
 /**
  * @group definition
@@ -71,6 +72,20 @@ class DefinitionTest extends AbstractTestCase
         $this->assertContains('@', $user->email);
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\NoDefinedFactoryException
+     */
+    public function testShouldThrowExceptionWhenLoadingANonExistentGroup()
+    {
+        try {
+            FactoryMuffin::create('error:UserModelStub');
+        } catch (NoDefinedFactoryException $e) {
+            $this->assertEquals("No factory definition(s) were defined for the model of type: 'error:UserModelStub'.", $e->getMessage());
+            $this->assertEquals('error:UserModelStub', $e->getModel());
+            throw $e;
+        }
+    }
+
     public function testDefineMultiple()
     {
         $user = FactoryMuffin::create('UserModelStub');
@@ -128,7 +143,7 @@ class DefinitionTest extends AbstractTestCase
     /**
      * @expectedException \League\FactoryMuffin\Exceptions\DirectoryNotFoundException
      */
-    public function testShouldThrowExceptionWhenLoadingANonexistentDirectory()
+    public function testShouldThrowExceptionWhenLoadingANonExistentDirectory()
     {
         try {
             FactoryMuffin::loadFactories($path = __DIR__ . '/thisdirectorydoesntexist');
