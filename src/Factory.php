@@ -184,7 +184,7 @@ class Factory
         $group = $this->getGroup($model);
         $modelWithoutGroup = $this->getModelWithoutGroup($model);
 
-        if (! class_exists($modelWithoutGroup)) {
+        if (!class_exists($modelWithoutGroup)) {
             throw new ModelNotFoundException($modelWithoutGroup);
         }
 
@@ -209,9 +209,10 @@ class Factory
     }
 
     /**
-     * Returns the group name for this factory defintion
+     * Returns the group name for this factory definition.
      *
-     * @param  string $model
+     * @param string $model The model class name.
+     *
      * @return string
      */
     private function getGroup($model)
@@ -220,9 +221,10 @@ class Factory
     }
 
     /**
-     * Returns the model without the group prefix
+     * Returns the model without the group prefix.
      *
-     * @param  string $model
+     * @param string $model The model class name.
+     *
      * @return string
      */
     private function getModelWithoutGroup($model)
