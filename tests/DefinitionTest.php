@@ -2,6 +2,8 @@
 
 use League\FactoryMuffin\Facade as FactoryMuffin;
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
+use League\FactoryMuffin\Exceptions\ModelNotFoundException;
+use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
 
 /**
  * @group definition
@@ -30,6 +32,58 @@ class DefinitionTest extends AbstractTestCase
         $this->assertNotEquals('name', $user->fullName);
         $this->assertInternalType('boolean', $user->active);
         $this->assertContains('@', $user->email);
+    }
+
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\ModelNotFoundException
+     */
+    public function testModelNotFound()
+    {
+        try {
+            FactoryMuffin::create($model = 'NotAClass');
+        } catch (ModelNotFoundException $e) {
+            $this->assertEquals("No class was defined for the model of type: '$model'.", $e->getMessage());
+            $this->assertEquals($model, $e->getModel());
+            throw $e;
+        }
+    }
+
+    public function testGroupDefine()
+    {
+        $user = FactoryMuffin::create('group:UserModelStub');
+
+        $this->assertInstanceOf('UserModelStub', $user);
+        $this->assertInternalType('string', $user->address);
+        $this->assertNotEquals('address', $user->address);
+        $this->assertInternalType('string', $user->name);
+        $this->assertInternalType('boolean', $user->active);
+        $this->assertContains('@', $user->email);
+    }
+
+    public function testGroupDefineOverwrite()
+    {
+        $user = FactoryMuffin::create('anothergroup:UserModelStub');
+
+        $this->assertInstanceOf('UserModelStub', $user);
+        $this->assertInternalType('string', $user->address);
+        $this->assertInternalType('string', $user->name);
+        $this->assertNotInternalType('boolean', $user->active);
+        $this->assertEquals('false', $user->active);
+        $this->assertContains('@', $user->email);
+    }
+
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\NoDefinedFactoryException
+     */
+    public function testShouldThrowExceptionWhenLoadingANonExistentGroup()
+    {
+        try {
+            FactoryMuffin::create('error:UserModelStub');
+        } catch (NoDefinedFactoryException $e) {
+            $this->assertEquals("No factory definition(s) were defined for the model of type: 'error:UserModelStub'.", $e->getMessage());
+            $this->assertEquals('error:UserModelStub', $e->getModel());
+            throw $e;
+        }
     }
 
     public function testDefineMultiple()
@@ -89,7 +143,7 @@ class DefinitionTest extends AbstractTestCase
     /**
      * @expectedException \League\FactoryMuffin\Exceptions\DirectoryNotFoundException
      */
-    public function testShouldThrowExceptionWhenLoadingANonexistentDirectory()
+    public function testShouldThrowExceptionWhenLoadingANonExistentDirectory()
     {
         try {
             FactoryMuffin::loadFactories($path = __DIR__ . '/thisdirectorydoesntexist');
