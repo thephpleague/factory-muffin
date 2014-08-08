@@ -11,6 +11,7 @@ use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
 use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
 use League\FactoryMuffin\Exceptions\SaveFailedException;
 use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
+use League\FactoryMuffin\Exceptions\ClassNotFoundException;
 use League\FactoryMuffin\Generators\Base as Generator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -180,6 +181,11 @@ class Factory
      */
     private function make($model, array $attr, $save)
     {
+        if (! class_exists($model)) {
+            throw new ClassNotFoundException($model);
+        }
+
+
         $obj = new $model();
 
         if ($save) {
