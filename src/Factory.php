@@ -181,12 +181,14 @@ class Factory
      */
     private function make($model, array $attr, $save)
     {
-        if (! class_exists($model)) {
-            throw new ClassNotFoundException($model);
+        $group = $this->getGroup($model);
+        $modelWithoutGroup = $this->getModelWithoutGroup($model);
+
+        if (! class_exists($modelWithoutGroup)) {
+            throw new ClassNotFoundException($modelWithoutGroup);
         }
 
-
-        $obj = new $model();
+        $obj = new $modelWithoutGroup();
 
         if ($save) {
             $this->saved[] = $obj;
@@ -194,6 +196,9 @@ class Factory
 
         // Get the factory attributes for that model
         $attributes = $this->attributesFor($obj, $attr);
+        if ($group) {
+            $attributes = array_merge($attributes, $this->getFactoryAttrs($model));
+        }
 
         foreach ($attributes as $attr => $value) {
             $obj->$attr = $value;
