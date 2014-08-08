@@ -203,7 +203,7 @@ You can see a diagram showing the exception hierarchy here:
 
 ### Real Examples
 
-To start with, we need to create some defintions:
+To start with, we need to create some definitions:
 ```php
 # tests/factories/all.php
 
