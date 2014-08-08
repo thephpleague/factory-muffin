@@ -8,10 +8,10 @@ use League\FactoryMuffin\Exceptions\DeleteFailedException;
 use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
 use League\FactoryMuffin\Exceptions\DeletingFailedException;
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
+use League\FactoryMuffin\Exceptions\ModelNotFoundException;
 use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
 use League\FactoryMuffin\Exceptions\SaveFailedException;
 use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
-use League\FactoryMuffin\Exceptions\ClassNotFoundException;
 use League\FactoryMuffin\Generators\Base as Generator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -185,7 +185,7 @@ class Factory
         $modelWithoutGroup = $this->getModelWithoutGroup($model);
 
         if (! class_exists($modelWithoutGroup)) {
-            throw new ClassNotFoundException($modelWithoutGroup);
+            throw new ModelNotFoundException($modelWithoutGroup);
         }
 
         $obj = new $modelWithoutGroup();
