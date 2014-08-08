@@ -32,6 +32,15 @@ class DefinitionTest extends AbstractTestCase
         $this->assertContains('@', $user->email);
     }
 
+    /**
+     * @expectedException League\FactoryMuffin\Exceptions\ClassNotFoundException
+     * @expectedExceptionMessage Class cannot be found when creating Factory: 'notAClass'
+     */
+    public function testClassNotFound()
+    {
+        FactoryMuffin::create('notAClass');
+    }
+
     public function testDefineMultiple()
     {
         $user = FactoryMuffin::create('UserModelStub');
