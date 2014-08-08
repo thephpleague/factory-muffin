@@ -195,10 +195,11 @@ class Factory
         }
 
         // Get the factory attributes for that model
-        $attributes = $this->attributesFor($obj, $attr);
         if ($group) {
-            $attributes = array_merge($attributes, $this->getFactoryAttrs($model));
+            $attr = array_merge($attr, $this->getFactoryAttrs($model));
         }
+
+        $attributes = $this->attributesFor($obj, $attr);
 
         foreach ($attributes as $attr => $value) {
             $obj->$attr = $value;
