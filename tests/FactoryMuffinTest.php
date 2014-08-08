@@ -84,6 +84,9 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertLessThanOrEqual(180, $obj->lon);
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\NoDefinedFactoryException
+     */
     public function testShouldThrowExceptionWhenNoDefinedFactoryException()
     {
         try {
@@ -91,6 +94,7 @@ class FactoryMuffinTest extends AbstractTestCase
         } catch (NoDefinedFactoryException $e) {
             $this->assertEquals("No factory class was defined for the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
+            throw $e;
         }
     }
 
@@ -108,6 +112,9 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertInstanceOf('ModelWithStaticMethodFactory', $obj->object);
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\MethodNotFoundException
+     */
     public function testThrowExceptionWhenInvalidStaticMethod()
     {
         try {
@@ -116,6 +123,7 @@ class FactoryMuffinTest extends AbstractTestCase
             $this->assertEquals("The static method 'doesNotExist' was not found on the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
             $this->assertEquals('doesNotExist', $e->getMethod());
+            throw $e;
         }
     }
 }

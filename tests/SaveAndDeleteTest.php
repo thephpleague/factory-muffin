@@ -32,6 +32,8 @@ class SaveAndDeleteTest extends AbstractTestCase
     /**
      * @runInSeparateProcess
      * @preserveGlobalState disabled
+     *
+     * @expectedException \League\FactoryMuffin\Exceptions\SaveMethodNotFoundException
      */
     public function testShouldThrowExceptionAfterSaveMethodRename()
     {
@@ -44,12 +46,15 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertEquals($model, $e->getModel());
             $this->assertEquals('foo', $e->getMethod());
             $this->assertInstanceOf($model, $e->getObject());
+            throw $e;
         }
     }
 
     /**
      * @runInSeparateProcess
      * @preserveGlobalState disabled
+     *
+     * @expectedException \League\FactoryMuffin\Exceptions\DeletingFailedException
      */
     public function testShouldThrowExceptionAfterDeleteMethodRename()
     {
@@ -65,9 +70,13 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertEquals($model, $exceptions[0]->getModel());
             $this->assertEquals('bar', $exceptions[0]->getMethod());
             $this->assertInstanceOf($model, $exceptions[0]->getObject());
+            throw $e;
         }
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\SaveFailedException
+     */
     public function testShouldThrowExceptionOnModelSaveFailure()
     {
         try {
@@ -76,9 +85,13 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertEquals("We could not save the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
             $this->assertNull($e->getErrors());
+            throw $e;
         }
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\DeletingFailedException
+     */
     public function testShouldThrowExceptionOnModelDeleteFailure()
     {
         try {
@@ -88,9 +101,13 @@ class SaveAndDeleteTest extends AbstractTestCase
             $exceptions = $e->getExceptions();
             $this->assertEquals("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
             $this->assertEquals("We could not delete the model of type: '$model'.", $exceptions[0]->getMessage());
+            throw $e;
         }
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\DeletingFailedException
+     */
     public function testShouldAlsoThrowExceptionOnModelDeleteFailure()
     {
         try {
@@ -100,9 +117,13 @@ class SaveAndDeleteTest extends AbstractTestCase
             $exceptions = $e->getExceptions();
             $this->assertEquals("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
             $this->assertEquals("OH NOES!", $exceptions[0]->getMessage());
+            throw $e;
         }
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\SaveMethodNotFoundException
+     */
     public function testShouldThrowExceptionWithoutSaveMethod()
     {
         try {
@@ -112,9 +133,13 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertEquals($model, $e->getModel());
             $this->assertEquals('save', $e->getMethod());
             $this->assertInstanceOf($model, $e->getObject());
+            throw $e;
         }
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\DeletingFailedException
+     */
     public function testShouldThrowExceptionWithoutDeleteMethod()
     {
         try {
@@ -127,9 +152,13 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertEquals($model, $exceptions[0]->getModel());
             $this->assertEquals('delete', $exceptions[0]->getMethod());
             $this->assertInstanceOf($model, $exceptions[0]->getObject());
+            throw $e;
         }
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\SaveFailedException
+     */
     public function testShouldThrowExceptionWithValidationErrors()
     {
         try {
@@ -138,9 +167,13 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertEquals("Failed to save. We could not save the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
             $this->assertEquals('Failed to save.', $e->getErrors());
+            throw $e;
         }
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\DeletingFailedException
+     */
     public function testShouldThrowMultipleDeletionExceptions()
     {
         try {
@@ -157,6 +190,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertInstanceOf($model, $exceptions[1]->getObject());
             $this->assertInternalType('array', $e->getExceptions());
             $this->assertCount(2, $e->getExceptions());
+            throw $e;
         }
     }
 }
