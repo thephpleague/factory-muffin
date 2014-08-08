@@ -8,6 +8,7 @@ use League\FactoryMuffin\Exceptions\DeleteFailedException;
 use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
 use League\FactoryMuffin\Exceptions\DeletingFailedException;
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
+use League\FactoryMuffin\Exceptions\ModelNotFoundException;
 use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
 use League\FactoryMuffin\Exceptions\SaveFailedException;
 use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
@@ -180,13 +181,24 @@ class Factory
      */
     private function make($model, array $attr, $save)
     {
-        $obj = new $model();
+        $group = $this->getGroup($model);
+        $modelWithoutGroup = $this->getModelWithoutGroup($model);
+
+        if (! class_exists($modelWithoutGroup)) {
+            throw new ModelNotFoundException($modelWithoutGroup);
+        }
+
+        $obj = new $modelWithoutGroup();
 
         if ($save) {
             $this->saved[] = $obj;
         }
 
         // Get the factory attributes for that model
+        if ($group) {
+            $attr = array_merge($attr, $this->getFactoryAttrs($model));
+        }
+
         $attributes = $this->attributesFor($obj, $attr);
 
         foreach ($attributes as $attr => $value) {
@@ -194,6 +206,28 @@ class Factory
         }
 
         return $obj;
+    }
+
+    /**
+     * Returns the group name for this factory defintion
+     *
+     * @param  string $model
+     * @return string
+     */
+    private function getGroup($model)
+    {
+        return current(explode(':', $model));
+    }
+
+    /**
+     * Returns the model without the group prefix
+     *
+     * @param  string $model
+     * @return string
+     */
+    private function getModelWithoutGroup($model)
+    {
+        return str_replace($this->getGroup($model) . ':', null, $model);
     }
 
     /**
