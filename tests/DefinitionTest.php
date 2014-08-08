@@ -27,6 +27,29 @@ class DefinitionTest extends AbstractTestCase
         FactoryMuffin::create('notAClass');
     }
 
+    public function testGroupDefine()
+    {
+        $user = FactoryMuffin::create('group:UserModelStub');
+
+        $this->assertInstanceOf('UserModelStub', $user);
+        $this->assertInternalType('string', $user->address);
+        $this->assertInternalType('string', $user->name);
+        $this->assertInternalType('boolean', $user->active);
+        $this->assertContains('@', $user->email);
+    }
+
+    public function testGroupDefineOverwrite()
+    {
+        $user = FactoryMuffin::create('anothergroup:UserModelStub');
+
+        $this->assertInstanceOf('UserModelStub', $user);
+        $this->assertInternalType('string', $user->address);
+        $this->assertInternalType('string', $user->name);
+        $this->assertNotInternalType('boolean', $user->active);
+        $this->assertEquals('false', $user->active);
+        $this->assertContains('@', $user->email);
+    }
+
     public function testDefineMultiple()
     {
         $user = FactoryMuffin::create('UserModelStub');
