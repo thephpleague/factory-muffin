@@ -46,6 +46,8 @@ The facade class (`League\FactoryMuffin\Facade`) should always be your main poin
 
 You can define model factories using the `define` function. You may call it like this: `League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`, where `foo` is the name of the attribute you want set on your model, and `bar` describes how you wish to generate the attribute. Please see the generators section for more information on how this works.
 
+You can also define multiple different factory definitions for your models. You can do this by prefixing the model class name with your "group" followed by a colon. This results in you defining your model like this: like this: `League\FactoryMuffin\Facade::define('myGroup:Fully\Qualifed\ModelName', array('foo' => 'bar'))`. You don't have to entirely define your model here because we will first look for a definition without the group prefix, then apply your group definition on top of that definition, overriding attribute definitions where required.
+
 We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `League\FactoryMuffin\Facade::loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found.
 
 ### Generators
@@ -175,6 +177,7 @@ League\FactoryMuffin\Facade::define('MyModel', array(
 The `create` function will create and save your model, and will also save anything you generate with the `Factory` generator too. If you want to create multiple instances, check out the seed `seed` function, which accepts an additional argument at the start which is the number of models to generate in the process. The `seed` function will effectively be calling the `create` function over and over. It should be noted that you can set a custom save function before you get going with the `setSaveMethod` function. Also, a reminder that the `instance` function is still available if you don't want database persistence.
 
 You may encounter the following exceptions:
+* `League\FactoryMuffin\Exceptions\ModelNotFoundException` will be thrown if the model class defined is not found.
 * `League\FactoryMuffin\Exceptions\NoDefinedFactoryException` will be thrown if you try to create a model and you haven't defined a factory definition for it earlier.
 * `League\FactoryMuffin\Exceptions\SaveFailedException` will be thrown if the save function on your model returns false.
 * `League\FactoryMuffin\Exceptions\SaveMethodNotFoundException` will be thrown if the save function on your model does not exist.
@@ -199,7 +202,7 @@ Each exception is documented with the documentation for the functions that throw
 
 You can see a diagram showing the exception hierarchy here:
 
-![diagram](https://cloud.githubusercontent.com/assets/2829600/3790579/8fc52572-1b0d-11e4-96b1-7f0eac0dc10d.png)
+![diagram](https://cloud.githubusercontent.com/assets/2829600/3857444/5dba7f1a-1f03-11e4-928a-5b24ca0f1e26.png)
 
 ### Real Examples
 
