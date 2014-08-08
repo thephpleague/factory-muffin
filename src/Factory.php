@@ -11,6 +11,7 @@ use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
 use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
 use League\FactoryMuffin\Exceptions\SaveFailedException;
 use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
+use League\FactoryMuffin\Exceptions\ClassNotFoundException;
 use League\FactoryMuffin\Generators\Base as Generator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -180,7 +181,14 @@ class Factory
      */
     private function make($model, array $attr, $save)
     {
-        $obj = new $model();
+        $group = $this->getGroup($model);
+        $modelWithoutGroup = $this->getModelWithoutGroup($model);
+
+        if (! class_exists($modelWithoutGroup)) {
+            throw new ClassNotFoundException($modelWithoutGroup);
+        }
+
+        $obj = new $modelWithoutGroup();
 
         if ($save) {
             $this->saved[] = $obj;
@@ -188,12 +196,37 @@ class Factory
 
         // Get the factory attributes for that model
         $attributes = $this->attributesFor($obj, $attr);
+        if ($group) {
+            $attributes = array_merge($attributes, $this->getFactoryAttrs($model));
+        }
 
         foreach ($attributes as $attr => $value) {
             $obj->$attr = $value;
         }
 
         return $obj;
+    }
+
+    /**
+     * Returns the group name for this factory defintion
+     *
+     * @param  string $model
+     * @return string
+     */
+    private function getGroup($model)
+    {
+        return current(explode(':', $model));
+    }
+
+    /**
+     * Returns the model without the group prefix
+     *
+     * @param  string $model
+     * @return string
+     */
+    private function getModelWithoutGroup($model)
+    {
+        return str_replace($this->getGroup($model) . ':', null, $model);
     }
 
     /**
