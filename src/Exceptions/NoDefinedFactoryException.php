@@ -27,7 +27,7 @@ class NoDefinedFactoryException extends ModelException
     public function __construct($model, $message = null)
     {
         if (!$message) {
-            $message = "No factory class was defined for the model of type: '$model'.";
+            $message = "No factory definition(s) were defined for the model of type: '$model'.";
         }
 
         parent::__construct($model, $message);

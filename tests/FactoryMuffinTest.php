@@ -89,7 +89,7 @@ class FactoryMuffinTest extends AbstractTestCase
         try {
             FactoryMuffin::instance($model = 'ModelWithNoFactoryClassStub');
         } catch (NoDefinedFactoryException $e) {
-            $this->assertEquals("No factory class was defined for the model of type: '$model'.", $e->getMessage());
+            $this->assertEquals("No factory definition(s) were defined for the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
         }
     }
@@ -111,7 +111,7 @@ class FactoryMuffinTest extends AbstractTestCase
     public function testThrowExceptionWhenInvalidStaticMethod()
     {
         try {
-            $obj = FactoryMuffin::create($model = 'ModelWithMissingStaticMethod');
+            FactoryMuffin::create($model = 'ModelWithMissingStaticMethod');
         } catch (MethodNotFoundException $e) {
             $this->assertEquals("The static method 'doesNotExist' was not found on the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
