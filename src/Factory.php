@@ -182,23 +182,24 @@ class Factory
     private function make($model, array $attr, $save)
     {
         $group = $this->getGroup($model);
-        $modelWithoutGroup = $this->getModelWithoutGroup($model);
+        $class = $this->getModelClass($model, $group);
 
-        if (!class_exists($modelWithoutGroup)) {
-            throw new ModelNotFoundException($modelWithoutGroup);
+        if (!class_exists($class)) {
+            throw new ModelNotFoundException($class);
         }
 
-        $obj = new $modelWithoutGroup();
+        $obj = new $class();
 
         if ($save) {
             $this->saved[] = $obj;
         }
 
-        // Get the factory attributes for that model
+        // Get the group specific factory attributes
         if ($group) {
             $attr = array_merge($attr, $this->getFactoryAttrs($model));
         }
 
+        // Get the factory attributes for that model
         $attributes = $this->attributesFor($obj, $attr);
 
         foreach ($attributes as $attr => $value) {
@@ -213,7 +214,7 @@ class Factory
      *
      * @param string $model The model class name.
      *
-     * @return string
+     * @return string|null
      */
     private function getGroup($model)
     {
@@ -221,15 +222,20 @@ class Factory
     }
 
     /**
-     * Returns the model without the group prefix.
+     * Returns the real model class without the group prefix.
      *
      * @param string $model The model class name.
+     * @param string $group The model group name.
      *
      * @return string
      */
-    private function getModelWithoutGroup($model)
+    private function getModelClass($model, $group)
     {
-        return str_replace($this->getGroup($model) . ':', null, $model);
+        if ($group) {
+            return str_replace($group . ':', '', $model);
+        }
+
+        return $group;
     }
 
     /**
