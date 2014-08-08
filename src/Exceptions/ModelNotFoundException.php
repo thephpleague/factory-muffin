@@ -5,9 +5,9 @@ namespace League\FactoryMuffin\Exceptions;
 use Exception;
 
 /**
- * This is the class not found exception class
+ * This is the model not found exception class
  *
- * This is thrown when we try to create an object, but the class
+ * This is thrown when we try to create an object, but the model (class)
  * defined is not found.
  *
  * @package League\FactoryMuffin\Exceptions
@@ -15,7 +15,7 @@ use Exception;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class ClassNotFoundException extends Exception
+class ModelNotFoundException extends ModelException
 {
     /**
      * Create a new instance.
@@ -25,9 +25,12 @@ class ClassNotFoundException extends Exception
      *
      * @return void
      */
-    public function __construct($class)
+    public function __construct($model, $message = null)
     {
-        $message = "Class cannot be found when creating Factory: '$class'.";
-        parent::__construct($message);
+        if (!$message) {
+            $message = "Class cannot be found when creating Factory: '$model'.";
+        }
+
+        parent::__construct($model, $message);
     }
 }

@@ -47,10 +47,10 @@ class DefinitionTest extends AbstractTestCase
     }
 
     /**
-     * @expectedException League\FactoryMuffin\Exceptions\ClassNotFoundException
+     * @expectedException League\FactoryMuffin\Exceptions\ModelNotFoundException
      * @expectedExceptionMessage Class cannot be found when creating Factory: 'notAClass'
      */
-    public function testClassNotFound()
+    public function testModelNotFound()
     {
         FactoryMuffin::create('notAClass');
     }
