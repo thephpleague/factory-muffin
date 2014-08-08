@@ -203,6 +203,28 @@ class Factory
     }
 
     /**
+     * Returns the group name for this factory defintion
+     *
+     * @param  string $model
+     * @return string
+     */
+    private function getGroup($model)
+    {
+        return current(explode(':', $model));
+    }
+
+    /**
+     * Returns the model without the group prefix
+     *
+     * @param  string $model
+     * @return string
+     */
+    private function getModelWithoutGroup($model)
+    {
+        return str_replace($this->getGroup($model) . ':', null, $model);
+    }
+
+    /**
      * Save our object to the db, and keep track of it.
      *
      * @param object $object The model instance.
