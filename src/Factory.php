@@ -218,7 +218,9 @@ class Factory
      */
     private function getGroup($model)
     {
-        return current(explode(':', $model));
+        if (strpos($model, ':') !== false) {
+            return current(explode(':', $model));
+        }
     }
 
     /**
@@ -235,7 +237,7 @@ class Factory
             return str_replace($group . ':', '', $model);
         }
 
-        return $group;
+        return $model;
     }
 
     /**
