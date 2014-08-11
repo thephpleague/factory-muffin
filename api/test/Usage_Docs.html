@@ -72,9 +72,9 @@
                                                             <div class="page-header sub-header clearfix">
                                     <h1>Usage Docs                                                                            </h1>
                                         <span style="float: left; font-size: 10px; color: gray;">
-                                            Monday, August 11, 2014                                        </span>
+                                            Sunday, August 10, 2014                                        </span>
                                         <span style="float: right; font-size: 10px; color: gray;">
-                                            12:26 PM                                        </span>
+                                            11:49 PM                                        </span>
                                 </div>
                                                         <p>This is the usage guide for Factory Muffin 2.0. Within this guide, you will see "the <code>xyz</code> function can be called". You should assume that these functions should be called statically on the <code>League\FactoryMuffin\Facade</code> class. It should also be noted that you can see a real example at the end of the guide.</p>
 <h2>The Facade</h2>
@@ -83,7 +83,7 @@
 <p>You can define model factories using the <code>define</code> function. You may call it like this: <code>League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' =&gt; 'bar'))</code>, where <code>foo</code> is the name of the attribute you want set on your model, and <code>bar</code> describes how you wish to generate the attribute. Please see the generators section for more information on how this works.</p>
 <p>We have provided a nifty way for you to do this in your tests. PHPUnit provides a <code>setupBeforeClass</code> function. Within that function you can call <code>League\FactoryMuffin\Facade::loadFactories(__DIR__ . '/factories');</code>, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The <code>loadFactories</code> function will throw a <code>League\FactoryMuffin\Exceptions\DirectoryNotFoundException</code> exception if the directory you're loading is not found.</p>
 <h2>Generators</h2>
-<h3>Generic</h3>
+<h4>Generic</h4>
 <p>The generic generator will be the generator you use the most. It will communicate with the faker library in order to generate your attribute.</p>
 <h5>Example 1</h5>
 <p>There is a simple example of setting a few different attributes.</p>
@@ -111,7 +111,7 @@
 ));</code></pre>
 <h5>More</h5>
 <p>Check out the <a href="https://github.com/fzaninotto/Faker">faker library</a> itself to see all the available methods. There are far too many to cover in the documentation here, and far too many for them to cover in their documentation too.</p>
-<h3>Factory</h3>
+<h4>Factory</h4>
 <p>The factory generator can be useful for setting up relationships between models. The factory generator will return the model id of the model you ask it to generate.</p>
 <h5>Example 1</h5>
 <p>When we create a Foo object, we will find that the Bar object will been generated and saved too, and it's id will be assigned to the <code>bar_id</code> attribute of the Foo model.</p>
@@ -122,7 +122,7 @@
 League\FactoryMuffin\Facade::define('Bar', array(
     'baz' =&gt; 'date|Y-m-d'
 ));</code></pre>
-<h3>Call</h3>
+<h4>Call</h4>
 <p>The call generator allows you to generate attributes by calling <strong>static</strong> methods on your models.</p>
 <h5>Example 1</h5>
 <p>This will set the <code>foo</code> attribute to whatever calling <code>MyModel::exampleMethod()</code> returns.</p>
@@ -143,7 +143,7 @@ League\FactoryMuffin\Facade::define('Bar', array(
 League\FactoryMuffin\Facade::define('OtherModel', array(
     'example' =&gt; 'boolean',
 ));</code></pre>
-<h3>Closure</h3>
+<h4>Closure</h4>
 <p>The closure generator can be used if you want a more custom solution. Whatever you return from the closure you write will be set as the attribute. Note that we pass an instance of your model as the first parameter of the closure to give you even more flexibility to modify it as you wish.</p>
 <h5>Example 1</h5>
 <p>As you can see from this example, the ability to use a closure to generate attributes can be so useful and flexible. Here we use it to generate a slug based on the initially randomly generated 5 word long title.</p>
@@ -234,9 +234,9 @@ class TestUserModel extends PHPUnit_Framework_TestCase
 <h2>Further Information</h2>
 <p>If you want more information, the following resources are available to you:</p>
 <ul>
-<li>Generated api docs are available <a href="api">here</a>.</li>
+<li>Generated api docs are available <a href="http://muffin.grahamjcampbell.co.uk/">here</a>.</li>
 <li><a href="https://github.com/philipbrown">Philip Brown's</a> article is available <a href="http://culttt.com/2013/05/27/laravel-4-fixture-replacement-with-factorymuff/">here</a>.</li>
-<li>Our <a href="https://github.com/thephpleague/factory-muffin/tree/2.0/tests">test suite</a> may also be useful to you.</li>
+<li>Our <a href="tests">test suite</a> may also be useful to you.</li>
 </ul>                                                    </article>
                     </div>
                 </div>

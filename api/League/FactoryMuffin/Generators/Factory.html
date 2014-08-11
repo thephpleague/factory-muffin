@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="index, follow, all" />
+        <title>League\FactoryMuffin\Generators\Factory | API Documentation</title>
+                    <link rel="stylesheet" type="text/css" href="../../../stylesheet.css">
+                            </head>
+        <body id="class">
+            <div class="header">
+        <ul>
+            <li><a href="../../../classes.html">Classes</a></li>
+                            <li><a href="../../../namespaces.html">Namespaces</a></li>
+                        <li><a href="../../../interfaces.html">Interfaces</a></li>
+            <li><a href="../../../traits.html">Traits</a></li>
+            <li><a href="../../../doc-index.html">Index</a></li>
+            
+        </ul>
+
+        <div id="title">API Documentation</div>
+
+            <div class="type">Class</div>
+    <h1><a href="../../../League/FactoryMuffin/Generators.html">League\FactoryMuffin\Generators</a>\Factory</h1>
+    </div>
+        <div class="content">
+                <p>    class
+    <strong>Factory</strong>        extends <a href="../../../League/FactoryMuffin/Generators/Base.html"><abbr title="League\FactoryMuffin\Generators\Base">Base</abbr></a></p>
+
+            <div class="description">
+            <p>This is the factory generator class.</p>
+            <p>The factory generator can be useful for setting up relationships between
+models. The factory generator will return the model id of the model you ask
+it to generate. Please note that class is not be considered part of the
+public api, and should only be used internally by Factory Muffin.</p>
+        </div>
+    
+    
+    
+    
+            <h2>Methods</h2>
+
+            <table>
+                    <tr>
+                <td class="type">
+                    void
+                </td>
+                <td class="last">
+                    <a href="#method___construct">__construct</a>(string $kind, object|null $object = null, <abbr title="Faker\Generator">Generator</abbr>|null $faker = null)
+                    <p>Initialise our Generator.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../../League/FactoryMuffin/Generators/Base.html#method___construct"><abbr title="League\FactoryMuffin\Generators\Base">Base</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    static&nbsp;<a href="../../../League/FactoryMuffin/Generators/Base.html"><abbr title="League\FactoryMuffin\Generators\Base">Base</abbr></a>
+                </td>
+                <td class="last">
+                    <a href="#method_detect">detect</a>(string $kind, object|null $object = null, <abbr title="Faker\Generator">Generator</abbr>|null $faker = null)
+                    <p>Detect the type of Generator we are processing.</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../../League/FactoryMuffin/Generators/Base.html#method_detect"><abbr title="League\FactoryMuffin\Generators\Base">Base</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    array
+                </td>
+                <td class="last">
+                    <a href="#method_getOptions">getOptions</a>()
+                    <p>Return an array of all options passed to the Generator (after |).</p>
+                </td>
+                <td><small>from&nbsp;<a href="../../../League/FactoryMuffin/Generators/Base.html#method_getOptions"><abbr title="League\FactoryMuffin\Generators\Base">Base</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    int|null
+                </td>
+                <td class="last">
+                    <a href="#method_generate">generate</a>()
+                    <p>Return generated data.</p>
+                </td>
+                <td></td>
+            </tr>
+            </table>
+
+
+        <h2>Details</h2>
+
+                        <h3 id="method___construct">
+        <div class="location">in <a href="../../../League/FactoryMuffin/Generators/Base.html#method___construct"><abbr title="League\FactoryMuffin\Generators\Base">Base</abbr></a> at line 62</div>
+        <code>                    void
+    <strong>__construct</strong>(string $kind, object|null $object = null, <abbr title="Faker\Generator">Generator</abbr>|null $faker = null)</code>
+    </h3>
+    <div class="details">
+        <p>Initialise our Generator.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$kind</td>
+                <td>The kind of attribute</td>
+            </tr>
+                    <tr>
+                <td>object|null</td>
+                <td>$object</td>
+                <td>The model instance.</td>
+            </tr>
+                    <tr>
+                <td><abbr title="Faker\Generator">Generator</abbr>|null</td>
+                <td>$faker</td>
+                <td>The faker instance.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>void</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_detect">
+        <div class="location">in <a href="../../../League/FactoryMuffin/Generators/Base.html#method_detect"><abbr title="League\FactoryMuffin\Generators\Base">Base</abbr></a> at line 78</div>
+        <code>        static            <a href="../../../League/FactoryMuffin/Generators/Base.html"><abbr title="League\FactoryMuffin\Generators\Base">Base</abbr></a>
+    <strong>detect</strong>(string $kind, object|null $object = null, <abbr title="Faker\Generator">Generator</abbr>|null $faker = null)</code>
+    </h3>
+    <div class="details">
+        <p>Detect the type of Generator we are processing.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>string</td>
+                <td>$kind</td>
+                <td>The kind of attribute.</td>
+            </tr>
+                    <tr>
+                <td>object|null</td>
+                <td>$object</td>
+                <td>The model instance.</td>
+            </tr>
+                    <tr>
+                <td><abbr title="Faker\Generator">Generator</abbr>|null</td>
+                <td>$faker</td>
+                <td>The faker instance.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><a href="../../../League/FactoryMuffin/Generators/Base.html"><abbr title="League\FactoryMuffin\Generators\Base">Base</abbr></a></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_getOptions">
+        <div class="location">in <a href="../../../League/FactoryMuffin/Generators/Base.html#method_getOptions"><abbr title="League\FactoryMuffin\Generators\Base">Base</abbr></a> at line 100</div>
+        <code>                    array
+    <strong>getOptions</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Return an array of all options passed to the Generator (after |).</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>array</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_generate">
+        <div class="location">at line 40</div>
+        <code>                    int|null
+    <strong>generate</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Return generated data.</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>int|null</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+    
+            </div>
+            <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/" target="_top">Sami, the API Documentation Generator</a>.
+    </div>
+    </body>
+</html>
