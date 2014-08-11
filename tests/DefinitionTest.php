@@ -86,13 +86,18 @@ class DefinitionTest extends AbstractTestCase
         }
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\NoDefinedFactoryException
+     */
     public function testGroupDefineNoBaseModel()
     {
-        $dog = FactoryMuffin::create('foo:DogModelStub');
-
-        $this->assertInstanceOf('DogModelStub', $dog);
-        $this->assertInternalType('string', $user->name);
-        $this->assertNotInternalType('integer', $user->age);
+        try {
+            FactoryMuffin::create('foo:DogModelStub');
+        } catch (NoDefinedFactoryException $e) {
+            $this->assertEquals("No factory definition(s) were defined for the model of type: 'DogModelStub'.", $e->getMessage());
+            $this->assertEquals('DogModelStub', $e->getModel());
+            throw $e;
+        }
     }
 
 
