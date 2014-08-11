@@ -19,5 +19,10 @@ FactoryMuffin::define('group:UserModelStub', array(
 
 FactoryMuffin::define('anothergroup:UserModelStub', array(
     'address' => 'address',
-    'active' => 'false'
+    'active'  => 'false',
+));
+
+FactoryMuffin::define('foo:DogModelStub', array(
+    'name' => 'firstNameMale',
+    'age'  => 'numberBetween|1;15',
 ));

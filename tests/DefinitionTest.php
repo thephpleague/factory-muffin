@@ -86,6 +86,16 @@ class DefinitionTest extends AbstractTestCase
         }
     }
 
+    public function testGroupDefineNoBaseModel()
+    {
+        $dog = FactoryMuffin::create('foo:DogModelStub');
+
+        $this->assertInstanceOf('DogModelStub', $dog);
+        $this->assertInternalType('string', $user->name);
+        $this->assertNotInternalType('integer', $user->age);
+    }
+
+
     public function testDefineMultiple()
     {
         $user = FactoryMuffin::create('UserModelStub');
@@ -169,6 +179,19 @@ class UserModelStub
 }
 
 class ProfileModelStub
+{
+    public function save()
+    {
+        return true;
+    }
+
+    public function delete()
+    {
+        return true;
+    }
+}
+
+class DogModelStub
 {
     public function save()
     {
