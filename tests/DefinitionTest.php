@@ -86,6 +86,21 @@ class DefinitionTest extends AbstractTestCase
         }
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\NoDefinedFactoryException
+     */
+    public function testGroupDefineNoBaseModel()
+    {
+        try {
+            FactoryMuffin::create('foo:DogModelStub');
+        } catch (NoDefinedFactoryException $e) {
+            $this->assertEquals("No factory definition(s) were defined for the model of type: 'DogModelStub'.", $e->getMessage());
+            $this->assertEquals('DogModelStub', $e->getModel());
+            throw $e;
+        }
+    }
+
+
     public function testDefineMultiple()
     {
         $user = FactoryMuffin::create('UserModelStub');
@@ -169,6 +184,19 @@ class UserModelStub
 }
 
 class ProfileModelStub
+{
+    public function save()
+    {
+        return true;
+    }
+
+    public function delete()
+    {
+        return true;
+    }
+}
+
+class DogModelStub
 {
     public function save()
     {
