@@ -213,7 +213,7 @@ class Factory
             $obj->$attr = $value;
         }
 
-        $this->triggerCallback($model, $obj);
+        $this->triggerCallback($obj);
 
         return $obj;
     }
@@ -221,14 +221,13 @@ class Factory
     /**
      * Trigger the callback if we have one.
      *
-     * @param string $model
-     * @param object $object
+     * @param object $object The model instance.
      *
      * @return void
      */
-    private function triggerCallback($model, $object)
+    private function triggerCallback($object)
     {
-        if ($this->callbacks[$model]) {
+        if ($this->callbacks[$model = get_class($object)]) {
             return $this->callbacks[$model]($object);
         }
     }
@@ -412,8 +411,9 @@ class Factory
     /**
      * Define a new model factory.
      *
-     * @param string $model      The model class name.
-     * @param array  $definition The attribute definitions.
+     * @param string        $model      The model class name.
+     * @param array         $definition The attribute definitions.
+     * @param \Closure|null $callback   The closure callback.
      *
      * @return $this
      */
