@@ -15,7 +15,7 @@ Now you can define multiple different factory definitions for your models. You c
 
 Before you try to create your model instance, we'll check whether the class actually exists thus avoiding a fatal error. If the class does not exist, we'll throw a `League\FactoryMuffin\Exceptions\ModelNotFoundException`. Note that this exception is new in 2.1.
 
-### Other BC Breaks
+### Other Minor Changes
 
 There is a very tiny change to the exception message of the `League\FactoryMuffin\Exceptions\NoDefinedFactoryException`. If you were replying on that for some reason, watch out for that.
 
