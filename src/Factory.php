@@ -158,23 +158,53 @@ class Factory
      * @param string $model The model class name.
      * @param array  $attr  The model attributes.
      *
-     * @throws \League\FactoryMuffin\Exceptions\SaveFailedException
-     *
      * @return object
      */
     public function create($model, array $attr = array())
     {
         $obj = $this->make($model, $attr, true);
 
-        if (!$this->save($obj)) {
-            if (isset($obj->validationErrors) && $obj->validationErrors) {
-                throw new SaveFailedException($model, $obj->validationErrors);
-            }
+        $this->persist($obj);
 
-            throw new SaveFailedException($model);
-        }
+        $this->triggerCallback($obj);
+
+        $this->persist($obj);
 
         return $obj;
+    }
+
+    /**
+     * Save the object to the database.
+     *
+     * @param object $object The model instance.
+     *
+     * @throws \League\FactoryMuffin\Exceptions\SaveFailedException
+     *
+     * @return void
+     */
+    private function persist($object)
+    {
+        if (!$this->save($object)) {
+            if (isset($object->validationErrors) && $object->validationErrors) {
+                throw new SaveFailedException(get_class($object), $object->validationErrors);
+            }
+
+            throw new SaveFailedException(get_class($object));
+        }
+    }
+
+    /**
+     * Trigger the callback if we have one.
+     *
+     * @param object $object The model instance.
+     *
+     * @return void
+     */
+    private function triggerCallback($object)
+    {
+        if ($this->callbacks[$model = get_class($object)]) {
+            return $this->callbacks[$model]($object);
+        }
     }
 
     /**
@@ -213,23 +243,7 @@ class Factory
             $obj->$attr = $value;
         }
 
-        $this->triggerCallback($obj);
-
         return $obj;
-    }
-
-    /**
-     * Trigger the callback if we have one.
-     *
-     * @param object $object The model instance.
-     *
-     * @return void
-     */
-    private function triggerCallback($object)
-    {
-        if ($this->callbacks[$model = get_class($object)]) {
-            return $this->callbacks[$model]($object);
-        }
     }
 
     /**
@@ -365,6 +379,8 @@ class Factory
     public function instance($model, array $attr = array())
     {
         $object = $this->make($model, $attr, false);
+
+        $this->triggerCallback($object);
 
         return $object;
     }
