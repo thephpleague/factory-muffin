@@ -13,7 +13,7 @@ Now you can define multiple different factory definitions for your models. You c
 
 ### Creation/Instantiation Callbacks
 
-When you define your definitions, you may optionally specify a callback to be executed on model creation/instantiation as a third parameter. We will pass your model instance as the first parameter to the closure if you specify one.
+When you define your definitions, you may optionally specify a callback to be executed on model creation/instantiation as a third parameter. We will pass your model instance as the first parameter to the closure if you specify one. Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback.
 
 ### Small Change To Model Creation
 
