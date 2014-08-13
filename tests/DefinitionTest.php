@@ -20,12 +20,6 @@ class DefinitionTest extends AbstractTestCase
         $this->assertContains('@', $user->email);
     }
 
-    public function testCallback()
-    {
-        $user = FactoryMuffin::instance('ExampleCallbackStub');
-        $this->assertEquals('yaycalled', $user->callback);
-    }
-
     public function testDefineWithReplacementGenerators()
     {
         $user = FactoryMuffin::create('UserModelStub', array(
@@ -137,6 +131,18 @@ class DefinitionTest extends AbstractTestCase
         $this->assertContains('@', $user->email);
     }
 
+    public function testInstanceCallback()
+    {
+        $obj = FactoryMuffin::instance('ExampleCallbackStub');
+        $this->assertEquals('yaycalled', $obj->callback);
+    }
+
+    public function testCreateCallback()
+    {
+        $obj = FactoryMuffin::create('AnotherCallbackStub');
+        $this->assertEquals('hello there', $obj->foo);
+    }
+
     public function testAttributesFor()
     {
         $object = new UserModelStub();
@@ -231,4 +237,19 @@ class ExampleDefinedModelStub
 class ExampleCallbackStub
 {
     public $callback;
+}
+
+class AnotherCallbackStub
+{
+    public $foo;
+
+    public function save()
+    {
+        return true;
+    }
+
+    public function delete()
+    {
+        return true;
+    }
 }
