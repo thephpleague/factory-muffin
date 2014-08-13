@@ -166,9 +166,9 @@ class Factory
 
         $this->persist($object);
 
-        $this->triggerCallback($object);
-
-        $this->persist($object);
+        if ($this->triggerCallback($object)) {
+            $this->persist($object);
+        }
 
         return $object;
     }
@@ -198,15 +198,18 @@ class Factory
      *
      * @param object $object The model instance.
      *
-     * @return void
+     * @return bool
      */
     private function triggerCallback($object)
     {
         $model = get_class($object);
 
         if ($this->callbacks[$model]) {
-            return $this->callbacks[$model]($object);
+            $this->callbacks[$model]($object);
+            return true;
         }
+
+        return false;
     }
 
     /**
