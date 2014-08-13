@@ -11,11 +11,15 @@ Welcome to the upgrade guide for Factory Muffin. We've tried to cover all change
 
 Now you can define multiple different factory definitions for your models. You can do this by prefixing the model class name with your "group" followed by a colon. This results in you defining your model like this: like this: `League\FactoryMuffin\Facade::define('myGroup:Fully\Qualifed\ModelName', array('foo' => 'bar'))`. You don't have to entirely define your model here because we will first look for a definition without the group prefix, then apply your group definition on top of that definition, overriding attribute definitions where required.
 
+### Creation/Instantiation Callbacks
+
+When you define your definitions, you may optionally specify a callback to be executed on model creation/instantiation as a third parameter. We will pass your model instance as the first parameter to the closure if you specify one. Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback.
+
 ### Small Change To Model Creation
 
 Before you try to create your model instance, we'll check whether the class actually exists thus avoiding a fatal error. If the class does not exist, we'll throw a `League\FactoryMuffin\Exceptions\ModelNotFoundException`. Note that this exception is new in 2.1.
 
-### Other BC Breaks
+### Other Minor Changes
 
 There is a very tiny change to the exception message of the `League\FactoryMuffin\Exceptions\NoDefinedFactoryException`. If you were replying on that for some reason, watch out for that.
 

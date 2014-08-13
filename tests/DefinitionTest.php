@@ -131,6 +131,18 @@ class DefinitionTest extends AbstractTestCase
         $this->assertContains('@', $user->email);
     }
 
+    public function testInstanceCallback()
+    {
+        $obj = FactoryMuffin::instance('ExampleCallbackStub');
+        $this->assertEquals('yaycalled', $obj->callback);
+    }
+
+    public function testCreateCallback()
+    {
+        $obj = FactoryMuffin::create('AnotherCallbackStub');
+        $this->assertEquals('hello there', $obj->foo);
+    }
+
     public function testAttributesFor()
     {
         $object = new UserModelStub();
@@ -211,6 +223,26 @@ class DogModelStub
 
 class ExampleDefinedModelStub
 {
+    public function save()
+    {
+        return true;
+    }
+
+    public function delete()
+    {
+        return true;
+    }
+}
+
+class ExampleCallbackStub
+{
+    public $callback;
+}
+
+class AnotherCallbackStub
+{
+    public $foo;
+
     public function save()
     {
         return true;

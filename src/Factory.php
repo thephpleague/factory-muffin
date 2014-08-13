@@ -41,6 +41,13 @@ class Factory
     private $factories = array();
 
     /**
+     * The array of callbacks to trigger on instance/create.
+     *
+     * @var array
+     */
+    private $callbacks = array();
+
+    /**
      * The array of objects we have created.
      *
      * @var array
@@ -151,23 +158,58 @@ class Factory
      * @param string $model The model class name.
      * @param array  $attr  The model attributes.
      *
-     * @throws \League\FactoryMuffin\Exceptions\SaveFailedException
-     *
      * @return object
      */
     public function create($model, array $attr = array())
     {
-        $obj = $this->make($model, $attr, true);
+        $object = $this->make($model, $attr, true);
 
-        if (!$this->save($obj)) {
-            if (isset($obj->validationErrors) && $obj->validationErrors) {
-                throw new SaveFailedException($model, $obj->validationErrors);
-            }
+        $this->persist($object);
 
-            throw new SaveFailedException($model);
+        if ($this->triggerCallback($object)) {
+            $this->persist($object);
         }
 
-        return $obj;
+        return $object;
+    }
+
+    /**
+     * Save the object to the database.
+     *
+     * @param object $object The model instance.
+     *
+     * @throws \League\FactoryMuffin\Exceptions\SaveFailedException
+     *
+     * @return void
+     */
+    private function persist($object)
+    {
+        if (!$this->save($object)) {
+            if (isset($object->validationErrors) && $object->validationErrors) {
+                throw new SaveFailedException(get_class($object), $object->validationErrors);
+            }
+
+            throw new SaveFailedException(get_class($object));
+        }
+    }
+
+    /**
+     * Trigger the callback if we have one.
+     *
+     * @param object $object The model instance.
+     *
+     * @return bool
+     */
+    private function triggerCallback($object)
+    {
+        $model = get_class($object);
+
+        if ($this->callbacks[$model]) {
+            $this->callbacks[$model]($object);
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -188,10 +230,10 @@ class Factory
             throw new ModelNotFoundException($class);
         }
 
-        $obj = new $class();
+        $object = new $class();
 
         if ($save) {
-            $this->saved[] = $obj;
+            $this->saved[] = $object;
         }
 
         // Get the group specific factory attributes
@@ -200,13 +242,13 @@ class Factory
         }
 
         // Get the factory attributes for that model
-        $attributes = $this->attributesFor($obj, $attr);
+        $attributes = $this->attributesFor($object, $attr);
 
         foreach ($attributes as $attr => $value) {
-            $obj->$attr = $value;
+            $object->$attr = $value;
         }
 
-        return $obj;
+        return $object;
     }
 
     /**
@@ -341,7 +383,11 @@ class Factory
      */
     public function instance($model, array $attr = array())
     {
-        return $this->make($model, $attr, false);
+        $object = $this->make($model, $attr, false);
+
+        $this->triggerCallback($object);
+
+        return $object;
     }
 
     /**
@@ -386,14 +432,16 @@ class Factory
     /**
      * Define a new model factory.
      *
-     * @param string $model      The model class name.
-     * @param array  $definition The attribute definitions.
+     * @param string        $model      The model class name.
+     * @param array         $definition The attribute definitions.
+     * @param \Closure|null $callback   The closure callback.
      *
      * @return $this
      */
-    public function define($model, array $definition = array())
+    public function define($model, array $definition = array(), $callback = null)
     {
         $this->factories[$model] = $definition;
+        $this->callbacks[$model] = $callback;
 
         return $this;
     }

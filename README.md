@@ -44,7 +44,7 @@ The facade class (`League\FactoryMuffin\Facade`) should always be your main poin
 
 ### Factory Definitions
 
-You can define model factories using the `define` function. You may call it like this: `League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`, where `foo` is the name of the attribute you want set on your model, and `bar` describes how you wish to generate the attribute. Please see the generators section for more information on how this works.
+You can define model factories using the `define` function. You may call it like this: `League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`, where `foo` is the name of the attribute you want set on your model, and `bar` describes how you wish to generate the attribute. You may optionally specify a callback to be executed on model creation/instantiation as a third parameter. We will pass your model instance as the first parameter to the closure if you specify one. Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback. Please see the generators section for more information on how this works.
 
 You can also define multiple different factory definitions for your models. You can do this by prefixing the model class name with your "group" followed by a colon. This results in you defining your model like this: like this: `League\FactoryMuffin\Facade::define('myGroup:Fully\Qualifed\ModelName', array('foo' => 'bar'))`. You don't have to entirely define your model here because we will first look for a definition without the group prefix, then apply your group definition on top of that definition, overriding attribute definitions where required.
 
@@ -219,7 +219,10 @@ FactoryMuffin::define('Message', array(
     'phone_number' => 'randomNumber|8',
     'created'      => 'date|Ymd h:s',
     'slug'         => 'call|makeSlug|word',
-));
+), function ($message) {
+    // we're taking advantage of the callback functionality here
+    $this->message .= '!';
+});
 
 FactoryMuffin::define('User', array(
     'username' => 'firstNameMale',
