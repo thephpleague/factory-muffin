@@ -219,18 +219,18 @@ class Factory
     }
 
     /**
-     * Trigger the callback if we have one
-     * @param  string $model
-     * @param  Object $object
-     * @return mixed
+     * Trigger the callback if we have one.
+     *
+     * @param string $model
+     * @param object $object
+     *
+     * @return void
      */
     private function triggerCallback($model, $object)
     {
         if ($this->callbacks[$model]) {
             return $this->callbacks[$model]($object);
         }
-
-        return null;
     }
 
     /**
