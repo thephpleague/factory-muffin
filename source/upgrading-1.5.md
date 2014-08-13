@@ -9,6 +9,7 @@ permalink: upgrading/1.5/
 ## Exceptions
 
 We've added some exceptions for certain events:
+
 * The `Zizaco\FactoryMuff\SaveException` will now be thrown on model creation if the save function returns false.
 * The `Zizaco\FactoryMuff\NoDefinedFactoryException` will now be thrown if you attempt to generate attributes for an model that has no defined factory. Previously, php would raise a fatal error.
 

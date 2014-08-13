@@ -13,11 +13,13 @@ Version 2.0 marks a major file milestone in this project, under the new name of 
 ## Class Name Changes
 
 Every class has moved, so here's a summary of the changes:
+
 * The root namespace has been moved from `Zizaco\FactoryMuff` to `League\FactoryMuffin`. You should now access the facade using `League\FactoryMuffin\Facade::fooBar()`.
 * Many generator (kind) classes have been removed in favour of the faker alternatives. Those remaining can be found under the `League\FactoryMuffin\Generators` namespace.
 * There are many more exceptions, and the names of the existing exceptions have changed. The exceptions can be found under the `League\FactoryMuffin\Exceptions` namespace.
 
 A detailed list of every change with FQCNs is listed below:
+
 * Moved: `Zizaco\FactoryMuff\FactoryMuff` => `League\FactoryMuffin\Factory`
 * Moved: `Zizaco\FactoryMuff\Facade\FactoryMuff` => `League\FactoryMuffin\Facade`
 * Moved: `Zizaco\FactoryMuff\SaveException` => `League\FactoryMuffin\Exceptions\SaveFailedException`
@@ -55,10 +57,12 @@ Having a public static factory property is no longer supported. You must use the
 We now refer to what was previously the kind classes, as generator classes. We've removed some of these in favour of the faker alternatives. We currently provide the following generators: `Call`, `Closure`, `Factory`, and `Generic`. The call, closure, and factory generators have not changed significantly since previous versions, and the generic generator still provides access to the faker generators. The closure generator will now pass the instance of your model into your closure as the first parameter too.
 
 There are two syntax changes to watch out for:
+
 * You can now use a `;` to send multiple arguments to the generators.
 * Unique and optional attributes are now supported by prefixing the definition with `unique:` or `optional:`.
 
 The removed generators are `Date`, `Integer`, `Name`, `String`, and `Text`, however, these are still callable as they are available through the generic generator using faker. Here are some possible changes you will need to make:
+
 * Instead of using `integer|8`, you can use `randomNumber|8`.
 * Instead of using `string`, you can use `sentence`, or `word`.
 * Instead of using `name`, you can use things like `firstNameMale`.
@@ -71,6 +75,7 @@ It should be noted that we are using faker 1.4 which is a change since the previ
 The `create` function can be called in the same way, but has internal improvements. Now, it will also save anything you generate with the `Factory` generator too. We now have a new function called `seed`, which accepts an additional argument at the start which is the number of models to generate in the process. The `seed` function will effectively be calling the `create` function over and over. It should be noted that you can set a custom save function before you get going with the `setSaveMethod` function. Also, a reminder that the `instance` function is still available if you don't want database persistence.
 
 You may encounter the following exceptions:
+
 * `League\FactoryMuffin\Exceptions\NoDefinedFactoryException` will be thrown if you try to create a model and you haven't defined a factory definition for it earlier.
 * `League\FactoryMuffin\Exceptions\SaveFailedException` will be thrown if the save function on your model returns false.
 * `League\FactoryMuffin\Exceptions\SaveMethodNotFoundException` will be thrown if the save function on your model does not exist.
@@ -83,6 +88,7 @@ There are 2 other helper functions available. You may call `saved` to return an 
 You can now delete all your saved models with the `deleteSaved` function. It should be noted that you can set a custom delete function before you get going with the `setDeleteMethod` function.
 
 If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underlying exception, in the order they were thrown during the whole process, with the `getExceptions` function which will return an array of exceptions. You may encounter the following exceptions:
+
 * `League\FactoryMuffin\Exceptions\DeleteFailedException` will be thrown if the delete function on your model returns false.
 * `League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException` will be thrown if the delete function on your model does not exist.
 * Any other exception thrown by your model while trying to delete it.
