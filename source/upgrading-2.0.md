@@ -95,7 +95,7 @@ The exceptions have been completely overhauled. Each exception is documented wit
 
 You can see a diagram showing the exception hierarchy here:
 
-![diagram](https://cloud.githubusercontent.com/assets/2829600/3790579/8fc52572-1b0d-11e4-96b1-7f0eac0dc10d.png)
+<img alt="diagram" style="width: 100%" src="https://cloud.githubusercontent.com/assets/2829600/3790579/8fc52572-1b0d-11e4-96b1-7f0eac0dc10d.png">
 
 ## Other BC Breaks
 
