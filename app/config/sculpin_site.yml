@@ -1,6 +1,7 @@
 title: Factory Muffin
 tagline: Enables The Rapid Creation Of Objects For Testing
 description: Enables The Rapid Creation Of Objects For Testing
+google_analytics_tracking_id: UA-46050814-7
 menu:
     'Getting Started':
         'Introduction': '/'
