@@ -174,8 +174,6 @@ class Factory
             throw new SaveFailedException($model);
         }
 
-        $this->triggerCallback($model, $obj);
-
         return $obj;
     }
 
@@ -229,6 +227,8 @@ class Factory
         foreach ($attributes as $attr => $value) {
             $obj->$attr = $value;
         }
+
+        $this->triggerCallback($model, $obj);
 
         return $obj;
     }
@@ -366,7 +366,6 @@ class Factory
     public function instance($model, array $attr = array())
     {
         $object = $this->make($model, $attr, false);
-        $this->triggerCallback($model, $object);
 
         return $object;
     }
