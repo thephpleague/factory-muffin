@@ -41,6 +41,13 @@ class Factory
     private $factories = array();
 
     /**
+     * The array of callbacks to trigger on instance/create.
+     *
+     * @var array
+     */
+    private $callbacks = array();
+
+    /**
      * The array of objects we have created.
      *
      * @var array
@@ -391,9 +398,10 @@ class Factory
      *
      * @return $this
      */
-    public function define($model, array $definition = array())
+    public function define($model, array $definition = array(), $callback = null)
     {
         $this->factories[$model] = $definition;
+        $this->callbacks[$model] = $callback;
 
         return $this;
     }
