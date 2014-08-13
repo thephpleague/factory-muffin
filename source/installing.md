@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: Installing
-permalink: /installing/
+permalink: installing/
 ---
 
 # Installing

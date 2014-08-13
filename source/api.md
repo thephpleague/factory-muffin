@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: API Docs
-permalink: /api/
+permalink: api/
 ---
 
 # API Docs

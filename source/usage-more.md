@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: Usage - Further Information
-permalink: /usage/more/
+permalink: usage/more/
 ---
 
 # Usage - Further Information

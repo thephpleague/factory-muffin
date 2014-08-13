@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: Usage - Deleting
-permalink: /usage/deleting/
+permalink: usage/deleting/
 ---
 
 # Usage - Deleting

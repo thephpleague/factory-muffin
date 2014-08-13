@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: Usage - Real Examples
-permalink: /usage/examples/
+permalink: usage/examples/
 ---
 
 # Usage - Real Examples

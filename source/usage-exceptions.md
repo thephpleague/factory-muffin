@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: Usage - Exceptions
-permalink: /usage/exceptions/
+permalink: usage/exceptions/
 ---
 
 # Usage - Exceptions

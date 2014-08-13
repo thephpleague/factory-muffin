@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: Usage - Generators
-permalink: /usage/generators/
+permalink: usage/generators/
 ---
 
 # Usage - Generators

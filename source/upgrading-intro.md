@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: Upgrading
-permalink: /upgrading/
+permalink: upgrading/
 ---
 
 # Upgrading

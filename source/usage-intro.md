@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: Usage - Introduction
-permalink: /usage/
+permalink: usage/
 ---
 
 # Usage - Introduction

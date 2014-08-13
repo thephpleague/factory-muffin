@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: Usage - The Facade
-permalink: /usage/facade/
+permalink: usage/facade/
 ---
 
 # Usage - The Facade

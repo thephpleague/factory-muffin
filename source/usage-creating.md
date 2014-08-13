@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: Usage - Creating & Seeding
-permalink: /usage/creating/
+permalink: usage/creating/
 ---
 
 # Usage - Creating & Seeding

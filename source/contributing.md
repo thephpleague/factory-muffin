@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: Contributing
-permalink: /contributing/
+permalink: contributing/
 ---
 
 # Contributing

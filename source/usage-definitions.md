@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: Usage - Factory Definitions
-permalink: /usage/definitions/
+permalink: usage/definitions/
 ---
 
 # Usage - Factory Definitions

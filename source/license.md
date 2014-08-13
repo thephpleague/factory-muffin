@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: Credits and License
-permalink: /license/
+permalink: license/
 ---
 
 # Credits and License

@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: Upgrading from 1.4.x to 1.5.x
-permalink: /upgrading/1.5/
+permalink: upgrading/1.5/
 ---
 
 # Upgrading from 1.4.x to 1.5.x

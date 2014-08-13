@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: Upgrading from 1.6.x to 2.0.x
-permalink: /upgrading/2.0/
+permalink: upgrading/2.0/
 ---
 
 # Upgrading from 1.6.x to 2.0.x
