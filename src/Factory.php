@@ -202,7 +202,9 @@ class Factory
      */
     private function triggerCallback($object)
     {
-        if ($this->callbacks[$model = get_class($object)]) {
+        $model = get_class($object);
+
+        if ($this->callbacks[$model]) {
             return $this->callbacks[$model]($object);
         }
     }
