@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="icon" type="image/x-icon" href="/themes/thephpleague/thephpleague.github.com/img/favicon.ico" />
                 <link rel="apple-touch-icon-precomposed" href="/themes/thephpleague/thephpleague.github.com/img/apple-touch-icon-precomposed.png">
-                <title>Factory Muffin - Enables The Rapid Creation Of Objects For Testing</title>
+                <title>Usage - Real Examples - Factory Muffin</title>
                 <meta name="description" content="Enables The Rapid Creation Of Objects For Testing">
                 <link rel="stylesheet" href="/themes/thephpleague/thephpleague.github.com/css/all.css">
     </head>
@@ -41,7 +41,7 @@
     <menu>
                     <h2>Getting Started</h2>
             <ul>
-                                    <li class="selected">
+                                    <li >
                         <a href="/">Introduction</a>
                     </li>
                                     <li >
@@ -104,17 +104,63 @@
                             </ul>
             </menu>
     <article>
-        <h1>Introduction</h1>
+        <h1>Usage - Real Examples</h1>
 
-<ul class="quick_links">
-    <li><a class="github" href="https://github.com/thephpleague/factory-muffin">View Source</a></li>
-    <li><a class="twitter" href="https://twitter.com/grahamjcampbell">Follow Graham</a></li>
-    <li><a class="twitter" href="https://twitter.com/scottymeuk">Follow Scott</a></li>
-</ul>
+<p>To start with, we need to create some definitions:</p>
 
-<p>The goal of this package is to enable the rapid creation of objects for the purpose of testing.</p>
+<pre><code class="php"># tests/factories/all.php
 
-<p>It's basically a "<a href="https://github.com/thoughtbot/factory_girl">factory&#95;girl</a>", simplified for use with PHP.</p>
+use League\FactoryMuffin\Facade as FactoryMuffin;
+
+FactoryMuffin::define('Message', array(
+    'user_id'      =&gt; 'factory|User',
+    'subject'      =&gt; 'sentence',
+    'message'      =&gt; 'text',
+    'phone_number' =&gt; 'randomNumber|8',
+    'created'      =&gt; 'date|Ymd h:s',
+    'slug'         =&gt; 'call|makeSlug|word',
+));
+
+FactoryMuffin::define('User', array(
+    'username' =&gt; 'firstNameMale',
+    'email'    =&gt; 'email',
+    'avatar'   =&gt; 'imageUrl|400;600',
+    'greeting' =&gt; RandomGreeting::get(),
+    'four'     =&gt; function() {
+        return 2 + 2;
+    },
+));
+</code></pre>
+
+<p>You can then use these factories in your tests:</p>
+
+<pre><code class="php"># tests/TestUserModel.php
+
+use League\FactoryMuffin\Facade as FactoryMuffin;
+
+class TestUserModel extends PHPUnit_Framework_TestCase
+{
+    public static function setupBeforeClass()
+    {
+        // note that method chaining is supported
+        FactoryMuffin::setFakerLocale('en_EN')-&gt;setSaveMethod('save'); // optional step
+        FactoryMuffin::loadFactories(__DIR__ . '/factories');
+    }
+
+    public function testSampleFactory()
+    {
+        $message = FactoryMuffin::create('Message');
+        $this-&gt;assertInstanceOf('Message', $message);
+        $this-&gt;assertInstanceOf('User', $message-&gt;user);
+    }
+
+    public static function tearDownAfterClass()
+    {
+        FactoryMuffin::setDeleteMethod('delete'); // optional step
+        FactoryMuffin::deleteSaved();
+    }
+}
+</code></pre>
     </article>
 </main>
 

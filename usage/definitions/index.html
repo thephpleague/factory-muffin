@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="icon" type="image/x-icon" href="/themes/thephpleague/thephpleague.github.com/img/favicon.ico" />
                 <link rel="apple-touch-icon-precomposed" href="/themes/thephpleague/thephpleague.github.com/img/apple-touch-icon-precomposed.png">
-                <title>Factory Muffin - Enables The Rapid Creation Of Objects For Testing</title>
+                <title>Usage - Factory Definitions - Factory Muffin</title>
                 <meta name="description" content="Enables The Rapid Creation Of Objects For Testing">
                 <link rel="stylesheet" href="/themes/thephpleague/thephpleague.github.com/css/all.css">
     </head>
@@ -41,7 +41,7 @@
     <menu>
                     <h2>Getting Started</h2>
             <ul>
-                                    <li class="selected">
+                                    <li >
                         <a href="/">Introduction</a>
                     </li>
                                     <li >
@@ -104,17 +104,11 @@
                             </ul>
             </menu>
     <article>
-        <h1>Introduction</h1>
+        <h1>Usage - Factory Definitions</h1>
 
-<ul class="quick_links">
-    <li><a class="github" href="https://github.com/thephpleague/factory-muffin">View Source</a></li>
-    <li><a class="twitter" href="https://twitter.com/grahamjcampbell">Follow Graham</a></li>
-    <li><a class="twitter" href="https://twitter.com/scottymeuk">Follow Scott</a></li>
-</ul>
+<p>You can define model factories using the <code>define</code> function. You may call it like this: <code>League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' =&gt; 'bar'))</code>, where <code>foo</code> is the name of the attribute you want set on your model, and <code>bar</code> describes how you wish to generate the attribute. Please see the generators section for more information on how this works.</p>
 
-<p>The goal of this package is to enable the rapid creation of objects for the purpose of testing.</p>
-
-<p>It's basically a "<a href="https://github.com/thoughtbot/factory_girl">factory&#95;girl</a>", simplified for use with PHP.</p>
+<p>We have provided a nifty way for you to do this in your tests. PHPUnit provides a <code>setupBeforeClass</code> function. Within that function you can call <code>League\FactoryMuffin\Facade::loadFactories(__DIR__ . '/factories');</code>, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The <code>loadFactories</code> function will throw a <code>League\FactoryMuffin\Exceptions\DirectoryNotFoundException</code> exception if the directory you're loading is not found.</p>
     </article>
 </main>
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="icon" type="image/x-icon" href="/themes/thephpleague/thephpleague.github.com/img/favicon.ico" />
                 <link rel="apple-touch-icon-precomposed" href="/themes/thephpleague/thephpleague.github.com/img/apple-touch-icon-precomposed.png">
-                <title>Factory Muffin - Enables The Rapid Creation Of Objects For Testing</title>
+                <title>Usage - Deleting - Factory Muffin</title>
                 <meta name="description" content="Enables The Rapid Creation Of Objects For Testing">
                 <link rel="stylesheet" href="/themes/thephpleague/thephpleague.github.com/css/all.css">
     </head>
@@ -41,7 +41,7 @@
     <menu>
                     <h2>Getting Started</h2>
             <ul>
-                                    <li class="selected">
+                                    <li >
                         <a href="/">Introduction</a>
                     </li>
                                     <li >
@@ -104,17 +104,16 @@
                             </ul>
             </menu>
     <article>
-        <h1>Introduction</h1>
+        <h1>Usage - Deleting</h1>
 
-<ul class="quick_links">
-    <li><a class="github" href="https://github.com/thephpleague/factory-muffin">View Source</a></li>
-    <li><a class="twitter" href="https://twitter.com/grahamjcampbell">Follow Graham</a></li>
-    <li><a class="twitter" href="https://twitter.com/scottymeuk">Follow Scott</a></li>
-</ul>
+<p>You can delete all your saved models with the <code>deleteSaved</code> function. It should be noted that you can set a custom delete function before you get going with the <code>setDeleteMethod</code> function.</p>
 
-<p>The goal of this package is to enable the rapid creation of objects for the purpose of testing.</p>
+<p>If one or more models cannot be deleted, a <code>League\FactoryMuffin\Exceptions\DeletingFailedException</code> will be raised after we have attempted to delete all the saved models. You may access each underlying exception, in the order they were thrown during the whole process, with the <code>getExceptions</code> function which will return an array of exceptions. You may encounter the following exceptions:
+* <code>League\FactoryMuffin\Exceptions\DeleteFailedException</code> will be thrown if the delete function on your model returns false.
+* <code>League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException</code> will be thrown if the delete function on your model does not exist.
+* Any other exception thrown by your model while trying to delete it.</p>
 
-<p>It's basically a "<a href="https://github.com/thoughtbot/factory_girl">factory&#95;girl</a>", simplified for use with PHP.</p>
+<p>It's recommended that you call the <code>deleteSaved</code> function from PHPUnit's <code>tearDownAfterClass</code> function.</p>
     </article>
 </main>
 

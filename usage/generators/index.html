@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="icon" type="image/x-icon" href="/themes/thephpleague/thephpleague.github.com/img/favicon.ico" />
+                <link rel="apple-touch-icon-precomposed" href="/themes/thephpleague/thephpleague.github.com/img/apple-touch-icon-precomposed.png">
+                <title>Usage - Generators - Factory Muffin</title>
+                <meta name="description" content="Enables The Rapid Creation Of Objects For Testing">
+                <link rel="stylesheet" href="/themes/thephpleague/thephpleague.github.com/css/all.css">
+    </head>
+<body>
+
+<section class="all_packages">
+    <a href="http://thephpleague.com/">
+        <img src="/themes/thephpleague/thephpleague.github.com/img/loep_logo.png" width="195" height="200" alt="The League of Extraordinary Packages">
+    </a>
+    <h2>Our Packages:</h2>
+    <ul>
+    </ul>
+</section>
+
+<header>
+    <a class="logo" href="/">
+                <span class="name">Factory Muffin</span>
+        <span class="tagline">Enables The Rapid Creation Of Objects For Testing</span>
+    </a>
+    <a href="http://thephpleague.com/" class="league">
+        Presented by The League of Extraordinary Packages
+    </a>
+</header>
+
+<input type="checkbox" id="menu">
+<label for="menu" onclick>
+    <div class="closed">&#9776; Menu</div>
+    <div class="open">&#9776; Hide Menu</div>
+</label>
+
+<main>
+    <menu>
+                    <h2>Getting Started</h2>
+            <ul>
+                                    <li >
+                        <a href="/">Introduction</a>
+                    </li>
+                                    <li >
+                        <a href="/installing/">Installing</a>
+                    </li>
+                                    <li >
+                        <a href="/contributing/">Contributing</a>
+                    </li>
+                                    <li >
+                        <a href="/license/">Credits &amp; License</a>
+                    </li>
+                                    <li >
+                        <a href="/api/">API Docs</a>
+                    </li>
+                            </ul>
+                    <h2>Usage Guide</h2>
+            <ul>
+                                    <li >
+                        <a href="/usage/">Introduction</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/facade/">The Facade</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/definitions/">Factory Definitions</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/generators/">Generators</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/creating/">Creating &amp; Seeding</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/deleting/">Deleting</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/exceptions/">Exceptions</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/examples/">Real Examples</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/more/">Further Information</a>
+                    </li>
+                            </ul>
+                    <h2>Upgrade Guide</h2>
+            <ul>
+                                    <li >
+                        <a href="/upgrading/">Introduction</a>
+                    </li>
+                                    <li >
+                        <a href="/upgrading/2.0/">1.6.x to 2.0.x</a>
+                    </li>
+                                    <li >
+                        <a href="/upgrading/1.6/">1.5.x to 1.6.x</a>
+                    </li>
+                                    <li >
+                        <a href="/upgrading/1.5/">1.4.x to 1.5.x</a>
+                    </li>
+                            </ul>
+            </menu>
+    <article>
+        <h1>Usage - Generators</h1>
+
+<h2>Generic</h2>
+
+<p>The generic generator will be the generator you use the most. It will communicate with the faker library in order to generate your attribute.</p>
+
+<h3>Example 1</h3>
+
+<p>There is a simple example of setting a few different attributes.</p>
+
+<pre><code class="php">League\FactoryMuffin\Facade::define('MyModel', array(
+    'foo'    =&gt; 'word',          // Set the foo attribute to a random word
+    'name'   =&gt; 'firstNameMale', // Set the name attribute to a random male first name
+    'email'  =&gt; 'email',         // Set the email attribute to a random email address
+    'body'   =&gt; 'text',          // Set the body attribute to a random string of text
+    'slogan' =&gt; 'sentence',      // Set the slogan attribute to a random sentence
+));
+</code></pre>
+
+<h3>Example 2</h3>
+
+<p>This will set the <code>age</code> attribute to a random number between 20 and 40. Note how we're using the <code>;</code> here to pass multiple arguments to the faker method.</p>
+
+<pre><code class="php">League\FactoryMuffin\Facade::define('MyModel', array(
+    'age' =&gt; 'numberBetween|20;40',
+));
+</code></pre>
+
+<h3>Example 3</h3>
+
+<p>This will set the <code>name</code> attribute to a random female first name. It will ensure that it is unique between all your generated models.</p>
+
+<pre><code class="php">League\FactoryMuffin\Facade::define('MyModel', array(
+    'name' =&gt; 'unique:firstNameFemale',
+));
+</code></pre>
+
+<h3>Example 4</h3>
+
+<p>This will set the <code>profile_pic</code> attribute to a random image url of dimensions 400 by 400. Because we've added the optional flag at the start, not all the generated models will have an image url set; sometimes we will return null.</p>
+
+<pre><code class="php">League\FactoryMuffin\Facade::define('MyModel', array(
+    'profile_pic' =&gt; 'optional:imageUrl|400;400',
+));
+</code></pre>
+
+<h3>More</h3>
+
+<p>Check out the <a href="https://github.com/fzaninotto/Faker">faker library</a> itself to see all the available methods. There are far too many to cover in the documentation here, and far too many for them to cover in their documentation too.</p>
+
+<h2>Factory</h2>
+
+<p>The factory generator can be useful for setting up relationships between models. The factory generator will return the model id of the model you ask it to generate.</p>
+
+<h3>Example 1</h3>
+
+<p>When we create a Foo object, we will find that the Bar object will been generated and saved too, and it's id will be assigned to the <code>bar_id</code> attribute of the Foo model.</p>
+
+<pre><code class="php">League\FactoryMuffin\Facade::define('Foo', array(
+    'bar_id' =&gt; 'factory|Bar'
+));
+
+League\FactoryMuffin\Facade::define('Bar', array(
+    'baz' =&gt; 'date|Y-m-d'
+));
+</code></pre>
+
+<h2>Call</h2>
+
+<p>The call generator allows you to generate attributes by calling <strong>static</strong> methods on your models.</p>
+
+<h3>Example 1</h3>
+
+<p>This will set the <code>foo</code> attribute to whatever calling <code>MyModel::exampleMethod()</code> returns.</p>
+
+<pre><code class="php">League\FactoryMuffin\Facade::define('MyModel', array(
+    'foo' =&gt; 'call|exampleMethod',
+));
+</code></pre>
+
+<h3>Example 2</h3>
+
+<p>This will set the <code>bar</code> attribute to whatever calling <code>MyModel::anotherMethod('hello')</code> returns.</p>
+
+<pre><code class="php">League\FactoryMuffin\Facade::define('MyModel', array(
+    'bar' =&gt; 'call|anotherMethod|hello',
+));
+</code></pre>
+
+<h3>Example 3</h3>
+
+<p>This will set the <code>baz</code> attribute to whatever calling the <code>exampleMethod</code> method on the <code>OtherModel</code> after we generate and save it.</p>
+
+<pre><code class="php">League\FactoryMuffin\Facade::define('MyModel', array(
+    'baz' =&gt; 'call|exampleMethod|factory|OtherModel',
+));
+
+League\FactoryMuffin\Facade::define('OtherModel', array(
+    'example' =&gt; 'boolean',
+));
+</code></pre>
+
+<h2>Closure</h2>
+
+<p>The closure generator can be used if you want a more custom solution. Whatever you return from the closure you write will be set as the attribute. Note that we pass an instance of your model as the first parameter of the closure to give you even more flexibility to modify it as you wish.</p>
+
+<h3>Example 1</h3>
+
+<p>As you can see from this example, the ability to use a closure to generate attributes can be so useful and flexible. Here we use it to generate a slug based on the initially randomly generated 5 word long title.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'title' => 'sentence|5',
+    'slug' => function ($object) {
+        $slug = preg_replace("/[^a-zA-Z0-9\/<em>|+ -]/", '', $object->title);
+        $slug = strtolower(trim($slug, '-'));
+        $slug = preg_replace("/[\/</em>|+ -]+/", '-', $slug);</p>
+
+<pre><code>    return $slug;
+},
+</code></pre>
+
+<p>));</p>
+    </article>
+</main>
+
+<footer>
+    <span>&copy; Copyright The League of Extraordinary Packages.</span>
+    <span>Site design by <a href="http://reinink.ca">Jonathan Reinink</a>.</span>
+    <span>Powered by <a href="https://sculpin.io">Sculpin</a>.</span>
+</footer>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="/themes/thephpleague/thephpleague.github.com/js/scripts.js"></script>
+<script src="/themes/thephpleague/thephpleague.github.com/js/prism.js"></script>
+
+
+</body>
+</html>

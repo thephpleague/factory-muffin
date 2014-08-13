@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="icon" type="image/x-icon" href="/themes/thephpleague/thephpleague.github.com/img/favicon.ico" />
                 <link rel="apple-touch-icon-precomposed" href="/themes/thephpleague/thephpleague.github.com/img/apple-touch-icon-precomposed.png">
-                <title>Factory Muffin - Enables The Rapid Creation Of Objects For Testing</title>
+                <title>Usage - The Facade - Factory Muffin</title>
                 <meta name="description" content="Enables The Rapid Creation Of Objects For Testing">
                 <link rel="stylesheet" href="/themes/thephpleague/thephpleague.github.com/css/all.css">
     </head>
@@ -41,7 +41,7 @@
     <menu>
                     <h2>Getting Started</h2>
             <ul>
-                                    <li class="selected">
+                                    <li >
                         <a href="/">Introduction</a>
                     </li>
                                     <li >
@@ -104,17 +104,9 @@
                             </ul>
             </menu>
     <article>
-        <h1>Introduction</h1>
+        <h1>Usage - The Facade</h1>
 
-<ul class="quick_links">
-    <li><a class="github" href="https://github.com/thephpleague/factory-muffin">View Source</a></li>
-    <li><a class="twitter" href="https://twitter.com/grahamjcampbell">Follow Graham</a></li>
-    <li><a class="twitter" href="https://twitter.com/scottymeuk">Follow Scott</a></li>
-</ul>
-
-<p>The goal of this package is to enable the rapid creation of objects for the purpose of testing.</p>
-
-<p>It's basically a "<a href="https://github.com/thoughtbot/factory_girl">factory&#95;girl</a>", simplified for use with PHP.</p>
+<p>The facade class (<code>League\FactoryMuffin\Facade</code>) should always be your main point of entry for communicating with Factory Muffin. It will dynamically proxy static method calls to the underlying factory instance. The other classes, including the factory class (<code>League\FactoryMuffin\Factory</code>), are not intended for direct public use. Also, note that all public methods that would have returned void, return the factory instance in order to support method chaining.</p>
     </article>
 </main>
 

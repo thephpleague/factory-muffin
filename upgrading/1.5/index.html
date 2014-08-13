@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="icon" type="image/x-icon" href="/themes/thephpleague/thephpleague.github.com/img/favicon.ico" />
                 <link rel="apple-touch-icon-precomposed" href="/themes/thephpleague/thephpleague.github.com/img/apple-touch-icon-precomposed.png">
-                <title>Factory Muffin - Enables The Rapid Creation Of Objects For Testing</title>
+                <title>Upgrading from 1.4.x to 1.5.x - Factory Muffin</title>
                 <meta name="description" content="Enables The Rapid Creation Of Objects For Testing">
                 <link rel="stylesheet" href="/themes/thephpleague/thephpleague.github.com/css/all.css">
     </head>
@@ -41,7 +41,7 @@
     <menu>
                     <h2>Getting Started</h2>
             <ul>
-                                    <li class="selected">
+                                    <li >
                         <a href="/">Introduction</a>
                     </li>
                                     <li >
@@ -104,17 +104,28 @@
                             </ul>
             </menu>
     <article>
-        <h1>Introduction</h1>
+        <h1>Upgrading from 1.4.x to 1.5.x</h1>
 
-<ul class="quick_links">
-    <li><a class="github" href="https://github.com/thephpleague/factory-muffin">View Source</a></li>
-    <li><a class="twitter" href="https://twitter.com/grahamjcampbell">Follow Graham</a></li>
-    <li><a class="twitter" href="https://twitter.com/scottymeuk">Follow Scott</a></li>
-</ul>
+<h2>Exceptions</h2>
 
-<p>The goal of this package is to enable the rapid creation of objects for the purpose of testing.</p>
+<p>We've added some exceptions for certain events:
+* The <code>Zizaco\FactoryMuff\SaveException</code> will now be thrown on model creation if the save function returns false.
+* The <code>Zizaco\FactoryMuff\NoDefinedFactoryException</code> will now be thrown if you attempt to generate attributes for an model that has no defined factory. Previously, php would raise a fatal error.</p>
 
-<p>It's basically a "<a href="https://github.com/thoughtbot/factory_girl">factory&#95;girl</a>", simplified for use with PHP.</p>
+<h2>Factory Definitions</h2>
+
+<p>Instead of having a <code>public static $factory = array('foo' =&gt; 'bar')</code> property on your model, you should call <code>Zizaco\FactoryMuff\Facade\FactoryMuff::define('Fully\Qualifed\ModelName', array('foo' =&gt; 'bar'))</code> to define your model's factory. Note that the property on the model is still supported for now, but is deprecated, and will be removed in 2.0.</p>
+
+<h2>Installing This Version</h2>
+
+<p>In your composer.json, add:</p>
+
+<pre><code class="json">{
+    "require-dev": {
+        "league/factory-muffin": "1.5.*"
+    }
+}
+</code></pre>
     </article>
 </main>
 

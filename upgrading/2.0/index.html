@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="icon" type="image/x-icon" href="/themes/thephpleague/thephpleague.github.com/img/favicon.ico" />
+                <link rel="apple-touch-icon-precomposed" href="/themes/thephpleague/thephpleague.github.com/img/apple-touch-icon-precomposed.png">
+                <title>Upgrading from 1.6.x to 2.0.x - Factory Muffin</title>
+                <meta name="description" content="Enables The Rapid Creation Of Objects For Testing">
+                <link rel="stylesheet" href="/themes/thephpleague/thephpleague.github.com/css/all.css">
+    </head>
+<body>
+
+<section class="all_packages">
+    <a href="http://thephpleague.com/">
+        <img src="/themes/thephpleague/thephpleague.github.com/img/loep_logo.png" width="195" height="200" alt="The League of Extraordinary Packages">
+    </a>
+    <h2>Our Packages:</h2>
+    <ul>
+    </ul>
+</section>
+
+<header>
+    <a class="logo" href="/">
+                <span class="name">Factory Muffin</span>
+        <span class="tagline">Enables The Rapid Creation Of Objects For Testing</span>
+    </a>
+    <a href="http://thephpleague.com/" class="league">
+        Presented by The League of Extraordinary Packages
+    </a>
+</header>
+
+<input type="checkbox" id="menu">
+<label for="menu" onclick>
+    <div class="closed">&#9776; Menu</div>
+    <div class="open">&#9776; Hide Menu</div>
+</label>
+
+<main>
+    <menu>
+                    <h2>Getting Started</h2>
+            <ul>
+                                    <li >
+                        <a href="/">Introduction</a>
+                    </li>
+                                    <li >
+                        <a href="/installing/">Installing</a>
+                    </li>
+                                    <li >
+                        <a href="/contributing/">Contributing</a>
+                    </li>
+                                    <li >
+                        <a href="/license/">Credits &amp; License</a>
+                    </li>
+                                    <li >
+                        <a href="/api/">API Docs</a>
+                    </li>
+                            </ul>
+                    <h2>Usage Guide</h2>
+            <ul>
+                                    <li >
+                        <a href="/usage/">Introduction</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/facade/">The Facade</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/definitions/">Factory Definitions</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/generators/">Generators</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/creating/">Creating &amp; Seeding</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/deleting/">Deleting</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/exceptions/">Exceptions</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/examples/">Real Examples</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/more/">Further Information</a>
+                    </li>
+                            </ul>
+                    <h2>Upgrade Guide</h2>
+            <ul>
+                                    <li >
+                        <a href="/upgrading/">Introduction</a>
+                    </li>
+                                    <li >
+                        <a href="/upgrading/2.0/">1.6.x to 2.0.x</a>
+                    </li>
+                                    <li >
+                        <a href="/upgrading/1.6/">1.5.x to 1.6.x</a>
+                    </li>
+                                    <li >
+                        <a href="/upgrading/1.5/">1.4.x to 1.5.x</a>
+                    </li>
+                            </ul>
+            </menu>
+    <article>
+        <h1>Upgrading from 1.6.x to 2.0.x</h1>
+
+<h2>Introduction</h2>
+
+<p>Version 2.0 marks a major file milestone in this project, under the new name of "Factory Muffin". We see a large number of improvements and some breaking changes. Within this section of the upgrading guide, you will see "the <code>xyz</code> function can be called". You should assume that these functions should be called statically on the <code>League\FactoryMuffin\Facade</code> class.</p>
+
+<h2>Class Name Changes</h2>
+
+<p>Every class has moved, so here's a summary of the changes:
+* The root namespace has been moved from <code>Zizaco\FactoryMuff</code> to <code>League\FactoryMuffin</code>. You should now access the facade using <code>League\FactoryMuffin\Facade::fooBar()</code>.
+* Many generator (kind) classes have been removed in favour of the faker alternatives. Those remaining can be found under the <code>League\FactoryMuffin\Generators</code> namespace.
+* There are many more exceptions, and the names of the existing exceptions have changed. The exceptions can be found under the <code>League\FactoryMuffin\Exceptions</code> namespace.</p>
+
+<p>A detailed list of every change with FQCNs is listed below:
+* Moved: <code>Zizaco\FactoryMuff\FactoryMuff</code> => <code>League\FactoryMuffin\Factory</code>
+* Moved: <code>Zizaco\FactoryMuff\Facade\FactoryMuff</code> => <code>League\FactoryMuffin\Facade</code>
+* Moved: <code>Zizaco\FactoryMuff\SaveException</code> => <code>League\FactoryMuffin\Exceptions\SaveFailedException</code>
+* Moved: <code>Zizaco\FactoryMuff\NoDefinedFactoryException</code> => <code>League\FactoryMuffin\Exceptions\NoDefinedFactoryException</code>
+* Moved: <code>Zizaco\FactoryMuff\Kind</code> => <code>League\FactoryMuffin\Generators\Base</code>
+* Moved: <code>Zizaco\FactoryMuff\Kind\Call</code> => <code>League\FactoryMuffin\Generators\Call</code>
+* Moved: <code>Zizaco\FactoryMuff\Kind\Closure</code> => <code>League\FactoryMuffin\Generators\Closure</code>
+* Moved: <code>Zizaco\FactoryMuff\Kind\Factory</code> => <code>League\FactoryMuffin\Generators\Factory</code>
+* Moved: <code>Zizaco\FactoryMuff\Kind\Generic</code> => <code>League\FactoryMuffin\Generators\Generic</code>
+* Added: <code>League\FactoryMuffin\Exceptions\DeleteFailedException</code>
+* Added: <code>League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException</code>
+* Added: <code>League\FactoryMuffin\Exceptions\DeletingFailedException</code>
+* Added: <code>League\FactoryMuffin\Exceptions\DirectoryNotFoundException</code>
+* Added: <code>League\FactoryMuffin\Exceptions\MethodNotFoundException</code>
+* Added: <code>League\FactoryMuffin\Exceptions\ModelException</code>
+* Added: <code>League\FactoryMuffin\Exceptions\SaveMethodNotFoundException</code>
+* Removed: <code>Zizaco\FactoryMuff\Kind\Date</code>
+* Removed: <code>Zizaco\FactoryMuff\Kind\Integer</code>
+* Removed: <code>Zizaco\FactoryMuff\Kind\Name</code>
+* Removed: <code>Zizaco\FactoryMuff\Kind\String</code>
+* Removed: <code>Zizaco\FactoryMuff\Kind\Text</code></p>
+
+<p>It also should be noted that we've moved from PSR-0 to PSR-4 for autoloading.</p>
+
+<h2>Facade Changes</h2>
+
+<p>Under it's new name, the facade class now uses <code>__callStatic</code> to dynamically call the underlying factory instance. Also, note that all public methods that would have returned void, return the factory instance in order to support method chaining.</p>
+
+<h2>Factory Definitions</h2>
+
+<p>Having a public static factory property is no longer supported. You must use the <code>define</code> function introduced in the 1.5.x series. You may call it like this: <code>League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' =&gt; 'bar'))</code>. We have provided a nifty way for you to do this in your tests. PHPUnit provides a <code>setupBeforeClass</code> function. Within that function you can call <code>League\FactoryMuffin\Facade::loadFactories(__DIR__ . '/factories');</code>, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The <code>loadFactories</code> function will throw a <code>League\FactoryMuffin\Exceptions\DirectoryNotFoundException</code> exception if the directory you're loading is not found. A full example is included in the readme.</p>
+
+<h2>Generator (Kind) Changes</h2>
+
+<p>We now refer to what was previously the kind classes, as generator classes. We've removed some of these in favour of the faker alternatives. We currently provide the following generators: <code>Call</code>, <code>Closure</code>, <code>Factory</code>, and <code>Generic</code>. The call, closure, and factory generators have not changed significantly since previous versions, and the generic generator still provides access to the faker generators. The closure generator will now pass the instance of your model into your closure as the first parameter too.</p>
+
+<p>There are two syntax changes to watch out for:
+* You can now use a <code>;</code> to send multiple arguments to the generators.
+* Unique and optional attributes are now supported by prefixing the definition with <code>unique:</code> or <code>optional:</code>.</p>
+
+<p>The removed generators are <code>Date</code>, <code>Integer</code>, <code>Name</code>, <code>String</code>, and <code>Text</code>, however, these are still callable as they are available through the generic generator using faker. Here are some possible changes you will need to make:
+* Instead of using <code>integer|8</code>, you can use <code>randomNumber|8</code>.
+* Instead of using <code>string</code>, you can use <code>sentence</code>, or <code>word</code>.
+* Instead of using <code>name</code>, you can use things like <code>firstNameMale</code>.
+* <code>date</code> and <code>text</code> can be used in the same way you were using them before.</p>
+
+<p>It should be noted that we are using faker 1.4 which is a change since the previous release. We've made a more strict version requirement to avoid potential BC breaks caused by faker.</p>
+
+<h2>Creating And Seeding</h2>
+
+<p>The <code>create</code> function can be called in the same way, but has internal improvements. Now, it will also save anything you generate with the <code>Factory</code> generator too. We now have a new function called <code>seed</code>, which accepts an additional argument at the start which is the number of models to generate in the process. The <code>seed</code> function will effectively be calling the <code>create</code> function over and over. It should be noted that you can set a custom save function before you get going with the <code>setSaveMethod</code> function. Also, a reminder that the <code>instance</code> function is still available if you don't want database persistence.</p>
+
+<p>You may encounter the following exceptions:
+* <code>League\FactoryMuffin\Exceptions\NoDefinedFactoryException</code> will be thrown if you try to create a model and you haven't defined a factory definition for it earlier.
+* <code>League\FactoryMuffin\Exceptions\SaveFailedException</code> will be thrown if the save function on your model returns false.
+* <code>League\FactoryMuffin\Exceptions\SaveMethodNotFoundException</code> will be thrown if the save function on your model does not exist.
+* Any other exception thrown by your model while trying to create or save it.</p>
+
+<p>There are 2 other helper functions available. You may call <code>saved</code> to return an array of all the saved objects. You may call <code>isSaved</code> with an instance of a model to check if it's saved.</p>
+
+<h2>Deleting</h2>
+
+<p>You can now delete all your saved models with the <code>deleteSaved</code> function. It should be noted that you can set a custom delete function before you get going with the <code>setDeleteMethod</code> function.</p>
+
+<p>If one or more models cannot be deleted, a <code>League\FactoryMuffin\Exceptions\DeletingFailedException</code> will be raised after we have attempted to delete all the saved models. You may access each underlying exception, in the order they were thrown during the whole process, with the <code>getExceptions</code> function which will return an array of exceptions. You may encounter the following exceptions:
+* <code>League\FactoryMuffin\Exceptions\DeleteFailedException</code> will be thrown if the delete function on your model returns false.
+* <code>League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException</code> will be thrown if the delete function on your model does not exist.
+* Any other exception thrown by your model while trying to delete it.</p>
+
+<p>It's recommended that you call the <code>deleteSaved</code> function from PHPUnit's <code>tearDownAfterClass</code> function. A full example is included in the readme.</p>
+
+<h2>Exceptions</h2>
+
+<p>The exceptions have been completely overhauled. Each exception is documented with the documentation for the functions that throw them.</p>
+
+<p>You can see a diagram showing the exception hierarchy here:</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/2829600/3790579/8fc52572-1b0d-11e4-96b1-7f0eac0dc10d.png" alt="diagram" /></p>
+
+<h2>Other BC Breaks</h2>
+
+<p>The <code>attributesFor</code> function no longer accepts a class name as the first argument, and the <code>generateAttr</code> function no longer accepts a class name as a second argument. Please pass an actual model instance to both functions instead.</p>
+
+<p>We now require php 5.3.3 as a minimum version. This is an increase on our previous requirement of php 5.3.0.</p>
+
+<h2>Installing This Version</h2>
+
+<p>In your composer.json, add:</p>
+
+<pre><code class="json">{
+    "require-dev": {
+        "league/factory-muffin": "2.0.*"
+    }
+}
+</code></pre>
+    </article>
+</main>
+
+<footer>
+    <span>&copy; Copyright The League of Extraordinary Packages.</span>
+    <span>Site design by <a href="http://reinink.ca">Jonathan Reinink</a>.</span>
+    <span>Powered by <a href="https://sculpin.io">Sculpin</a>.</span>
+</footer>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="/themes/thephpleague/thephpleague.github.com/js/scripts.js"></script>
+<script src="/themes/thephpleague/thephpleague.github.com/js/prism.js"></script>
+
+
+</body>
+</html>

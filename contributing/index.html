@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="icon" type="image/x-icon" href="/themes/thephpleague/thephpleague.github.com/img/favicon.ico" />
                 <link rel="apple-touch-icon-precomposed" href="/themes/thephpleague/thephpleague.github.com/img/apple-touch-icon-precomposed.png">
-                <title>Factory Muffin - Enables The Rapid Creation Of Objects For Testing</title>
+                <title>Contributing - Factory Muffin</title>
                 <meta name="description" content="Enables The Rapid Creation Of Objects For Testing">
                 <link rel="stylesheet" href="/themes/thephpleague/thephpleague.github.com/css/all.css">
     </head>
@@ -41,7 +41,7 @@
     <menu>
                     <h2>Getting Started</h2>
             <ul>
-                                    <li class="selected">
+                                    <li >
                         <a href="/">Introduction</a>
                     </li>
                                     <li >
@@ -104,17 +104,44 @@
                             </ul>
             </menu>
     <article>
-        <h1>Introduction</h1>
+        <h1>Contributing</h1>
 
-<ul class="quick_links">
-    <li><a class="github" href="https://github.com/thephpleague/factory-muffin">View Source</a></li>
-    <li><a class="twitter" href="https://twitter.com/grahamjcampbell">Follow Graham</a></li>
-    <li><a class="twitter" href="https://twitter.com/scottymeuk">Follow Scott</a></li>
+<p>Welcome to the contribution guide for Factory Muffin. Contributions are welcome, and are accepted via pull requests. Please review these guidelines before submitting any pull requests.</p>
+
+<h2>Which Branch?</h2>
+
+<ul>
+<li>Please submit all pull requests for new features to the master branch.</li>
+<li>Please submit pull requests for bug fixes and typos to the earliest branch the issue can be found in.</li>
 </ul>
 
-<p>The goal of this package is to enable the rapid creation of objects for the purpose of testing.</p>
+<h2>Guidelines</h2>
 
-<p>It's basically a "<a href="https://github.com/thoughtbot/factory_girl">factory&#95;girl</a>", simplified for use with PHP.</p>
+<ul>
+<li>Please follow the <a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md">PSR-2 Coding Standard</a> and <a href="https://github.com/php-fig/fig-standards/blob/master/bylaws/002-psr-naming-conventions.md">PHP-FIG Naming Conventions</a>.</li>
+<li>Ensure that the current tests pass, and if you've added something new, add the tests where relevant.</li>
+<li>Remember that we follow <a href="http://semver.org">SemVer</a>. If you are changing the behaviour, or the public api, you may need to update the docs.</li>
+<li>Send a coherent commit history, making sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please <a href="http://git-scm.com/book/en/Git-Tools-Rewriting-History">squash</a> them before submitting.</li>
+<li>You may also need to <a href="http://git-scm.com/book/en/Git-Branching-Rebasing">rebase</a> to avoid merge conflicts.</li>
+</ul>
+
+<h2>Running Tests</h2>
+
+<p>You will need an install of <a href="https://getcomposer.org">Composer</a> before continuing.</p>
+
+<p>First, install the dependencies:</p>
+
+<pre><code class="bash">$ composer install
+</code></pre>
+
+<p>Then run phpunit:</p>
+
+<pre><code class="bash">$ vendor/bin/phpunit
+</code></pre>
+
+<p>If the test suite passes on your local machine you should be good to go.</p>
+
+<p>When you make a pull requests the tests will automatically be run again by <a href="https://travis-ci.org/">Travis CI</a> on multiple php versions and hhvm.</p>
     </article>
 </main>
 

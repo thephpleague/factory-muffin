@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="icon" type="image/x-icon" href="/themes/thephpleague/thephpleague.github.com/img/favicon.ico" />
                 <link rel="apple-touch-icon-precomposed" href="/themes/thephpleague/thephpleague.github.com/img/apple-touch-icon-precomposed.png">
-                <title>Factory Muffin - Enables The Rapid Creation Of Objects For Testing</title>
+                <title>Usage - Creating &amp; Seeding - Factory Muffin</title>
                 <meta name="description" content="Enables The Rapid Creation Of Objects For Testing">
                 <link rel="stylesheet" href="/themes/thephpleague/thephpleague.github.com/css/all.css">
     </head>
@@ -41,7 +41,7 @@
     <menu>
                     <h2>Getting Started</h2>
             <ul>
-                                    <li class="selected">
+                                    <li >
                         <a href="/">Introduction</a>
                     </li>
                                     <li >
@@ -104,17 +104,17 @@
                             </ul>
             </menu>
     <article>
-        <h1>Introduction</h1>
+        <h1>Usage - Creating &amp; Seeding</h1>
 
-<ul class="quick_links">
-    <li><a class="github" href="https://github.com/thephpleague/factory-muffin">View Source</a></li>
-    <li><a class="twitter" href="https://twitter.com/grahamjcampbell">Follow Graham</a></li>
-    <li><a class="twitter" href="https://twitter.com/scottymeuk">Follow Scott</a></li>
-</ul>
+<p>The <code>create</code> function will create and save your model, and will also save anything you generate with the <code>Factory</code> generator too. If you want to create multiple instances, check out the seed <code>seed</code> function, which accepts an additional argument at the start which is the number of models to generate in the process. The <code>seed</code> function will effectively be calling the <code>create</code> function over and over. It should be noted that you can set a custom save function before you get going with the <code>setSaveMethod</code> function. Also, a reminder that the <code>instance</code> function is still available if you don't want database persistence.</p>
 
-<p>The goal of this package is to enable the rapid creation of objects for the purpose of testing.</p>
+<p>You may encounter the following exceptions:
+* <code>League\FactoryMuffin\Exceptions\NoDefinedFactoryException</code> will be thrown if you try to create a model and you haven't defined a factory definition for it earlier.
+* <code>League\FactoryMuffin\Exceptions\SaveFailedException</code> will be thrown if the save function on your model returns false.
+* <code>League\FactoryMuffin\Exceptions\SaveMethodNotFoundException</code> will be thrown if the save function on your model does not exist.
+* Any other exception thrown by your model while trying to create or save it.</p>
 
-<p>It's basically a "<a href="https://github.com/thoughtbot/factory_girl">factory&#95;girl</a>", simplified for use with PHP.</p>
+<p>There are 2 other helper functions available. You may call <code>saved</code> to return an array of all the saved objects. You may call <code>isSaved</code> with an instance of a model to check if it's saved.</p>
     </article>
 </main>
 
