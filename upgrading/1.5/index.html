@@ -98,7 +98,7 @@
                                     <li >
                         <a href="/upgrading/1.6/">1.5.x to 1.6.x</a>
                     </li>
-                                    <li >
+                                    <li class="selected">
                         <a href="/upgrading/1.5/">1.4.x to 1.5.x</a>
                     </li>
                             </ul>
@@ -108,9 +108,12 @@
 
 <h2>Exceptions</h2>
 
-<p>We've added some exceptions for certain events:
-* The <code>Zizaco\FactoryMuff\SaveException</code> will now be thrown on model creation if the save function returns false.
-* The <code>Zizaco\FactoryMuff\NoDefinedFactoryException</code> will now be thrown if you attempt to generate attributes for an model that has no defined factory. Previously, php would raise a fatal error.</p>
+<p>We've added some exceptions for certain events:</p>
+
+<ul>
+<li>The <code>Zizaco\FactoryMuff\SaveException</code> will now be thrown on model creation if the save function returns false.</li>
+<li>The <code>Zizaco\FactoryMuff\NoDefinedFactoryException</code> will now be thrown if you attempt to generate attributes for an model that has no defined factory. Previously, php would raise a fatal error.</li>
+</ul>
 
 <h2>Factory Definitions</h2>
 
@@ -139,6 +142,14 @@
 <script src="/themes/thephpleague/thephpleague.github.com/js/scripts.js"></script>
 <script src="/themes/thephpleague/thephpleague.github.com/js/prism.js"></script>
 
+    <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','UA-46050814-7');ga('send','pageview');
+    </script>
 
 </body>
 </html>

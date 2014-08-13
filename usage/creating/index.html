@@ -71,7 +71,7 @@
                                     <li >
                         <a href="/usage/generators/">Generators</a>
                     </li>
-                                    <li >
+                                    <li class="selected">
                         <a href="/usage/creating/">Creating &amp; Seeding</a>
                     </li>
                                     <li >
@@ -108,11 +108,14 @@
 
 <p>The <code>create</code> function will create and save your model, and will also save anything you generate with the <code>Factory</code> generator too. If you want to create multiple instances, check out the seed <code>seed</code> function, which accepts an additional argument at the start which is the number of models to generate in the process. The <code>seed</code> function will effectively be calling the <code>create</code> function over and over. It should be noted that you can set a custom save function before you get going with the <code>setSaveMethod</code> function. Also, a reminder that the <code>instance</code> function is still available if you don't want database persistence.</p>
 
-<p>You may encounter the following exceptions:
-* <code>League\FactoryMuffin\Exceptions\NoDefinedFactoryException</code> will be thrown if you try to create a model and you haven't defined a factory definition for it earlier.
-* <code>League\FactoryMuffin\Exceptions\SaveFailedException</code> will be thrown if the save function on your model returns false.
-* <code>League\FactoryMuffin\Exceptions\SaveMethodNotFoundException</code> will be thrown if the save function on your model does not exist.
-* Any other exception thrown by your model while trying to create or save it.</p>
+<p>You may encounter the following exceptions:</p>
+
+<ul>
+<li><code>League\FactoryMuffin\Exceptions\NoDefinedFactoryException</code> will be thrown if you try to create a model and you haven't defined a factory definition for it earlier.</li>
+<li><code>League\FactoryMuffin\Exceptions\SaveFailedException</code> will be thrown if the save function on your model returns false.</li>
+<li><code>League\FactoryMuffin\Exceptions\SaveMethodNotFoundException</code> will be thrown if the save function on your model does not exist.</li>
+<li>Any other exception thrown by your model while trying to create or save it.</li>
+</ul>
 
 <p>There are 2 other helper functions available. You may call <code>saved</code> to return an array of all the saved objects. You may call <code>isSaved</code> with an instance of a model to check if it's saved.</p>
     </article>
@@ -128,6 +131,14 @@
 <script src="/themes/thephpleague/thephpleague.github.com/js/scripts.js"></script>
 <script src="/themes/thephpleague/thephpleague.github.com/js/prism.js"></script>
 
+    <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','UA-46050814-7');ga('send','pageview');
+    </script>
 
 </body>
 </html>

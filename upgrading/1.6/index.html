@@ -95,7 +95,7 @@
                                     <li >
                         <a href="/upgrading/2.0/">1.6.x to 2.0.x</a>
                     </li>
-                                    <li >
+                                    <li class="selected">
                         <a href="/upgrading/1.6/">1.5.x to 1.6.x</a>
                     </li>
                                     <li >
@@ -108,9 +108,7 @@
 
 <h2>Faker Usage</h2>
 
-<ul>
-<li>We now use the faker package, so our <code>Zizaco\FactoryMuff\Wordlist</code> class has been removed. All your previous definitions should still work in as close to the same way as possible, but watch out for any minor differences. With the addition of the faker library, far more definitions are now possible since any definitions not natively provided by us, fall back to the faker package. Also, it should be noted you may use closures now to generate completely custom attributes. The new classes can be found under the <code>Zizaco\FactoryMuff\Kind</code> namespace.</li>
-</ul>
+<p>We now use the faker package, so our <code>Zizaco\FactoryMuff\Wordlist</code> class has been removed. All your previous definitions should still work in as close to the same way as possible, but watch out for any minor differences. With the addition of the faker library, far more definitions are now possible since any definitions not natively provided by us, fall back to the faker package. Also, it should be noted you may use closures now to generate completely custom attributes. The new classes can be found under the <code>Zizaco\FactoryMuff\Kind</code> namespace.</p>
 
 <h2>Installing This Version</h2>
 
@@ -135,6 +133,14 @@
 <script src="/themes/thephpleague/thephpleague.github.com/js/scripts.js"></script>
 <script src="/themes/thephpleague/thephpleague.github.com/js/prism.js"></script>
 
+    <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','UA-46050814-7');ga('send','pageview');
+    </script>
 
 </body>
 </html>

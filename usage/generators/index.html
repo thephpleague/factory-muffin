@@ -68,7 +68,7 @@
                                     <li >
                         <a href="/usage/definitions/">Factory Definitions</a>
                     </li>
-                                    <li >
+                                    <li class="selected">
                         <a href="/usage/generators/">Generators</a>
                     </li>
                                     <li >
@@ -212,20 +212,19 @@ League\FactoryMuffin\Facade::define('OtherModel', array(
 
 <h3>Example 1</h3>
 
-<p>As you can see from this example, the ability to use a closure to generate attributes can be so useful and flexible. Here we use it to generate a slug based on the initially randomly generated 5 word long title.
-```php
-League\FactoryMuffin\Facade::define('MyModel', array(
-    'title' => 'sentence|5',
-    'slug' => function ($object) {
-        $slug = preg_replace("/[^a-zA-Z0-9\/<em>|+ -]/", '', $object->title);
+<p>As you can see from this example, the ability to use a closure to generate attributes can be so useful and flexible. Here we use it to generate a slug based on the initially randomly generated 5 word long title.</p>
+
+<pre><code class="php">League\FactoryMuffin\Facade::define('MyModel', array(
+    'title' =&gt; 'sentence|5',
+    'slug' =&gt; function ($object) {
+        $slug = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $object-&gt;title);
         $slug = strtolower(trim($slug, '-'));
-        $slug = preg_replace("/[\/</em>|+ -]+/", '-', $slug);</p>
+        $slug = preg_replace("/[\/_|+ -]+/", '-', $slug);
 
-<pre><code>    return $slug;
-},
+        return $slug;
+    },
+));
 </code></pre>
-
-<p>));</p>
     </article>
 </main>
 
@@ -239,6 +238,14 @@ League\FactoryMuffin\Facade::define('MyModel', array(
 <script src="/themes/thephpleague/thephpleague.github.com/js/scripts.js"></script>
 <script src="/themes/thephpleague/thephpleague.github.com/js/prism.js"></script>
 
+    <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','UA-46050814-7');ga('send','pageview');
+    </script>
 
 </body>
 </html>
