@@ -16,7 +16,7 @@ Version 2.0 marks a major file milestone in this project, under the new name of 
 Every class has moved, so here's a summary of the changes:
 * The root namespace has been moved from `Zizaco\FactoryMuff` to `League\FactoryMuffin`. You should now access the facade using `League\FactoryMuffin\Facade::fooBar()`.
 * Many generator (kind) classes have been removed in favour of the faker alternatives. Those remaining can be found under the `League\FactoryMuffin\Generators` namespace.
-* There are many more exceptions, and the names of the existing exceptions have changed. The exceptions can be found under the `League\FactoryMuffin\Exception` namespace.
+* There are many more exceptions, and the names of the existing exceptions have changed. The exceptions can be found under the `League\FactoryMuffin\Exceptions` namespace.
 
 A detailed list of every change with FQCNs is listed below:
 * Moved: `Zizaco\FactoryMuff\FactoryMuff` => `League\FactoryMuffin\Factory`
