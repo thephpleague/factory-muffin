@@ -1,0 +1,25 @@
+title: Factory Muffin
+tagline: Enables The Rapid Creation Of Objects For Testing
+description: Enables The Rapid Creation Of Objects For Testing
+menu:
+    'Getting Started':
+        'Introduction': '/'
+        'Installing': '/installing/'
+        'Contributing': '/contributing/'
+        'Credits & License': '/license/'
+        'API Docs': '/api/'
+    'Usage Guide':
+        'Introduction': '/usage/'
+        'The Facade': '/usage/facade/'
+        'Factory Definitions': '/usage/definitions/'
+        'Generators': '/usage/generators/'
+        'Creating & Seeding': '/usage/creating/'
+        'Deleting': '/usage/deleting/'
+        'Exceptions': '/usage/exceptions/'
+        'Real Examples': '/usage/examples/'
+        'Further Information': '/usage/more/'
+    'Upgrade Guide':
+        'Introduction': '/upgrading/'
+        '1.6.x to 2.0.x': '/upgrading/2.0/'
+        '1.5.x to 1.6.x': '/upgrading/1.6/'
+        '1.4.x to 1.5.x': '/upgrading/1.5/'
