@@ -26,3 +26,7 @@ FactoryMuffin::define('foo:DogModelStub', array(
     'name' => 'firstNameMale',
     'age'  => 'numberBetween|1;15',
 ));
+
+FactoryMuffin::define('ExampleCallbackStub', array(), function($user) {
+    $user->callback = 'yaycalled';
+});
