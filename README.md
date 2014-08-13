@@ -8,7 +8,7 @@ Factory Muffin
 [![Latest Version](https://img.shields.io/github/release/thephpleague/factory-muffin.svg?style=flat)](https://github.com/thephpleague/factory-muffin/releases)
 [![Total Downloads](https://img.shields.io/packagist/dt/league/factory-muffin.svg?style=flat)](https://packagist.org/packages/league/factory-muffin)
 
-The goal of this Package is to enable the rapid creation of objects for the purpose of testing.
+The goal of this package is to enable the rapid creation of objects for the purpose of testing.
 
 It's basically a "[factory\_girl](https://github.com/thoughtbot/factory_girl)", simplified for use with PHP.
 
@@ -265,7 +265,7 @@ class TestUserModel extends PHPUnit_Framework_TestCase
 ### Further Information
 
 If you want more information, the following resources are available to you:
-  * Generated api docs are available [here](http://muffin.grahamjcampbell.co.uk/).
+  * Generated api docs are available [here](http://factory-muffin.thephpleague.com/api/).
   * [Philip Brown's](https://github.com/philipbrown) article is available [here](http://culttt.com/2013/05/27/laravel-4-fixture-replacement-with-factorymuff/).
   * Our [test suite](tests) may also be useful to you.
 
