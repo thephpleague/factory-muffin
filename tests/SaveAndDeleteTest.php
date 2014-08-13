@@ -1,10 +1,10 @@
 <?php
 
-use League\FactoryMuffin\Exception\DeleteMethodNotFoundException;
-use League\FactoryMuffin\Exception\DeletingFailedException;
-use League\FactoryMuffin\Exception\SaveFailedException;
-use League\FactoryMuffin\Exception\SaveMethodNotFoundException;
-use League\FactoryMuffin\Facade\FactoryMuffin;
+use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
+use League\FactoryMuffin\Exceptions\DeletingFailedException;
+use League\FactoryMuffin\Exceptions\SaveFailedException;
+use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
+use League\FactoryMuffin\Facade as FactoryMuffin;
 
 /**
  * @group savedelete
@@ -14,6 +14,7 @@ class SaveAndDeleteTest extends AbstractTestCase
     public function testShouldCreateAndDelete()
     {
         $obj = FactoryMuffin::create('ModelThatWillSaveStub');
+        $this->assertTrue(FactoryMuffin::isSaved($obj));
         $this->assertTrue(is_numeric($obj->id));
         $this->assertInternalType('array', FactoryMuffin::saved());
         $this->assertCount(1, FactoryMuffin::saved());
@@ -21,13 +22,23 @@ class SaveAndDeleteTest extends AbstractTestCase
         FactoryMuffin::deleteSaved();
     }
 
+    public function testShouldNotSave()
+    {
+        $obj = FactoryMuffin::instance('ModelThatWillSaveStub');
+        $this->assertCount(0, FactoryMuffin::saved());
+        $this->assertFalse(FactoryMuffin::isSaved($obj));
+    }
+
     /**
      * @runInSeparateProcess
      * @preserveGlobalState disabled
+     *
+     * @expectedException \League\FactoryMuffin\Exceptions\SaveMethodNotFoundException
      */
     public function testShouldThrowExceptionAfterSaveMethodRename()
     {
-        FactoryMuffin::setSaveMethod('foo');
+        $return = FactoryMuffin::setSaveMethod('foo');
+        $this->assertInstanceOf('League\FactoryMuffin\Factory', $return);
         try {
             FactoryMuffin::create($model = 'ModelThatWillSaveStub');
         } catch (SaveMethodNotFoundException $e) {
@@ -35,16 +46,20 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertEquals($model, $e->getModel());
             $this->assertEquals('foo', $e->getMethod());
             $this->assertInstanceOf($model, $e->getObject());
+            throw $e;
         }
     }
 
     /**
      * @runInSeparateProcess
      * @preserveGlobalState disabled
+     *
+     * @expectedException \League\FactoryMuffin\Exceptions\DeletingFailedException
      */
     public function testShouldThrowExceptionAfterDeleteMethodRename()
     {
-        FactoryMuffin::setDeleteMethod('bar');
+        $return = FactoryMuffin::setDeleteMethod('bar');
+        $this->assertInstanceOf('League\FactoryMuffin\Factory', $return);
         FactoryMuffin::create($model = 'ModelThatWillSaveStub');
         try {
             FactoryMuffin::deleteSaved();
@@ -55,9 +70,13 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertEquals($model, $exceptions[0]->getModel());
             $this->assertEquals('bar', $exceptions[0]->getMethod());
             $this->assertInstanceOf($model, $exceptions[0]->getObject());
+            throw $e;
         }
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\SaveFailedException
+     */
     public function testShouldThrowExceptionOnModelSaveFailure()
     {
         try {
@@ -66,9 +85,13 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertEquals("We could not save the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
             $this->assertNull($e->getErrors());
+            throw $e;
         }
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\DeletingFailedException
+     */
     public function testShouldThrowExceptionOnModelDeleteFailure()
     {
         try {
@@ -77,10 +100,30 @@ class SaveAndDeleteTest extends AbstractTestCase
         } catch (DeletingFailedException $e) {
             $exceptions = $e->getExceptions();
             $this->assertEquals("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
-            $this->assertEquals("OH NOES!", $exceptions[0]->getMessage());
+            $this->assertEquals("We could not delete the model of type: '$model'.", $exceptions[0]->getMessage());
+            throw $e;
         }
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\DeletingFailedException
+     */
+    public function testShouldAlsoThrowExceptionOnModelDeleteFailure()
+    {
+        try {
+            FactoryMuffin::create($model = 'ModelThatAlsoFailsToDeleteStub');
+            FactoryMuffin::deleteSaved();
+        } catch (DeletingFailedException $e) {
+            $exceptions = $e->getExceptions();
+            $this->assertEquals("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
+            $this->assertEquals("OH NOES!", $exceptions[0]->getMessage());
+            throw $e;
+        }
+    }
+
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\SaveMethodNotFoundException
+     */
     public function testShouldThrowExceptionWithoutSaveMethod()
     {
         try {
@@ -90,9 +133,13 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertEquals($model, $e->getModel());
             $this->assertEquals('save', $e->getMethod());
             $this->assertInstanceOf($model, $e->getObject());
+            throw $e;
         }
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\DeletingFailedException
+     */
     public function testShouldThrowExceptionWithoutDeleteMethod()
     {
         try {
@@ -105,9 +152,13 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertEquals($model, $exceptions[0]->getModel());
             $this->assertEquals('delete', $exceptions[0]->getMethod());
             $this->assertInstanceOf($model, $exceptions[0]->getObject());
+            throw $e;
         }
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\SaveFailedException
+     */
     public function testShouldThrowExceptionWithValidationErrors()
     {
         try {
@@ -116,13 +167,17 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertEquals("Failed to save. We could not save the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
             $this->assertEquals('Failed to save.', $e->getErrors());
+            throw $e;
         }
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\DeletingFailedException
+     */
     public function testShouldThrowMultipleDeletionExceptions()
     {
         try {
-            FactoryMuffin::create($model = 'ModelThatFailsToDeleteStub');
+            FactoryMuffin::create($model = 'ModelThatAlsoFailsToDeleteStub');
             FactoryMuffin::create($model = 'ModelWithNoDeleteMethodStub');
             FactoryMuffin::deleteSaved();
         } catch (DeletingFailedException $e) {
@@ -135,6 +190,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertInstanceOf($model, $exceptions[1]->getObject());
             $this->assertInternalType('array', $e->getExceptions());
             $this->assertCount(2, $e->getExceptions());
+            throw $e;
         }
     }
 }
@@ -168,6 +224,19 @@ class ModelThatFailsToSaveStub
 }
 
 class ModelThatFailsToDeleteStub
+{
+    public function save()
+    {
+        return true;
+    }
+
+    public function delete()
+    {
+        return false;
+    }
+}
+
+class ModelThatAlsoFailsToDeleteStub
 {
     public function save()
     {

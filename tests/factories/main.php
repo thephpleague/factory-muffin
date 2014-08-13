@@ -1,6 +1,6 @@
 <?php
 
-use League\FactoryMuffin\Facade\FactoryMuffin;
+use League\FactoryMuffin\Facade as FactoryMuffin;
 
 FactoryMuffin::define('IdTestModelGetKeyStub', array());
 FactoryMuffin::define('IdTestModelPkStub', array());
@@ -19,22 +19,24 @@ FactoryMuffin::define('IdTestModelStub', array(
 ));
 
 FactoryMuffin::define('FakerDefaultingModelStub', array(
-    'title'   => 'string',
-    'email'   => 'email',
-    'content' => 'text',
-    'card'    => 'creditCardDetails',
-    'image' => 'imageUrl|400;600'
+    'title'         => 'word',
+    'email'         => 'email',
+    'content'       => 'text',
+    'card'          => 'creditCardDetails',
+    'image'         => 'imageUrl|400;600',
+    'unique_text'   => 'unique:text',
+    'optional_text' => 'optional:text',
 ));
 
 FactoryMuffin::define('MainModelStub', array(
     'modelb_id'    => 'factory|FakerDefaultingModelStub',
-    'name'         => 'string',
+    'name'         => 'word',
     'email'        => 'email',
     'message'      => 'text',
     'number'       => 'integer|9',
     'created'      => 'date|Y-m-d',
     'full_name'    => 'name',
-    'string_4'     => 'string|4',
+    'string_4'     => 'word|4',
     'text_4'       => 'text|4',
     'text_100'     => 'text',
     'text'         => 'text',
@@ -55,7 +57,7 @@ FactoryMuffin::define('ComplexModelStub', array(
 
 FactoryMuffin::define('ModelWithStaticMethodFactory', array(
     'string' => 'just a string',
-    'four'   => function () {
-        return 2 + 2;
+    'object' => function ($object) {
+        return $object;
     },
 ));

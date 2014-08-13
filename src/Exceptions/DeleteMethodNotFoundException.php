@@ -1,31 +1,34 @@
 <?php
 
-namespace League\FactoryMuffin\Exception;
+namespace League\FactoryMuffin\Exceptions;
 
 /**
- * Class SaveMethodNotFoundException.
+ * This is the delete method not found exception class.
  *
- * @package League\FactoryMuffin\Exception
- * @author  Zizaco <zizaco@gmail.com>
+ * This is thrown when the delete method of a model does not exist. This class
+ * extends MethodNotFoundException and ModelException, so you may want to try
+ * to catch one of those exceptions instead, if you want to be more general.
+ *
+ * @package League\FactoryMuffin\Exceptions
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class SaveMethodNotFoundException extends MethodNotFoundException
+class DeleteMethodNotFoundException extends MethodNotFoundException
 {
     /**
      * The model instance.
      *
-     * @type object
+     * @var object
      */
     private $object;
 
     /**
      * Create a new instance.
      *
-     * @param object $object
-     * @param string $method
-     * @param string $message
+     * @param object      $object
+     * @param string      $method
+     * @param string|null $message
      *
      * @return void
      */
@@ -36,7 +39,7 @@ class SaveMethodNotFoundException extends MethodNotFoundException
         $model = get_class($object);
 
         if (!$message) {
-            $message = "The save method '$method' was not found on the model of type: '$model'.";
+            $message = "The delete method '$method' was not found on the model of type: '$model'.";
         }
 
         parent::__construct($model, $method, $message);

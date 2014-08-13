@@ -1,14 +1,16 @@
 <?php
 
-namespace League\FactoryMuffin\Exception;
+namespace League\FactoryMuffin\Exceptions;
 
 use Exception;
 
 /**
- * Class ModelException.
+ * This is the model exception class.
  *
- * @package League\FactoryMuffin\Exception
- * @author  Zizaco <zizaco@gmail.com>
+ * This exception is never directly thrown, but you may try to catch this
+ * exception rather than the many other exceptions that extend this class.
+ *
+ * @package League\FactoryMuffin\Exceptions
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
@@ -18,7 +20,7 @@ class ModelException extends Exception
     /**
      * The model.
      *
-     * @type string
+     * @var string
      */
     private $model;
 

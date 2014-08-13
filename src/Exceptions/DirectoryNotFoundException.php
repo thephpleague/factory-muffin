@@ -1,14 +1,16 @@
 <?php
 
-namespace League\FactoryMuffin\Exception;
+namespace League\FactoryMuffin\Exceptions;
 
 use Exception;
 
 /**
- * Class DirectoryNotFoundException.
+ * This is the directory not found exception class.
  *
- * @package League\FactoryMuffin\Exception
- * @author  Zizaco <zizaco@gmail.com>
+ * This is thrown if you try to load factory definitions from a directory that
+ * doesn't exit.
+ *
+ * @package League\FactoryMuffin\Exceptions
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
@@ -18,15 +20,15 @@ class DirectoryNotFoundException extends Exception
     /**
      * The path.
      *
-     * @type string
+     * @var string
      */
     private $path;
 
     /**
      * Create a new instance.
      *
-     * @param string $path
-     * @param string $message
+     * @param string      $path
+     * @param string|null $message
      *
      * @return void
      */

@@ -1,8 +1,8 @@
 <?php
 
-use League\FactoryMuffin\Exception\NoDefinedFactoryException;
-use League\FactoryMuffin\Exception\MethodNotFoundException;
-use League\FactoryMuffin\Facade\FactoryMuffin;
+use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
+use League\FactoryMuffin\Exceptions\MethodNotFoundException;
+use League\FactoryMuffin\Facade as FactoryMuffin;
 
 /**
  * @group main
@@ -19,11 +19,14 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertArrayHasKey('expirationDate', $obj->card);
 
         $this->assertEquals('http://lorempixel.com/400/600/', $obj->image);
+        $this->assertNotEquals('unique::text', $obj->unique_text);
+        $this->assertNotEquals('optional::text', $obj->optional_text);
     }
 
     public function testShouldGetAttributesFor()
     {
-        $attr = FactoryMuffin::attributesFor('MainModelStub');
+        $object = new MainModelStub();
+        $attr = FactoryMuffin::attributesFor($object);
         $this->assertInternalType('string', $attr['text_closure']);
     }
 
@@ -81,13 +84,17 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertLessThanOrEqual(180, $obj->lon);
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\NoDefinedFactoryException
+     */
     public function testShouldThrowExceptionWhenNoDefinedFactoryException()
     {
         try {
             FactoryMuffin::instance($model = 'ModelWithNoFactoryClassStub');
         } catch (NoDefinedFactoryException $e) {
-            $this->assertEquals("No factory class was defined for the model of type: '$model'.", $e->getMessage());
+            $this->assertEquals("No factory definition(s) were defined for the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
+            throw $e;
         }
     }
 
@@ -102,17 +109,21 @@ class FactoryMuffinTest extends AbstractTestCase
         $obj = FactoryMuffin::instance('ModelWithStaticMethodFactory');
 
         $this->assertEquals('just a string', $obj->string);
-        $this->assertEquals(4, $obj->four);
+        $this->assertInstanceOf('ModelWithStaticMethodFactory', $obj->object);
     }
 
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\MethodNotFoundException
+     */
     public function testThrowExceptionWhenInvalidStaticMethod()
     {
         try {
-            $obj = FactoryMuffin::create($model = 'ModelWithMissingStaticMethod');
+            FactoryMuffin::create($model = 'ModelWithMissingStaticMethod');
         } catch (MethodNotFoundException $e) {
             $this->assertEquals("The static method 'doesNotExist' was not found on the model of type: '$model'.", $e->getMessage());
             $this->assertEquals($model, $e->getModel());
             $this->assertEquals('doesNotExist', $e->getMethod());
+            throw $e;
         }
     }
 }
@@ -221,7 +232,10 @@ class IdTestModelNullStub
 
 class ModelWithMissingStaticMethod
 {
-    //
+    public function delete()
+    {
+        return true;
+    }
 }
 
 class ModelWithStaticMethodFactory
