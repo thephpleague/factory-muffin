@@ -174,7 +174,24 @@ class Factory
             throw new SaveFailedException($model);
         }
 
+        $this->triggerCallback($model, $obj);
+
         return $obj;
+    }
+
+    /**
+     * Trigger the callback if we have one
+     * @param  string $model
+     * @param  Object $object
+     * @return mixed
+     */
+    private function triggerCallback($model, $object)
+    {
+        if ($this->callbacks[$model]) {
+            return $this->callbacks[$model]($object);
+        }
+
+        return null;
     }
 
     /**
@@ -348,7 +365,10 @@ class Factory
      */
     public function instance($model, array $attr = array())
     {
-        return $this->make($model, $attr, false);
+        $object = $this->make($model, $attr, false);
+        $this->triggerCallback($model, $object);
+
+        return $object;
     }
 
     /**
