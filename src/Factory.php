@@ -41,6 +41,13 @@ class Factory
     private $factories = array();
 
     /**
+     * The array of callbacks to trigger on instance/create.
+     *
+     * @var array
+     */
+    private $callbacks = array();
+
+    /**
      * The array of objects we have created.
      *
      * @var array
@@ -167,7 +174,24 @@ class Factory
             throw new SaveFailedException($model);
         }
 
+        $this->triggerCallback($model, $obj);
+
         return $obj;
+    }
+
+    /**
+     * Trigger the callback if we have one
+     * @param  string $model
+     * @param  Object $object
+     * @return mixed
+     */
+    private function triggerCallback($model, $object)
+    {
+        if ($this->callbacks[$model]) {
+            return $this->callbacks[$model]($object);
+        }
+
+        return null;
     }
 
     /**
@@ -341,7 +365,10 @@ class Factory
      */
     public function instance($model, array $attr = array())
     {
-        return $this->make($model, $attr, false);
+        $object = $this->make($model, $attr, false);
+        $this->triggerCallback($model, $object);
+
+        return $object;
     }
 
     /**
@@ -391,9 +418,10 @@ class Factory
      *
      * @return $this
      */
-    public function define($model, array $definition = array())
+    public function define($model, array $definition = array(), $callback = null)
     {
         $this->factories[$model] = $definition;
+        $this->callbacks[$model] = $callback;
 
         return $this;
     }
