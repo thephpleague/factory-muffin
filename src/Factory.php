@@ -162,15 +162,15 @@ class Factory
      */
     public function create($model, array $attr = array())
     {
-        $obj = $this->make($model, $attr, true);
+        $object = $this->make($model, $attr, true);
 
-        $this->persist($obj);
+        $this->persist($object);
 
-        $this->triggerCallback($obj);
+        $this->triggerCallback($object);
 
-        $this->persist($obj);
+        $this->persist($object);
 
-        return $obj;
+        return $object;
     }
 
     /**
@@ -225,10 +225,10 @@ class Factory
             throw new ModelNotFoundException($class);
         }
 
-        $obj = new $class();
+        $object = new $class();
 
         if ($save) {
-            $this->saved[] = $obj;
+            $this->saved[] = $object;
         }
 
         // Get the group specific factory attributes
@@ -237,13 +237,13 @@ class Factory
         }
 
         // Get the factory attributes for that model
-        $attributes = $this->attributesFor($obj, $attr);
+        $attributes = $this->attributesFor($object, $attr);
 
         foreach ($attributes as $attr => $value) {
-            $obj->$attr = $value;
+            $object->$attr = $value;
         }
 
-        return $obj;
+        return $object;
     }
 
     /**
