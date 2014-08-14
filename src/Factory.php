@@ -293,6 +293,37 @@ class Factory
     }
 
     /**
+     * Returns the group name for this factory definition.
+     *
+     * @param string $model The model class name.
+     *
+     * @return string|null
+     */
+    private function getGroup($model)
+    {
+        if (strpos($model, ':') !== false) {
+            return current(explode(':', $model));
+        }
+    }
+
+    /**
+     * Returns the real model class without the group prefix.
+     *
+     * @param string      $model The model class name.
+     * @param string|null $group The model group name.
+     *
+     * @return string
+     */
+    private function getModelClass($model, $group)
+    {
+        if ($group) {
+            return str_replace($group . ':', '', $model);
+        }
+
+        return $model;
+    }
+
+    /**
      * Make an instance of the class.
      *
      * @param string $model The class name.
@@ -328,37 +359,6 @@ class Factory
         } else {
             $object->$name = $value;
         }
-    }
-
-    /**
-     * Returns the group name for this factory definition.
-     *
-     * @param string $model The model class name.
-     *
-     * @return string|null
-     */
-    private function getGroup($model)
-    {
-        if (strpos($model, ':') !== false) {
-            return current(explode(':', $model));
-        }
-    }
-
-    /**
-     * Returns the real model class without the group prefix.
-     *
-     * @param string      $model The model class name.
-     * @param string|null $group The model group name.
-     *
-     * @return string
-     */
-    private function getModelClass($model, $group)
-    {
-        if ($group) {
-            return str_replace($group . ':', '', $model);
-        }
-
-        return $model;
     }
 
     /**
