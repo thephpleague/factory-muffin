@@ -18,7 +18,7 @@ use League\FactoryMuffin\Facade as FactoryMuffin;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class Closure extends Base
+final class Closure extends Base
 {
     /**
      * Generate, and return the attribute.
