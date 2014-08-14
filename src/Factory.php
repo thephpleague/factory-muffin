@@ -70,6 +70,13 @@ class Factory
     private $deleteMethod = 'delete';
 
     /**
+     * This is the custom model maker closure.
+     *
+     * @var \Closure
+     */
+    private $customMaker;
+
+    /**
      * This is the custom attribute setter closure.
      *
      * @var \Closure
@@ -131,6 +138,20 @@ class Factory
     public function setDeleteMethod($method)
     {
         $this->deleteMethod = $method;
+
+        return $this;
+    }
+
+    /**
+     * Set the custom maker closure.
+     *
+     * @param \Closure $maker
+     *
+     * @return $this
+     */
+    public function setCustomMaker(Closure $maker)
+    {
+        $this->customMaker = $maker;
 
         return $this;
     }
@@ -249,13 +270,9 @@ class Factory
     {
         $group = $this->getGroup($model);
         $class = $this->getModelClass($model, $group);
+        $object = $this->makeClass($class);
 
-        if (!class_exists($class)) {
-            throw new ModelNotFoundException($class);
-        }
-
-        $object = new $class();
-
+        // Make the object as saved so that other generators persist correctly
         if ($save) {
             $this->saved[] = $object;
         }
@@ -273,6 +290,26 @@ class Factory
         }
 
         return $object;
+    }
+
+    /**
+     * Make an instance of the class.
+     *
+     * @param string $model The class name.
+     *
+     * @return object
+     */
+    private function makeClass($class)
+    {
+        if (!class_exists($class)) {
+            throw new ModelNotFoundException($class);
+        }
+
+        if ($maker = $this->customMaker) {
+            return $maker($class);
+        }
+
+        return new $class();
     }
 
     /**
