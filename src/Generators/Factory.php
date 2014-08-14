@@ -16,7 +16,7 @@ namespace League\FactoryMuffin\Generators;
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class Factory extends Base
+final class Factory extends Base
 {
     /**
      * Generate, and return the attribute.
