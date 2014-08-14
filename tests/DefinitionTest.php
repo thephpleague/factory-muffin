@@ -135,12 +135,14 @@ class DefinitionTest extends AbstractTestCase
     {
         $obj = FactoryMuffin::instance('ExampleCallbackStub');
         $this->assertEquals('yaycalled', $obj->callback);
+        $this->assertFalse($obj->saved);
     }
 
     public function testCreateCallback()
     {
         $obj = FactoryMuffin::create('AnotherCallbackStub');
         $this->assertEquals('hello there', $obj->foo);
+        $this->assertTrue($obj->saved);
     }
 
     public function testAttributesFor()

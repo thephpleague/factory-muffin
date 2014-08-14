@@ -109,7 +109,8 @@ class FactoryMuffinTest extends AbstractTestCase
         $obj = FactoryMuffin::instance('ModelWithStaticMethodFactory');
 
         $this->assertEquals('just a string', $obj->string);
-        $this->assertInstanceOf('ModelWithStaticMethodFactory', $obj->object);
+        $this->assertInstanceOf('ModelWithStaticMethodFactory', $obj->data['object']);
+        $this->assertFalse($obj->data['saved']);
     }
 
     /**
