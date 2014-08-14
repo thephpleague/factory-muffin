@@ -350,7 +350,7 @@ class Factory
      * @param string $name   The attribute name.
      * @param mixed  $value  The attribute value.
      *
-     * @return object
+     * @return void
      */
     private function setAttribute($object, $name, $value)
     {
