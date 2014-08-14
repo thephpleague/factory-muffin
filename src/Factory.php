@@ -206,8 +206,7 @@ class Factory
 
         $saved = $this->isSaved($object);
 
-        if ($this->callbacks[$model]) {
-            $this->callbacks[$model]($object, $saved);
+        if ($this->callbacks[$model] && $this->callbacks[$model]($object, $saved) !== false) {
             return true;
         }
 
