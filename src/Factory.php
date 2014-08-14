@@ -70,6 +70,13 @@ class Factory
     private $deleteMethod = 'delete';
 
     /**
+     * This is the custom attribute setter closure.
+     *
+     * @var \Closure
+     */
+    private $customSetter;
+
+    /**
      * The faker instance.
      *
      * @var \Faker\Generator
