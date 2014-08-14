@@ -44,7 +44,9 @@ The facade class (`League\FactoryMuffin\Facade`) should always be your main poin
 
 ### Factory Definitions
 
-You can define model factories using the `define` function. You may call it like this: `League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`, where `foo` is the name of the attribute you want set on your model, and `bar` describes how you wish to generate the attribute. You may optionally specify a callback to be executed on model creation/instantiation as a third parameter. We will pass your model instance as the first parameter to the closure if you specify one. Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback. Please see the generators section for more information on how this works.
+You can define model factories using the `define` function. You may call it like this: `League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`, where `foo` is the name of the attribute you want set on your model, and `bar` describes how you wish to generate the attribute. Please see the generators section for more information on how this works.
+
+You may optionally specify a callback to be executed on model creation/instantiation as a third parameter. We will pass your model instance as the first parameter to the closure if you specify one. We additionally pass a boolean as the second parameter that will be `true` if the model is being persisted to the database (the create function has used), and `false` if it's not being persisted (the instance function was used). Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback.
 
 You can also define multiple different factory definitions for your models. You can do this by prefixing the model class name with your "group" followed by a colon. This results in you defining your model like this: like this: `League\FactoryMuffin\Facade::define('myGroup:Fully\Qualifed\ModelName', array('foo' => 'bar'))`. You don't have to entirely define your model here because we will first look for a definition without the group prefix, then apply your group definition on top of that definition, overriding attribute definitions where required.
 
@@ -154,7 +156,7 @@ League\FactoryMuffin\Facade::define('OtherModel', array(
 
 #### Closure
 
-The closure generator can be used if you want a more custom solution. Whatever you return from the closure you write will be set as the attribute. Note that we pass an instance of your model as the first parameter of the closure to give you even more flexibility to modify it as you wish.
+The closure generator can be used if you want a more custom solution. Whatever you return from the closure you write will be set as the attribute. Note that we pass an instance of your model as the first parameter of the closure to give you even more flexibility to modify it as you wish. We additionally pass a boolean as the second parameter that will be `true` if the model is being persisted to the database (the create function has used), and `false` if it's not being persisted (the instance function was used).
 
 ##### Example 1
 
@@ -162,7 +164,7 @@ As you can see from this example, the ability to use a closure to generate attri
 ```php
 League\FactoryMuffin\Facade::define('MyModel', array(
     'title' => 'sentence|5',
-    'slug' => function ($object) {
+    'slug' => function ($object, $saved) {
         $slug = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $object->title);
         $slug = strtolower(trim($slug, '-'));
         $slug = preg_replace("/[\/_|+ -]+/", '-', $slug);
@@ -219,9 +221,9 @@ FactoryMuffin::define('Message', array(
     'phone_number' => 'randomNumber|8',
     'created'      => 'date|Ymd h:s',
     'slug'         => 'call|makeSlug|word',
-), function ($message) {
+), function ($object, $saved) {
     // we're taking advantage of the callback functionality here
-    $this->message .= '!';
+    $object->message .= '!';
 });
 
 FactoryMuffin::define('User', array(
