@@ -204,8 +204,10 @@ class Factory
     {
         $model = get_class($object);
 
+        $saved = $this->isSaved($object);
+
         if ($this->callbacks[$model]) {
-            $this->callbacks[$model]($object);
+            $this->callbacks[$model]($object, $saved);
             return true;
         }
 

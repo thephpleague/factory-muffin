@@ -27,12 +27,14 @@ FactoryMuffin::define('foo:DogModelStub', array(
     'age'  => 'numberBetween|1;15',
 ));
 
-FactoryMuffin::define('ExampleCallbackStub', array(), function ($obj) {
+FactoryMuffin::define('ExampleCallbackStub', array(), function ($obj, $saved) {
     $obj->callback = 'yaycalled';
+    $obj->saved = $saved;
 });
 
 FactoryMuffin::define('AnotherCallbackStub', array(
     'foo' => 'email'
-), function ($obj) {
+), function ($obj, $saved) {
     $obj->foo = 'hello there';
+    $obj->saved = $saved;
 });

@@ -2,6 +2,8 @@
 
 namespace League\FactoryMuffin\Generators;
 
+use League\FactoryMuffin\Facade as FactoryMuffin;
+
 /**
  * This is the closure generator class.
  *
@@ -27,6 +29,8 @@ class Closure extends Base
     {
         $kind = $this->kind;
 
-        return $kind($this->object);
+        $saved = FactoryMuffin::isSaved($this->object);
+
+        return $kind($this->object, $saved);
     }
 }
