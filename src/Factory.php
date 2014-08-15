@@ -207,7 +207,7 @@ class Factory
         $saved = $this->isSaved($object);
 
         if ($this->callbacks[$model]) {
-            $this->callbacks[$model]($object, $saved);
+            $this->callbacks[$model]($object, $saved, $this->getFaker());
             return true;
         }
 

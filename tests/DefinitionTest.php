@@ -131,6 +131,12 @@ class DefinitionTest extends AbstractTestCase
         $this->assertContains('@', $user->email);
     }
 
+    public function testInstanceCallbackFaker()
+    {
+        $obj = FactoryMuffin::instance('ExampleFakerCallbackStub');
+        $this->assertInstanceOf('Faker\Generator', $obj->faker);
+    }
+
     public function testInstanceCallback()
     {
         $obj = FactoryMuffin::instance('ExampleCallbackStub');
@@ -239,6 +245,11 @@ class ExampleDefinedModelStub
 class ExampleCallbackStub
 {
     public $callback;
+}
+
+class ExampleFakerCallbackStub
+{
+    public $faker;
 }
 
 class AnotherCallbackStub
