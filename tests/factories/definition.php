@@ -32,6 +32,10 @@ FactoryMuffin::define('ExampleCallbackStub', array(), function ($obj, $saved) {
     $obj->saved = $saved;
 });
 
+FactoryMuffin::define('ExampleFakerCallbackStub', array(), function ($obj, $saved, $faker) {
+    $obj->faker = $faker;
+});
+
 FactoryMuffin::define('AnotherCallbackStub', array(
     'foo' => 'email'
 ), function ($obj, $saved) {
