@@ -2,6 +2,7 @@
 
 namespace League\FactoryMuffin;
 
+use Closure;
 use Exception;
 use Faker\Factory as Faker;
 use League\FactoryMuffin\Exceptions\DeleteFailedException;
@@ -69,6 +70,20 @@ class Factory
     private $deleteMethod = 'delete';
 
     /**
+     * This is the custom model maker closure.
+     *
+     * @var \Closure
+     */
+    private $customMaker;
+
+    /**
+     * This is the custom attribute setter closure.
+     *
+     * @var \Closure
+     */
+    private $customSetter;
+
+    /**
      * The faker instance.
      *
      * @var \Faker\Generator
@@ -123,6 +138,34 @@ class Factory
     public function setDeleteMethod($method)
     {
         $this->deleteMethod = $method;
+
+        return $this;
+    }
+
+    /**
+     * Set the custom maker closure.
+     *
+     * @param \Closure $maker
+     *
+     * @return $this
+     */
+    public function setCustomMaker(Closure $maker)
+    {
+        $this->customMaker = $maker;
+
+        return $this;
+    }
+
+    /**
+     * Set the custom setter closure.
+     *
+     * @param \Closure $setter
+     *
+     * @return $this
+     */
+    public function setCustomSetter(Closure $setter)
+    {
+        $this->customSetter = $setter;
 
         return $this;
     }
@@ -227,13 +270,9 @@ class Factory
     {
         $group = $this->getGroup($model);
         $class = $this->getModelClass($model, $group);
+        $object = $this->makeClass($class);
 
-        if (!class_exists($class)) {
-            throw new ModelNotFoundException($class);
-        }
-
-        $object = new $class();
-
+        // Make the object as saved so that other generators persist correctly
         if ($save) {
             $this->saved[] = $object;
         }
@@ -246,8 +285,8 @@ class Factory
         // Get the factory attributes for that model
         $attributes = $this->attributesFor($object, $attr);
 
-        foreach ($attributes as $attr => $value) {
-            $object->$attr = $value;
+        foreach ($attributes as $name => $value) {
+            $this->setAttribute($object, $name, $value);
         }
 
         return $object;
@@ -282,6 +321,44 @@ class Factory
         }
 
         return $model;
+    }
+
+    /**
+     * Make an instance of the class.
+     *
+     * @param string $model The class name.
+     *
+     * @return object
+     */
+    private function makeClass($class)
+    {
+        if (!class_exists($class)) {
+            throw new ModelNotFoundException($class);
+        }
+
+        if ($maker = $this->customMaker) {
+            return $maker($class);
+        }
+
+        return new $class();
+    }
+
+    /**
+     * Set an attribute on a model instance.
+     *
+     * @param object $object The model instance.
+     * @param string $name   The attribute name.
+     * @param mixed  $value  The attribute value.
+     *
+     * @return void
+     */
+    private function setAttribute($object, $name, $value)
+    {
+        if ($setter = $this->customSetter) {
+            $setter($object, $name, $value);
+        } else {
+            $object->$name = $value;
+        }
     }
 
     /**

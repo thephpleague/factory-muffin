@@ -23,6 +23,14 @@ Before you try to create your model instance, we'll check whether the class actu
 
 Now, we additionally pass a boolean as the second parameter that will be `true` if the model is being persisted to the database (the create function has used), and `false` if it's not being persisted (the instance function was used). This is, of course, in addition to passing the object instance as the first parameter. Previously, you'd have had to call the `isSaved` function on the facade, but this is no longer needed now for checking if the object is being persisted.
 
+### Additional Customisation
+
+You may now call `League\FactoryMuffin\Facade::setCustomMaker(function ($class) { return new $class('example'); })` in order to register a closure to customise the model creation. This will be used internally by Factory Muffin rather than us just straight up using `new $class()`.
+
+You may now call `League\FactoryMuffin\Facade::setCustomSetter(function ($object, $name, $value) { $object->set($name, $value); })` in order to register a closure to customise the attribute setting. This will be used internally by Factory Muffin when setting your attributes rather than us just using `$object->$name = $value`.
+
+We hope this change allows you to use even more completely custom models with Factory Muffin.
+
 ### Other Minor Changes
 
 There is a very tiny change to the exception message of the `League\FactoryMuffin\Exceptions\NoDefinedFactoryException`. If you were replying on that for some reason, watch out for that.
