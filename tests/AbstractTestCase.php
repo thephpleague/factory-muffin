@@ -12,5 +12,12 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     public static function tearDownAfterClass()
     {
         FactoryMuffin::deleteSaved();
+        FactoryMuffin::reset();
+    }
+
+    protected function reload()
+    {
+        static::tearDownAfterClass();
+        static::setupBeforeClass();
     }
 }
