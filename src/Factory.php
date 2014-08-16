@@ -326,7 +326,9 @@ class Factory
     /**
      * Make an instance of the class.
      *
-     * @param string $model The class name.
+     * @param string $class The class name.
+     *
+     * @throws \League\FactoryMuffin\Exceptions\ModelNotFoundException
      *
      * @return object
      */
