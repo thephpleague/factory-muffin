@@ -30,9 +30,6 @@ class SaveAndDeleteTest extends AbstractTestCase
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     *
      * @expectedException \League\FactoryMuffin\Exceptions\SaveMethodNotFoundException
      */
     public function testShouldThrowExceptionAfterSaveMethodRename()
@@ -46,14 +43,14 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertEquals($model, $e->getModel());
             $this->assertEquals('foo', $e->getMethod());
             $this->assertInstanceOf($model, $e->getObject());
+            $this->reload();
             throw $e;
         }
+
+        $this->reload();
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     *
      * @expectedException \League\FactoryMuffin\Exceptions\DeletingFailedException
      */
     public function testShouldThrowExceptionAfterDeleteMethodRename()
@@ -70,8 +67,11 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertEquals($model, $exceptions[0]->getModel());
             $this->assertEquals('bar', $exceptions[0]->getMethod());
             $this->assertInstanceOf($model, $exceptions[0]->getObject());
+            $this->reload();
             throw $e;
         }
+
+        $this->reload();
     }
 
     /**

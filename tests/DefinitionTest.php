@@ -100,7 +100,6 @@ class DefinitionTest extends AbstractTestCase
         }
     }
 
-
     public function testDefineMultiple()
     {
         $user = FactoryMuffin::create('UserModelStub');
@@ -155,10 +154,6 @@ class DefinitionTest extends AbstractTestCase
         $this->assertContains('@', $attributes['email']);
     }
 
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
     public function testFactoryLoading()
     {
         $count = count(get_included_files());
@@ -167,6 +162,8 @@ class DefinitionTest extends AbstractTestCase
 
         $this->assertSame(1, count(get_included_files()) - $count);
         $this->assertInstanceOf('League\FactoryMuffin\Factory', $return);
+
+        $this->reload();
     }
 
     /**

@@ -596,7 +596,7 @@ class Factory
         $files = new RegexIterator($iterator, '/^.+\.php$/i');
 
         foreach ($files as $file) {
-            include_once $file->getPathName();
+            include $file->getPathName();
         }
     }
 }

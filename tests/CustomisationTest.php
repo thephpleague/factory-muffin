@@ -7,11 +7,6 @@ use League\FactoryMuffin\Facade as FactoryMuffin;
  */
 class CustomisationTest extends AbstractTestCase
 {
-
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
     public function testCustomMaker()
     {
         FactoryMuffin::setCustomMaker(function($class) {
@@ -22,12 +17,10 @@ class CustomisationTest extends AbstractTestCase
         $obj = FactoryMuffin::instance('MakerCustomisationModelStub');
 
         $this->assertSame('example', $obj->test);
+
+        $this->reload();
     }
 
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
     public function testCustomSetter()
     {
         FactoryMuffin::setCustomSetter(function($object, $name, $value) {
@@ -38,6 +31,8 @@ class CustomisationTest extends AbstractTestCase
 
         $this->assertSame('baz', $obj->get('bar'));
         $this->assertNull($obj->get('foo'));
+
+        $this->reload();
     }
 }
 

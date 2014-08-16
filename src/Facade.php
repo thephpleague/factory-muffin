@@ -55,6 +55,18 @@ class Facade
     }
 
     /**
+     * Reset the underlying factory instance.
+     *
+     * @return \League\FactoryMuffin\Factory
+     */
+    public static function reset()
+    {
+        self::$factory = null;
+
+        return self::factory();
+    }
+
+    /**
      * Handle dynamic, static calls to the object.
      *
      * @codeCoverageIgnore
