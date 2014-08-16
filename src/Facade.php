@@ -21,6 +21,7 @@ namespace League\FactoryMuffin;
  * @method static array attributesFor(object $object, array $attr = array()) Returns the mock attributes for the model.
  * @method static Factory define(string $model, array $definition = array()) Define a new model factory.
  * @method static string|object generateAttr(string $kind, object|null $object = null) Generate the attributes.
+ * @method static \Faker\Generator getFaker() Get the faker instance.
  * @method static Factory loadFactories(string|string[] $paths) Load the specified factories.
  *
  * @package League\FactoryMuffin

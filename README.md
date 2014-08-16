@@ -100,7 +100,7 @@ League\FactoryMuffin\Facade::define('MyModel', array(
 
 ##### More
 
-Check out the [faker library](https://github.com/fzaninotto/Faker) itself to see all the available methods. There are far too many to cover in the documentation here, and far too many for them to cover in their documentation too.
+Check out the [faker library](https://github.com/fzaninotto/Faker) itself to see all the available methods. There are far too many to cover in the documentation here, and far too many for them to cover in their documentation too. Note that you may access the underlying faker instance using the `getFaker` method.
 
 #### Factory
 

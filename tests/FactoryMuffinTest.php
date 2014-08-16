@@ -23,6 +23,17 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertNotEquals('optional::text', $obj->optional_text);
     }
 
+    public function testGetFaker()
+    {
+        $original = FactoryMuffin::getFaker();
+        $new = FactoryMuffin::setFakerLocale('en_GB')->getFaker();
+
+        $this->assertInstanceOf('Faker\Generator', $original);
+        $this->assertInstanceOf('Faker\Generator', $new);
+
+        $this->assertFalse($original === $new);
+    }
+
     public function testShouldGetAttributesFor()
     {
         $object = new MainModelStub();

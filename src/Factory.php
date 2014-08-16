@@ -549,7 +549,7 @@ class Factory
      *
      * @return \Faker\Generator
      */
-    private function getFaker()
+    public function getFaker()
     {
         if (!$this->faker) {
             $this->faker = Faker::create($this->fakerLocale);
