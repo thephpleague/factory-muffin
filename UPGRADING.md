@@ -35,6 +35,10 @@ We hope this change allows you to use even more completely custom models with Fa
 
 There is a very tiny change to the exception message of the `League\FactoryMuffin\Exceptions\NoDefinedFactoryException`. If you were replying on that for some reason, watch out for that.
 
+We've added a `reset` method to the facade that will re-create the underlying factory instance.
+
+We no longer use `include_once` to load your definitions with the `loadFactories` method. We use `include` instead so that your definitions can be correctly re-added to your factory instance if you use the `reset` method.
+
 ### Installing This Version
 
 In your composer.json, add:
