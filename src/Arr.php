@@ -24,7 +24,7 @@ class Arr
      */
     public static function get(&$array, $key)
     {
-        if (isset($array[$key])) {
+        if (in_array($key, array_keys($array), true)) {
             return $array[$key];
         }
     }
@@ -65,7 +65,7 @@ class Arr
      */
     public static function remove(&$array, $object)
     {
-        if (static::has($array, $object)) {
+        if (in_array($object, $array, true)) {
             unset($array[spl_object_hash($object)]);
         }
     }
