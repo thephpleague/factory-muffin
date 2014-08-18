@@ -409,7 +409,7 @@ class Factory
      */
     public function isPending($object)
     {
-        return in_array($object, $this->pending);
+        return in_array($object, $this->pending, true);
     }
 
     /**
@@ -431,7 +431,7 @@ class Factory
      */
     public function isSaved($object)
     {
-        return in_array($object, $this->saved);
+        return in_array($object, $this->saved, true);
     }
 
     /**

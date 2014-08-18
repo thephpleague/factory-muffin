@@ -143,7 +143,7 @@ abstract class Base
     {
         $prefixes = array('unique', 'optional');
         $prefix = current(explode(':', $this->getGenerator()));
-        return in_array($prefix, $prefixes) ? $prefix : false;
+        return in_array($prefix, $prefixes, true) ? $prefix : false;
     }
 
     /**
