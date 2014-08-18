@@ -40,17 +40,15 @@ You may now call `League\FactoryMuffin\Facade::setCustomSetter(function ($object
 
 We hope this change allows you to use even more completely custom models with Factory Muffin.
 
-### New Methods
+### Other Minor Changes
 
 We've added a `reset` method to the facade that will re-create the underlying factory instance.
 
 We've added a `getFaker` method to the factory (also available through the facade), that will return the underlying faker instance. This method actually already existed in 2.0, but was previously `private` rather than `public`.
 
-### Other Minor Changes
+We no longer use `include_once` to load your definitions with the `loadFactories` method. We use `include` instead so that your definitions can be correctly re-added to your factory instance if you use the `reset` method.
 
 There is a very tiny change to the exception message of the `League\FactoryMuffin\Exceptions\NoDefinedFactoryException`. If you were replying on that for some reason, watch out for that.
-
-We no longer use `include_once` to load your definitions with the `loadFactories` method. We use `include` instead so that your definitions can be correctly re-added to your factory instance if you use the `reset` method.
 
 We now require `"illuminate/support": "~4.1"` because of it's array helpers.
 
