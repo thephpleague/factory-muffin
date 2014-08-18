@@ -260,9 +260,10 @@ class Factory
         if ($callback = array_get($this->callbacks, $model)) {
             $saved = $this->isPendingOrSaved($object);
             $callback($object, $saved);
+            return true;
         }
 
-        return !is_null($callback);
+        return false;
     }
 
     /**
@@ -408,7 +409,7 @@ class Factory
      */
     public function isPending($object)
     {
-        return !is_null(array_get($this->pending, spl_object_hash($object)));
+        return in_array($object, $this->pending);
     }
 
     /**
@@ -430,7 +431,7 @@ class Factory
      */
     public function isSaved($object)
     {
-        return !is_null(array_get($this->saved, spl_object_hash($object)));
+        return in_array($object, $this->saved);
     }
 
     /**
