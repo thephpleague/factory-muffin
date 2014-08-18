@@ -49,7 +49,14 @@ class Factory
     private $callbacks = array();
 
     /**
-     * The array of objects we have created.
+     * The array of objects we have created and are pending save.
+     *
+     * @var array
+     */
+    private $pending = array();
+
+    /**
+     * The array of objects we have created and have saved.
      *
      * @var array
      */
@@ -234,6 +241,9 @@ class Factory
 
             throw new SaveFailedException(get_class($object));
         }
+
+        array_set($this->saved, $hash = spl_object_hash($object), $object);
+        array_forget($this->pending, $hash);
     }
 
     /**
@@ -247,14 +257,12 @@ class Factory
     {
         $model = get_class($object);
 
-        $saved = $this->isSaved($object);
-
-        if ($this->callbacks[$model]) {
-            $this->callbacks[$model]($object, $saved);
-            return true;
+        if ($callback = array_get($this->callbacks, $model)) {
+            $saved = $this->isPendingOrSaved($object);
+            $callback($object, $saved);
         }
 
-        return false;
+        return !is_null($callback);
     }
 
     /**
@@ -274,7 +282,7 @@ class Factory
 
         // Make the object as saved so that other generators persist correctly
         if ($save) {
-            $this->saved[] = $object;
+            array_set($this->pending, spl_object_hash($object), $object);
         }
 
         // Get the group specific factory attributes
@@ -382,6 +390,28 @@ class Factory
     }
 
     /**
+     * Return an array of objects to be saved.
+     *
+     * @return object[]
+     */
+    public function pending()
+    {
+        return $this->pending;
+    }
+
+    /**
+     * Is the object going to be saved?
+     *
+     * @param object $object The model instance.
+     *
+     * @return bool
+     */
+    public function isPending($object)
+    {
+        return !is_null(array_get($this->pending, spl_object_hash($object)));
+    }
+
+    /**
      * Return an array of saved objects.
      *
      * @return object[]
@@ -400,7 +430,19 @@ class Factory
      */
     public function isSaved($object)
     {
-        return in_array($object, $this->saved, true);
+        return !is_null(array_get($this->saved, spl_object_hash($object)));
+    }
+
+    /**
+     * Is the object saved or will be saved?
+     *
+     * @param object $object The model instance.
+     *
+     * @return bool
+     */
+    public function isPendingOrSaved($object)
+    {
+        return ($this->isSaved($object) || $this->isPending($object));
     }
 
     /**
@@ -413,7 +455,7 @@ class Factory
     public function deleteSaved()
     {
         $exceptions = array();
-        foreach ($this->saved() as $object) {
+        foreach ($this->saved as $hash => $object) {
             try {
                 if (!$this->delete($object)) {
                     throw new DeleteFailedException(get_class($object));
@@ -421,10 +463,9 @@ class Factory
             } catch (Exception $e) {
                 $exceptions[] = $e;
             }
-        }
 
-        // Flush the saved models list
-        $this->saved = array();
+            array_forget($this->saved, $hash);
+        }
 
         // If we ran into problem, throw the exception now
         if ($exceptions) {
@@ -486,7 +527,7 @@ class Factory
 
         // Prepare attributes
         foreach ($attributes as $key => $kind) {
-            $attr[$key] = $this->generateAttr($kind, $object);
+            array_set($attr, $key, $this->generateAttr($kind, $object));
         }
 
         return $attr;
@@ -521,8 +562,8 @@ class Factory
      */
     public function define($model, array $definition = array(), $callback = null)
     {
-        $this->factories[$model] = $definition;
-        $this->callbacks[$model] = $callback;
+        array_set($this->factories, $model, $definition);
+        array_set($this->callbacks, $model, $callback);
 
         return $this;
     }

@@ -158,7 +158,7 @@ abstract class Base
      */
     protected function factory($model)
     {
-        if (FactoryMuffin::isSaved($this->object)) {
+        if (FactoryMuffin::isPendingOrSaved($this->object)) {
             return FactoryMuffin::create($model);
         }
 
