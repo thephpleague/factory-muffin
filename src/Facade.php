@@ -14,8 +14,11 @@ namespace League\FactoryMuffin;
  * @method static Factory setDeleteMethod(string $method) Set the method we use when deleting objects.
  * @method static object[] seed(int $times, string $model, array $attr = array()) Returns multiple versions of an object.
  * @method static object create(string $model, array $attr = array()) Creates and saves in db an instance of the model.
+ * @method static object[] pending() Return an array of objects to be saved.
+ * @method static bool isPending(object $object) Is the object going to be saved?
  * @method static object[] saved() Return an array of saved objects.
  * @method static bool isSaved(object $object) Is the object saved?
+ * @method static bool isPendingOrSaved(object $object) Is the object saved or will be saved?
  * @method static Factory deleteSaved() Call the delete method on any saved objects.
  * @method static object instance(string $model, array $attr = array()) Return an instance of the model.
  * @method static array attributesFor(object $object, array $attr = array()) Returns the mock attributes for the model.

@@ -91,6 +91,12 @@ class EloquentTest extends AbstractTestCase
         $this->assertFalse($cat->updated_at == true);
         $this->assertFalse($cat->xyz == true);
     }
+
+    public function testSavedObjects()
+    {
+        $this->assertCount(55, FactoryMuffin::saved());
+        $this->assertCount(0, FactoryMuffin::pending());
+    }
 }
 
 class User extends Eloquent

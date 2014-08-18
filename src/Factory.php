@@ -49,7 +49,14 @@ class Factory
     private $callbacks = array();
 
     /**
-     * The array of objects we have created.
+     * The array of objects we have created and are pending save.
+     *
+     * @var array
+     */
+    private $pending = array();
+
+    /**
+     * The array of objects we have created and have saved.
      *
      * @var array
      */
@@ -234,6 +241,9 @@ class Factory
 
             throw new SaveFailedException(get_class($object));
         }
+
+        Arr::add($this->saved, $object);
+        Arr::remove($this->pending, $object);
     }
 
     /**
@@ -247,10 +257,9 @@ class Factory
     {
         $model = get_class($object);
 
-        $saved = $this->isSaved($object);
-
-        if ($this->callbacks[$model]) {
-            $this->callbacks[$model]($object, $saved);
+        if ($callback = Arr::get($this->callbacks, $model)) {
+            $saved = $this->isPendingOrSaved($object);
+            $callback($object, $saved);
             return true;
         }
 
@@ -274,7 +283,7 @@ class Factory
 
         // Make the object as saved so that other generators persist correctly
         if ($save) {
-            $this->saved[] = $object;
+            Arr::add($this->pending, $object);
         }
 
         // Get the group specific factory attributes
@@ -382,6 +391,28 @@ class Factory
     }
 
     /**
+     * Return an array of objects to be saved.
+     *
+     * @return object[]
+     */
+    public function pending()
+    {
+        return $this->pending;
+    }
+
+    /**
+     * Is the object going to be saved?
+     *
+     * @param object $object The model instance.
+     *
+     * @return bool
+     */
+    public function isPending($object)
+    {
+        return Arr::has($this->pending, $object);
+    }
+
+    /**
      * Return an array of saved objects.
      *
      * @return object[]
@@ -400,7 +431,19 @@ class Factory
      */
     public function isSaved($object)
     {
-        return in_array($object, $this->saved, true);
+        return Arr::has($this->saved, $object);
+    }
+
+    /**
+     * Is the object saved or will be saved?
+     *
+     * @param object $object The model instance.
+     *
+     * @return bool
+     */
+    public function isPendingOrSaved($object)
+    {
+        return ($this->isSaved($object) || $this->isPending($object));
     }
 
     /**
@@ -413,7 +456,7 @@ class Factory
     public function deleteSaved()
     {
         $exceptions = array();
-        foreach ($this->saved() as $object) {
+        foreach ($this->saved as $object) {
             try {
                 if (!$this->delete($object)) {
                     throw new DeleteFailedException(get_class($object));
@@ -421,10 +464,9 @@ class Factory
             } catch (Exception $e) {
                 $exceptions[] = $e;
             }
-        }
 
-        // Flush the saved models list
-        $this->saved = array();
+            Arr::remove($this->saved, $object);
+        }
 
         // If we ran into problem, throw the exception now
         if ($exceptions) {

@@ -29,7 +29,7 @@ final class Closure extends Base
     {
         $kind = $this->kind;
 
-        $saved = FactoryMuffin::isSaved($this->object);
+        $saved = FactoryMuffin::isPendingOrSaved($this->object);
 
         return $kind($this->object, $saved);
     }
