@@ -50,8 +50,6 @@ We no longer use `include_once` to load your definitions with the `loadFactories
 
 There is a very tiny change to the exception message of the `League\FactoryMuffin\Exceptions\NoDefinedFactoryException`. If you were replying on that for some reason, watch out for that.
 
-We now require `"illuminate/support": "~4.1"` because of it's array helpers.
-
 ### Installing This Version
 
 In your composer.json, add:

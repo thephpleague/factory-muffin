@@ -2,6 +2,7 @@
 
 namespace League\FactoryMuffin\Generators;
 
+use League\FactoryMuffin\Arr;
 use League\FactoryMuffin\Facade as FactoryMuffin;
 
 /**
@@ -143,7 +144,8 @@ abstract class Base
     {
         $prefixes = array('unique', 'optional');
         $prefix = current(explode(':', $this->getGenerator()));
-        return in_array($prefix, $prefixes, true) ? $prefix : false;
+
+        return Arr::has($prefixes, $prefix) ? $prefix : false;
     }
 
     /**

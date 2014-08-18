@@ -242,8 +242,8 @@ class Factory
             throw new SaveFailedException(get_class($object));
         }
 
-        array_set($this->saved, $hash = spl_object_hash($object), $object);
-        array_forget($this->pending, $hash);
+        Arr::add($this->saved, $object);
+        Arr::remove($this->pending, $object);
     }
 
     /**
@@ -257,7 +257,7 @@ class Factory
     {
         $model = get_class($object);
 
-        if ($callback = array_get($this->callbacks, $model)) {
+        if ($callback = Arr::get($this->callbacks, $model)) {
             $saved = $this->isPendingOrSaved($object);
             $callback($object, $saved);
             return true;
@@ -283,7 +283,7 @@ class Factory
 
         // Make the object as saved so that other generators persist correctly
         if ($save) {
-            array_set($this->pending, spl_object_hash($object), $object);
+            Arr::add($this->pending, $object);
         }
 
         // Get the group specific factory attributes
@@ -409,7 +409,7 @@ class Factory
      */
     public function isPending($object)
     {
-        return in_array($object, $this->pending, true);
+        return Arr::has($this->pending, $object);
     }
 
     /**
@@ -431,7 +431,7 @@ class Factory
      */
     public function isSaved($object)
     {
-        return in_array($object, $this->saved, true);
+        return Arr::has($this->saved, $object);
     }
 
     /**
@@ -456,7 +456,7 @@ class Factory
     public function deleteSaved()
     {
         $exceptions = array();
-        foreach ($this->saved as $hash => $object) {
+        foreach ($this->saved as $object) {
             try {
                 if (!$this->delete($object)) {
                     throw new DeleteFailedException(get_class($object));
@@ -465,7 +465,7 @@ class Factory
                 $exceptions[] = $e;
             }
 
-            array_forget($this->saved, $hash);
+            Arr::remove($this->saved, $object);
         }
 
         // If we ran into problem, throw the exception now
@@ -528,7 +528,7 @@ class Factory
 
         // Prepare attributes
         foreach ($attributes as $key => $kind) {
-            array_set($attr, $key, $this->generateAttr($kind, $object));
+            $attr[$key] = $this->generateAttr($kind, $object);
         }
 
         return $attr;
@@ -563,8 +563,8 @@ class Factory
      */
     public function define($model, array $definition = array(), $callback = null)
     {
-        array_set($this->factories, $model, $definition);
-        array_set($this->callbacks, $model, $callback);
+        $this->factories[$model] = $definition;
+        $this->callbacks[$model] = $callback;
 
         return $this;
     }
