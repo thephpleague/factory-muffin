@@ -19,7 +19,10 @@ FactoryMuffin::define('Message', array(
     'phone_number' => 'randomNumber|8',
     'created'      => 'date|Ymd h:s',
     'slug'         => 'call|makeSlug|word',
-));
+), function ($object, $saved) {
+    // we're taking advantage of the callback functionality here
+    $object->message .= '!';
+});
 
 FactoryMuffin::define('User', array(
     'username' => 'firstNameMale',

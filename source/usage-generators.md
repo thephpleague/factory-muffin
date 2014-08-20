@@ -52,7 +52,7 @@ League\FactoryMuffin\Facade::define('MyModel', array(
 
 ### More
 
-Check out the [faker library](https://github.com/fzaninotto/Faker) itself to see all the available methods. There are far too many to cover in the documentation here, and far too many for them to cover in their documentation too.
+Check out the [faker library](https://github.com/fzaninotto/Faker) itself to see all the available methods. There are far too many to cover in the documentation here, and far too many for them to cover in their documentation too. Note that you may access the underlying faker instance using the `getFaker` method.
 
 ## Factory
 
@@ -108,7 +108,7 @@ League\FactoryMuffin\Facade::define('OtherModel', array(
 
 ## Closure
 
-The closure generator can be used if you want a more custom solution. Whatever you return from the closure you write will be set as the attribute. Note that we pass an instance of your model as the first parameter of the closure to give you even more flexibility to modify it as you wish.
+The closure generator can be used if you want a more custom solution. Whatever you return from the closure you write will be set as the attribute. Note that we pass an instance of your model as the first parameter of the closure to give you even more flexibility to modify it as you wish. We additionally pass a boolean as the second parameter that will be `true` if the model is being persisted to the database (the create function has used), and `false` if it's not being persisted (the instance function was used). We're using the `isPendingOrSaved` function under the hood here.
 
 ### Example 1
 
@@ -116,7 +116,7 @@ As you can see from this example, the ability to use a closure to generate attri
 ```php
 League\FactoryMuffin\Facade::define('MyModel', array(
     'title' => 'sentence|5',
-    'slug' => function ($object) {
+    'slug' => function ($object, $saved) {
         $slug = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $object->title);
         $slug = strtolower(trim($slug, '-'));
         $slug = preg_replace("/[\/_|+ -]+/", '-', $slug);
