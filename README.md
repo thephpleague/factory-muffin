@@ -1,7 +1,7 @@
 Factory Muffin
 ==============
 
-[![Build Status](https://img.shields.io/travis/thephpleague/factory-muffin/master.svg?style=flat-square)](https://travis-ci.org/thephpleague/factory-muffin)
+[![Build Status](https://img.shields.io/travis/thephpleague/factory-muffin/experimental.svg?style=flat-square)](https://travis-ci.org/thephpleague/factory-muffin)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/thephpleague/factory-muffin.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/factory-muffin/code-structure)
 [![Quality Score](https://img.shields.io/scrutinizer/g/thephpleague/factory-muffin.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/factory-muffin)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
@@ -17,11 +17,11 @@ It's basically a "[factory\_girl](https://github.com/thoughtbot/factory_girl)", 
 
 [PHP](https://php.net) 5.3+ and [Composer](https://getcomposer.org) are required.
 
-In your composer.json, simply add `"league/factory-muffin": "~2.0"` to your `"require-dev"` section:
+In your composer.json, simply add `"league/factory-muffin": "~3.0"` to your `"require-dev"` section:
 ```json
 {
     "require-dev": {
-        "league/factory-muffin": "~2.0"
+        "league/factory-muffin": "~3.0"
     }
 }
 ```
@@ -36,7 +36,7 @@ It maybe be useful for existing users to check out the [upgrade guide](UPGRADING
 
 ### Introduction
 
-This is the usage guide for Factory Muffin 2.2. Within this guide, you will see "the `xyz` function can be called". You should assume that these functions should be called statically on the `League\FactoryMuffin\Facade` class. It should also be noted that you can see a real example at the end of the guide.
+This is the usage guide for Factory Muffin 3.0. Within this guide, you will see "the `xyz` function can be called". You should assume that these functions should be called statically on the `League\FactoryMuffin\Facade` class. It should also be noted that you can see a real example at the end of the guide.
 
 ### The Facade
 
