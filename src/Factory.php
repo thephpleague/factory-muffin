@@ -91,6 +91,20 @@ class Factory
     private $customSetter;
 
     /**
+     * This is the custom model saver closure.
+     *
+     * @var \Closure
+     */
+    private $customSaver;
+
+    /**
+     * This is the custom model deleter closure.
+     *
+     * @var \Closure
+     */
+    private $customDeleter;
+
+    /**
      * The faker instance.
      *
      * @var \Faker\Generator
@@ -173,6 +187,34 @@ class Factory
     public function setCustomSetter(Closure $setter)
     {
         $this->customSetter = $setter;
+
+        return $this;
+    }
+
+    /**
+     * Set the custom saver closure.
+     *
+     * @param \Closure $saver
+     *
+     * @return $this
+     */
+    public function setCustomSaver(Closure $saver)
+    {
+        $this->customSaver = $saver;
+
+        return $this;
+    }
+
+    /**
+     * Set the custom deleter closure.
+     *
+     * @param \Closure $deleter
+     *
+     * @return $this
+     */
+    public function setCustomDeleter(Closure $deleter)
+    {
+        $this->customDeleter = $deleter;
 
         return $this;
     }
@@ -383,6 +425,10 @@ class Factory
      */
     private function save($object)
     {
+        if ($saver = $this->customSaver) {
+            return $saver($object);
+        }
+
         if (method_exists($object, $method = $this->saveMethod)) {
             return $object->$method();
         }
@@ -487,6 +533,10 @@ class Factory
      */
     private function delete($object)
     {
+        if ($deleter = $this->customDeleter) {
+            return $deleter($object);
+        }
+
         if (method_exists($object, $method = $this->deleteMethod)) {
             return $object->$method();
         }
