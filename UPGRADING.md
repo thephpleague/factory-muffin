@@ -66,7 +66,7 @@ We've added a `getFaker` method to the factory (also available through the facad
 
 We no longer use `include_once` to load your definitions with the `loadFactories` method. We use `include` instead so that your definitions can be correctly re-added to your factory instance if you use the `reset` method.
 
-There is a very tiny change to the exception message of the `League\FactoryMuffin\Exceptions\NoDefinedFactoryException`. If you were replying on that for some reason, watch out for that.
+There is a very tiny change to the exception message of the `League\FactoryMuffin\Exceptions\NoDefinedFactoryException`. If you were relying on that for some reason, watch out for that.
 
 ### Installing This Version
 
