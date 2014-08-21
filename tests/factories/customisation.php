@@ -9,3 +9,5 @@ FactoryMuffin::define('MakerCustomisationModelStub', array(
 FactoryMuffin::define('SetterCustomisationModelStub', array(
     'bar' => 'baz'
 ));
+
+FactoryMuffin::define('SaverAndDeleterCustomisationModelStub', array());
