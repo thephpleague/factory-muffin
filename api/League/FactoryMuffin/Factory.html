@@ -72,6 +72,26 @@ using the facade.</p>
             </tr>
                     <tr>
                 <td class="type">
+                    <abbr title="League\FactoryMuffin\$this">$this</abbr>
+                </td>
+                <td class="last">
+                    <a href="#method_setCustomMaker">setCustomMaker</a>(<a href="http://php.net/Closure"><abbr title="Closure">Closure</abbr></a> $maker)
+                    <p>Set the custom maker closure.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <abbr title="League\FactoryMuffin\$this">$this</abbr>
+                </td>
+                <td class="last">
+                    <a href="#method_setCustomSetter">setCustomSetter</a>(<a href="http://php.net/Closure"><abbr title="Closure">Closure</abbr></a> $setter)
+                    <p>Set the custom setter closure.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
                     object[]
                 </td>
                 <td class="last">
@@ -95,6 +115,26 @@ using the facade.</p>
                     object[]
                 </td>
                 <td class="last">
+                    <a href="#method_pending">pending</a>()
+                    <p>Return an array of objects to be saved.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    bool
+                </td>
+                <td class="last">
+                    <a href="#method_isPending">isPending</a>(object $object)
+                    <p>Is the object going to be saved?</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    object[]
+                </td>
+                <td class="last">
                     <a href="#method_saved">saved</a>()
                     <p>Return an array of saved objects.</p>
                 </td>
@@ -107,6 +147,16 @@ using the facade.</p>
                 <td class="last">
                     <a href="#method_isSaved">isSaved</a>(object $object)
                     <p>Is the object saved?</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    bool
+                </td>
+                <td class="last">
+                    <a href="#method_isPendingOrSaved">isPendingOrSaved</a>(object $object)
+                    <p>Is the object saved or will be saved?</p>
                 </td>
                 <td></td>
             </tr>
@@ -145,7 +195,7 @@ using the facade.</p>
                     <abbr title="League\FactoryMuffin\$this">$this</abbr>
                 </td>
                 <td class="last">
-                    <a href="#method_define">define</a>(string $model, array $definition = array())
+                    <a href="#method_define">define</a>(string $model, array $definition = array(), <a href="http://php.net/Closure"><abbr title="Closure">Closure</abbr></a>|null $callback = null)
                     <p>Define a new model factory.</p>
                 </td>
                 <td></td>
@@ -157,6 +207,16 @@ using the facade.</p>
                 <td class="last">
                     <a href="#method_generateAttr">generateAttr</a>(string $kind, object|null $object = null)
                     <p>Generate the attributes.</p>
+                </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type">
+                    <abbr title="Faker\Generator">Generator</abbr>
+                </td>
+                <td class="last">
+                    <a href="#method_getFaker">getFaker</a>()
+                    <p>Get the faker instance.</p>
                 </td>
                 <td></td>
             </tr>
@@ -176,7 +236,7 @@ using the facade.</p>
         <h2>Details</h2>
 
                         <h3 id="method_setFakerLocale">
-        <div class="location">at line 84</div>
+        <div class="location">at line 114</div>
         <code>                    <abbr title="League\FactoryMuffin\$this">$this</abbr>
     <strong>setFakerLocale</strong>(string $local)</code>
     </h3>
@@ -212,7 +272,7 @@ using the facade.</p>
     </div>
 
                 <h3 id="method_setSaveMethod">
-        <div class="location">at line 101</div>
+        <div class="location">at line 131</div>
         <code>                    <abbr title="League\FactoryMuffin\$this">$this</abbr>
     <strong>setSaveMethod</strong>(string $method)</code>
     </h3>
@@ -248,7 +308,7 @@ using the facade.</p>
     </div>
 
                 <h3 id="method_setDeleteMethod">
-        <div class="location">at line 115</div>
+        <div class="location">at line 145</div>
         <code>                    <abbr title="League\FactoryMuffin\$this">$this</abbr>
     <strong>setDeleteMethod</strong>(string $method)</code>
     </h3>
@@ -283,8 +343,82 @@ using the facade.</p>
                     </div>
     </div>
 
+                <h3 id="method_setCustomMaker">
+        <div class="location">at line 159</div>
+        <code>                    <abbr title="League\FactoryMuffin\$this">$this</abbr>
+    <strong>setCustomMaker</strong>(<a href="http://php.net/Closure"><abbr title="Closure">Closure</abbr></a> $maker)</code>
+    </h3>
+    <div class="details">
+        <p>Set the custom maker closure.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/Closure"><abbr title="Closure">Closure</abbr></a></td>
+                <td>$maker</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="League\FactoryMuffin\$this">$this</abbr></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_setCustomSetter">
+        <div class="location">at line 173</div>
+        <code>                    <abbr title="League\FactoryMuffin\$this">$this</abbr>
+    <strong>setCustomSetter</strong>(<a href="http://php.net/Closure"><abbr title="Closure">Closure</abbr></a> $setter)</code>
+    </h3>
+    <div class="details">
+        <p>Set the custom setter closure.</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td><a href="http://php.net/Closure"><abbr title="Closure">Closure</abbr></a></td>
+                <td>$setter</td>
+                <td>
+</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="League\FactoryMuffin\$this">$this</abbr></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method_seed">
-        <div class="location">at line 134</div>
+        <div class="location">at line 192</div>
         <code>                    object[]
     <strong>seed</strong>(int $times, string $model, array $attr = array())</code>
     </h3>
@@ -330,7 +464,7 @@ database.</p>
     </div>
 
                 <h3 id="method_create">
-        <div class="location">at line 157</div>
+        <div class="location">at line 213</div>
         <code>                    object
     <strong>create</strong>(string $model, array $attr = array())</code>
     </h3>
@@ -365,22 +499,74 @@ database.</p>
     </table>
 
             
-                            <h4>Exceptions</h4>
+            
+                    </div>
+    </div>
+
+                <h3 id="method_pending">
+        <div class="location">at line 398</div>
+        <code>                    object[]
+    <strong>pending</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Return an array of objects to be saved.</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>object[]</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+                <h3 id="method_isPending">
+        <div class="location">at line 410</div>
+        <code>                    bool
+    <strong>isPending</strong>(object $object)</code>
+    </h3>
+    <div class="details">
+        <p>Is the object going to be saved?</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
 
                     <table>
                     <tr>
-                <td><a href="../../League/FactoryMuffin/Exceptions/SaveFailedException.html"><abbr title="League\FactoryMuffin\Exceptions\SaveFailedException">SaveFailedException</abbr></a></td>
-                <td>
-</td>
+                <td>object</td>
+                <td>$object</td>
+                <td>The model instance.</td>
             </tr>
             </table>
 
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
             
                     </div>
     </div>
 
                 <h3 id="method_saved">
-        <div class="location">at line 222</div>
+        <div class="location">at line 420</div>
         <code>                    object[]
     <strong>saved</strong>()</code>
     </h3>
@@ -406,7 +592,7 @@ database.</p>
     </div>
 
                 <h3 id="method_isSaved">
-        <div class="location">at line 234</div>
+        <div class="location">at line 432</div>
         <code>                    bool
     <strong>isSaved</strong>(object $object)</code>
     </h3>
@@ -441,8 +627,44 @@ database.</p>
                     </div>
     </div>
 
+                <h3 id="method_isPendingOrSaved">
+        <div class="location">at line 444</div>
+        <code>                    bool
+    <strong>isPendingOrSaved</strong>(object $object)</code>
+    </h3>
+    <div class="details">
+        <p>Is the object saved or will be saved?</p>
+        <p>
+</p>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table>
+                    <tr>
+                <td>object</td>
+                <td>$object</td>
+                <td>The model instance.</td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td>bool</td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method_deleteSaved">
-        <div class="location">at line 246</div>
+        <div class="location">at line 456</div>
         <code>                    
     <strong>deleteSaved</strong>()</code>
     </h3>
@@ -467,7 +689,7 @@ database.</p>
     </div>
 
                 <h3 id="method_instance">
-        <div class="location">at line 298</div>
+        <div class="location">at line 507</div>
         <code>                    object
     <strong>instance</strong>(string $model, array $attr = array())</code>
     </h3>
@@ -507,7 +729,7 @@ database.</p>
     </div>
 
                 <h3 id="method_attributesFor">
-        <div class="location">at line 311</div>
+        <div class="location">at line 524</div>
         <code>                    array
     <strong>attributesFor</strong>(object $object, array $attr = array())</code>
     </h3>
@@ -548,9 +770,9 @@ database.</p>
     </div>
 
                 <h3 id="method_define">
-        <div class="location">at line 351</div>
+        <div class="location">at line 564</div>
         <code>                    <abbr title="League\FactoryMuffin\$this">$this</abbr>
-    <strong>define</strong>(string $model, array $definition = array())</code>
+    <strong>define</strong>(string $model, array $definition = array(), <a href="http://php.net/Closure"><abbr title="Closure">Closure</abbr></a>|null $callback = null)</code>
     </h3>
     <div class="details">
         <p>Define a new model factory.</p>
@@ -569,6 +791,11 @@ database.</p>
                 <td>array</td>
                 <td>$definition</td>
                 <td>The attribute definitions.</td>
+            </tr>
+                    <tr>
+                <td><a href="http://php.net/Closure"><abbr title="Closure">Closure</abbr></a>|null</td>
+                <td>$callback</td>
+                <td>The closure callback.</td>
             </tr>
             </table>
 
@@ -589,7 +816,7 @@ database.</p>
     </div>
 
                 <h3 id="method_generateAttr">
-        <div class="location">at line 368</div>
+        <div class="location">at line 582</div>
         <code>                    string|object
     <strong>generateAttr</strong>(string $kind, object|null $object = null)</code>
     </h3>
@@ -628,8 +855,34 @@ database.</p>
                     </div>
     </div>
 
+                <h3 id="method_getFaker">
+        <div class="location">at line 594</div>
+        <code>                    <abbr title="Faker\Generator">Generator</abbr>
+    <strong>getFaker</strong>()</code>
+    </h3>
+    <div class="details">
+        <p>Get the faker instance.</p>
+        <p>
+</p>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table>
+        <tr>
+            <td><abbr title="Faker\Generator">Generator</abbr></td>
+            <td>
+</td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
                 <h3 id="method_loadFactories">
-        <div class="location">at line 402</div>
+        <div class="location">at line 616</div>
         <code>                    <abbr title="League\FactoryMuffin\$this">$this</abbr>
     <strong>loadFactories</strong>(string|string[] $paths)</code>
     </h3>

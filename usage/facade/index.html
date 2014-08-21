@@ -78,6 +78,9 @@
                         <a href="/usage/deleting/">Deleting</a>
                     </li>
                                     <li >
+                        <a href="/usage/customisation/">Customisation</a>
+                    </li>
+                                    <li >
                         <a href="/usage/exceptions/">Exceptions</a>
                     </li>
                                     <li >
@@ -93,6 +96,9 @@
                         <a href="/upgrading/">Introduction</a>
                     </li>
                                     <li >
+                        <a href="/upgrading/2.1/">2.0.x to 2.1.x</a>
+                    </li>
+                                    <li >
                         <a href="/upgrading/2.0/">1.6.x to 2.0.x</a>
                     </li>
                                     <li >
@@ -106,7 +112,7 @@
     <article>
         <h1>Usage - The Facade</h1>
 
-<p>The facade class (<code>League\FactoryMuffin\Facade</code>) should always be your main point of entry for communicating with Factory Muffin. It will dynamically proxy static method calls to the underlying factory instance. The other classes, including the factory class (<code>League\FactoryMuffin\Factory</code>), are not intended for direct public use. Also, note that all public methods that would have returned void, return the factory instance in order to support method chaining.</p>
+<p>The facade class (<code>League\FactoryMuffin\Facade</code>) should always be your main point of entry for communicating with Factory Muffin. It will dynamically proxy static method calls to the underlying factory instance. The other classes, including the factory class (<code>League\FactoryMuffin\Factory</code>), are not intended for direct public use. The facade additionally provides a <code>reset</code> method that will re-create the underlying factory instance. Also, note that all public methods that would have returned void, return the factory instance in order to support method chaining.</p>
     </article>
 </main>
 

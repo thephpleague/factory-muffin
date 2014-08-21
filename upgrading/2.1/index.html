@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="icon" type="image/x-icon" href="/themes/thephpleague/thephpleague.github.com/img/favicon.ico" />
+                <link rel="apple-touch-icon-precomposed" href="/themes/thephpleague/thephpleague.github.com/img/apple-touch-icon-precomposed.png">
+                <title>Upgrading from 2.0.x to 2.1.x - Factory Muffin</title>
+                <meta name="description" content="Enables The Rapid Creation Of Objects For Testing">
+                <link rel="stylesheet" href="/themes/thephpleague/thephpleague.github.com/css/all.css">
+    </head>
+<body>
+
+<section class="all_packages">
+    <a href="http://thephpleague.com/">
+        <img src="/themes/thephpleague/thephpleague.github.com/img/loep_logo.png" width="195" height="200" alt="The League of Extraordinary Packages">
+    </a>
+    <h2>Our Packages:</h2>
+    <ul>
+    </ul>
+</section>
+
+<header>
+    <a class="logo" href="/">
+                <span class="name">Factory Muffin</span>
+        <span class="tagline">Enables The Rapid Creation Of Objects For Testing</span>
+    </a>
+    <a href="http://thephpleague.com/" class="league">
+        Presented by The League of Extraordinary Packages
+    </a>
+</header>
+
+<input type="checkbox" id="menu">
+<label for="menu" onclick>
+    <div class="closed">&#9776; Menu</div>
+    <div class="open">&#9776; Hide Menu</div>
+</label>
+
+<main>
+    <menu>
+                    <h2>Getting Started</h2>
+            <ul>
+                                    <li >
+                        <a href="/">Introduction</a>
+                    </li>
+                                    <li >
+                        <a href="/installing/">Installing</a>
+                    </li>
+                                    <li >
+                        <a href="/contributing/">Contributing</a>
+                    </li>
+                                    <li >
+                        <a href="/license/">Credits &amp; License</a>
+                    </li>
+                                    <li >
+                        <a href="/api/">API Docs</a>
+                    </li>
+                            </ul>
+                    <h2>Usage Guide</h2>
+            <ul>
+                                    <li >
+                        <a href="/usage/">Introduction</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/facade/">The Facade</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/definitions/">Factory Definitions</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/generators/">Generators</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/creating/">Creating &amp; Seeding</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/deleting/">Deleting</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/customisation/">Customisation</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/exceptions/">Exceptions</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/examples/">Real Examples</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/more/">Further Information</a>
+                    </li>
+                            </ul>
+                    <h2>Upgrade Guide</h2>
+            <ul>
+                                    <li >
+                        <a href="/upgrading/">Introduction</a>
+                    </li>
+                                    <li class="selected">
+                        <a href="/upgrading/2.1/">2.0.x to 2.1.x</a>
+                    </li>
+                                    <li >
+                        <a href="/upgrading/2.0/">1.6.x to 2.0.x</a>
+                    </li>
+                                    <li >
+                        <a href="/upgrading/1.6/">1.5.x to 1.6.x</a>
+                    </li>
+                                    <li >
+                        <a href="/upgrading/1.5/">1.4.x to 1.5.x</a>
+                    </li>
+                            </ul>
+            </menu>
+    <article>
+        <h1>Upgrading from 2.0.x to 2.1.x</h1>
+
+<h2>Multiple Factory Definitions</h2>
+
+<p>Now you can define multiple different factory definitions for your models. You can do this by prefixing the model class name with your "group" followed by a colon. This results in you defining your model like this: like this: <code>League\FactoryMuffin\Facade::define('myGroup:Fully\Qualifed\ModelName', array('foo' =&gt; 'bar'))</code>. You don't have to entirely define your model here because we will first look for a definition without the group prefix, then apply your group definition on top of that definition, overriding attribute definitions where required.</p>
+
+<h2>Small Change To Model Creation</h2>
+
+<p>Before you try to create your model instance, we'll check whether the class actually exists thus avoiding a fatal error. If the class does not exist, we'll throw a <code>League\FactoryMuffin\Exceptions\ModelNotFoundException</code>. Note that this exception is new in 2.1.</p>
+
+<h2>Changes To The Saving Process</h2>
+
+<p>We'll now keep track of objects waiting to be saved separately to objects that have already been saved. This means the <code>saved</code> and <code>isSaved</code> functions will behave slightly differently. Details of the changes are listed below:</p>
+
+<ul>
+<li>The <code>saved</code> function will now return an array of objects actually saved to the database where as before it would return an array of objects that were either saved, or were going to be saved later.</li>
+<li>The <code>isSaved</code> function will now check if your object is actually saved to the database where as before it would check if it was saved, or was going to be saved later.</li>
+<li>The <code>pending</code> function is new, and returns an array of objects that will be saved to the database later, but have not been saved yet.</li>
+<li>The <code>isPending</code> function is new, and checks if your object is going to be saved to the database later, but has not been saved yet.</li>
+<li>The <code>isPendingOrSaved</code> function is new, and checks of your objects is either saved in the database, or will be saved to the database later. This behaves as the old <code>isSaved</code> function used to behave.</li>
+</ul>
+
+<h2>Creation/Instantiation Callbacks</h2>
+
+<p>When you define your definitions, you may optionally specify a callback to be executed on model creation/instantiation as a third parameter. We will pass your model instance as the first parameter to the closure if you specify one. We additionally pass a boolean as the second parameter that will be <code>true</code> if the model is being persisted to the database (the create function has used), and <code>false</code> if it's not being persisted (the instance function was used). Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback.</p>
+
+<h2>Addition To The Closure Generator</h2>
+
+<p>Now, we additionally pass a boolean as the second parameter that will be <code>true</code> if the model is being persisted to the database (the create function has used), and <code>false</code> if it's not being persisted (the instance function was used). This is, of course, in addition to passing the object instance as the first parameter. Previously, you'd have had to call the <code>isSaved</code> function on the facade, but this is no longer needed now for checking if the object is being persisted. Note that due to changes to the <code>isSaved</code> function, we're actually calling <code>isPendingOrSaved</code> under the hood now.</p>
+
+<h2>Additional Customisation</h2>
+
+<p>You may now call <code>League\FactoryMuffin\Facade::setCustomMaker(function ($class) { return new $class('example'); })</code> in order to register a closure to customise the model creation. This will be used internally by Factory Muffin rather than us just straight up using <code>new $class()</code>.</p>
+
+<p>You may now call <code>League\FactoryMuffin\Facade::setCustomSetter(function ($object, $name, $value) { $object-&gt;set($name, $value); })</code> in order to register a closure to customise the attribute setting. This will be used internally by Factory Muffin when setting your attributes rather than us just using <code>$object-&gt;$name = $value</code>.</p>
+
+<p>We hope this change allows you to use even more completely custom models with Factory Muffin.</p>
+
+<h2>Other Minor Changes</h2>
+
+<p>We've added a <code>reset</code> method to the facade that will re-create the underlying factory instance.</p>
+
+<p>We've added a <code>getFaker</code> method to the factory (also available through the facade), that will return the underlying faker instance. This method actually already existed in 2.0, but was previously <code>private</code> rather than <code>public</code>.</p>
+
+<p>We no longer use <code>include_once</code> to load your definitions with the <code>loadFactories</code> method. We use <code>include</code> instead so that your definitions can be correctly re-added to your factory instance if you use the <code>reset</code> method.</p>
+
+<p>There is a very tiny change to the exception message of the <code>League\FactoryMuffin\Exceptions\NoDefinedFactoryException</code>. If you were replying on that for some reason, watch out for that.</p>
+
+<h2>Installing This Version</h2>
+
+<p>In your composer.json, add:</p>
+
+<pre><code class="json">{
+    "require-dev": {
+        "league/factory-muffin": "2.1.*"
+    }
+}
+</code></pre>
+    </article>
+</main>
+
+<footer>
+    <span>&copy; Copyright The League of Extraordinary Packages.</span>
+    <span>Site design by <a href="http://reinink.ca">Jonathan Reinink</a>.</span>
+    <span>Powered by <a href="https://sculpin.io">Sculpin</a>.</span>
+</footer>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="/themes/thephpleague/thephpleague.github.com/js/scripts.js"></script>
+<script src="/themes/thephpleague/thephpleague.github.com/js/prism.js"></script>
+
+    <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','UA-46050814-7');ga('send','pageview');
+    </script>
+
+</body>
+</html>

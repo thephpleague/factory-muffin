@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="icon" type="image/x-icon" href="/themes/thephpleague/thephpleague.github.com/img/favicon.ico" />
                 <link rel="apple-touch-icon-precomposed" href="/themes/thephpleague/thephpleague.github.com/img/apple-touch-icon-precomposed.png">
-                <title>Upgrading from 1.4.x to 1.5.x - Factory Muffin</title>
+                <title>Usage - Additional Customisation - Factory Muffin</title>
                 <meta name="description" content="Enables The Rapid Creation Of Objects For Testing">
                 <link rel="stylesheet" href="/themes/thephpleague/thephpleague.github.com/css/all.css">
     </head>
@@ -77,7 +77,7 @@
                                     <li >
                         <a href="/usage/deleting/">Deleting</a>
                     </li>
-                                    <li >
+                                    <li class="selected">
                         <a href="/usage/customisation/">Customisation</a>
                     </li>
                                     <li >
@@ -104,37 +104,17 @@
                                     <li >
                         <a href="/upgrading/1.6/">1.5.x to 1.6.x</a>
                     </li>
-                                    <li class="selected">
+                                    <li >
                         <a href="/upgrading/1.5/">1.4.x to 1.5.x</a>
                     </li>
                             </ul>
             </menu>
     <article>
-        <h1>Upgrading from 1.4.x to 1.5.x</h1>
+        <h1>Usage - Additional Customisation</h1>
 
-<h2>Exceptions</h2>
+<p>You may call <code>League\FactoryMuffin\Facade::setCustomMaker(function ($class) { return new $class('example'); })</code> in order to register a closure to customise the model creation. This will be used internally by Factory Muffin rather than us just straight up using <code>new $class()</code>.</p>
 
-<p>We've added some exceptions for certain events:</p>
-
-<ul>
-<li>The <code>Zizaco\FactoryMuff\SaveException</code> will now be thrown on model creation if the save function returns false.</li>
-<li>The <code>Zizaco\FactoryMuff\NoDefinedFactoryException</code> will now be thrown if you attempt to generate attributes for an model that has no defined factory. Previously, php would raise a fatal error.</li>
-</ul>
-
-<h2>Factory Definitions</h2>
-
-<p>Instead of having a <code>public static $factory = array('foo' =&gt; 'bar')</code> property on your model, you should call <code>Zizaco\FactoryMuff\Facade\FactoryMuff::define('Fully\Qualifed\ModelName', array('foo' =&gt; 'bar'))</code> to define your model's factory. Note that the property on the model is still supported for now, but is deprecated, and will be removed in 2.0.</p>
-
-<h2>Installing This Version</h2>
-
-<p>In your composer.json, add:</p>
-
-<pre><code class="json">{
-    "require-dev": {
-        "league/factory-muffin": "1.5.*"
-    }
-}
-</code></pre>
+<p>You may call  <code>League\FactoryMuffin\Facade::setCustomSetter(function ($object, $name, $value) { $object-&gt;set($name, $value); })</code> in order to register a closure to customise the attribute setting. This will be used internally by Factory Muffin when setting your attributes rather than us just using <code>$object-&gt;$name = $value</code>.</p>
     </article>
 </main>
 
