@@ -13,6 +13,7 @@ menu:
         'Introduction': '/usage/'
         'The Facade': '/usage/facade/'
         'Factory Definitions': '/usage/definitions/'
+        'Callbacks': '/usage/callbacks/'
         'Generators': '/usage/generators/'
         'Creating & Seeding': '/usage/creating/'
         'Deleting': '/usage/deleting/'
