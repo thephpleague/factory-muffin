@@ -12,6 +12,10 @@ namespace League\FactoryMuffin;
  *
  * @method static Factory setSaveMethod(string $method) Set the method we use when saving objects.
  * @method static Factory setDeleteMethod(string $method) Set the method we use when deleting objects.
+ * @method static Factory setCustomMaker(\Closure $maker) Set the custom maker closure.
+ * @method static Factory setCustomSetter(\Closure $setter) Set the custom setter closure.
+ * @method static Factory setCustomSaver(\Closure $saver) Set the custom saver closure.
+ * @method static Factory setCustomDeleter(\Closure $deleter) Set the custom deleter closure.
  * @method static object[] seed(int $times, string $model, array $attr = array()) Returns multiple versions of an object.
  * @method static object create(string $model, array $attr = array()) Creates and saves in db an instance of the model.
  * @method static object[] pending() Return an array of objects to be saved.
