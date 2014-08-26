@@ -69,6 +69,9 @@
                         <a href="/usage/definitions/">Factory Definitions</a>
                     </li>
                                     <li >
+                        <a href="/usage/callbacks/">Callbacks</a>
+                    </li>
+                                    <li >
                         <a href="/usage/generators/">Generators</a>
                     </li>
                                     <li >
@@ -113,8 +116,6 @@
         <h1>Usage - Factory Definitions</h1>
 
 <p>You can define model factories using the <code>define</code> function. You may call it like this: <code>League\FactoryMuffin\Facade::define('Fully\Qualifed\ModelName', array('foo' =&gt; 'bar'))</code>, where <code>foo</code> is the name of the attribute you want set on your model, and <code>bar</code> describes how you wish to generate the attribute. Please see the generators section for more information on how this works.</p>
-
-<p>You may optionally specify a callback to be executed on model creation/instantiation as a third parameter. We will pass your model instance as the first parameter to the closure if you specify one. We additionally pass a boolean as the second parameter that will be <code>true</code> if the model is being persisted to the database (the create function has used), and <code>false</code> if it's not being persisted (the instance function was used). We're using the <code>isPendingOrSaved</code> function under the hood here. Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback.</p>
 
 <p>You can also define multiple different factory definitions for your models. You can do this by prefixing the model class name with your "group" followed by a colon. This results in you defining your model like this: like this: <code>League\FactoryMuffin\Facade::define('myGroup:Fully\Qualifed\ModelName', array('foo' =&gt; 'bar'))</code>. You don't have to entirely define your model here because we will first look for a definition without the group prefix, then apply your group definition on top of that definition, overriding attribute definitions where required.</p>
 

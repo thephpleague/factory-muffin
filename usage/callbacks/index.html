@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="icon" type="image/x-icon" href="/themes/thephpleague/thephpleague.github.com/img/favicon.ico" />
+                <link rel="apple-touch-icon-precomposed" href="/themes/thephpleague/thephpleague.github.com/img/apple-touch-icon-precomposed.png">
+                <title>Usage - Callbacks - Factory Muffin</title>
+                <meta name="description" content="Enables The Rapid Creation Of Objects For Testing">
+                <link rel="stylesheet" href="/themes/thephpleague/thephpleague.github.com/css/all.css">
+    </head>
+<body>
+
+<section class="all_packages">
+    <a href="http://thephpleague.com/">
+        <img src="/themes/thephpleague/thephpleague.github.com/img/loep_logo.png" width="195" height="200" alt="The League of Extraordinary Packages">
+    </a>
+    <h2>Our Packages:</h2>
+    <ul>
+    </ul>
+</section>
+
+<header>
+    <a class="logo" href="/">
+                <span class="name">Factory Muffin</span>
+        <span class="tagline">Enables The Rapid Creation Of Objects For Testing</span>
+    </a>
+    <a href="http://thephpleague.com/" class="league">
+        Presented by The League of Extraordinary Packages
+    </a>
+</header>
+
+<input type="checkbox" id="menu">
+<label for="menu" onclick>
+    <div class="closed">&#9776; Menu</div>
+    <div class="open">&#9776; Hide Menu</div>
+</label>
+
+<main>
+    <menu>
+                    <h2>Getting Started</h2>
+            <ul>
+                                    <li >
+                        <a href="/">Introduction</a>
+                    </li>
+                                    <li >
+                        <a href="/installing/">Installing</a>
+                    </li>
+                                    <li >
+                        <a href="/contributing/">Contributing</a>
+                    </li>
+                                    <li >
+                        <a href="/license/">Credits &amp; License</a>
+                    </li>
+                                    <li >
+                        <a href="/api/">API Docs</a>
+                    </li>
+                            </ul>
+                    <h2>Usage Guide</h2>
+            <ul>
+                                    <li >
+                        <a href="/usage/">Introduction</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/facade/">The Facade</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/definitions/">Factory Definitions</a>
+                    </li>
+                                    <li class="selected">
+                        <a href="/usage/callbacks/">Callbacks</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/generators/">Generators</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/creating/">Creating &amp; Seeding</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/deleting/">Deleting</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/customisation/">Customisation</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/exceptions/">Exceptions</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/examples/">Real Examples</a>
+                    </li>
+                                    <li >
+                        <a href="/usage/more/">Further Information</a>
+                    </li>
+                            </ul>
+                    <h2>Upgrade Guide</h2>
+            <ul>
+                                    <li >
+                        <a href="/upgrading/">Introduction</a>
+                    </li>
+                                    <li >
+                        <a href="/upgrading/2.1/">2.0.x to 2.1.x</a>
+                    </li>
+                                    <li >
+                        <a href="/upgrading/2.0/">1.6.x to 2.0.x</a>
+                    </li>
+                                    <li >
+                        <a href="/upgrading/1.6/">1.5.x to 1.6.x</a>
+                    </li>
+                                    <li >
+                        <a href="/upgrading/1.5/">1.4.x to 1.5.x</a>
+                    </li>
+                            </ul>
+            </menu>
+    <article>
+        <h1>Usage - Callbacks</h1>
+
+<p>You may optionally specify a callback to be executed on model creation/instantiation as a third parameter when defining a definition. We will pass your model instance as the first parameter to the closure if you specify one. We additionally pass a boolean as the second parameter that will be <code>true</code> if the model is being persisted to the database (the create function has used), and <code>false</code> if it's not being persisted (the instance function was used). We're using the <code>isPendingOrSaved</code> function under the hood here. Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback.</p>
+    </article>
+</main>
+
+<footer>
+    <span>&copy; Copyright The League of Extraordinary Packages.</span>
+    <span>Site design by <a href="http://reinink.ca">Jonathan Reinink</a>.</span>
+    <span>Powered by <a href="https://sculpin.io">Sculpin</a>.</span>
+</footer>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="/themes/thephpleague/thephpleague.github.com/js/scripts.js"></script>
+<script src="/themes/thephpleague/thephpleague.github.com/js/prism.js"></script>
+
+    <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','UA-46050814-7');ga('send','pageview');
+    </script>
+
+</body>
+</html>

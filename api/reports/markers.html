@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>     &raquo; Markers
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/League.html">\League</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">18</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">28</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+            <ul class="side-nav nav nav-list">
+                <li class="nav-header">Navigation</li>
+                                                                        <li><a href="#Arr.php"><i class="icon-file"></i> Arr.php</a></li>
+                                                                                                <li><a href="#Exceptions\DeleteFailedException.php"><i class="icon-file"></i> Exceptions\DeleteFailedException.php</a></li>
+                                                                                                <li><a href="#Exceptions\DeleteMethodNotFoundException.php"><i class="icon-file"></i> Exceptions\DeleteMethodNotFoundException.php</a></li>
+                                                                                                <li><a href="#Exceptions\DeletingFailedException.php"><i class="icon-file"></i> Exceptions\DeletingFailedException.php</a></li>
+                                                                                                <li><a href="#Exceptions\DirectoryNotFoundException.php"><i class="icon-file"></i> Exceptions\DirectoryNotFoundException.php</a></li>
+                                                                                                <li><a href="#Exceptions\MethodNotFoundException.php"><i class="icon-file"></i> Exceptions\MethodNotFoundException.php</a></li>
+                                                                                                <li><a href="#Exceptions\ModelException.php"><i class="icon-file"></i> Exceptions\ModelException.php</a></li>
+                                                                                                <li><a href="#Exceptions\ModelNotFoundException.php"><i class="icon-file"></i> Exceptions\ModelNotFoundException.php</a></li>
+                                                                                                <li><a href="#Exceptions\NoDefinedFactoryException.php"><i class="icon-file"></i> Exceptions\NoDefinedFactoryException.php</a></li>
+                                                                                                <li><a href="#Exceptions\SaveFailedException.php"><i class="icon-file"></i> Exceptions\SaveFailedException.php</a></li>
+                                                                                                <li><a href="#Exceptions\SaveMethodNotFoundException.php"><i class="icon-file"></i> Exceptions\SaveMethodNotFoundException.php</a></li>
+                                                                                                <li><a href="#Facade.php"><i class="icon-file"></i> Facade.php</a></li>
+                                                                                                <li><a href="#Factory.php"><i class="icon-file"></i> Factory.php</a></li>
+                                                                                                <li><a href="#Generators\Base.php"><i class="icon-file"></i> Generators\Base.php</a></li>
+                                                                                                <li><a href="#Generators\Call.php"><i class="icon-file"></i> Generators\Call.php</a></li>
+                                                                                                <li><a href="#Generators\Closure.php"><i class="icon-file"></i> Generators\Closure.php</a></li>
+                                                                                                <li><a href="#Generators\Factory.php"><i class="icon-file"></i> Generators\Factory.php</a></li>
+                                                                                                <li><a href="#Generators\Generic.php"><i class="icon-file"></i> Generators\Generic.php</a></li>
+                                                                    </ul>
+        </div>
+
+        <div class="span10 offset2">
+
+            <ul class="breadcrumb">
+                <li><a href="../"><i class="icon-map-marker"></i></a><span class="divider">\</span></li>
+                <li>Markers</li>
+            </ul>
+
+            
+            <div id="marker-accordion">
+                                                            <div class="package-contents">
+                            <a name="Arr.php" id="Arr.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Arr.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>13</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Exceptions\DeleteFailedException.php" id="Exceptions\DeleteFailedException.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Exceptions\DeleteFailedException.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>15</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Exceptions\DeleteMethodNotFoundException.php" id="Exceptions\DeleteMethodNotFoundException.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Exceptions\DeleteMethodNotFoundException.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>15</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Exceptions\DeletingFailedException.php" id="Exceptions\DeletingFailedException.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Exceptions\DeletingFailedException.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>19</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Exceptions\DirectoryNotFoundException.php" id="Exceptions\DirectoryNotFoundException.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Exceptions\DirectoryNotFoundException.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>16</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Exceptions\MethodNotFoundException.php" id="Exceptions\MethodNotFoundException.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Exceptions\MethodNotFoundException.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>14</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Exceptions\ModelException.php" id="Exceptions\ModelException.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Exceptions\ModelException.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>16</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Exceptions\ModelNotFoundException.php" id="Exceptions\ModelNotFoundException.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Exceptions\ModelNotFoundException.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>15</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Exceptions\NoDefinedFactoryException.php" id="Exceptions\NoDefinedFactoryException.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Exceptions\NoDefinedFactoryException.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>15</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Exceptions\SaveFailedException.php" id="Exceptions\SaveFailedException.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Exceptions\SaveFailedException.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>15</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Exceptions\SaveMethodNotFoundException.php" id="Exceptions\SaveMethodNotFoundException.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Exceptions\SaveMethodNotFoundException.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>15</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Facade.php" id="Facade.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Facade.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>34</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Factory.php" id="Factory.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Factory.php
+                                <small style="float: right;padding-right: 10px;">7</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>33</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>118</td>
+                                            <td>The faker class must be instantiated again with a new the new locale</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>284</td>
+                                            <td>Make the object as saved so that other generators persist correctly</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>289</td>
+                                            <td>Get the group specific factory attributes</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>294</td>
+                                            <td>Get the factory attributes for that model</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>471</td>
+                                            <td>If we ran into problem, throw the exception now</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>529</td>
+                                            <td>Prepare attributes</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Generators\Base.php" id="Generators\Base.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Generators\Base.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>18</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Generators\Call.php" id="Generators\Call.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Generators\Call.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>19</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Generators\Closure.php" id="Generators\Closure.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Generators\Closure.php
+                                <small style="float: right;padding-right: 10px;">1</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>19</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Generators\Factory.php" id="Generators\Factory.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Generators\Factory.php
+                                <small style="float: right;padding-right: 10px;">3</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>17</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>58</td>
+                                            <td>Check to see if we can get an ID via our defined methods</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>65</td>
+                                            <td>Check to see if we can get an ID via our defined methods</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                                                <div class="package-contents">
+                            <a name="Generators\Generic.php" id="Generators\Generic.php"></a>
+                            <h3>
+                            <i class="icon-file"></i>
+                                Generators\Generic.php
+                                <small style="float: right;padding-right: 10px;">3</small>
+                            </h3>
+                            <div>
+                                <table class="table markers table-bordered">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Line</th>
+                                        <th>Description</th>
+                                    </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>19</td>
+                                            <td>github.com/thephpleague/factory-muffin/blob/master/LICENSE&gt; MIT</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>33</td>
+                                            <td>Only try and use Faker when there are no spaces in the string</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td></td>
+                                            <td>41</td>
+                                            <td>If it fails to call it, it must not exist</td>
+                                        </tr>
+                                                                    </table>
+                            </div>
+                        </div>
+                                                </div>
+        </div>
+    </section>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/League.html">\League</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on August 26th, 2014 at 15:17.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

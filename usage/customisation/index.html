@@ -69,6 +69,9 @@
                         <a href="/usage/definitions/">Factory Definitions</a>
                     </li>
                                     <li >
+                        <a href="/usage/callbacks/">Callbacks</a>
+                    </li>
+                                    <li >
                         <a href="/usage/generators/">Generators</a>
                     </li>
                                     <li >
@@ -115,6 +118,10 @@
 <p>You may call <code>League\FactoryMuffin\Facade::setCustomMaker(function ($class) { return new $class('example'); })</code> in order to register a closure to customise the model creation. This will be used internally by Factory Muffin rather than us just straight up using <code>new $class()</code>.</p>
 
 <p>You may call  <code>League\FactoryMuffin\Facade::setCustomSetter(function ($object, $name, $value) { $object-&gt;set($name, $value); })</code> in order to register a closure to customise the attribute setting. This will be used internally by Factory Muffin when setting your attributes rather than us just using <code>$object-&gt;$name = $value</code>.</p>
+
+<p>You may call <code>League\FactoryMuffin\Facade::setCustomSaver(function ($object) { $object-&gt;save(); $object-&gt;push(); return true; })</code> in order to save your object in a custom way. This will be used internally by Factory Muffin when saving your object rather than us just using <code>$object-&gt;save()</code>.</p>
+
+<p>You may call <code>League\FactoryMuffin\Facade::setCustomDeleter(function ($object) { $object-&gt;forceDelete(); return true; })</code> in order to delete your object in a custom way. This will be used internally by Factory Muffin when deleting your object rather than us just using <code>$object-&gt;delete()</code>.</p>
     </article>
 </main>
 
