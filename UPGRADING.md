@@ -114,7 +114,7 @@ Having a public static factory property is no longer supported. You must use the
 
 ### Generator (Kind) Changes
 
-We now refer to what was previously the kind classes, as generator classes. We've removed some of these in favour of the faker alternatives. We currently provide the following generators: `Call`, `Closure`, `Factory`, and `Generic`. The call, closure, and factory generators have not changed significantly since previous versions, and the generic generator still provides access to the faker generators. The closure generator will now pass the instance of your model into your closure as the first parameter too.
+We now refer to what were previously the kind classes, as generator classes. We've removed some of these in favour of the faker alternatives. We currently provide the following generators: `Call`, `Closure`, `Factory`, and `Generic`. The call, closure, and factory generators have not changed significantly since previous versions, and the generic generator still provides access to the faker generators. The closure generator will now pass the instance of your model into your closure as the first parameter too.
 
 There are two syntax changes to watch out for:
 * You can now use a `;` to send multiple arguments to the generators.
