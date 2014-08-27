@@ -2,8 +2,8 @@
 
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
 use League\FactoryMuffin\Exceptions\ModelNotFoundException;
-use League\FactoryMuffin\Facade as FactoryMuffin;
 use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
+use League\FactoryMuffin\Facade as FactoryMuffin;
 
 /**
  * @group definition
