@@ -368,7 +368,7 @@ class Factory
     private function getModelClass($model, $group)
     {
         if ($group) {
-            return str_replace($group . ':', '', $model);
+            return str_replace($group.':', '', $model);
         }
 
         return $model;

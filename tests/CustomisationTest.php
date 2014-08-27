@@ -11,7 +11,7 @@ class CustomisationTest extends AbstractTestCase
 {
     public function testCustomMaker()
     {
-        FactoryMuffin::setCustomMaker(function($class) {
+        FactoryMuffin::setCustomMaker(function ($class) {
             return new $class('example');
         });
 
@@ -25,7 +25,7 @@ class CustomisationTest extends AbstractTestCase
 
     public function testCustomSetter()
     {
-        FactoryMuffin::setCustomSetter(function($object, $name, $value) {
+        FactoryMuffin::setCustomSetter(function ($object, $name, $value) {
             $object->set($name, $value);
         });
 
@@ -42,7 +42,7 @@ class CustomisationTest extends AbstractTestCase
      */
     public function testCustomSaverFail()
     {
-        FactoryMuffin::setCustomSaver(function($object) {
+        FactoryMuffin::setCustomSaver(function ($object) {
             $object->customSave();
         });
 
@@ -64,11 +64,11 @@ class CustomisationTest extends AbstractTestCase
      */
     public function testCustomDeleterFail()
     {
-        FactoryMuffin::setCustomSaver(function($object) {
+        FactoryMuffin::setCustomSaver(function ($object) {
             return $object->customSave();
         });
 
-        FactoryMuffin::setCustomDeleter(function($object) {
+        FactoryMuffin::setCustomDeleter(function ($object) {
             $object->customDelete();
         });
 
@@ -88,12 +88,12 @@ class CustomisationTest extends AbstractTestCase
 
     public function testCustomSaverAndDeleter()
     {
-        FactoryMuffin::setCustomSaver(function($object) {
+        FactoryMuffin::setCustomSaver(function ($object) {
             $object->test = 'foo';
             return $object->customSave();
         });
 
-        FactoryMuffin::setCustomDeleter(function($object) {
+        FactoryMuffin::setCustomDeleter(function ($object) {
             return $object->customDelete();
         });
 
