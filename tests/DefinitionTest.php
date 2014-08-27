@@ -1,7 +1,7 @@
 <?php
 
-use League\FactoryMuffin\Facade as FactoryMuffin;
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
+use League\FactoryMuffin\Facade as FactoryMuffin;
 
 /**
  * @group definition
@@ -80,7 +80,7 @@ class DefinitionTest extends AbstractTestCase
     {
         $count = count(get_included_files());
 
-        $return = FactoryMuffin::loadFactories(__DIR__ . '/stubs');
+        $return = FactoryMuffin::loadFactories(__DIR__.'/stubs');
 
         $this->assertSame(1, count(get_included_files()) - $count);
         $this->assertInstanceOf('League\FactoryMuffin\Factory', $return);
@@ -92,7 +92,7 @@ class DefinitionTest extends AbstractTestCase
     public function testShouldThrowExceptionWhenLoadingANonexistentDirectory()
     {
         try {
-            FactoryMuffin::loadFactories($path = __DIR__ . '/thisdirectorydoesntexist');
+            FactoryMuffin::loadFactories($path = __DIR__.'/thisdirectorydoesntexist');
         } catch (DirectoryNotFoundException $e) {
             $this->assertEquals("The directory '$path' was not found.", $e->getMessage());
             $this->assertEquals($path, $e->getPath());

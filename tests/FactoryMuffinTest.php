@@ -1,7 +1,7 @@
 <?php
 
-use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
 use League\FactoryMuffin\Exceptions\MethodNotFoundException;
+use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
 use League\FactoryMuffin\Facade as FactoryMuffin;
 
 /**
