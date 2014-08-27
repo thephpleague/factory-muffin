@@ -45,8 +45,8 @@ class EloquentTest extends AbstractTestCase
     {
         $cats = array();
         foreach (User::all() as $user) {
-            foreach ($user->cats as $cat)
-            {
+            foreach ($user->cats as $cat) {
+
                 $cats[] = $cat;
             }
         }
