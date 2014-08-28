@@ -59,12 +59,14 @@ class FactoryMuffinTest extends AbstractTestCase
 
         $this->assertEquals($expected, $obj->future);
     }
+
     public function testShouldPassSimpleArgumentsToCalls()
     {
         $obj = FactoryMuffin::instance('ComplexModelStub');
 
         $this->assertRegExp('|^[a-z0-9-]+$|', $obj->slug);
     }
+
     public function testShouldPassFactoryModelsToCalls()
     {
         $obj = FactoryMuffin::instance('ComplexModelStub');
@@ -166,16 +168,19 @@ class ComplexModelStub
     {
         return gmdate('Y-m-d', strtotime('+40 days'));
     }
+
     public static function makeSlug($text)
     {
         return preg_replace('|[^a-z0-9]+|', '-', $text);
     }
+
     public static function mungeModel($model)
     {
         $bits = explode('@', strtolower($model->email));
 
         return $bits[0];
     }
+
     public function save()
     {
         return true;
