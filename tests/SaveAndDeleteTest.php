@@ -4,7 +4,7 @@ use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
 use League\FactoryMuffin\Exceptions\DeletingFailedException;
 use League\FactoryMuffin\Exceptions\SaveFailedException;
 use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
-use League\FactoryMuffin\Facade as FactoryMuffin;
+use League\FactoryMuffin\Facades\FactoryMuffin;
 
 /**
  * @group savedelete
@@ -37,7 +37,7 @@ class SaveAndDeleteTest extends AbstractTestCase
     public function testShouldThrowExceptionAfterSaveMethodRename()
     {
         $return = FactoryMuffin::setSaveMethod('foo');
-        $this->assertInstanceOf('League\FactoryMuffin\Factory', $return);
+        $this->assertInstanceOf('League\FactoryMuffin\FactoryMuffin', $return);
         try {
             FactoryMuffin::create($model = 'ModelThatWillSaveStub');
         } catch (SaveMethodNotFoundException $e) {
@@ -58,7 +58,7 @@ class SaveAndDeleteTest extends AbstractTestCase
     public function testShouldThrowExceptionAfterDeleteMethodRename()
     {
         $return = FactoryMuffin::setDeleteMethod('bar');
-        $this->assertInstanceOf('League\FactoryMuffin\Factory', $return);
+        $this->assertInstanceOf('League\FactoryMuffin\FactoryMuffin', $return);
         FactoryMuffin::create($model = 'ModelThatWillSaveStub');
         try {
             FactoryMuffin::deleteSaved();

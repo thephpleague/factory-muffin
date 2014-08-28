@@ -2,7 +2,7 @@
 
 namespace League\FactoryMuffin\Generators;
 
-use Faker\Factory as Faker;
+use Exception;
 
 /**
  * This is the generator factory class.
@@ -15,20 +15,6 @@ use Faker\Factory as Faker;
 class GeneratorFactory
 {
     /**
-     * The faker instance.
-     *
-     * @var \Faker\Generator
-     */
-    private $faker;
-
-    /**
-     * The faker localization.
-     *
-     * @var string
-     */
-    private $fakerLocale = 'en_EN';
-
-    /**
      * Automatically generate the attribute we want.
      *
      * @param string|callable $kind   The kind of attribute.
@@ -38,7 +24,11 @@ class GeneratorFactory
      */
     public function generate($kind, $object = null)
     {
-        return $this->make($kind, $object)->generate();
+        if ($generator = $this->make($kind, $object)) {
+            return $generator->generate();
+        }
+
+        return $kind;
     }
 
     /**
@@ -47,7 +37,7 @@ class GeneratorFactory
      * @param string|callable $kind   The kind of attribute.
      * @param object|null     $object The model instance.
      *
-     * @return \League\FactoryMuffin\Generators\GeneratorInterface
+     * @return \League\FactoryMuffin\Generators\GeneratorInterface|null
      */
     public function make($kind, $object = null)
     {
@@ -55,44 +45,8 @@ class GeneratorFactory
             return new CallableGenerator($kind, $object);
         }
 
-        if (strpos($kind, 'method|') !== false) {
-            return new MethodGenerator($kind, $object);
-        }
-
         if (strpos($kind, 'factory|') !== false) {
             return new FactoryGenerator($kind, $object);
         }
-
-        return new GenericGenerator($kind, $object, $this->getFaker());
-    }
-
-    /**
-     * Set the faker locale.
-     *
-     * @param string $local The faker locale.
-     *
-     * @return $this
-     */
-    public function setFakerLocale($local)
-    {
-        $this->fakerLocale = $local;
-
-        $this->faker = null;
-
-        return $this;
-    }
-
-    /**
-     * Get the faker instance.
-     *
-     * @return \Faker\Generator
-     */
-    public function getFaker()
-    {
-        if (!$this->faker) {
-            $this->faker = Faker::create($this->fakerLocale);
-        }
-
-        return $this->faker;
     }
 }

@@ -1,15 +1,12 @@
 <?php
 
-use League\FactoryMuffin\Facade as FactoryMuffin;
+use League\FactoryMuffin\Facades\FactoryMuffin;
+use League\FactoryMuffin\Facades\Faker;
 
 FactoryMuffin::define('IdTestModelGetKeyStub', array());
 FactoryMuffin::define('IdTestModelPkStub', array());
 FactoryMuffin::define('IdTestModelIdStub', array());
 FactoryMuffin::define('IdTestModelNullStub', array());
-
-FactoryMuffin::define('ModelWithMissingStaticMethod', array(
-    'does_not_exist' => 'ModelWithMissingStaticMethod::doesNotExist',
-));
 
 FactoryMuffin::define('IdTestModelStub', array(
     'modelGetKey' => 'factory|IdTestModelGetKeyStub',
@@ -19,31 +16,31 @@ FactoryMuffin::define('IdTestModelStub', array(
 ));
 
 FactoryMuffin::define('FakerDefaultingModelStub', array(
-    'title'         => 'word',
-    'email'         => 'email',
-    'content'       => 'text',
-    'card'          => 'creditCardDetails',
-    'image'         => 'imageUrl|400;600',
-    'unique_text'   => 'unique:text',
-    'optional_text' => 'optional:text',
+    'title'         => Faker::word(),
+    'email'         => Faker::email(),
+    'content'       => Faker::text(),
+    'card'          => Faker::creditCardDetails(),
+    'image'         => Faker::imageUrl(400, 600),
+    'unique_text'   => Faker::unique()->text(),
+    'optional_text' => Faker::optional()->text(),
 ));
 
 FactoryMuffin::define('MainModelStub', array(
     'modelb_id'    => 'factory|FakerDefaultingModelStub',
-    'name'         => 'word',
-    'email'        => 'email',
-    'message'      => 'text',
-    'number'       => 'integer|9',
-    'created'      => 'date|Y-m-d',
-    'full_name'    => 'name',
-    'string_4'     => 'word|4',
-    'text_4'       => 'text|4',
-    'text_100'     => 'text',
-    'text'         => 'text',
+    'name'         => Faker::word(),
+    'email'        => Faker::email(),
+    'message'      => Faker::text(),
+    'number'       => Faker::randomNumber(9),
+    'created'      => Faker::date('Y-m-d'),
+    'full_name'    => Faker::name(),
+    'string_4'     => Faker::word(4),
+    'text_4'       => Faker::text(5),
+    'text_100'     => Faker::text(),
+    'text'         => Faker::text(),
     'text_actual'  => 'sneakyString',
-    'boolean'      => 'boolean',
-    'lat'          => 'latitude',
-    'lon'          => 'longitude',
+    'boolean'      => Faker::boolean(),
+    'lat'          => Faker::latitude(),
+    'lon'          => Faker::longitude(),
     'text_closure' => function () {
         return 'just a string';
     },
