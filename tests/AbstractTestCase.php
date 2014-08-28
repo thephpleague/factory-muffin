@@ -6,7 +6,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 {
     public static function setupBeforeClass()
     {
-        FactoryMuffin::setFakerLocale('en_GB')->loadFactories(__DIR__.'/factories');
+        FactoryMuffin::loadFactories(__DIR__.'/factories')->getGeneratorFactory()->setFakerLocale('en_GB');
     }
 
     public static function tearDownAfterClass()

@@ -1,6 +1,5 @@
 <?php
 
-use League\FactoryMuffin\Exceptions\MethodNotFoundException;
 use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
 use League\FactoryMuffin\Facade as FactoryMuffin;
 
@@ -25,8 +24,8 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testGetFaker()
     {
-        $original = FactoryMuffin::getFaker();
-        $new = FactoryMuffin::setFakerLocale('en_GB')->getFaker();
+        $original = FactoryMuffin::getGeneratorFactory()->getFaker();
+        $new = FactoryMuffin::getGeneratorFactory()->setFakerLocale('en_GB')->getFaker();
 
         $this->assertInstanceOf('Faker\Generator', $original);
         $this->assertInstanceOf('Faker\Generator', $new);
@@ -60,19 +59,7 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertEquals($expected, $obj->future);
     }
 
-    public function testShouldPassSimpleArgumentsToCalls()
-    {
-        $obj = FactoryMuffin::instance('ComplexModelStub');
 
-        $this->assertRegExp('|^[a-z0-9-]+$|', $obj->slug);
-    }
-
-    public function testShouldPassFactoryModelsToCalls()
-    {
-        $obj = FactoryMuffin::instance('ComplexModelStub');
-
-        $this->assertRegExp("|^[a-z0-9.']+$|", $obj->munged_model);
-    }
 
     public function testFakerDefaultBoolean()
     {
@@ -127,16 +114,14 @@ class FactoryMuffinTest extends AbstractTestCase
     }
 
     /**
-     * @expectedException \League\FactoryMuffin\Exceptions\MethodNotFoundException
+     * @expectedException \PHPUnit_Framework_Error_Warning
      */
-    public function testThrowExceptionWhenInvalidStaticMethod()
+    public function testShouldThrowExceptionWhenInvalidStaticMethod()
     {
         try {
             FactoryMuffin::create($model = 'ModelWithMissingStaticMethod');
-        } catch (MethodNotFoundException $e) {
-            $this->assertEquals("The static method 'doesNotExist' was not found on the model of type: '$model'.", $e->getMessage());
-            $this->assertEquals($model, $e->getModel());
-            $this->assertEquals('doesNotExist', $e->getMethod());
+        } catch (PHPUnit_Framework_Error_Warning $e) {
+            $this->assertEquals("call_user_func_array() expects parameter 1 to be a valid callback, class 'Faker\Generator' is not a subclass of 'ModelWithMissingStaticMethod'", $e->getMessage());
             throw $e;
         }
     }
@@ -169,17 +154,8 @@ class ComplexModelStub
         return gmdate('Y-m-d', strtotime('+40 days'));
     }
 
-    public static function makeSlug($text)
-    {
-        return preg_replace('|[^a-z0-9]+|', '-', $text);
-    }
 
-    public static function mungeModel($model)
-    {
-        $bits = explode('@', strtolower($model->email));
 
-        return $bits[0];
-    }
 
     public function save()
     {

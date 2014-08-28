@@ -9,7 +9,7 @@ Welcome to the upgrade guide for Factory Muffin. We've tried to cover all change
 
 ### Introduction
 
-There are no notable changes so far.
+Factory Muffin 3.0 has many changes and improvements. More documentation will come as we be closer to the 3.0 release date.
 
 ### Installing This Version
 

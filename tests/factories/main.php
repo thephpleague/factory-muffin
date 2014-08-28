@@ -8,7 +8,7 @@ FactoryMuffin::define('IdTestModelIdStub', array());
 FactoryMuffin::define('IdTestModelNullStub', array());
 
 FactoryMuffin::define('ModelWithMissingStaticMethod', array(
-    'does_not_exist' => 'call|doesNotExist',
+    'does_not_exist' => 'ModelWithMissingStaticMethod::doesNotExist',
 ));
 
 FactoryMuffin::define('IdTestModelStub', array(
@@ -50,9 +50,7 @@ FactoryMuffin::define('MainModelStub', array(
 ));
 
 FactoryMuffin::define('ComplexModelStub', array(
-    'future'       => 'call|fortyDaysFromNow',
-    'slug'         => 'call|makeSlug|text',
-    'munged_model' => 'call|mungeModel|factory|MainModelStub',
+    'future'       => 'ComplexModelStub::fortyDaysFromNow'
 ));
 
 FactoryMuffin::define('ModelWithStaticMethodFactory', array(

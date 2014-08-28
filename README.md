@@ -102,7 +102,7 @@ League\FactoryMuffin\Facade::define('MyModel', array(
 
 ##### More
 
-Check out the [faker library](https://github.com/fzaninotto/Faker) itself to see all the available methods. There are far too many to cover in the documentation here, and far too many for them to cover in their documentation too. Note that you may access the underlying faker instance using the `getFaker` method.
+Check out the [faker library](https://github.com/fzaninotto/Faker) itself to see all the available methods. There are far too many to cover in the documentation here, and far too many for them to cover in their documentation too. Note that you may access the generator factory instance using the `getGeneratorFactory` method. You can fiddle with the underlying faker instance through the public methods on that class if you want. A notable method on the generator factory class is the `getFaker` method.
 
 #### Factory
 
@@ -121,44 +121,9 @@ League\FactoryMuffin\Facade::define('Bar', array(
 ));
 ```
 
-#### Call
+#### Callable
 
-The call generator allows you to generate attributes by calling **static** methods on your models.
-
-##### Example 1
-
-This will set the `foo` attribute to whatever calling `MyModel::exampleMethod()` returns.
-```php
-League\FactoryMuffin\Facade::define('MyModel', array(
-    'foo' => 'call|exampleMethod',
-));
-```
-
-##### Example 2
-
-This will set the `bar` attribute to whatever calling `MyModel::anotherMethod('hello')` returns.
-```php
-League\FactoryMuffin\Facade::define('MyModel', array(
-    'bar' => 'call|anotherMethod|hello',
-));
-```
-
-##### Example 3
-
-This will set the `baz` attribute to whatever calling the `exampleMethod` method on the `OtherModel` after we generate and save it.
-```php
-League\FactoryMuffin\Facade::define('MyModel', array(
-    'baz' => 'call|exampleMethod|factory|OtherModel',
-));
-
-League\FactoryMuffin\Facade::define('OtherModel', array(
-    'example' => 'boolean',
-));
-```
-
-#### Closure
-
-The closure generator can be used if you want a more custom solution. Whatever you return from the closure you write will be set as the attribute. Note that we pass an instance of your model as the first parameter of the closure to give you even more flexibility to modify it as you wish. We additionally pass a boolean as the second parameter that will be `true` if the model is being persisted to the database (the create function was used), and `false` if it's not being persisted (the instance function was used). We're using the `isPendingOrSaved` function under the hood here.
+The callable generator can be used if you want a more custom solution. Whatever you return from your closure, or valid callable, will be set as the attribute. Note that we pass an instance of your model as the first parameter of the closure/callable to give you even more flexibility to modify it as you wish. We additionally pass a boolean as the second parameter that will be `true` if the model is being persisted to the database (the create function was used), and `false` if it's not being persisted (the instance function was used). We're using the `isPendingOrSaved` function under the hood here.
 
 ##### Example 1
 
@@ -173,6 +138,15 @@ League\FactoryMuffin\Facade::define('MyModel', array(
 
         return $slug;
     },
+));
+```
+
+##### Example 2
+
+This will set the `foo` attribute to whatever calling `MyModel::exampleMethod($object, $saved)` returns.
+```php
+League\FactoryMuffin\Facade::define('MyModel', array(
+    'foo' => 'MyModel::exampleMethod',
 ));
 ```
 
@@ -265,7 +239,7 @@ class TestUserModel extends PHPUnit_Framework_TestCase
     public static function setupBeforeClass()
     {
         // note that method chaining is supported
-        FactoryMuffin::setFakerLocale('en_EN')->setSaveMethod('save'); // optional step
+        FactoryMuffin::setSaveMethod('save')->getGenerator()->setFakerLocale('en_EN'); // optional step
         FactoryMuffin::loadFactories(__DIR__ . '/factories');
     }
 
