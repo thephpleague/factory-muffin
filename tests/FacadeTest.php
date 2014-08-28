@@ -10,7 +10,7 @@ class FacadeTest extends AbstractTestCase
     public function testReset()
     {
         // this is a bit hacky, but works because of the method chaining
-        $original = FactoryMuffin::setFakerLocale('en_GB');
+        $original = FactoryMuffin::setSaveMethod('save');
 
         $new = FactoryMuffin::reset();
 

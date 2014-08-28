@@ -4,7 +4,6 @@ namespace League\FactoryMuffin;
 
 use Closure;
 use Exception;
-use Faker\Factory as Faker;
 use League\FactoryMuffin\Exceptions\DeleteFailedException;
 use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
 use League\FactoryMuffin\Exceptions\DeletingFailedException;
@@ -13,7 +12,7 @@ use League\FactoryMuffin\Exceptions\ModelNotFoundException;
 use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
 use League\FactoryMuffin\Exceptions\SaveFailedException;
 use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
-use League\FactoryMuffin\Generators\Base as Generator;
+use League\FactoryMuffin\Generators\GeneratorFactory;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RegexIterator;
@@ -33,6 +32,13 @@ use RegexIterator;
  */
 class Factory
 {
+    /**
+     * The generator factory instance.
+     *
+     * @var \League\FactoryMuffin\Generators\GeneratorFactory
+     */
+    private $generatorFactory;
+
     /**
      * The array of factories.
      *
@@ -104,34 +110,19 @@ class Factory
     private $customDeleter;
 
     /**
-     * The faker instance.
+     * Create a new instance.
      *
-     * @var \Faker\Generator
+     * @param \League\FactoryMuffin\Generators\GeneratorFactory|null $generatorFactory
+     *
+     * @return void
      */
-    private $faker;
-
-    /**
-     * The faker localization.
-     *
-     * @var string
-     */
-    private $fakerLocale = 'en_EN';
-
-    /**
-     * Set the faker locale.
-     *
-     * @param string $local The faker locale.
-     *
-     * @return $this
-     */
-    public function setFakerLocale($local)
+    public function __construct($generatorFactory = null)
     {
-        $this->fakerLocale = $local;
+        if (!$generatorFactory) {
+            $generatorFactory = new GeneratorFactory();
+        }
 
-        // The faker class must be instantiated again with a new the new locale
-        $this->faker = null;
-
-        return $this;
+        $this->generatorFactory = $generatorFactory;
     }
 
     /**
@@ -577,7 +568,7 @@ class Factory
 
         // Prepare attributes
         foreach ($attributes as $key => $kind) {
-            $attr[$key] = $this->generateAttr($kind, $object);
+            $attr[$key] = $this->generatorFactory->generate($kind, $object);
         }
 
         return $attr;
@@ -616,37 +607,6 @@ class Factory
         $this->callbacks[$model] = $callback;
 
         return $this;
-    }
-
-    /**
-     * Generate the attributes.
-     *
-     * This method will return a string, or an instance of the model.
-     *
-     * @param string      $kind   The kind of attribute.
-     * @param object|null $object The model instance.
-     *
-     * @return string|object
-     */
-    public function generateAttr($kind, $object = null)
-    {
-        $kind = Generator::detect($kind, $object, $this->getFaker());
-
-        return $kind->generate();
-    }
-
-    /**
-     * Get the faker instance.
-     *
-     * @return \Faker\Generator
-     */
-    public function getFaker()
-    {
-        if (!$this->faker) {
-            $this->faker = Faker::create($this->fakerLocale);
-        }
-
-        return $this->faker;
     }
 
     /**
@@ -691,5 +651,15 @@ class Factory
         foreach ($files as $file) {
             include $file->getPathName();
         }
+    }
+
+    /**
+     * Get the generator factory instance.
+     *
+     * @return \League\FactoryMuffin\Generators\GeneratorFactory
+     */
+    public function getGeneratorFactory()
+    {
+        return $this->generatorFactory;
     }
 }
