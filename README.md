@@ -211,7 +211,7 @@ FactoryMuffin::define('Message', array(
     'message'      => 'text',
     'phone_number' => 'randomNumber|8',
     'created'      => 'date|Ymd h:s',
-    'slug'         => 'call|makeSlug|word',
+    'slug'         => 'Message::makeSlug',
 ), function ($object, $saved) {
     // we're taking advantage of the callback functionality here
     $object->message .= '!';
