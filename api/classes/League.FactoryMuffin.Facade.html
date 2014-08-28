@@ -144,37 +144,37 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1419380288"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1053836964"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1419380288" class="accordion-body collapse in">
+            <div id="namespace-1053836964" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-567594898"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1400736586"></a>
                                 <a href="../namespaces/League.html" style="margin-left: 30px; padding-left: 0">League</a>
             </div>
-            <div id="namespace-567594898" class="accordion-body collapse ">
+            <div id="namespace-1400736586" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-983510378"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2140739252"></a>
                                 <a href="../namespaces/League.FactoryMuffin.html" style="margin-left: 30px; padding-left: 0">FactoryMuffin</a>
             </div>
-            <div id="namespace-983510378" class="accordion-body collapse ">
+            <div id="namespace-2140739252" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-500541247"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-545265787"></a>
                                 <a href="../namespaces/League.FactoryMuffin.Exceptions.html" style="margin-left: 30px; padding-left: 0">Exceptions</a>
             </div>
-            <div id="namespace-500541247" class="accordion-body collapse ">
+            <div id="namespace-545265787" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -198,10 +198,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-357291630"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-317901625"></a>
                                 <a href="../namespaces/League.FactoryMuffin.Generators.html" style="margin-left: 30px; padding-left: 0">Generators</a>
             </div>
-            <div id="namespace-357291630" class="accordion-body collapse ">
+            <div id="namespace-317901625" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -280,6 +280,10 @@ dynamically proxies static method calls to the underlying factory.</p>
                                                                     <a href="../classes/League.FactoryMuffin.Facade.html#method___callStatic" class="">__callStatic()</a><br />
                                                                     <a href="../classes/League.FactoryMuffin.Facade.html#method_setSaveMethod" class="">setSaveMethod()</a><br />
                                                                     <a href="../classes/League.FactoryMuffin.Facade.html#method_setDeleteMethod" class="">setDeleteMethod()</a><br />
+                                                                    <a href="../classes/League.FactoryMuffin.Facade.html#method_setCustomMaker" class="">setCustomMaker()</a><br />
+                                                                    <a href="../classes/League.FactoryMuffin.Facade.html#method_setCustomSetter" class="">setCustomSetter()</a><br />
+                                                                    <a href="../classes/League.FactoryMuffin.Facade.html#method_setCustomSaver" class="">setCustomSaver()</a><br />
+                                                                    <a href="../classes/League.FactoryMuffin.Facade.html#method_setCustomDeleter" class="">setCustomDeleter()</a><br />
                                                                     <a href="../classes/League.FactoryMuffin.Facade.html#method_seed" class="">seed()</a><br />
                                                                     <a href="../classes/League.FactoryMuffin.Facade.html#method_create" class="">create()</a><br />
                                                                     <a href="../classes/League.FactoryMuffin.Facade.html#method_pending" class="">pending()</a><br />
@@ -539,6 +543,150 @@ dynamically proxies static method calls to the underlying factory.</p>
                                                     <tr>
                                 <td>string</td>
                                 <td>$method </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \League\FactoryMuffin\Factory
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setCustomMaker" name="method_setCustomMaker" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setCustomMaker()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setCustomMaker(\Closure  <span class="argument">$maker</span>) : \League\FactoryMuffin\Factory</pre>
+                <p><em></em></p>
+                <p>Set the custom maker closure.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Closure</td>
+                                <td>$maker </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \League\FactoryMuffin\Factory
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setCustomSetter" name="method_setCustomSetter" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setCustomSetter()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setCustomSetter(\Closure  <span class="argument">$setter</span>) : \League\FactoryMuffin\Factory</pre>
+                <p><em></em></p>
+                <p>Set the custom setter closure.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Closure</td>
+                                <td>$setter </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \League\FactoryMuffin\Factory
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setCustomSaver" name="method_setCustomSaver" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setCustomSaver()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setCustomSaver(\Closure  <span class="argument">$saver</span>) : \League\FactoryMuffin\Factory</pre>
+                <p><em></em></p>
+                <p>Set the custom saver closure.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Closure</td>
+                                <td>$saver </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \League\FactoryMuffin\Factory
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setCustomDeleter" name="method_setCustomDeleter" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setCustomDeleter()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setCustomDeleter(\Closure  <span class="argument">$deleter</span>) : \League\FactoryMuffin\Factory</pre>
+                <p><em></em></p>
+                <p>Set the custom deleter closure.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Closure</td>
+                                <td>$deleter </td>
                                 <td></td>
                             </tr>
                                             </table>
@@ -1146,7 +1294,7 @@ dynamically proxies static method calls to the underlying factory.</p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on August 26th, 2014 at 15:17.
+                    on August 28th, 2014 at 11:00.
                 </section>
             </section>
         </section>

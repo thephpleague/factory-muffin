@@ -82,10 +82,10 @@ abstract class Base
             return new Closure($kind, $object, $faker);
         }
 
-        $class = __NAMESPACE__ . '\\Generic';
+        $class = __NAMESPACE__.'\\Generic';
         foreach (self::$generators as $generator) {
             if (substr($kind, 0, strlen($generator)) === $generator) {
-                $class = __NAMESPACE__ . '\\' . ucfirst($generator);
+                $class = __NAMESPACE__.'\\'.ucfirst($generator);
                 break;
             }
         }
@@ -129,7 +129,7 @@ abstract class Base
     protected function getGeneratorWithoutPrefix()
     {
         if ($prefix = $this->getPrefix()) {
-            return str_replace($prefix . ':', '', $this->getGenerator());
+            return str_replace($prefix.':', '', $this->getGenerator());
         }
 
         return $this->getGenerator();

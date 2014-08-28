@@ -117,31 +117,31 @@
 
 <h2>Multiple Factory Definitions</h2>
 
-<p>Now you can define multiple different factory definitions for your models. You can do this by prefixing the model class name with your "group" followed by a colon. This results in you defining your model like this: like this: <code>League\FactoryMuffin\Facade::define('myGroup:Fully\Qualifed\ModelName', array('foo' =&gt; 'bar'))</code>. You don't have to entirely define your model here because we will first look for a definition without the group prefix, then apply your group definition on top of that definition, overriding attribute definitions where required.</p>
+<p>Now you can define multiple different factory definitions for your models. You can do this by prefixing the model class name with your "group" followed by a colon. This results in you defining your model like this: <code>League\FactoryMuffin\Facade::define('myGroup:Fully\Qualifed\ModelName', array('foo' =&gt; 'bar'))</code>. You don't have to entirely define your model here because we will first look for a definition without the group prefix, then apply your group definition on top of that definition, overriding attribute definitions where required.</p>
 
 <h2>Small Change To Model Creation</h2>
 
-<p>Before you try to create your model instance, we'll check whether the class actually exists thus avoiding a fatal error. If the class does not exist, we'll throw a <code>League\FactoryMuffin\Exceptions\ModelNotFoundException</code>. Note that this exception is new in 2.1.</p>
+<p>Before you try to create your model instance, we'll check whether the class actually exists, thus avoiding a fatal error. If the class does not exist, we'll throw a <code>League\FactoryMuffin\Exceptions\ModelNotFoundException</code>. Note that this exception is new in 2.1.</p>
 
 <h2>Changes To The Saving Process</h2>
 
-<p>We'll now keep track of objects waiting to be saved separately to objects that have already been saved. This means the <code>saved</code> and <code>isSaved</code> functions will behave slightly differently. Details of the changes are listed below:</p>
+<p>We'll now keep track of objects waiting to be saved separately from objects that have already been saved. This means the <code>saved</code> and <code>isSaved</code> functions will behave slightly differently. Details of the changes are listed below:</p>
 
 <ul>
-<li>The <code>saved</code> function will now return an array of objects actually saved to the database where as before it would return an array of objects that were either saved, or were going to be saved later.</li>
-<li>The <code>isSaved</code> function will now check if your object is actually saved to the database where as before it would check if it was saved, or was going to be saved later.</li>
+<li>The <code>saved</code> function will now return an array of objects actually saved to the database whereas before it would return an array of objects that were either saved, or were going to be saved later.</li>
+<li>The <code>isSaved</code> function will now check if your object is actually saved to the database whereas before it would check if it was saved, or was going to be saved later.</li>
 <li>The <code>pending</code> function is new, and returns an array of objects that will be saved to the database later, but have not been saved yet.</li>
 <li>The <code>isPending</code> function is new, and checks if your object is going to be saved to the database later, but has not been saved yet.</li>
-<li>The <code>isPendingOrSaved</code> function is new, and checks of your objects is either saved in the database, or will be saved to the database later. This behaves as the old <code>isSaved</code> function used to behave.</li>
+<li>The <code>isPendingOrSaved</code> function is new, and checks if your object is either saved in the database, or will be saved to the database later. This behaves as the old <code>isSaved</code> function used to behave.</li>
 </ul>
 
 <h2>Creation/Instantiation Callbacks</h2>
 
-<p>When you define your definitions, you may optionally specify a callback to be executed on model creation/instantiation as a third parameter. We will pass your model instance as the first parameter to the closure if you specify one. We additionally pass a boolean as the second parameter that will be <code>true</code> if the model is being persisted to the database (the create function has used), and <code>false</code> if it's not being persisted (the instance function was used). Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback.</p>
+<p>When you define your definitions, you may optionally specify a callback to be executed on model creation/instantiation as a third parameter. We will pass your model instance as the first parameter to the closure if you specify one. We additionally pass a boolean as the second parameter that will be <code>true</code> if the model is being persisted to the database (the create function was used), and <code>false</code> if it's not being persisted (the instance function was used). Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback.</p>
 
 <h2>Addition To The Closure Generator</h2>
 
-<p>Now, we additionally pass a boolean as the second parameter that will be <code>true</code> if the model is being persisted to the database (the create function has used), and <code>false</code> if it's not being persisted (the instance function was used). This is, of course, in addition to passing the object instance as the first parameter. Previously, you'd have had to call the <code>isSaved</code> function on the facade, but this is no longer needed now for checking if the object is being persisted. Note that due to changes to the <code>isSaved</code> function, we're actually calling <code>isPendingOrSaved</code> under the hood now.</p>
+<p>Now, we additionally pass a boolean as the second parameter that will be <code>true</code> if the model is being persisted to the database (the create function was used), and <code>false</code> if it's not being persisted (the instance function was used). This is, of course, in addition to passing the object instance as the first parameter. Previously, you'd have had to call the <code>isSaved</code> function on the facade, but this is no longer needed now for checking if the object is being persisted. Note that due to changes to the <code>isSaved</code> function, we're actually calling <code>isPendingOrSaved</code> under the hood now.</p>
 
 <h2>Additional Customisation</h2>
 

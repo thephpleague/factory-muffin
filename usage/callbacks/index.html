@@ -115,7 +115,7 @@
     <article>
         <h1>Usage - Callbacks</h1>
 
-<p>You may optionally specify a callback to be executed on model creation/instantiation as a third parameter when defining a definition. We will pass your model instance as the first parameter to the closure if you specify one. We additionally pass a boolean as the second parameter that will be <code>true</code> if the model is being persisted to the database (the create function has used), and <code>false</code> if it's not being persisted (the instance function was used). We're using the <code>isPendingOrSaved</code> function under the hood here. Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback.</p>
+<p>You may optionally specify a callback to be executed on model creation/instantiation as a third parameter when defining a definition. We will pass your model instance as the first parameter to the closure if you specify one. We additionally pass a boolean as the second parameter that will be <code>true</code> if the model is being persisted to the database (the create function was used), and <code>false</code> if it's not being persisted (the instance function was used). We're using the <code>isPendingOrSaved</code> function under the hood here. Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback.</p>
     </article>
 </main>
 
