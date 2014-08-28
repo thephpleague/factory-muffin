@@ -32,7 +32,6 @@ namespace League\FactoryMuffin;
  * @method static Factory loadFactories(string|string[] $paths) Load the specified factories.
  *
  * @package League\FactoryMuffin
- * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT

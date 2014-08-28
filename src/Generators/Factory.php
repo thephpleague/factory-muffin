@@ -11,7 +11,6 @@ namespace League\FactoryMuffin\Generators;
  * public api, and should only be used internally by Factory Muffin.
  *
  * @package League\FactoryMuffin\Generators
- * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
