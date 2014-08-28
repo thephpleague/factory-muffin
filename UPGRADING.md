@@ -44,11 +44,11 @@ We'll now keep track of objects waiting to be saved separately from objects that
 
 ### Creation/Instantiation Callbacks
 
-When you define your definitions, you may optionally specify a callback to be executed on model creation/instantiation as a third parameter. We will pass your model instance as the first parameter to the closure if you specify one. We additionally pass a boolean as the second parameter that will be `true` if the model is being persisted to the database (the create function has been used), and `false` if it's not being persisted (the instance function was used). Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback.
+When you define your definitions, you may optionally specify a callback to be executed on model creation/instantiation as a third parameter. We will pass your model instance as the first parameter to the closure if you specify one. We additionally pass a boolean as the second parameter that will be `true` if the model is being persisted to the database (the create function was used), and `false` if it's not being persisted (the instance function was used). Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback.
 
 ### Addition To The Closure Generator
 
-Now, we additionally pass a boolean as the second parameter that will be `true` if the model is being persisted to the database (the create function has been used), and `false` if it's not being persisted (the instance function was used). This is, of course, in addition to passing the object instance as the first parameter. Previously, you'd have had to call the `isSaved` function on the facade, but this is no longer needed now for checking if the object is being persisted. Note that due to changes to the `isSaved` function, we're actually calling `isPendingOrSaved` under the hood now.
+Now, we additionally pass a boolean as the second parameter that will be `true` if the model is being persisted to the database (the create function was used), and `false` if it's not being persisted (the instance function was used). This is, of course, in addition to passing the object instance as the first parameter. Previously, you'd have had to call the `isSaved` function on the facade, but this is no longer needed now for checking if the object is being persisted. Note that due to changes to the `isSaved` function, we're actually calling `isPendingOrSaved` under the hood now.
 
 ### Additional Customisation
 
@@ -132,7 +132,7 @@ Having a public static factory property is no longer supported. You must use the
 
 ### Generator (Kind) Changes
 
-We now refer to what was previously the kind classes, as generator classes. We've removed some of these in favour of the faker alternatives. We currently provide the following generators: `Call`, `Closure`, `Factory`, and `Generic`. The call, closure, and factory generators have not changed significantly since previous versions, and the generic generator still provides access to the faker generators. The closure generator will now pass the instance of your model into your closure as the first parameter too.
+We now refer to what were previously the kind classes, as generator classes. We've removed some of these in favour of the faker alternatives. We currently provide the following generators: `Call`, `Closure`, `Factory`, and `Generic`. The call, closure, and factory generators have not changed significantly since previous versions, and the generic generator still provides access to the faker generators. The closure generator will now pass the instance of your model into your closure as the first parameter too.
 
 There are two syntax changes to watch out for:
 * You can now use a `;` to send multiple arguments to the generators.
