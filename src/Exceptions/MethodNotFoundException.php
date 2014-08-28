@@ -25,19 +25,15 @@ class MethodNotFoundException extends ModelException
     /**
      * Create a new instance.
      *
-     * @param string      $model
-     * @param string      $method
-     * @param string|null $message
+     * @param string  $model
+     * @param string  $method
+     * @param string $message
      *
      * @return void
      */
-    public function __construct($model, $method, $message = null)
+    public function __construct($model, $method, $message)
     {
         $this->method = $method;
-
-        if (!$message) {
-            $message = "The static method '$method' was not found on the model of type: '$model'.";
-        }
 
         parent::__construct($model, $message);
     }
