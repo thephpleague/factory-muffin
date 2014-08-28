@@ -22,4 +22,4 @@ There are 5 other helper functions available:
 * You may call `isPending` with an instance of a model to check if will be saved.
 * You may call `saved` to return an array of all the saved objects.
 * You may call `isSaved` with an instance of a model to check if it's saved.
-* You may call `isPendingOrSaved` with an instance of a model to check if will be saved, or is already saved.
+* You may call `isPendingOrSaved` with an instance of a model to check if it will be saved, or is already saved.

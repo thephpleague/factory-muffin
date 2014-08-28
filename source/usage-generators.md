@@ -108,7 +108,7 @@ League\FactoryMuffin\Facade::define('OtherModel', array(
 
 ## Closure
 
-The closure generator can be used if you want a more custom solution. Whatever you return from the closure you write will be set as the attribute. Note that we pass an instance of your model as the first parameter of the closure to give you even more flexibility to modify it as you wish. We additionally pass a boolean as the second parameter that will be `true` if the model is being persisted to the database (the create function has used), and `false` if it's not being persisted (the instance function was used). We're using the `isPendingOrSaved` function under the hood here.
+The closure generator can be used if you want a more custom solution. Whatever you return from the closure you write will be set as the attribute. Note that we pass an instance of your model as the first parameter of the closure to give you even more flexibility to modify it as you wish. We additionally pass a boolean as the second parameter that will be `true` if the model is being persisted to the database (the create function was used), and `false` if it's not being persisted (the instance function was used). We're using the `isPendingOrSaved` function under the hood here.
 
 ### Example 1
 
