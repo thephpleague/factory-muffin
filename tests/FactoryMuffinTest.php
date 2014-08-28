@@ -118,12 +118,7 @@ class FactoryMuffinTest extends AbstractTestCase
      */
     public function testShouldThrowExceptionWhenInvalidStaticMethod()
     {
-        try {
-            FactoryMuffin::create($model = 'ModelWithMissingStaticMethod');
-        } catch (PHPUnit_Framework_Error_Warning $e) {
-            $this->assertEquals("call_user_func_array() expects parameter 1 to be a valid callback, class 'Faker\Generator' is not a subclass of 'ModelWithMissingStaticMethod'", $e->getMessage());
-            throw $e;
-        }
+        FactoryMuffin::create('ModelWithMissingStaticMethod');
     }
 }
 
