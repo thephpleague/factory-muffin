@@ -1,7 +1,7 @@
 <?php
 
 use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
-use League\FactoryMuffin\Facade as FactoryMuffin;
+use League\FactoryMuffin\Facades\FactoryMuffin;
 
 /**
  * @group main
@@ -20,17 +20,6 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertEquals('http://lorempixel.com/400/600/', $obj->image);
         $this->assertNotEquals('unique::text', $obj->unique_text);
         $this->assertNotEquals('optional::text', $obj->optional_text);
-    }
-
-    public function testGetFaker()
-    {
-        $original = FactoryMuffin::getGeneratorFactory()->getFaker();
-        $new = FactoryMuffin::getGeneratorFactory()->setFakerLocale('en_GB')->getFaker();
-
-        $this->assertInstanceOf('Faker\Generator', $original);
-        $this->assertInstanceOf('Faker\Generator', $new);
-
-        $this->assertFalse($original === $new);
     }
 
     public function testShouldGetAttributesFor()
@@ -58,8 +47,6 @@ class FactoryMuffinTest extends AbstractTestCase
 
         $this->assertEquals($expected, $obj->future);
     }
-
-
 
     public function testFakerDefaultBoolean()
     {
@@ -112,14 +99,6 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertInstanceOf('ModelWithStaticMethodFactory', $obj->data['object']);
         $this->assertFalse($obj->data['saved']);
     }
-
-    /**
-     * @expectedException \PHPUnit_Framework_Error_Warning
-     */
-    public function testShouldThrowExceptionWhenInvalidStaticMethod()
-    {
-        FactoryMuffin::create('ModelWithMissingStaticMethod');
-    }
 }
 
 class MainModelStub
@@ -148,9 +127,6 @@ class ComplexModelStub
     {
         return gmdate('Y-m-d', strtotime('+40 days'));
     }
-
-
-
 
     public function save()
     {
@@ -213,14 +189,6 @@ class IdTestModelIdStub
 class IdTestModelNullStub
 {
     public function save()
-    {
-        return true;
-    }
-}
-
-class ModelWithMissingStaticMethod
-{
-    public function delete()
     {
         return true;
     }

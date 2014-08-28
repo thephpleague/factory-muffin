@@ -1,6 +1,6 @@
 <?php
 
-use League\FactoryMuffin\Facade as FactoryMuffin;
+use League\FactoryMuffin\Facades\FactoryMuffin;
 
 FactoryMuffin::define('MakerCustomisationModelStub', array(
     'foo' => 'bar'

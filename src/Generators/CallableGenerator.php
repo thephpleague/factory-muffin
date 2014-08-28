@@ -2,7 +2,7 @@
 
 namespace League\FactoryMuffin\Generators;
 
-use League\FactoryMuffin\Facade as FactoryMuffin;
+use League\FactoryMuffin\Facades\FactoryMuffin;
 
 /**
  * This is the closure generator class.

@@ -3,7 +3,8 @@
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
 use League\FactoryMuffin\Exceptions\ModelNotFoundException;
 use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
-use League\FactoryMuffin\Facade as FactoryMuffin;
+use League\FactoryMuffin\Facades\FactoryMuffin;
+use League\FactoryMuffin\Facades\Faker;
 
 /**
  * @group definition
@@ -23,7 +24,7 @@ class DefinitionTest extends AbstractTestCase
     public function testDefineWithReplacementGenerators()
     {
         $user = FactoryMuffin::create('UserModelStub', array(
-            'fullName' => 'name'
+            'fullName' => Faker::name(),
         ));
 
         $this->assertInstanceOf('UserModelStub', $user);
@@ -67,8 +68,7 @@ class DefinitionTest extends AbstractTestCase
         $this->assertInstanceOf('UserModelStub', $user);
         $this->assertInternalType('string', $user->address);
         $this->assertInternalType('string', $user->name);
-        $this->assertNotInternalType('boolean', $user->active);
-        $this->assertEquals('false', $user->active);
+        $this->assertEquals('custom', $user->active);
         $this->assertContains('@', $user->email);
     }
 
@@ -161,7 +161,7 @@ class DefinitionTest extends AbstractTestCase
         $return = FactoryMuffin::loadFactories(__DIR__.'/stubs');
 
         $this->assertSame(1, count(get_included_files()) - $count);
-        $this->assertInstanceOf('League\FactoryMuffin\Factory', $return);
+        $this->assertInstanceOf('League\FactoryMuffin\FactoryMuffin', $return);
 
         $this->reload();
     }
@@ -178,6 +178,11 @@ class DefinitionTest extends AbstractTestCase
             $this->assertEquals($path, $e->getPath());
             throw $e;
         }
+    }
+
+    public function testGetGeneratorFactory()
+    {
+        $this->assertInstanceOf('League\FactoryMuffin\Generators\GeneratorFactory', FactoryMuffin::getGeneratorFactory());
     }
 }
 

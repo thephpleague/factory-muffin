@@ -1,7 +1,7 @@
 <?php
 
 use League\FactoryMuffin\Arr;
-use League\FactoryMuffin\Facade as FactoryMuffin;
+use League\FactoryMuffin\Facades\FactoryMuffin;
 
 /**
  * @group array
