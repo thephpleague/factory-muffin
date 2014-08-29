@@ -12,7 +12,7 @@ namespace League\FactoryMuffin\Facades;
  * @package League\FactoryMuffin\Facades
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
- * @license <https://github.com/thephpleague/faker-muffin/blob/master/LICENSE> MIT
+ * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class Faker
 {
@@ -21,7 +21,7 @@ class Faker
      *
      * @var \League\FactoryMuffin\Faker
      */
-    private static $faker;
+    private static $instance;
 
     /**
      * Get the underlying faker instance.
@@ -30,13 +30,13 @@ class Faker
      *
      * @return \League\FactoryMuffin\Faker
      */
-    private static function faker()
+    private static function instance()
     {
-        if (!self::$faker) {
-            self::$faker = new \League\FactoryMuffin\Faker();
+        if (!self::$instance) {
+            self::$instance = new \League\FactoryMuffin\Faker();
         }
 
-        return self::$faker;
+        return self::$instance;
     }
 
     /**
@@ -46,9 +46,9 @@ class Faker
      */
     public static function reset()
     {
-        self::$faker = null;
+        self::$instance = null;
 
-        return self::faker();
+        return self::instance();
     }
 
     /**
@@ -65,15 +65,15 @@ class Faker
     {
         switch (count($args)) {
             case 0:
-                return self::faker()->$method();
+                return self::instance()->$method();
             case 1:
-                return self::faker()->$method($args[0]);
+                return self::instance()->$method($args[0]);
             case 2:
-                return self::faker()->$method($args[0], $args[1]);
+                return self::instance()->$method($args[0], $args[1]);
             case 3:
-                return self::faker()->$method($args[0], $args[1], $args[2]);
+                return self::instance()->$method($args[0], $args[1], $args[2]);
             default:
-                return call_user_func_array(array(self::faker(), $method), $args);
+                return call_user_func_array(array(self::instance(), $method), $args);
         }
     }
 }

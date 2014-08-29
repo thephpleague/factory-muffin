@@ -20,11 +20,11 @@ use Faker\Factory;
 class Faker
 {
     /**
-     * The faker instance.
+     * The generator instance.
      *
      * @var \Faker\Generator
      */
-    private $faker;
+    private $generator;
 
     /**
      * The faker localization.
@@ -36,14 +36,14 @@ class Faker
     /**
      * Create a new instance.
      *
-     * @param \Faker\Generator|null $faker
+     * @param \Faker\Generator|null $generator
      *
      * @return void
      */
-    public function __construct($faker = null)
+    public function __construct($generator = null)
     {
-        if ($faker) {
-            $this->faker = $faker;
+        if ($generator) {
+            $this->generator = $generator;
         }
     }
 
@@ -58,23 +58,23 @@ class Faker
     {
         $this->locale = $local;
 
-        $this->faker = null;
+        $this->generator = null;
 
         return $this;
     }
 
     /**
-     * Get the faker instance.
+     * Get the generator instance.
      *
      * @return \Faker\Generator
      */
-    public function getFaker()
+    public function getGenerator()
     {
-        if (!$this->faker) {
-            $this->faker = Factory::create($this->locale);
+        if (!$this->generator) {
+            $this->generator = Factory::create($this->locale);
         }
 
-        return $this->faker;
+        return $this->generator;
     }
 
     /**
@@ -86,7 +86,7 @@ class Faker
      */
     public function addProvider($provider)
     {
-        $this->getFaker()->addProvider($provider);
+        $this->getGenerator()->addProvider($provider);
 
         return $this;
     }
@@ -98,7 +98,7 @@ class Faker
      */
     public function getProviders()
     {
-        return $this->getFaker()->getProviders();
+        return $this->getGenerator()->getProviders();
     }
 
     /**
@@ -112,7 +112,7 @@ class Faker
     public function format($formatter, $arguments = array())
     {
         return function () use ($formatter, $arguments) {
-            return $this->getFaker()->format($formatter, $arguments);
+            return $this->getGenerator()->format($formatter, $arguments);
         };
     }
 
@@ -125,7 +125,7 @@ class Faker
      */
     public function getFormatter($formatter)
     {
-        return $this->getFaker()->getFormatter($formatter);
+        return $this->getGenerator()->getFormatter($formatter);
     }
 
     /**
@@ -138,7 +138,7 @@ class Faker
      */
     public function unique($reset = false, $maxRetries = 10000)
     {
-        return new static($this->getFaker()->unique($reset, $maxRetries));
+        return new static($this->getGenerator()->unique($reset, $maxRetries));
     }
 
     /**
@@ -151,7 +151,7 @@ class Faker
      */
     public function optional($weight = 0.5, $default = null)
     {
-        return new static($this->getFaker()->optional($weight, $default));
+        return new static($this->getGenerator()->optional($weight, $default));
     }
 
     /**

@@ -89,7 +89,7 @@ League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
 
 There is a simple example of setting a few different attributes using our faker wrapper.
 ```php
-use League\FactoryMuffin\Facades\Faker();
+use League\FactoryMuffin\Facades\Faker;
 
 League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
     'foo'    => Faker::word(),          // Set the foo attribute to a random word
@@ -104,7 +104,7 @@ League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
 
 This will set the `age` attribute to a random number between 20 and 40.
 ```php
-use League\FactoryMuffin\Facades\Faker();
+use League\FactoryMuffin\Facades\Faker;
 
 League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
     'age' => Faker::numberBetween(20, 40),
@@ -115,7 +115,7 @@ League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
 
 This will set the `name` attribute to a random female first name. Because we've called the `unique` method first, the attribute should be unique between all your generated models. Be careful with this if you're generating lots models because we might run out of unique items. Also, note that calling `Faker::setLocale('whatever')` will reset the internal unique list.
 ```php
-use League\FactoryMuffin\Facades\Faker();
+use League\FactoryMuffin\Facades\Faker;
 
 League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
     'name' => Faker::unique()->firstNameFemale(),
@@ -126,7 +126,7 @@ League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
 
 This will set the `profile_pic` attribute to a random image url of dimensions 400 by 400. Because we've called the `optional` method first, not all the generated models will have an image url set; sometimes we will return null.
 ```php
-use League\FactoryMuffin\Facades\Faker();
+use League\FactoryMuffin\Facades\Faker;
 
 League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
     'profile_pic' => Faker::optional()->imageUrl(400, 400),

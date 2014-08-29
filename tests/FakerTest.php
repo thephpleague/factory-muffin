@@ -7,10 +7,10 @@ use League\FactoryMuffin\Facades\Faker;
  */
 class FakerTest extends AbstractTestCase
 {
-    public function testGetFaker()
+    public function testGetGenerator()
     {
-        $original = Faker::getFaker();
-        $new = Faker::setLocale('en_GB')->getFaker();
+        $original = Faker::getGenerator();
+        $new = Faker::setLocale('en_GB')->getGenerator();
 
         $this->assertInstanceOf('Faker\Generator', $original);
         $this->assertInstanceOf('Faker\Generator', $new);
@@ -21,7 +21,7 @@ class FakerTest extends AbstractTestCase
     public function testProviders()
     {
         $this->assertInternalType('array', $array = Faker::getProviders());
-        $this->assertSame(Faker::getFaker(), Faker::addProvider($array[0])->getFaker());
+        $this->assertSame(Faker::getGenerator(), Faker::addProvider($array[0])->getGenerator());
     }
 
     public function testFormat()
