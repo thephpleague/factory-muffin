@@ -208,13 +208,14 @@ To start with, we need to create some definitions:
 # tests/factories/all.php
 
 use League\FactoryMuffin\Facades\FactoryMuffin;
+use League\FactoryMuffin\Facades\Faker;
 
 FactoryMuffin::define('Message', array(
     'user_id'      => 'factory|User',
-    'subject'      => 'sentence',
-    'message'      => 'text',
-    'phone_number' => 'randomNumber|8',
-    'created'      => 'date|Ymd h:s',
+    'subject'      => Faker::sentence(),
+    'message'      => Faker::text(),
+    'phone_number' => Faker::randomNumber(8),
+    'created'      => Faker::date('Ymd h:s'),
     'slug'         => 'Message::makeSlug',
 ), function ($object, $saved) {
     // we're taking advantage of the callback functionality here
@@ -222,10 +223,10 @@ FactoryMuffin::define('Message', array(
 });
 
 FactoryMuffin::define('User', array(
-    'username' => 'firstNameMale',
-    'email'    => 'email',
-    'avatar'   => 'imageUrl|400;600',
-    'greeting' => RandomGreeting::get(),
+    'username' => Faker::firstNameMale(),
+    'email'    => Faker::email(),
+    'avatar'   => Faker::imageUrl(400, 600),
+    'greeting' => 'RandomGreeting::get',
     'four'     => function() {
         return 2 + 2;
     },
@@ -237,13 +238,15 @@ You can then use these factories in your tests:
 # tests/TestUserModel.php
 
 use League\FactoryMuffin\Facades\FactoryMuffin;
+use League\FactoryMuffin\Facades\Faker;
 
 class TestUserModel extends PHPUnit_Framework_TestCase
 {
     public static function setupBeforeClass()
     {
+        Faker::setLocale('en_EN'); // optional step
         // note that method chaining is supported
-        FactoryMuffin::setSaveMethod('save')->getGenerator()->setLocale('en_EN'); // optional step
+        FactoryMuffin::setSaveMethod('save')->setDeleteMethod('delete'); // optional step
         FactoryMuffin::loadFactories(__DIR__ . '/factories');
     }
 
@@ -256,7 +259,6 @@ class TestUserModel extends PHPUnit_Framework_TestCase
 
     public static function tearDownAfterClass()
     {
-        FactoryMuffin::setDeleteMethod('delete'); // optional step
         FactoryMuffin::deleteSaved();
     }
 }
