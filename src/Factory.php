@@ -334,11 +334,7 @@ class Factory
         }
 
         // Get the factory attributes for that model
-        $attributes = $this->attributesFor($object, $attr);
-
-        foreach ($attributes as $name => $value) {
-            $this->setAttribute($object, $name, $value);
-        }
+        $this->attributesFor($object, $attr);
 
         return $object;
     }
@@ -579,6 +575,7 @@ class Factory
         // Prepare attributes
         foreach ($attributes as $key => $kind) {
             $attr[$key] = $this->generateAttr($kind, $object);
+            $this->setAttribute($object, $key, $attr[$key]);
         }
 
         return $attr;
