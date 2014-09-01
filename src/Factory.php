@@ -502,7 +502,7 @@ class Factory
     public function deleteSaved()
     {
         $exceptions = array();
-        foreach ($this->saved as $object) {
+        foreach (array_reverse($this->saved) as $object) {
             try {
                 if (!$this->delete($object)) {
                     throw new DeleteFailedException(get_class($object));
