@@ -334,11 +334,7 @@ class Factory
         }
 
         // Get the factory attributes for that model
-        $attributes = $this->attributesFor($object, $attr);
-
-        foreach ($attributes as $name => $value) {
-            $this->setAttribute($object, $name, $value);
-        }
+        $this->attributesFor($object, $attr);
 
         return $object;
     }
@@ -502,7 +498,7 @@ class Factory
     public function deleteSaved()
     {
         $exceptions = array();
-        foreach ($this->saved as $object) {
+        foreach (array_reverse($this->saved) as $object) {
             try {
                 if (!$this->delete($object)) {
                     throw new DeleteFailedException(get_class($object));
@@ -579,6 +575,7 @@ class Factory
         // Prepare attributes
         foreach ($attributes as $key => $kind) {
             $attr[$key] = $this->generateAttr($kind, $object);
+            $this->setAttribute($object, $key, $attr[$key]);
         }
 
         return $attr;
