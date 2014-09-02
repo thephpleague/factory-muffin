@@ -7,23 +7,20 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
+         stopOnError="false"
          stopOnFailure="false"
-         syntaxCheck="false"
+         syntaxCheck="true"
+         strict="true"
+         verbose="true">
 >
     <testsuites>
-        <testsuite name="Package Test Suite">
-            <directory suffix=".php">./tests</directory>
-            <exclude>./tests/factories</exclude>
-            <exclude>./tests/stubs</exclude>
+        <testsuite name="Factory Muffin Test Suite">
+            <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
     <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true">
+        <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>
-            <exclude>
-                <directory>./tests</directory>
-                <directory>./vendor</directory>
-            </exclude>
         </whitelist>
     </filter>
 </phpunit>
