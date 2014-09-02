@@ -48,11 +48,15 @@ class Arr
      * @param array  $array
      * @param object $object
      *
-     * @return void
+     * @return string
      */
     public static function add(&$array, $object)
     {
-        $array[spl_object_hash($object)] = $object;
+        $hash = spl_object_hash($object);
+
+        $array[$hash] = $object;
+
+        return $hash;
     }
 
     /**

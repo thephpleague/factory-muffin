@@ -68,6 +68,13 @@ class FactoryMuffin
     private $saved = array();
 
     /**
+     * The array of object hashes once they are saved.
+     *
+     * @var  array
+     */
+    private $savedHashes = array();
+
+    /**
      * This is the method used when saving objects.
      *
      * @var string
@@ -274,7 +281,7 @@ class FactoryMuffin
             throw new SaveFailedException(get_class($object));
         }
 
-        Arr::add($this->saved, $object);
+        $this->savedHashes[] = Arr::add($this->saved, $object);
         Arr::remove($this->pending, $object);
     }
 
@@ -315,7 +322,7 @@ class FactoryMuffin
 
         // Make the object as saved so that other generators persist correctly
         if ($save) {
-            Arr::add($this->pending, $object);
+            $this->savedHashes[] = Arr::add($this->pending, $object);
         }
 
         // Get the group specific factory attributes
@@ -488,7 +495,15 @@ class FactoryMuffin
     public function deleteSaved()
     {
         $exceptions = array();
-        foreach ($this->saved as $object) {
+
+        while ($hash = array_pop($this->savedHashes))
+        {
+            if (! array_key_exists($hash, $this->saved)) {
+                continue;
+            }
+
+            $object = $this->saved[$hash];
+
             try {
                 if (!$this->delete($object)) {
                     throw new DeleteFailedException(get_class($object));
