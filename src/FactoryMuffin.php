@@ -496,10 +496,8 @@ class FactoryMuffin
     {
         $exceptions = array();
 
-        for ($i = count($this->savedHashes); $i > 0; $i--)
+        while ($hash = array_pop($this->savedHashes))
         {
-            $hash = $this->savedHashes[$i];
-
             if (! array_key_exists($hash, $this->saved)) {
                 continue;
             }
@@ -515,8 +513,6 @@ class FactoryMuffin
             }
 
             Arr::remove($this->saved, $object);
-
-            unset($this->savedHashes[$i]);
         }
 
         // If we ran into problem, throw the exception now
