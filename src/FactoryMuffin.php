@@ -323,8 +323,8 @@ class FactoryMuffin
             $attr = array_merge($attr, $this->getFactoryAttrs($model));
         }
 
-        // Get the factory attributes for that model
-        $this->attributesFor($object, $attr);
+        // Generate and save each attribute for the model
+        $this->generate($object, $attr);
 
         return $object;
     }
@@ -555,20 +555,18 @@ class FactoryMuffin
      * @param object $object The model instance.
      * @param array  $attr   The model attributes.
      *
-     * @return array
+     * @return void
      */
-    public function attributesFor($object, array $attr = array())
+    private function generate($object, array $attr = array())
     {
-        $factory_attrs = $this->getFactoryAttrs(get_class($object));
-        $attributes = array_merge($factory_attrs, $attr);
+        $factory = $this->getFactoryAttrs(get_class($object));
+        $attributes = array_merge($factory, $attr);
 
-        // Prepare attributes
+        // Generate and save each attribute
         foreach ($attributes as $key => $kind) {
-            $attr[$key] = $this->generatorFactory->generate($kind, $object);
-            $this->setAttribute($object, $key, $attr[$key]);
+            $generated = $this->generatorFactory->generate($kind, $object);
+            $this->setAttribute($object, $key, $generated);
         }
-
-        return $attr;
     }
 
     /**
