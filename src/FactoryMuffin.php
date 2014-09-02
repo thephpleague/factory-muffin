@@ -559,16 +559,18 @@ class FactoryMuffin
      */
     public function attributesFor($object, array $attr = array())
     {
-        $factory_attrs = $this->getFactoryAttrs(get_class($object));
-        $attributes = array_merge($factory_attrs, $attr);
+        $factory = $this->getFactoryAttrs(get_class($object));
+        $attributes = array_merge($factory, $attr);
 
-        // Prepare attributes
+        $generated = array();
+
+        // Generate each attribute
         foreach ($attributes as $key => $kind) {
-            $attr[$key] = $this->generatorFactory->generate($kind, $object);
-            $this->setAttribute($object, $key, $attr[$key]);
+            $generated[$key] = $this->generatorFactory->generate($kind, $object);
+            $this->setAttribute($object, $key, $generated[$key]);
         }
 
-        return $attr;
+        return $generated;
     }
 
     /**
