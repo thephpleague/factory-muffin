@@ -573,15 +573,17 @@ class Factory
      */
     public function attributesFor($object, array $attr = array())
     {
-        $factory_attrs = $this->getFactoryAttrs(get_class($object));
-        $attributes = array_merge($factory_attrs, $attr);
+        $factory = $this->getFactoryAttrs(get_class($object));
+        $attributes = array_merge($factory, $attr);
 
-        // Prepare attributes
+        $generated = array();
+
+        // Generate each attribute
         foreach ($attributes as $key => $kind) {
-            $attr[$key] = $this->generateAttr($kind, $object);
+            $generated[$key] = $this->generateAttr($kind, $object);
         }
 
-        return $attr;
+        return $generated;
     }
 
     /**
