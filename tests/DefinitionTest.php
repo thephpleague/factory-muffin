@@ -144,16 +144,6 @@ class DefinitionTest extends AbstractTestCase
         $this->assertTrue($obj->saved);
     }
 
-    public function testAttributesFor()
-    {
-        $object = new UserModelStub();
-        $attributes = FactoryMuffin::attributesFor($object);
-
-        $this->assertInternalType('string', $attributes['name']);
-        $this->assertInternalType('boolean', $attributes['active']);
-        $this->assertContains('@', $attributes['email']);
-    }
-
     public function testFactoryLoading()
     {
         $count = count(get_included_files());

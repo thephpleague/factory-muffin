@@ -22,13 +22,6 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertNotEquals('optional::text', $obj->optional_text);
     }
 
-    public function testShouldGetAttributesFor()
-    {
-        $object = new MainModelStub();
-        $attr = FactoryMuffin::attributesFor($object);
-        $this->assertInternalType('string', $attr['text_closure']);
-    }
-
     public function testGetIds()
     {
         $obj = FactoryMuffin::instance('IdTestModelStub');
