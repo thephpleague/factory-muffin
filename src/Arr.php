@@ -48,11 +48,15 @@ class Arr
      * @param array  $array
      * @param object $object
      *
-     * @return void
+     * @return string
      */
     public static function add(&$array, $object)
     {
-        $array[spl_object_hash($object)] = $object;
+        $hash = spl_object_hash($object);
+
+        $array[$hash] = $object;
+
+        return $hash;
     }
 
     /**
@@ -65,8 +69,26 @@ class Arr
      */
     public static function remove(&$array, $object)
     {
-        if (in_array($object, $array, true)) {
-            unset($array[spl_object_hash($object)]);
-        }
+        unset($array[spl_object_hash($object)]);
+    }
+
+    /**
+     * Move an object to another array.
+     *
+     * @param array  $old
+     * @param array  $new
+     * @param object $object
+     *
+     * @return string
+     */
+    public static function move(&$old, &$new, $object)
+    {
+        $hash = spl_object_hash($object);
+
+        unset($old[$hash]);
+
+        $new[$hash] = $object;
+
+        return $hash;
     }
 }
