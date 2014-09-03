@@ -63,6 +63,13 @@ class Factory
     private $saved = array();
 
     /**
+     * The ordered array of object hashes once they have been saved.
+     *
+     * @var array
+     */
+    private $savedHashes = array();
+
+    /**
      * This is the method used when saving objects.
      *
      * @var string
@@ -284,8 +291,9 @@ class Factory
             throw new SaveFailedException(get_class($object));
         }
 
-        Arr::add($this->saved, $object);
-        Arr::remove($this->pending, $object);
+        if (!$this->isSaved($object)) {
+            $this->savedHashes[] = Arr::move($this->pending, $this->saved, $object);
+        }
     }
 
     /**
@@ -502,7 +510,12 @@ class Factory
     public function deleteSaved()
     {
         $exceptions = array();
-        foreach ($this->saved as $object) {
+
+        // Take each hash from the end of the array, one by one
+        while ($hash = array_pop($this->savedHashes)) {
+            // Get the object for each hash
+            $object = Arr::get($this->saved, $hash);
+
             try {
                 if (!$this->delete($object)) {
                     throw new DeleteFailedException(get_class($object));
