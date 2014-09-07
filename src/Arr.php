@@ -65,8 +65,24 @@ class Arr
      */
     public static function remove(&$array, $object)
     {
-        if (in_array($object, $array, true)) {
-            unset($array[spl_object_hash($object)]);
-        }
+        unset($array[spl_object_hash($object)]);
+    }
+
+    /**
+     * Move an object to another array.
+     *
+     * @param array  $old
+     * @param array  $new
+     * @param object $object
+     *
+     * @return void
+     */
+    public static function move(&$old, &$new, $object)
+    {
+        $hash = spl_object_hash($object);
+
+        unset($old[$hash]);
+
+        $new[$hash] = $object;
     }
 }
