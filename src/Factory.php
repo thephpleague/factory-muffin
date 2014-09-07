@@ -284,8 +284,9 @@ class Factory
             throw new SaveFailedException(get_class($object));
         }
 
-        Arr::add($this->saved, $object);
-        Arr::remove($this->pending, $object);
+        if (!$this->isSaved($object)) {
+            Arr::move($this->pending, $this->saved, $object);
+        }
     }
 
     /**
