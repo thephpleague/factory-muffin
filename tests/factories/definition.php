@@ -23,6 +23,10 @@ FactoryMuffin::define('anothergroup:UserModelStub', array(
     'active'  => 'custom',
 ));
 
+FactoryMuffin::define('callbackgroup:UserModelStub', array(), function($obj) {
+    $obj->test = 'bar';
+});
+
 FactoryMuffin::define('foo:DogModelStub', array(
     'name' => Faker::firstNameMale(),
     'age'  => Faker::numberBetween(1, 15),

@@ -49,8 +49,8 @@ class CustomisationTest extends AbstractTestCase
         try {
             FactoryMuffin::create($model = 'SaverAndDeleterCustomisationModelStub');
         } catch (SaveFailedException $e) {
-            $this->assertEquals("We could not save the model of type: '$model'.", $e->getMessage());
-            $this->assertEquals($model, $e->getModel());
+            $this->assertSame("We could not save the model of type: '$model'.", $e->getMessage());
+            $this->assertSame($model, $e->getModel());
             $this->assertNull($e->getErrors());
             $this->reload();
             throw $e;
@@ -77,8 +77,8 @@ class CustomisationTest extends AbstractTestCase
             FactoryMuffin::deleteSaved();
         } catch (DeletingFailedException $e) {
             $exceptions = $e->getExceptions();
-            $this->assertEquals("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
-            $this->assertEquals("We could not delete the model of type: '$model'.", $exceptions[0]->getMessage());
+            $this->assertSame("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
+            $this->assertSame("We could not delete the model of type: '$model'.", $exceptions[0]->getMessage());
             $this->reload();
             throw $e;
         }
