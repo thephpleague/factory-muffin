@@ -258,7 +258,7 @@ class Factory
 
         $this->persist($object);
 
-        if ($this->triggerCallback($object)) {
+        if ($this->triggerCallback($object, $model)) {
             $this->persist($object);
         }
 
@@ -293,13 +293,12 @@ class Factory
      * Trigger the callback if we have one.
      *
      * @param object $object The model instance.
+     * @param string $model  The model class name.
      *
      * @return bool
      */
-    private function triggerCallback($object)
+    private function triggerCallback($object, $model)
     {
-        $model = get_class($object);
-
         if ($callback = Arr::get($this->callbacks, $model)) {
             $saved = $this->isPendingOrSaved($object);
             $callback($object, $saved);
@@ -559,7 +558,7 @@ class Factory
     {
         $object = $this->make($model, $attr, false);
 
-        $this->triggerCallback($object);
+        $this->triggerCallback($object, $model);
 
         return $object;
     }

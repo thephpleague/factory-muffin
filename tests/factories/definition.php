@@ -22,6 +22,10 @@ FactoryMuffin::define('anothergroup:UserModelStub', array(
     'active'  => 'false',
 ));
 
+FactoryMuffin::define('callbackgroup:UserModelStub', array(), function($obj) {
+    $obj->test = 'bar';
+});
+
 FactoryMuffin::define('foo:DogModelStub', array(
     'name' => 'firstNameMale',
     'age'  => 'numberBetween|1;15',
