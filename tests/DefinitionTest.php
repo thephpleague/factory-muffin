@@ -42,8 +42,8 @@ class DefinitionTest extends AbstractTestCase
         try {
             FactoryMuffin::create($model = 'NotAClass');
         } catch (ModelNotFoundException $e) {
-            $this->assertEquals("No class was defined for the model of type: '$model'.", $e->getMessage());
-            $this->assertEquals($model, $e->getModel());
+            $this->assertSame("No class was defined for the model of type: '$model'.", $e->getMessage());
+            $this->assertSame($model, $e->getModel());
             throw $e;
         }
     }
@@ -68,7 +68,7 @@ class DefinitionTest extends AbstractTestCase
         $this->assertInternalType('string', $user->address);
         $this->assertInternalType('string', $user->name);
         $this->assertNotInternalType('boolean', $user->active);
-        $this->assertEquals('false', $user->active);
+        $this->assertSame('false', $user->active);
         $this->assertContains('@', $user->email);
     }
 
@@ -77,7 +77,7 @@ class DefinitionTest extends AbstractTestCase
         $user = FactoryMuffin::create('callbackgroup:UserModelStub');
 
         $this->assertInstanceOf('UserModelStub', $user);
-        $this->assertEquals('bar', $user->test);
+        $this->assertSame('bar', $user->test);
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('boolean', $user->active);
         $this->assertContains('@', $user->email);
@@ -91,8 +91,8 @@ class DefinitionTest extends AbstractTestCase
         try {
             FactoryMuffin::create('error:UserModelStub');
         } catch (NoDefinedFactoryException $e) {
-            $this->assertEquals("No factory definition(s) were defined for the model of type: 'error:UserModelStub'.", $e->getMessage());
-            $this->assertEquals('error:UserModelStub', $e->getModel());
+            $this->assertSame("No factory definition(s) were defined for the model of type: 'error:UserModelStub'.", $e->getMessage());
+            $this->assertSame('error:UserModelStub', $e->getModel());
             throw $e;
         }
     }
@@ -105,8 +105,8 @@ class DefinitionTest extends AbstractTestCase
         try {
             FactoryMuffin::create('foo:DogModelStub');
         } catch (NoDefinedFactoryException $e) {
-            $this->assertEquals("No factory definition(s) were defined for the model of type: 'DogModelStub'.", $e->getMessage());
-            $this->assertEquals('DogModelStub', $e->getModel());
+            $this->assertSame("No factory definition(s) were defined for the model of type: 'DogModelStub'.", $e->getMessage());
+            $this->assertSame('DogModelStub', $e->getModel());
             throw $e;
         }
     }
@@ -144,14 +144,14 @@ class DefinitionTest extends AbstractTestCase
     public function testInstanceCallback()
     {
         $obj = FactoryMuffin::instance('ExampleCallbackStub');
-        $this->assertEquals('yaycalled', $obj->callback);
+        $this->assertSame('yaycalled', $obj->callback);
         $this->assertFalse($obj->saved);
     }
 
     public function testCreateCallback()
     {
         $obj = FactoryMuffin::create('AnotherCallbackStub');
-        $this->assertEquals('hello there', $obj->foo);
+        $this->assertSame('hello there', $obj->foo);
         $this->assertTrue($obj->saved);
     }
 
@@ -185,8 +185,8 @@ class DefinitionTest extends AbstractTestCase
         try {
             FactoryMuffin::loadFactories($path = __DIR__.'/thisdirectorydoesntexist');
         } catch (DirectoryNotFoundException $e) {
-            $this->assertEquals("The directory '$path' was not found.", $e->getMessage());
-            $this->assertEquals($path, $e->getPath());
+            $this->assertSame("The directory '$path' was not found.", $e->getMessage());
+            $this->assertSame($path, $e->getPath());
             throw $e;
         }
     }

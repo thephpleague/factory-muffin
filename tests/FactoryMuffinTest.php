@@ -18,7 +18,7 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertArrayHasKey('name', $obj->card);
         $this->assertArrayHasKey('expirationDate', $obj->card);
 
-        $this->assertEquals('http://lorempixel.com/400/600/', $obj->image);
+        $this->assertSame('http://lorempixel.com/400/600/', $obj->image);
         $this->assertNotEquals('unique::text', $obj->unique_text);
         $this->assertNotEquals('optional::text', $obj->optional_text);
     }
@@ -45,9 +45,9 @@ class FactoryMuffinTest extends AbstractTestCase
     {
         $obj = FactoryMuffin::instance('IdTestModelStub');
 
-        $this->assertEquals(1, $obj->modelGetKey);
-        $this->assertEquals(1, $obj->modelPk);
-        $this->assertEquals(1, $obj->model_id);
+        $this->assertSame(1, $obj->modelGetKey);
+        $this->assertSame(1, $obj->modelPk);
+        $this->assertSame(1, $obj->model_id);
         $this->assertNull($obj->model_null);
     }
 
@@ -57,7 +57,7 @@ class FactoryMuffinTest extends AbstractTestCase
 
         $expected = gmdate('Y-m-d', strtotime('+40 days'));
 
-        $this->assertEquals($expected, $obj->future);
+        $this->assertSame($expected, $obj->future);
     }
 
     public function testShouldPassSimpleArgumentsToCalls()
@@ -105,8 +105,8 @@ class FactoryMuffinTest extends AbstractTestCase
         try {
             FactoryMuffin::instance($model = 'ModelWithNoFactoryClassStub');
         } catch (NoDefinedFactoryException $e) {
-            $this->assertEquals("No factory definition(s) were defined for the model of type: '$model'.", $e->getMessage());
-            $this->assertEquals($model, $e->getModel());
+            $this->assertSame("No factory definition(s) were defined for the model of type: '$model'.", $e->getMessage());
+            $this->assertSame($model, $e->getModel());
             throw $e;
         }
     }
@@ -114,14 +114,14 @@ class FactoryMuffinTest extends AbstractTestCase
     public function testShouldAcceptClosureAsAttributeFactory()
     {
         $obj = FactoryMuffin::instance('MainModelStub');
-        $this->assertEquals('just a string', $obj->text_closure);
+        $this->assertSame('just a string', $obj->text_closure);
     }
 
     public function testCanCreateFromStaticMethod()
     {
         $obj = FactoryMuffin::instance('ModelWithStaticMethodFactory');
 
-        $this->assertEquals('just a string', $obj->string);
+        $this->assertSame('just a string', $obj->string);
         $this->assertInstanceOf('ModelWithStaticMethodFactory', $obj->data['object']);
         $this->assertFalse($obj->data['saved']);
     }
@@ -134,9 +134,9 @@ class FactoryMuffinTest extends AbstractTestCase
         try {
             FactoryMuffin::create($model = 'ModelWithMissingStaticMethod');
         } catch (MethodNotFoundException $e) {
-            $this->assertEquals("The static method 'doesNotExist' was not found on the model of type: '$model'.", $e->getMessage());
-            $this->assertEquals($model, $e->getModel());
-            $this->assertEquals('doesNotExist', $e->getMethod());
+            $this->assertSame("The static method 'doesNotExist' was not found on the model of type: '$model'.", $e->getMessage());
+            $this->assertSame($model, $e->getModel());
+            $this->assertSame('doesNotExist', $e->getMethod());
             throw $e;
         }
     }
