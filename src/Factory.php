@@ -502,7 +502,9 @@ class Factory
     public function deleteSaved()
     {
         $exceptions = array();
-        foreach ($this->saved as $object) {
+
+        $saved = array_reverse($this->saved, true);
+        foreach ($saved as $object) {
             try {
                 if (!$this->delete($object)) {
                     throw new DeleteFailedException(get_class($object));
@@ -511,8 +513,9 @@ class Factory
                 $exceptions[] = $e;
             }
 
-            Arr::remove($this->saved, $object);
+            Arr::remove($saved, $object);
         }
+        $this->saved = array_reverse($saved, true);
 
         // If we ran into problem, throw the exception now
         if ($exceptions) {
