@@ -503,8 +503,7 @@ class Factory
     {
         $exceptions = array();
 
-        $saved = array_reverse($this->saved, true);
-        foreach ($saved as $object) {
+        while ($object = array_pop($this->saved)) {
             try {
                 if (!$this->delete($object)) {
                     throw new DeleteFailedException(get_class($object));
@@ -512,10 +511,7 @@ class Factory
             } catch (Exception $e) {
                 $exceptions[] = $e;
             }
-
-            Arr::remove($saved, $object);
         }
-        $this->saved = array_reverse($saved, true);
 
         // If we ran into problem, throw the exception now
         if ($exceptions) {
