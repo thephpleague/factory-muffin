@@ -179,8 +179,7 @@ class SaveAndDeleteTest extends AbstractTestCase
     public function testShouldThrowMultipleDeletionExceptions()
     {
         try {
-            $model = 'ModelWithNoDeleteMethodStub';
-            FactoryMuffin::create('ModelWithNoDeleteMethodStub');
+            FactoryMuffin::create($model = 'ModelWithNoDeleteMethodStub');
             FactoryMuffin::create('ModelThatAlsoFailsToDeleteStub');
             FactoryMuffin::deleteSaved();
         } catch (DeletingFailedException $e) {
