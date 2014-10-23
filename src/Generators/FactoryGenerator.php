@@ -2,7 +2,7 @@
 
 namespace League\FactoryMuffin\Generators;
 
-use League\FactoryMuffin\Facades\FactoryMuffin;
+use League\FactoryMuffin\FactoryMuffin;
 
 /**
  * This is the factory generator class.
@@ -33,17 +33,26 @@ class FactoryGenerator implements GeneratorInterface
     protected $object;
 
     /**
-     * Initialise our Generator.
+     * The factory muffin instance.
      *
-     * @param string $kind   The kind of attribute
-     * @param object $object The model instance.
+     * @var \League\FactoryMuffin\FactoryMuffin
+     */
+    protected $factoryMuffin;
+
+    /**
+     * Create a new instance.
+     *
+     * @param string                              $kind          The kind of attribute.
+     * @param object                              $object        The model instance.
+     * @param \League\FactoryMuffin\FactoryMuffin $factoryMuffin The factory muffin instance.
      *
      * @return void
      */
-    public function __construct($kind, $object)
+    public function __construct($kind, $object, FactoryMuffin $factoryMuffin)
     {
         $this->kind = $kind;
         $this->object = $object;
+        $this->factoryMuffin = $factoryMuffin;
     }
 
     /**
@@ -86,11 +95,11 @@ class FactoryGenerator implements GeneratorInterface
      */
     private function factory($model)
     {
-        if (FactoryMuffin::isPendingOrSaved($this->object)) {
-            return FactoryMuffin::create($model);
+        if ($this->factoryMuffin->isPendingOrSaved($this->object)) {
+            return $this->factoryMuffin->create($model);
         }
 
-        return FactoryMuffin::instance($model);
+        return $this->factoryMuffin->instance($model);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace League\FactoryMuffin\Generators;
 
 use Exception;
+use League\FactoryMuffin\FactoryMuffin;
 
 /**
  * This is the generator factory class.
@@ -14,6 +15,25 @@ use Exception;
  */
 class GeneratorFactory
 {
+    /**
+     * The factory muffin instance.
+     *
+     * @var \League\FactoryMuffin\FactoryMuffin
+     */
+    protected $factoryMuffin;
+
+    /**
+     * Create a new instance.
+     *
+     * @param \League\FactoryMuffin\FactoryMuffin $factoryMuffin The factory muffin instance.
+     *
+     * @return void
+     */
+    public function __construct(FactoryMuffin $factoryMuffin)
+    {
+        $this->factoryMuffin = $factoryMuffin;
+    }
+
     /**
      * Automatically generate the attribute we want.
      *
@@ -42,11 +62,11 @@ class GeneratorFactory
     public function make($kind, $object = null)
     {
         if (is_callable($kind)) {
-            return new CallableGenerator($kind, $object);
+            return new CallableGenerator($kind, $object, $this->factoryMuffin);
         }
 
         if (strpos($kind, 'factory|') !== false) {
-            return new FactoryGenerator($kind, $object);
+            return new FactoryGenerator($kind, $object, $this->factoryMuffin);
         }
     }
 }
