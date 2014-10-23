@@ -25,9 +25,9 @@ In your composer.json, add:
 
 ## Upgrading from 2.1.x to 2.2.x
 
-### Introduction
+### Deleting Saved Models
 
-There are no notable changes so far.
+We are now deleting saved models in the reverse order they were saved to ensure relationships behave correctly.
 
 ### Installing This Version
 

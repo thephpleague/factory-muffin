@@ -174,7 +174,7 @@ There are 5 other helper functions available:
 
 ### Deleting
 
-You can delete all your saved models with the `deleteSaved` function. It should be noted that you can set a custom delete function before you get going with the `setDeleteMethod` function.
+You can delete all your saved models with the `deleteSaved` function. It should be noted that you can set a custom delete function before you get going with the `setDeleteMethod` function. Please note that your saved models will be deleted in the reverse order they were saved to ensure relationships behave correctly.
 
 If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underlying exception, in the order they were thrown during the whole process, with the `getExceptions` function which will return an array of exceptions. You may encounter the following exceptions:
 * `League\FactoryMuffin\Exceptions\DeleteFailedException` will be thrown if the delete function on your model returns false.
