@@ -3,8 +3,7 @@
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
 use League\FactoryMuffin\Exceptions\ModelNotFoundException;
 use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
-use League\FactoryMuffin\Facades\FactoryMuffin;
-use League\FactoryMuffin\Facades\Faker;
+use League\FactoryMuffin\Faker\Facade as Faker;
 
 /**
  * @group definition
@@ -13,7 +12,7 @@ class DefinitionTest extends AbstractTestCase
 {
     public function testDefine()
     {
-        $user = FactoryMuffin::create('UserModelStub');
+        $user = static::$fm->create('UserModelStub');
 
         $this->assertInstanceOf('UserModelStub', $user);
         $this->assertInternalType('string', $user->name);
@@ -23,7 +22,7 @@ class DefinitionTest extends AbstractTestCase
 
     public function testDefineWithReplacementGenerators()
     {
-        $user = FactoryMuffin::create('UserModelStub', array(
+        $user = static::$fm->create('UserModelStub', array(
             'fullName' => Faker::name(),
         ));
 
@@ -41,7 +40,7 @@ class DefinitionTest extends AbstractTestCase
     public function testModelNotFound()
     {
         try {
-            FactoryMuffin::create($model = 'NotAClass');
+            static::$fm->create($model = 'NotAClass');
         } catch (ModelNotFoundException $e) {
             $this->assertSame("No class was defined for the model of type: '$model'.", $e->getMessage());
             $this->assertSame($model, $e->getModel());
@@ -51,7 +50,7 @@ class DefinitionTest extends AbstractTestCase
 
     public function testGroupDefine()
     {
-        $user = FactoryMuffin::create('group:UserModelStub');
+        $user = static::$fm->create('group:UserModelStub');
 
         $this->assertInstanceOf('UserModelStub', $user);
         $this->assertInternalType('string', $user->address);
@@ -63,7 +62,7 @@ class DefinitionTest extends AbstractTestCase
 
     public function testGroupDefineOverwrite()
     {
-        $user = FactoryMuffin::create('anothergroup:UserModelStub');
+        $user = static::$fm->create('anothergroup:UserModelStub');
 
         $this->assertInstanceOf('UserModelStub', $user);
         $this->assertInternalType('string', $user->address);
@@ -74,7 +73,7 @@ class DefinitionTest extends AbstractTestCase
 
     public function testGroupCallback()
     {
-        $user = FactoryMuffin::create('callbackgroup:UserModelStub');
+        $user = static::$fm->create('callbackgroup:UserModelStub');
 
         $this->assertInstanceOf('UserModelStub', $user);
         $this->assertSame('bar', $user->test);
@@ -89,7 +88,7 @@ class DefinitionTest extends AbstractTestCase
     public function testShouldThrowExceptionWhenLoadingANonExistentGroup()
     {
         try {
-            FactoryMuffin::create('error:UserModelStub');
+            static::$fm->create('error:UserModelStub');
         } catch (NoDefinedFactoryException $e) {
             $this->assertSame("No factory definition(s) were defined for the model of type: 'error:UserModelStub'.", $e->getMessage());
             $this->assertSame('error:UserModelStub', $e->getModel());
@@ -103,7 +102,7 @@ class DefinitionTest extends AbstractTestCase
     public function testGroupDefineNoBaseModel()
     {
         try {
-            FactoryMuffin::create('foo:DogModelStub');
+            static::$fm->create('foo:DogModelStub');
         } catch (NoDefinedFactoryException $e) {
             $this->assertSame("No factory definition(s) were defined for the model of type: 'DogModelStub'.", $e->getMessage());
             $this->assertSame('DogModelStub', $e->getModel());
@@ -113,7 +112,7 @@ class DefinitionTest extends AbstractTestCase
 
     public function testDefineMultiple()
     {
-        $user = FactoryMuffin::create('UserModelStub');
+        $user = static::$fm->create('UserModelStub');
 
         $this->assertInstanceOf('UserModelStub', $user);
         $this->assertInternalType('string', $user->name);
@@ -123,7 +122,7 @@ class DefinitionTest extends AbstractTestCase
 
     public function testSeed()
     {
-        $users = FactoryMuffin::seed(2, 'UserModelStub');
+        $users = static::$fm->seed(2, 'UserModelStub');
 
         $this->assertCount(2, $users);
         $this->assertInstanceOf('UserModelStub', $users[0]);
@@ -133,7 +132,7 @@ class DefinitionTest extends AbstractTestCase
 
     public function testInstance()
     {
-        $user = FactoryMuffin::instance('UserModelStub');
+        $user = static::$fm->instance('UserModelStub');
 
         $this->assertInstanceOf('UserModelStub', $user);
         $this->assertInternalType('string', $user->name);
@@ -143,14 +142,14 @@ class DefinitionTest extends AbstractTestCase
 
     public function testInstanceCallback()
     {
-        $obj = FactoryMuffin::instance('ExampleCallbackStub');
+        $obj = static::$fm->instance('ExampleCallbackStub');
         $this->assertSame('yaycalled', $obj->callback);
         $this->assertFalse($obj->saved);
     }
 
     public function testCreateCallback()
     {
-        $obj = FactoryMuffin::create('AnotherCallbackStub');
+        $obj = static::$fm->create('AnotherCallbackStub');
         $this->assertSame('hello there', $obj->foo);
         $this->assertTrue($obj->saved);
     }
@@ -159,7 +158,7 @@ class DefinitionTest extends AbstractTestCase
     {
         $count = count(get_included_files());
 
-        $return = FactoryMuffin::loadFactories(__DIR__.'/stubs');
+        $return = static::$fm->loadFactories(__DIR__.'/stubs');
 
         $this->assertSame(1, count(get_included_files()) - $count);
         $this->assertInstanceOf('League\FactoryMuffin\FactoryMuffin', $return);
@@ -173,7 +172,7 @@ class DefinitionTest extends AbstractTestCase
     public function testShouldThrowExceptionWhenLoadingANonExistentDirectory()
     {
         try {
-            FactoryMuffin::loadFactories($path = __DIR__.'/thisdirectorydoesntexist');
+            static::$fm->loadFactories($path = __DIR__.'/thisdirectorydoesntexist');
         } catch (DirectoryNotFoundException $e) {
             $this->assertSame("The directory '$path' was not found.", $e->getMessage());
             $this->assertSame($path, $e->getPath());
@@ -183,7 +182,7 @@ class DefinitionTest extends AbstractTestCase
 
     public function testGetGeneratorFactory()
     {
-        $this->assertInstanceOf('League\FactoryMuffin\Generators\GeneratorFactory', FactoryMuffin::getGeneratorFactory());
+        $this->assertInstanceOf('League\FactoryMuffin\Generators\GeneratorFactory', static::$fm->getGeneratorFactory());
     }
 }
 

@@ -36,19 +36,15 @@ It maybe be useful for existing users to check out the [upgrade guide](UPGRADING
 
 ### Introduction
 
-This is the usage guide for Factory Muffin 3.0. Within this guide, you will see "the `xyz` function can be called". You should assume that these functions should be called statically on the `League\FactoryMuffin\Facades\FactoryMuffin` class. It should also be noted that you can see a real example at the end of the guide.
-
-### The Facade
-
-The facade class (`League\FactoryMuffin\Facades\FactoryMuffin`) should always be your main point of entry for communicating with Factory Muffin. It will dynamically proxy static method calls to the underlying factory instance. The other classes, including the factory class (`League\FactoryMuffin\FactoryMuffin`), are not intended for direct public use. The facade additionally provides a `reset` method that will re-create the underlying factory instance. Also, note that all public methods that would have returned void, return the factory instance in order to support method chaining.
+This is the usage guide for Factory Muffin 3.0. Within this guide, you will see "the `xyz` function can be called". You should assume that these functions should be called on an instance of `League\FactoryMuffin\FactoryMuffin`; you should keep track of this instance yourself, and you can of course have multiple instances of this class for maximum flexibility. For simplicities sake, many of our examples include a `$fm` variable. This variable will actually be made available when files are required using the `loadFactories` function.
 
 ### Factory Definitions
 
-You can define model factories using the `define` function. You may call it like this: `League\FactoryMuffin\Facades\FactoryMuffin::define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`, where `foo` is the name of the attribute you want set on your model, and `bar` describes how you wish to generate the attribute. Please see the generators section for more information on how this works.
+You can define model factories using the `define` function. You may call it like this: `$fm->define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`, where `foo` is the name of the attribute you want set on your model, and `bar` describes how you wish to generate the attribute. Please see the generators section for more information on how this works.
 
-You can also define multiple different factory definitions for your models. You can do this by prefixing the model class name with your "group" followed by a colon. This results in you defining your model like this: `League\FactoryMuffin\Facades\FactoryMuffin::define('myGroup:Fully\Qualifed\ModelName', array('foo' => 'bar'))`. You don't have to entirely define your model here because we will first look for a definition without the group prefix, then apply your group definition on top of that definition, overriding attribute definitions where required.
+You can also define multiple different factory definitions for your models. You can do this by prefixing the model class name with your "group" followed by a colon. This results in you defining your model like this: `$fm->define('myGroup:Fully\Qualifed\ModelName', array('foo' => 'bar'))`. You don't have to entirely define your model here because we will first look for a definition without the group prefix, then apply your group definition on top of that definition, overriding attribute definitions where required.
 
-We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `League\FactoryMuffin\Facades\FactoryMuffin::loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found.
+We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `$fm->loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found.
 
 ### Creation/Instantiation Callbacks
 
@@ -64,7 +60,7 @@ The callable generator can be used if you want a more custom solution. Whatever 
 
 As you can see from this example, the ability to use a closure to generate attributes can be so useful and flexible. Here we use it to generate a slug based on the initially randomly generated 5 word long title.
 ```php
-League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
+$fm->define('MyModel', array(
     'title' => Faker::sentence(5),
     'slug' => function ($object, $saved) {
         $slug = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $object->title);
@@ -80,7 +76,7 @@ League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
 
 This will set the `foo` attribute to whatever calling `MyModel::exampleMethod($object, $saved)` returns.
 ```php
-League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
+$fm->define('MyModel', array(
     'foo' => 'MyModel::exampleMethod',
 ));
 ```
@@ -89,9 +85,9 @@ League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
 
 There is a simple example of setting a few different attributes using our faker wrapper.
 ```php
-use League\FactoryMuffin\Facades\Faker;
+use League\FactoryMuffin\Faker\Facade as Faker;
 
-League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
+$fm->define('MyModel', array(
     'foo'    => Faker::word(),          // Set the foo attribute to a random word
     'name'   => Faker::firstNameMale(), // Set the name attribute to a random male first name
     'email'  => Faker::email(),         // Set the email attribute to a random email address
@@ -104,9 +100,9 @@ League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
 
 This will set the `age` attribute to a random number between 20 and 40.
 ```php
-use League\FactoryMuffin\Facades\Faker;
+use League\FactoryMuffin\Faker\Facade as Faker;
 
-League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
+$fm->define('MyModel', array(
     'age' => Faker::numberBetween(20, 40),
 ));
 ```
@@ -115,9 +111,9 @@ League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
 
 This will set the `name` attribute to a random female first name. Because we've called the `unique` method first, the attribute should be unique between all your generated models. Be careful with this if you're generating lots models because we might run out of unique items. Also, note that calling `Faker::setLocale('whatever')` will reset the internal unique list.
 ```php
-use League\FactoryMuffin\Facades\Faker;
+use League\FactoryMuffin\Faker\Facade as Faker;
 
-League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
+$fm->define('MyModel', array(
     'name' => Faker::unique()->firstNameFemale(),
 ));
 ```
@@ -126,9 +122,9 @@ League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
 
 This will set the `profile_pic` attribute to a random image url of dimensions 400 by 400. Because we've called the `optional` method first, not all the generated models will have an image url set; sometimes we will return null.
 ```php
-use League\FactoryMuffin\Facades\Faker;
+use League\FactoryMuffin\Faker\Facade as Faker;
 
-League\FactoryMuffin\Facades\FactoryMuffin::define('MyModel', array(
+$fm->define('MyModel', array(
     'profile_pic' => Faker::optional()->imageUrl(400, 400),
 ));
 ```
@@ -145,11 +141,11 @@ The factory generator can be useful for setting up relationships between models.
 
 When we create a Foo object, we will find that the Bar object will been generated and saved too, and it's id will be assigned to the `bar_id` attribute of the Foo model.
 ```php
-League\FactoryMuffin\Facades\FactoryMuffin::define('Foo', array(
+$fm->define('Foo', array(
     'bar_id' => 'factory|Bar',
 ));
 
-League\FactoryMuffin\Facades\FactoryMuffin::define('Bar', array(
+$fm->define('Bar', array(
     'baz' => Faker::date(Y-m-d),
 ));
 ```
@@ -185,13 +181,13 @@ It's recommended that you call the `deleteSaved` function from PHPUnit's `tearDo
 
 ### Additional Customisation
 
-You may call `League\FactoryMuffin\Facades\FactoryMuffin::setCustomMaker(function ($class) { return new $class('example'); })` in order to register a closure to customise the model creation. This will be used internally by Factory Muffin rather than us just straight up using `new $class()`.
+You may call `$fm->setCustomMaker(function ($class) { return new $class('example'); })` in order to register a closure to customise the model creation. This will be used internally by Factory Muffin rather than us just straight up using `new $class()`.
 
-You may call  `League\FactoryMuffin\Facades\FactoryMuffin::setCustomSetter(function ($object, $name, $value) { $object->set($name, $value); })` in order to register a closure to customise the attribute setting. This will be used internally by Factory Muffin when setting your attributes rather than us just using `$object->$name = $value`.
+You may call  `$fm->setCustomSetter(function ($object, $name, $value) { $object->set($name, $value); })` in order to register a closure to customise the attribute setting. This will be used internally by Factory Muffin when setting your attributes rather than us just using `$object->$name = $value`.
 
-You may call `League\FactoryMuffin\Facades\FactoryMuffin::setCustomSaver(function ($object) { $object->save(); $object->push(); return true; })` in order to save your object in a custom way. This will be used internally by Factory Muffin when saving your object rather than us just using `$object->save()`.
+You may call `$fm->setCustomSaver(function ($object) { $object->save(); $object->push(); return true; })` in order to save your object in a custom way. This will be used internally by Factory Muffin when saving your object rather than us just using `$object->save()`.
 
-You may call `League\FactoryMuffin\Facades\FactoryMuffin::setCustomDeleter(function ($object) { $object->forceDelete(); return true; })` in order to delete your object in a custom way. This will be used internally by Factory Muffin when deleting your object rather than us just using `$object->delete()`.
+You may call `$fm->setCustomDeleter(function ($object) { $object->forceDelete(); return true; })` in order to delete your object in a custom way. This will be used internally by Factory Muffin when deleting your object rather than us just using `$object->delete()`.
 
 ### Exceptions
 
@@ -207,10 +203,9 @@ To start with, we need to create some definitions:
 ```php
 # tests/factories/all.php
 
-use League\FactoryMuffin\Facades\FactoryMuffin;
-use League\FactoryMuffin\Facades\Faker;
+use League\FactoryMuffin\Faker\Facade as Faker;
 
-FactoryMuffin::define('Message', array(
+$fm->define('Message', array(
     'user_id'      => 'factory|User',
     'subject'      => Faker::sentence(),
     'message'      => Faker::text(),
@@ -222,7 +217,7 @@ FactoryMuffin::define('Message', array(
     $object->message .= '!';
 });
 
-FactoryMuffin::define('User', array(
+$fm->define('User', array(
     'username' => Faker::firstNameMale(),
     'email'    => Faker::email(),
     'avatar'   => Faker::imageUrl(400, 600),
@@ -237,29 +232,38 @@ You can then use these factories in your tests:
 ```php
 # tests/TestUserModel.php
 
-use League\FactoryMuffin\Facades\FactoryMuffin;
-use League\FactoryMuffin\Facades\Faker;
+use League\FactoryMuffin\Faker\Facade as Faker;
 
 class TestUserModel extends PHPUnit_Framework_TestCase
 {
+    protected static $fm;
+
     public static function setupBeforeClass()
     {
-        Faker::setLocale('en_EN'); // optional step
-        // note that method chaining is supported
-        FactoryMuffin::setSaveMethod('save')->setDeleteMethod('delete'); // optional step
-        FactoryMuffin::loadFactories(__DIR__ . '/factories');
+        // create a new factory muffin instance
+        static::$fm = new FactoryMuffin();
+
+        // note that method chaining is supported if
+        // you want to configure a few extra things
+        static::$fm->setSaveMethod('save')->setDeleteMethod('delete');
+
+        // load your factory definitions
+        static::$fm->loadFactories(__DIR__.'/factories');
+
+        // you can optionally set the faker locale
+        Faker::setLocale('en_EN');
     }
 
     public function testSampleFactory()
     {
-        $message = FactoryMuffin::create('Message');
+        $message = static::$fm->create('Message');
         $this->assertInstanceOf('Message', $message);
         $this->assertInstanceOf('User', $message->user);
     }
 
     public static function tearDownAfterClass()
     {
-        FactoryMuffin::deleteSaved();
+        static::$fm->deleteSaved();
     }
 }
 ```

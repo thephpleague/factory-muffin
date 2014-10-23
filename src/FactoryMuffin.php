@@ -20,11 +20,6 @@ use RegexIterator;
 /**
  * This is the factory muffin class.
  *
- * This class is not intended to be used directly, but should be used through
- * the provided facade. The only time where you should be directly calling
- * methods here should be when you're using method chaining after initially
- * using the facade.
- *
  * @package League\FactoryMuffin
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
@@ -627,8 +622,22 @@ class FactoryMuffin
         $files = new RegexIterator($iterator, '/^.+\.php$/i');
 
         foreach ($files as $file) {
-            include $file->getPathName();
+            $this->requireFile($file->getPathName());
         }
+    }
+
+    /**
+     * Require a file with this instance available as "$fm".
+     *
+     * @param string $file The file path to load.
+     *
+     * @return void
+     */
+    private function requireFile($file)
+    {
+        $fm = $this;
+
+        require $file;
     }
 
     /**

@@ -1,7 +1,6 @@
 <?php
 
 use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
-use League\FactoryMuffin\Facades\FactoryMuffin;
 
 /**
  * @group main
@@ -10,7 +9,7 @@ class FactoryMuffinTest extends AbstractTestCase
 {
     public function testDefaultingToFaker()
     {
-        $obj = FactoryMuffin::instance('FakerDefaultingModelStub');
+        $obj = static::$fm->instance('FakerDefaultingModelStub');
         $this->assertInternalType('array', $obj->card);
         $this->assertArrayHasKey('type', $obj->card);
         $this->assertArrayHasKey('number', $obj->card);
@@ -24,7 +23,7 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testGetIds()
     {
-        $obj = FactoryMuffin::instance('IdTestModelStub');
+        $obj = static::$fm->instance('IdTestModelStub');
 
         $this->assertSame(1, $obj->modelGetKey);
         $this->assertSame(1, $obj->modelPk);
@@ -34,7 +33,7 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testShouldMakeSimpleCalls()
     {
-        $obj = FactoryMuffin::instance('ComplexModelStub');
+        $obj = static::$fm->instance('ComplexModelStub');
 
         $expected = gmdate('Y-m-d', strtotime('+40 days'));
 
@@ -43,14 +42,14 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testFakerDefaultBoolean()
     {
-        $obj = FactoryMuffin::instance('MainModelStub');
+        $obj = static::$fm->instance('MainModelStub');
 
         $this->assertInternalType('boolean', $obj->boolean, "Asserting {$obj->boolean} is a boolean");
     }
 
     public function testFakerDefaultLatitude()
     {
-        $obj = FactoryMuffin::instance('MainModelStub');
+        $obj = static::$fm->instance('MainModelStub');
 
         $this->assertGreaterThanOrEqual(-90, $obj->lat);
         $this->assertLessThanOrEqual(90, $obj->lat);
@@ -58,7 +57,7 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testFakerDefaultLongitude()
     {
-        $obj = FactoryMuffin::instance('MainModelStub');
+        $obj = static::$fm->instance('MainModelStub');
 
         $this->assertGreaterThanOrEqual(-180, $obj->lon);
         $this->assertLessThanOrEqual(180, $obj->lon);
@@ -70,7 +69,7 @@ class FactoryMuffinTest extends AbstractTestCase
     public function testShouldThrowExceptionWhenNoDefinedFactoryException()
     {
         try {
-            FactoryMuffin::instance($model = 'ModelWithNoFactoryClassStub');
+            static::$fm->instance($model = 'ModelWithNoFactoryClassStub');
         } catch (NoDefinedFactoryException $e) {
             $this->assertSame("No factory definition(s) were defined for the model of type: '$model'.", $e->getMessage());
             $this->assertSame($model, $e->getModel());
@@ -80,13 +79,13 @@ class FactoryMuffinTest extends AbstractTestCase
 
     public function testShouldAcceptClosureAsAttributeFactory()
     {
-        $obj = FactoryMuffin::instance('MainModelStub');
+        $obj = static::$fm->instance('MainModelStub');
         $this->assertSame('just a string', $obj->text_closure);
     }
 
     public function testCanCreateFromStaticMethod()
     {
-        $obj = FactoryMuffin::instance('ModelWithStaticMethodFactory');
+        $obj = static::$fm->instance('ModelWithStaticMethodFactory');
 
         $this->assertSame('just a string', $obj->string);
         $this->assertInstanceOf('ModelWithStaticMethodFactory', $obj->data['object']);

@@ -56,19 +56,6 @@ class Arr
     }
 
     /**
-     * Remove an object from an array.
-     *
-     * @param array  $array
-     * @param object $object
-     *
-     * @return void
-     */
-    public static function remove(&$array, $object)
-    {
-        unset($array[spl_object_hash($object)]);
-    }
-
-    /**
      * Move an object to another array.
      *
      * @param array  $old
