@@ -41,8 +41,8 @@ class CallableGenerator implements GeneratorInterface
     /**
      * Create a new instance.
      *
-     * @param string $kind   The kind of attribute.
-     * @param object $object The model instance.
+     * @param string                              $kind          The kind of attribute.
+     * @param object                              $object        The model instance.
      * @param \League\FactoryMuffin\FactoryMuffin $factoryMuffin The factory muffin instance.
      *
      * @return void
