@@ -2,7 +2,6 @@
 
 use League\FactoryMuffin\Exceptions\DeletingFailedException;
 use League\FactoryMuffin\Exceptions\SaveFailedException;
-use League\FactoryMuffin\Facade as FactoryMuffin;
 
 /**
  * @group customisation
@@ -11,12 +10,12 @@ class CustomisationTest extends AbstractTestCase
 {
     public function testCustomMaker()
     {
-        FactoryMuffin::setCustomMaker(function ($class) {
+        static::$fm->setCustomMaker(function ($class) {
             return new $class('example');
         });
 
 
-        $obj = FactoryMuffin::instance('MakerCustomisationModelStub');
+        $obj = static::$fm->instance('MakerCustomisationModelStub');
 
         $this->assertSame('example', $obj->test);
 
@@ -25,11 +24,11 @@ class CustomisationTest extends AbstractTestCase
 
     public function testCustomSetter()
     {
-        FactoryMuffin::setCustomSetter(function ($object, $name, $value) {
+        static::$fm->setCustomSetter(function ($object, $name, $value) {
             $object->set($name, $value);
         });
 
-        $obj = FactoryMuffin::instance('SetterCustomisationModelStub');
+        $obj = static::$fm->instance('SetterCustomisationModelStub');
 
         $this->assertSame('baz', $obj->get('bar'));
         $this->assertNull($obj->get('foo'));
@@ -42,12 +41,12 @@ class CustomisationTest extends AbstractTestCase
      */
     public function testCustomSaverFail()
     {
-        FactoryMuffin::setCustomSaver(function ($object) {
+        static::$fm->setCustomSaver(function ($object) {
             $object->customSave();
         });
 
         try {
-            FactoryMuffin::create($model = 'SaverAndDeleterCustomisationModelStub');
+            static::$fm->create($model = 'SaverAndDeleterCustomisationModelStub');
         } catch (SaveFailedException $e) {
             $this->assertSame("We could not save the model of type: '$model'.", $e->getMessage());
             $this->assertSame($model, $e->getModel());
@@ -64,17 +63,17 @@ class CustomisationTest extends AbstractTestCase
      */
     public function testCustomDeleterFail()
     {
-        FactoryMuffin::setCustomSaver(function ($object) {
+        static::$fm->setCustomSaver(function ($object) {
             return $object->customSave();
         });
 
-        FactoryMuffin::setCustomDeleter(function ($object) {
+        static::$fm->setCustomDeleter(function ($object) {
             $object->customDelete();
         });
 
         try {
-            FactoryMuffin::create($model = 'SaverAndDeleterCustomisationModelStub');
-            FactoryMuffin::deleteSaved();
+            static::$fm->create($model = 'SaverAndDeleterCustomisationModelStub');
+            static::$fm->deleteSaved();
         } catch (DeletingFailedException $e) {
             $exceptions = $e->getExceptions();
             $this->assertSame("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
@@ -88,16 +87,16 @@ class CustomisationTest extends AbstractTestCase
 
     public function testCustomSaverAndDeleter()
     {
-        FactoryMuffin::setCustomSaver(function ($object) {
+        static::$fm->setCustomSaver(function ($object) {
             $object->test = 'foo';
             return $object->customSave();
         });
 
-        FactoryMuffin::setCustomDeleter(function ($object) {
+        static::$fm->setCustomDeleter(function ($object) {
             return $object->customDelete();
         });
 
-        $obj = FactoryMuffin::create('SaverAndDeleterCustomisationModelStub');
+        $obj = static::$fm->create('SaverAndDeleterCustomisationModelStub');
 
         $this->assertSame('foo', $obj->test);
 

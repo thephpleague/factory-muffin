@@ -1,11 +1,9 @@
 <?php
 
-use League\FactoryMuffin\Facade as FactoryMuffin;
-
-FactoryMuffin::define('ModelThatWillSaveStub', array());
-FactoryMuffin::define('ModelThatFailsToSaveStub', array());
-FactoryMuffin::define('ModelThatFailsToDeleteStub', array());
-FactoryMuffin::define('ModelThatAlsoFailsToDeleteStub', array());
-FactoryMuffin::define('ModelWithNoSaveMethodStub', array());
-FactoryMuffin::define('ModelWithNoDeleteMethodStub', array());
-FactoryMuffin::define('ModelWithValidationErrorsStub', array());
+$fm->define('ModelThatWillSaveStub', array());
+$fm->define('ModelThatFailsToSaveStub', array());
+$fm->define('ModelThatFailsToDeleteStub', array());
+$fm->define('ModelThatAlsoFailsToDeleteStub', array());
+$fm->define('ModelWithNoSaveMethodStub', array());
+$fm->define('ModelWithNoDeleteMethodStub', array());
+$fm->define('ModelWithValidationErrorsStub', array());

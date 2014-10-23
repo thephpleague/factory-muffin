@@ -1,14 +1,13 @@
 <?php
 
-use League\FactoryMuffin\Facade as FactoryMuffin;
+use League\FactoryMuffin\Faker\Facade as Faker;
 
-
-FactoryMuffin::define('User', array(
-    'name'   => 'firstNameMale',
-    'email'  => 'email',
+$fm->define('User', array(
+    'name'   => Faker::firstNameMale(),
+    'email'  => Faker::email(),
 ));
 
-FactoryMuffin::define('Cat', array(
-    'name'    => 'firstNameFemale',
-    'user_id' => 'numberBetween|1;5',
+$fm->define('Cat', array(
+    'name'    => Faker::firstNameFemale(),
+    'user_id' => Faker::numberBetween(1, 5),
 ));

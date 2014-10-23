@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use League\FactoryMuffin\Facade as FactoryMuffin;
 
 /**
  * @group eloquent
@@ -37,8 +36,8 @@ class EloquentTest extends AbstractTestCase
 
         parent::setupBeforeClass();
 
-        FactoryMuffin::seed(5, 'User');
-        FactoryMuffin::seed(50, 'Cat');
+        static::$fm->seed(5, 'User');
+        static::$fm->seed(50, 'Cat');
     }
 
     public function testNumberOfCats()
@@ -94,8 +93,8 @@ class EloquentTest extends AbstractTestCase
 
     public function testSavedObjects()
     {
-        $this->assertCount(55, FactoryMuffin::saved());
-        $this->assertCount(0, FactoryMuffin::pending());
+        $this->assertCount(55, static::$fm->saved());
+        $this->assertCount(0, static::$fm->pending());
     }
 }
 

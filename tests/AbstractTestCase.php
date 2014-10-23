@@ -1,18 +1,23 @@
 <?php
 
-use League\FactoryMuffin\Facade as FactoryMuffin;
+use League\FactoryMuffin\FactoryMuffin;
+use League\FactoryMuffin\Faker\Facade as Faker;
 
 abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 {
+    protected static $fm;
+
     public static function setupBeforeClass()
     {
-        FactoryMuffin::setFakerLocale('en_GB')->loadFactories(__DIR__.'/factories');
+        static::$fm = new FactoryMuffin();
+        static::$fm->loadFactories(__DIR__.'/factories');
+        Faker::setLocale('en_GB');
     }
 
     public static function tearDownAfterClass()
     {
-        FactoryMuffin::deleteSaved();
-        FactoryMuffin::reset();
+        static::$fm->deleteSaved();
+        static::$fm = new FactoryMuffin();
     }
 
     protected function reload()

@@ -1,13 +1,11 @@
 <?php
 
-use League\FactoryMuffin\Facade as FactoryMuffin;
-
-FactoryMuffin::define('MakerCustomisationModelStub', array(
+$fm->define('MakerCustomisationModelStub', array(
     'foo' => 'bar'
 ));
 
-FactoryMuffin::define('SetterCustomisationModelStub', array(
+$fm->define('SetterCustomisationModelStub', array(
     'bar' => 'baz'
 ));
 
-FactoryMuffin::define('SaverAndDeleterCustomisationModelStub', array());
+$fm->define('SaverAndDeleterCustomisationModelStub', array());

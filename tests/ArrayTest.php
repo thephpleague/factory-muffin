@@ -1,7 +1,6 @@
 <?php
 
 use League\FactoryMuffin\Arr;
-use League\FactoryMuffin\Facade as FactoryMuffin;
 
 /**
  * @group array
@@ -24,27 +23,5 @@ class ArrayTest extends AbstractTestCase
         $this->assertTrue(Arr::has($array, 'bar'));
         $this->assertTrue(Arr::has($array, 'hello'));
         $this->assertFalse(Arr::has($array, 'foo'));
-    }
-
-    /**
-     * @depends testHas
-     */
-    public function testAddAndRemove()
-    {
-        $array = array();
-        $new = (object) array('baz' => 'hello');
-
-        $this->assertCount(0, $array);
-        $this->assertFalse(Arr::has($array, $new));
-        Arr::add($array, $new);
-        $this->assertCount(1, $array);
-        $this->assertTrue(Arr::has($array, $new));
-        $new->bar = 'baz';
-        $this->assertCount(1, $array);
-        $this->assertTrue(Arr::has($array, $new));
-        Arr::add($array, $new);
-        $this->assertCount(1, $array);
-        Arr::remove($array, $new);
-        $this->assertCount(0, $array);
     }
 }
