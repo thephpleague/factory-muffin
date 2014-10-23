@@ -15,7 +15,7 @@ class EloquentTest extends AbstractTestCase
         $db->addConnection(array(
             'driver'   => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => ''
+            'prefix'   => '',
         ));
 
         $db->setAsGlobal();
@@ -45,7 +45,6 @@ class EloquentTest extends AbstractTestCase
         $cats = array();
         foreach (User::all() as $user) {
             foreach ($user->cats as $cat) {
-
                 $cats[] = $cat;
             }
         }

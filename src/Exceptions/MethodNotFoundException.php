@@ -25,8 +25,8 @@ class MethodNotFoundException extends ModelException
     /**
      * Create a new instance.
      *
-     * @param string  $model
-     * @param string  $method
+     * @param string $model
+     * @param string $method
      * @param string $message
      *
      * @return void

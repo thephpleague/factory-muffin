@@ -14,7 +14,6 @@ class CustomisationTest extends AbstractTestCase
             return new $class('example');
         });
 
-
         $obj = static::$fm->instance('MakerCustomisationModelStub');
 
         $this->assertSame('example', $obj->test);

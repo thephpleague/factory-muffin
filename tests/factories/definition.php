@@ -22,7 +22,7 @@ $fm->define('anothergroup:UserModelStub', array(
     'active'  => 'custom',
 ));
 
-$fm->define('callbackgroup:UserModelStub', array(), function($obj) {
+$fm->define('callbackgroup:UserModelStub', array(), function ($obj) {
     $obj->test = 'bar';
 });
 

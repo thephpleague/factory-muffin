@@ -46,7 +46,7 @@ $fm->define('MainModelStub', array(
 ));
 
 $fm->define('ComplexModelStub', array(
-    'future'       => 'ComplexModelStub::fortyDaysFromNow'
+    'future'       => 'ComplexModelStub::fortyDaysFromNow',
 ));
 
 $fm->define('ModelWithStaticMethodFactory', array(

@@ -1,6 +1,5 @@
 <?php
 
-use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
 use League\FactoryMuffin\Exceptions\DeletingFailedException;
 use League\FactoryMuffin\Exceptions\SaveFailedException;
 use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
@@ -272,7 +271,7 @@ class ModelWithValidationErrorsStub
 
     public function save()
     {
-
+        //
     }
 
     public function delete()

@@ -2,7 +2,6 @@
 
 namespace League\FactoryMuffin\Generators;
 
-use Exception;
 use League\FactoryMuffin\FactoryMuffin;
 
 /**
