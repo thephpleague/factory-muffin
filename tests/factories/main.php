@@ -1,21 +1,20 @@
 <?php
 
-use League\FactoryMuffin\Facades\FactoryMuffin;
-use League\FactoryMuffin\Facades\Faker;
+use League\FactoryMuffin\Faker\Facade as Faker;
 
-FactoryMuffin::define('IdTestModelGetKeyStub', array());
-FactoryMuffin::define('IdTestModelPkStub', array());
-FactoryMuffin::define('IdTestModelIdStub', array());
-FactoryMuffin::define('IdTestModelNullStub', array());
+$fm->define('IdTestModelGetKeyStub', array());
+$fm->define('IdTestModelPkStub', array());
+$fm->define('IdTestModelIdStub', array());
+$fm->define('IdTestModelNullStub', array());
 
-FactoryMuffin::define('IdTestModelStub', array(
+$fm->define('IdTestModelStub', array(
     'modelGetKey' => 'factory|IdTestModelGetKeyStub',
     'modelPk'     => 'factory|IdTestModelPkStub',
     'model_id'    => 'factory|IdTestModelIdStub',
     'model_null'  => 'factory|IdTestModelNullStub',
 ));
 
-FactoryMuffin::define('FakerDefaultingModelStub', array(
+$fm->define('FakerDefaultingModelStub', array(
     'title'         => Faker::word(),
     'email'         => Faker::email(),
     'content'       => Faker::text(),
@@ -25,7 +24,7 @@ FactoryMuffin::define('FakerDefaultingModelStub', array(
     'optional_text' => Faker::optional()->text(),
 ));
 
-FactoryMuffin::define('MainModelStub', array(
+$fm->define('MainModelStub', array(
     'modelb_id'    => 'factory|FakerDefaultingModelStub',
     'name'         => Faker::word(),
     'email'        => Faker::email(),
@@ -46,11 +45,11 @@ FactoryMuffin::define('MainModelStub', array(
     },
 ));
 
-FactoryMuffin::define('ComplexModelStub', array(
+$fm->define('ComplexModelStub', array(
     'future'       => 'ComplexModelStub::fortyDaysFromNow'
 ));
 
-FactoryMuffin::define('ModelWithStaticMethodFactory', array(
+$fm->define('ModelWithStaticMethodFactory', array(
     'string' => 'just a string',
     'data'   => function ($object, $saved) {
         return compact('object', 'saved');

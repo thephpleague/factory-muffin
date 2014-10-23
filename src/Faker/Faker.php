@@ -1,6 +1,6 @@
 <?php
 
-namespace League\FactoryMuffin;
+namespace League\FactoryMuffin\Faker;
 
 use Faker\Factory;
 
@@ -12,7 +12,7 @@ use Faker\Factory;
  * methods here should be when you're using method chaining after initially
  * using the facade.
  *
- * @package League\FactoryMuffin
+ * @package League\FactoryMuffin\Faker
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT

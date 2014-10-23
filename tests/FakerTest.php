@@ -1,6 +1,6 @@
 <?php
 
-use League\FactoryMuffin\Facades\Faker;
+use League\FactoryMuffin\Faker\Facade as Faker;
 
 /**
  * @group faker
