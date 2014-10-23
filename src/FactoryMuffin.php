@@ -35,7 +35,7 @@ class FactoryMuffin
     /**
      * The generator factory instance.
      *
-     * @var \League\FactoryMuffin\Generators\GeneratorFactory
+     * @var \League\FactoryMuffin\Generators\GeneratorFactory|null
      */
     private $generatorFactory;
 
@@ -108,22 +108,6 @@ class FactoryMuffin
      * @var \Closure
      */
     private $customDeleter;
-
-    /**
-     * Create a new instance.
-     *
-     * @param \League\FactoryMuffin\Generators\GeneratorFactory|null $generatorFactory
-     *
-     * @return void
-     */
-    public function __construct($generatorFactory = null)
-    {
-        if (!$generatorFactory) {
-            $generatorFactory = new GeneratorFactory();
-        }
-
-        $this->generatorFactory = $generatorFactory;
-    }
 
     /**
      * Set the method we use when saving objects.
@@ -564,7 +548,7 @@ class FactoryMuffin
 
         // Generate and save each attribute
         foreach ($attributes as $key => $kind) {
-            $generated = $this->generatorFactory->generate($kind, $object);
+            $generated = $this->getGeneratorFactory()->generate($kind, $object);
             $this->setAttribute($object, $key, $generated);
         }
     }
@@ -655,6 +639,10 @@ class FactoryMuffin
      */
     public function getGeneratorFactory()
     {
+        if (!$this->generatorFactory) {
+            $this->generatorFactory = new GeneratorFactory($this);
+        }
+
         return $this->generatorFactory;
     }
 }

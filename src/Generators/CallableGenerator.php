@@ -2,7 +2,7 @@
 
 namespace League\FactoryMuffin\Generators;
 
-use League\FactoryMuffin\Facades\FactoryMuffin;
+use League\FactoryMuffin\FactoryMuffin;
 
 /**
  * This is the closure generator class.
@@ -32,17 +32,26 @@ class CallableGenerator implements GeneratorInterface
     protected $object;
 
     /**
-     * Initialise our Generator.
+     * The factory muffin instance.
      *
-     * @param callable $kind   The kind of attribute
-     * @param object   $object The model instance.
+     * @var \League\FactoryMuffin\FactoryMuffin
+     */
+    protected $factoryMuffin;
+
+    /**
+     * Create a new instance.
+     *
+     * @param string $kind   The kind of attribute.
+     * @param object $object The model instance.
+     * @param \League\FactoryMuffin\FactoryMuffin $factoryMuffin The factory muffin instance.
      *
      * @return void
      */
-    public function __construct(callable $kind, $object)
+    public function __construct(callable $kind, $object, FactoryMuffin $factoryMuffin)
     {
         $this->kind = $kind;
         $this->object = $object;
+        $this->factoryMuffin = $factoryMuffin;
     }
 
     /**
@@ -54,7 +63,7 @@ class CallableGenerator implements GeneratorInterface
     {
         $kind = $this->kind;
 
-        $saved = FactoryMuffin::isPendingOrSaved($this->object);
+        $saved = $this->factoryMuffin->isPendingOrSaved($this->object);
 
         return call_user_func($kind, $this->object, $saved);
     }
