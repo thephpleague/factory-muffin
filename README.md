@@ -36,15 +36,11 @@ It maybe be useful for existing users to check out the [upgrade guide](UPGRADING
 
 ### Introduction
 
-This is the usage guide for Factory Muffin 3.0. Within this guide, you will see "the `xyz` function can be called". You should assume that these functions should be called statically on the `League\FactoryMuffin\Facades\FactoryMuffin` class. It should also be noted that you can see a real example at the end of the guide.
-
-### The Facade
-
-The facade class (`League\FactoryMuffin\Facades\FactoryMuffin`) should always be your main point of entry for communicating with Factory Muffin. It will dynamically proxy static method calls to the underlying factory instance. The other classes, including the factory class (`League\FactoryMuffin\FactoryMuffin`), are not intended for direct public use. The facade additionally provides a `reset` method that will re-create the underlying factory instance. Also, note that all public methods that would have returned void, return the factory instance in order to support method chaining.
+This is the usage guide for Factory Muffin 3.0. Within this guide, you will see "the `xyz` function can be called". You should assume that these functions should be called on an instance of `League\FactoryMuffin\FactoryMuffin`. You should keep track of this instance yourself, and you can of course have multiple instances of this class for maximum flexibility. For simplicities sake, many of our examples include a `$fm` variable. This variable will be made available when files are required using the `loadFactories` function.
 
 ### Factory Definitions
 
-You can define model factories using the `define` function. You may call it like this: `$fm->:define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`, where `foo` is the name of the attribute you want set on your model, and `bar` describes how you wish to generate the attribute. Please see the generators section for more information on how this works.
+You can define model factories using the `define` function. You may call it like this: `$fm->define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`, where `foo` is the name of the attribute you want set on your model, and `bar` describes how you wish to generate the attribute. Please see the generators section for more information on how this works.
 
 You can also define multiple different factory definitions for your models. You can do this by prefixing the model class name with your "group" followed by a colon. This results in you defining your model like this: `$fm->define('myGroup:Fully\Qualifed\ModelName', array('foo' => 'bar'))`. You don't have to entirely define your model here because we will first look for a definition without the group prefix, then apply your group definition on top of that definition, overriding attribute definitions where required.
 
