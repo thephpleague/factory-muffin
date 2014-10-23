@@ -36,7 +36,7 @@ It maybe be useful for existing users to check out the [upgrade guide](UPGRADING
 
 ### Introduction
 
-This is the usage guide for Factory Muffin 3.0. Within this guide, you will see "the `xyz` function can be called". You should assume that these functions should be called on an instance of `League\FactoryMuffin\FactoryMuffin`. You should keep track of this instance yourself, and you can of course have multiple instances of this class for maximum flexibility. For simplicities sake, many of our examples include a `$fm` variable. This variable will be made available when files are required using the `loadFactories` function.
+This is the usage guide for Factory Muffin 3.0. Within this guide, you will see "the `xyz` function can be called". You should assume that these functions should be called on an instance of `League\FactoryMuffin\FactoryMuffin`; you should keep track of this instance yourself, and you can of course have multiple instances of this class for maximum flexibility. For simplicities sake, many of our examples include a `$fm` variable. This variable will actually be made available when files are required using the `loadFactories` function.
 
 ### Factory Definitions
 
