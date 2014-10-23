@@ -5,25 +5,11 @@ Upgrading
 Welcome to the upgrade guide for Factory Muffin. We've tried to cover all changes from 1.4 through to the current release. If we've missed anything, feel free to create an issue, or send a pull request. From 2.0, we are following the PSR-2 coding standard, and semantic versioning, so there will be no BC breaks until a major release other than essential fixes, and any changes will be documented here.
 
 
-## Upgrading from 2.2.x to 3.0.x
+## Upgrading from 2.1.x to 3.0.x
 
 ### Introduction
 
 Factory Muffin 3.0 has many changes and improvements. More documentation will come as we be closer to the 3.0 release date.
-
-### Installing This Version
-
-In your composer.json, add:
-```json
-{
-    "require-dev": {
-        "league/factory-muffin": "3.0.*"
-    }
-}
-```
-
-
-## Upgrading from 2.1.x to 2.2.x
 
 ### Deleting Saved Models
 
@@ -35,7 +21,7 @@ In your composer.json, add:
 ```json
 {
     "require-dev": {
-        "league/factory-muffin": "2.2.*"
+        "league/factory-muffin": "3.0.*"
     }
 }
 ```
