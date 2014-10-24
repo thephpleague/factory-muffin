@@ -77,34 +77,6 @@ class FactoryMuffin
     private $deleteMethod = 'delete';
 
     /**
-     * This is the custom model maker closure.
-     *
-     * @var \Closure
-     */
-    private $customMaker;
-
-    /**
-     * This is the custom attribute setter closure.
-     *
-     * @var \Closure
-     */
-    private $customSetter;
-
-    /**
-     * This is the custom model saver closure.
-     *
-     * @var \Closure
-     */
-    private $customSaver;
-
-    /**
-     * This is the custom model deleter closure.
-     *
-     * @var \Closure
-     */
-    private $customDeleter;
-
-    /**
      * Set the method we use when saving objects.
      *
      * @param string $method The save method name.
@@ -128,62 +100,6 @@ class FactoryMuffin
     public function setDeleteMethod($method)
     {
         $this->deleteMethod = $method;
-
-        return $this;
-    }
-
-    /**
-     * Set the custom maker closure.
-     *
-     * @param \Closure $maker
-     *
-     * @return $this
-     */
-    public function setCustomMaker(Closure $maker)
-    {
-        $this->customMaker = $maker;
-
-        return $this;
-    }
-
-    /**
-     * Set the custom setter closure.
-     *
-     * @param \Closure $setter
-     *
-     * @return $this
-     */
-    public function setCustomSetter(Closure $setter)
-    {
-        $this->customSetter = $setter;
-
-        return $this;
-    }
-
-    /**
-     * Set the custom saver closure.
-     *
-     * @param \Closure $saver
-     *
-     * @return $this
-     */
-    public function setCustomSaver(Closure $saver)
-    {
-        $this->customSaver = $saver;
-
-        return $this;
-    }
-
-    /**
-     * Set the custom deleter closure.
-     *
-     * @param \Closure $deleter
-     *
-     * @return $this
-     */
-    public function setCustomDeleter(Closure $deleter)
-    {
-        $this->customDeleter = $deleter;
 
         return $this;
     }
@@ -354,10 +270,6 @@ class FactoryMuffin
             throw new ModelNotFoundException($class);
         }
 
-        if ($maker = $this->customMaker) {
-            return $maker($class);
-        }
-
         return new $class();
     }
 
@@ -372,11 +284,7 @@ class FactoryMuffin
      */
     private function setAttribute($object, $name, $value)
     {
-        if ($setter = $this->customSetter) {
-            $setter($object, $name, $value);
-        } else {
-            $object->$name = $value;
-        }
+        $object->$name = $value;
     }
 
     /**
@@ -390,10 +298,6 @@ class FactoryMuffin
      */
     private function save($object)
     {
-        if ($saver = $this->customSaver) {
-            return $saver($object);
-        }
-
         if (method_exists($object, $method = $this->saveMethod)) {
             return $object->$method();
         }
@@ -497,10 +401,6 @@ class FactoryMuffin
      */
     private function delete($object)
     {
-        if ($deleter = $this->customDeleter) {
-            return $deleter($object);
-        }
-
         if (method_exists($object, $method = $this->deleteMethod)) {
             return $object->$method();
         }
