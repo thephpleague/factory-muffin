@@ -30,7 +30,7 @@ class Facade
      *
      * @return \League\FactoryMuffin\Faker\Faker
      */
-    private static function instance()
+    public static function instance()
     {
         if (!self::$instance) {
             self::$instance = new Faker();

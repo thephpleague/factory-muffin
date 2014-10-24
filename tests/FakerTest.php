@@ -32,4 +32,13 @@ class FakerTest extends AbstractTestCase
         $formatter = Faker::getFormatter('numberBetween');
         $this->assertSame(5, $formatter(5, 5));
     }
+
+    public function testReset()
+    {
+        $original = Faker::instance();
+        $new = Faker::reset();
+        $this->assertInstanceOf('League\FactoryMuffin\Faker\Faker', $original);
+        $this->assertInstanceOf('League\FactoryMuffin\Faker\Faker', $new);
+        $this->assertFalse($original == $new);
+    }
 }
