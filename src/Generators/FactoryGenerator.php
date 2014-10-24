@@ -111,14 +111,14 @@ class FactoryGenerator implements GeneratorInterface
      */
     private function getId($object)
     {
-        // Check to see if we can get an ID via our defined methods
+        // Check to see if we can get an id via our defined methods
         foreach ($this->methods as $method) {
             if (method_exists($object, $method)) {
                 return $object->$method();
             }
         }
 
-        // Check to see if we can get an ID via our defined methods
+        // Check to see if we can get an id via our defined properties
         foreach ($this->properties as $property) {
             if (isset($object->$property)) {
                 return $object->$property;
