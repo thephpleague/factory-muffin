@@ -146,7 +146,7 @@ $fm->define('Foo', array(
 ));
 
 $fm->define('Bar', array(
-    'baz' => Faker::date(Y-m-d),
+    'baz' => Faker::date('Y-m-d'),
 ));
 ```
 
