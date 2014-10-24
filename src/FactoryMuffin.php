@@ -67,14 +67,14 @@ class FactoryMuffin
      *
      * @var string
      */
-    private $saveMethod = 'save';
+    protected $saveMethod = 'save';
 
     /**
      * This is the method used when deleting objects.
      *
      * @var string
      */
-    private $deleteMethod = 'delete';
+    protected $deleteMethod = 'delete';
 
     /**
      * Set the method we use when saving objects.
@@ -159,7 +159,7 @@ class FactoryMuffin
      *
      * @return void
      */
-    private function persist($object)
+    protected function persist($object)
     {
         if (!$this->save($object)) {
             if (isset($object->validationErrors) && $object->validationErrors) {
@@ -182,7 +182,7 @@ class FactoryMuffin
      *
      * @return bool
      */
-    private function triggerCallback($object, $model)
+    protected function triggerCallback($object, $model)
     {
         if ($callback = Arr::get($this->callbacks, $model)) {
             $saved = $this->isPendingOrSaved($object);
@@ -202,7 +202,7 @@ class FactoryMuffin
      *
      * @return object
      */
-    private function make($model, array $attr, $save)
+    protected function make($model, array $attr, $save)
     {
         $group = $this->getGroup($model);
         $class = $this->getModelClass($model, $group);
@@ -264,7 +264,7 @@ class FactoryMuffin
      *
      * @return object
      */
-    private function makeClass($class)
+    protected function makeClass($class)
     {
         if (!class_exists($class)) {
             throw new ModelNotFoundException($class);
@@ -282,7 +282,7 @@ class FactoryMuffin
      *
      * @return void
      */
-    private function setAttribute($object, $name, $value)
+    protected function setAttribute($object, $name, $value)
     {
         $object->$name = $value;
     }
@@ -296,7 +296,7 @@ class FactoryMuffin
      *
      * @return mixed
      */
-    private function save($object)
+    protected function save($object)
     {
         if (method_exists($object, $method = $this->saveMethod)) {
             return $object->$method();
@@ -399,7 +399,7 @@ class FactoryMuffin
      *
      * @return mixed
      */
-    private function delete($object)
+    protected function delete($object)
     {
         if (method_exists($object, $method = $this->deleteMethod)) {
             return $object->$method();
@@ -435,7 +435,7 @@ class FactoryMuffin
      *
      * @return void
      */
-    private function generate($object, array $attr = array())
+    protected function generate($object, array $attr = array())
     {
         $factory = $this->getFactoryAttrs(get_class($object));
         $attributes = array_merge($factory, $attr);
@@ -456,7 +456,7 @@ class FactoryMuffin
      *
      * @return array
      */
-    private function getFactoryAttrs($model)
+    protected function getFactoryAttrs($model)
     {
         if (isset($this->factories[$model])) {
             return $this->factories[$model];
