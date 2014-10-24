@@ -23,21 +23,21 @@ class FactoryGenerator implements GeneratorInterface
      *
      * @var string
      */
-    protected $kind;
+    private $kind;
 
     /**
      * The model instance.
      *
      * @var object
      */
-    protected $object;
+    private $object;
 
     /**
      * The factory muffin instance.
      *
      * @var \League\FactoryMuffin\FactoryMuffin
      */
-    protected $factoryMuffin;
+    private $factoryMuffin;
 
     /**
      * Create a new instance.
