@@ -39,6 +39,6 @@ class FakerTest extends AbstractTestCase
         $new = Faker::reset();
         $this->assertInstanceOf('League\FactoryMuffin\Faker\Faker', $original);
         $this->assertInstanceOf('League\FactoryMuffin\Faker\Faker', $new);
-        $this->assertFalse($original == $new);
+        $this->assertNotEquals($original, $new);
     }
 }
