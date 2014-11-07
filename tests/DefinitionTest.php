@@ -22,9 +22,9 @@ class DefinitionTest extends AbstractTestCase
 
     public function testDefineWithReplacementGenerators()
     {
-        $user = static::$fm->create('UserModelStub', array(
+        $user = static::$fm->create('UserModelStub', [
             'fullName' => Faker::name(),
-        ));
+        ]);
 
         $this->assertInstanceOf('UserModelStub', $user);
         $this->assertInternalType('string', $user->name);

@@ -39,28 +39,28 @@ class FactoryMuffin
      *
      * @var array
      */
-    private $factories = array();
+    private $factories = [];
 
     /**
      * The array of callbacks to trigger on instance/create.
      *
      * @var array
      */
-    private $callbacks = array();
+    private $callbacks = [];
 
     /**
      * The array of objects we have created and are pending save.
      *
      * @var array
      */
-    private $pending = array();
+    private $pending = [];
 
     /**
      * The array of objects we have created and have saved.
      *
      * @var array
      */
-    private $saved = array();
+    private $saved = [];
 
     /**
      * This is the method used when saving objects.
@@ -116,9 +116,9 @@ class FactoryMuffin
      *
      * @return object[]
      */
-    public function seed($times, $model, array $attr = array())
+    public function seed($times, $model, array $attr = [])
     {
-        $seeds = array();
+        $seeds = [];
         while ($times > 0) {
             $seeds[] = $this->create($model, $attr);
             $times--;
@@ -137,7 +137,7 @@ class FactoryMuffin
      *
      * @return object
      */
-    public function create($model, array $attr = array())
+    public function create($model, array $attr = [])
     {
         $object = $this->make($model, $attr, true);
 
@@ -187,6 +187,7 @@ class FactoryMuffin
         if ($callback = Arr::get($this->callbacks, $model)) {
             $saved = $this->isPendingOrSaved($object);
             $callback($object, $saved);
+
             return true;
         }
 
@@ -370,7 +371,7 @@ class FactoryMuffin
      */
     public function deleteSaved()
     {
-        $exceptions = array();
+        $exceptions = [];
 
         while ($object = array_pop($this->saved)) {
             try {
@@ -418,7 +419,7 @@ class FactoryMuffin
      *
      * @return object
      */
-    public function instance($model, array $attr = array())
+    public function instance($model, array $attr = [])
     {
         $object = $this->make($model, $attr, false);
 
@@ -435,7 +436,7 @@ class FactoryMuffin
      *
      * @return void
      */
-    protected function generate($object, array $attr = array())
+    protected function generate($object, array $attr = [])
     {
         $factory = $this->getFactoryAttrs(get_class($object));
         $attributes = array_merge($factory, $attr);
@@ -474,7 +475,7 @@ class FactoryMuffin
      *
      * @return $this
      */
-    public function define($model, array $definition = array(), $callback = null)
+    public function define($model, array $definition = [], $callback = null)
     {
         $this->factories[$model] = $definition;
         $this->callbacks[$model] = $callback;

@@ -109,7 +109,7 @@ class Faker
      *
      * @return \Closure
      */
-    public function format($formatter, $arguments = array())
+    public function format($formatter, $arguments = [])
     {
         return function () use ($formatter, $arguments) {
             return $this->getGenerator()->format($formatter, $arguments);

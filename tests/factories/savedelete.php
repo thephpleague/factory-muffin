@@ -1,9 +1,9 @@
 <?php
 
-$fm->define('ModelThatWillSaveStub', array());
-$fm->define('ModelThatFailsToSaveStub', array());
-$fm->define('ModelThatFailsToDeleteStub', array());
-$fm->define('ModelThatAlsoFailsToDeleteStub', array());
-$fm->define('ModelWithNoSaveMethodStub', array());
-$fm->define('ModelWithNoDeleteMethodStub', array());
-$fm->define('ModelWithValidationErrorsStub', array());
+$fm->define('ModelThatWillSaveStub', []);
+$fm->define('ModelThatFailsToSaveStub', []);
+$fm->define('ModelThatFailsToDeleteStub', []);
+$fm->define('ModelThatAlsoFailsToDeleteStub', []);
+$fm->define('ModelWithNoSaveMethodStub', []);
+$fm->define('ModelWithNoDeleteMethodStub', []);
+$fm->define('ModelWithValidationErrorsStub', []);

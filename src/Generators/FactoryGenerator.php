@@ -60,14 +60,14 @@ class FactoryGenerator implements GeneratorInterface
      *
      * @var string[]
      */
-    private $methods = array('getKey', 'pk');
+    private $methods = ['getKey', 'pk'];
 
     /**
      * The factory properties.
      *
      * @var string[]
      */
-    private $properties = array('id', '_id');
+    private $properties = ['id', '_id'];
 
     /**
      * Return generated data.

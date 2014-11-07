@@ -73,7 +73,7 @@ class Facade
             case 3:
                 return self::instance()->$method($args[0], $args[1], $args[2]);
             default:
-                return call_user_func_array(array(self::instance(), $method), $args);
+                return call_user_func_array([self::instance(), $method], $args);
         }
     }
 }

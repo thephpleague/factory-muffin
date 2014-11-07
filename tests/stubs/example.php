@@ -1,3 +1,3 @@
 <?php
 
-$fm->define('ExampleDefinedModelStub', array());
+$fm->define('ExampleDefinedModelStub', []);
