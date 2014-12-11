@@ -49,6 +49,10 @@ class CallableGenerator implements GeneratorInterface
      */
     public function __construct(callable $kind, $object, FactoryMuffin $factoryMuffin)
     {
+        if ($kind instanceof \Closure) {
+            $kind = $kind->bindTo($factoryMuffin);
+        }
+
         $this->kind = $kind;
         $this->object = $object;
         $this->factoryMuffin = $factoryMuffin;

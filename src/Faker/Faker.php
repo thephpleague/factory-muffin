@@ -111,8 +111,10 @@ class Faker
      */
     public function format($formatter, $arguments = [])
     {
-        return function () use ($formatter, $arguments) {
-            return $this->getGenerator()->format($formatter, $arguments);
+        $generator = $this->getGenerator();
+
+        return function () use ($generator, $formatter, $arguments) {
+            return $generator->format($formatter, $arguments);
         };
     }
 
