@@ -82,12 +82,6 @@ class DefinitionTest extends AbstractTestCase
         $definition->setCallback($callback);
         $this->assertSame($callback, $definition->getCallback());
 
-        $definition->setCallback(null);
-        $this->assertNull($definition->getCallback());
-
-        $definition->setCallback($callback);
-        $this->assertSame($callback, $definition->getCallback());
-
         $definition->clearCallback();
         $this->assertNull($definition->getCallback());
     }

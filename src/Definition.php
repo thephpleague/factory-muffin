@@ -112,11 +112,11 @@ class Definition
     /**
      * Set the closure callback.
      *
-     * @param \Closure|null $callback
+     * @param \Closure $callback
      *
      * @return $this
      */
-    public function setCallback(Closure $callback = null)
+    public function setCallback(Closure $callback)
     {
         $this->callback = $callback;
 
@@ -148,6 +148,8 @@ class Definition
     /**
      * Add an attribute definitions.
      *
+     * Note that we're appending to the original attribute definitions here.
+     *
      * @param string          $attribute
      * @param string|callable $definition
      *
@@ -162,6 +164,9 @@ class Definition
 
     /**
      * Set the attribute definitions.
+     *
+     * Note that we're appending to the original attribute definitions here
+     * instead of switching them out for the new ones.
      *
      * @param array $definitions
      *
@@ -193,6 +198,6 @@ class Definition
      */
     public function getDefinitions()
     {
-        return (array) $this->definitions;
+        return $this->definitions;
     }
 }
