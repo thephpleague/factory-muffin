@@ -11,6 +11,10 @@ Welcome to the upgrade guide for Factory Muffin. We've tried to cover all change
 
 Factory Muffin 3.0 has many changes and improvements. More documentation will come as we be closer to the 3.0 release date.
 
+### Faker Support Changed
+
+Our integration with faker has been totally re-written, and has been moved to a new repo, factory-muffin-faker. More documentation is coming soon.
+
 ### Deleting Saved Models
 
 We are now deleting saved models in the reverse order they were saved to ensure relationships behave correctly.

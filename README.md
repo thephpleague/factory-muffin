@@ -15,13 +15,23 @@ It's basically a "[factory\_girl](https://github.com/thoughtbot/factory_girl)", 
 
 ## Installing
 
-[PHP](https://php.net) 5.3+ and [Composer](https://getcomposer.org) are required.
+[PHP](https://php.net) 5.4+ and [Composer](https://getcomposer.org) are required.
 
 In your composer.json, simply add `"league/factory-muffin": "~3.0"` to your `"require-dev"` section:
 ```json
 {
     "require-dev": {
         "league/factory-muffin": "~3.0"
+    }
+}
+```
+
+If you want to enable faker support, then you need to add `"league/factory-muffin-faker": "~1.0"` too:
+```json
+{
+    "require-dev": {
+        "league/factory-muffin": "~3.0",
+        "league/factory-muffin-faker": "~1.0"
     }
 }
 ```
