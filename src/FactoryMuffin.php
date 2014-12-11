@@ -186,9 +186,8 @@ class FactoryMuffin
     {
         if ($callback = Arr::get($this->callbacks, $model)) {
             $saved = $this->isPendingOrSaved($object);
-            $callback($object, $saved);
-
-            return true;
+            /** @var callable $callback */
+            return $callback($object, $saved) !== false;
         }
 
         return false;
