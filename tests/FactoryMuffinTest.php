@@ -89,7 +89,7 @@ class FactoryMuffinTest extends AbstractTestCase
         try {
             static::$fm->instance($model = 'ModelWithNoFactoryClassStub');
         } catch (NoDefinedFactoryException $e) {
-            $this->assertSame("No factory definition(s) were defined for the model of type: '$model'.", $e->getMessage());
+            $this->assertSame("No model definition was defined for the model: '$model'.", $e->getMessage());
             $this->assertSame($model, $e->getModel());
             throw $e;
         }

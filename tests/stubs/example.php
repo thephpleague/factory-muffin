@@ -12,4 +12,4 @@
  * THE SOFTWARE.
  */
 
-$fm->define('ExampleDefinedModelStub', []);
+$fm->define('ExampleDefinedModelStub');

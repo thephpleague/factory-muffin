@@ -50,7 +50,7 @@ class SaveMethodNotFoundException extends MethodNotFoundException
         $model = get_class($object);
 
         if (!$message) {
-            $message = "The save method '$method' was not found on the model of type: '$model'.";
+            $message = "The save method '$method' was not found on the model: '$model'.";
         }
 
         parent::__construct($model, $method, $message);

@@ -19,7 +19,7 @@ use Exception;
 /**
  * This is the directory not found exception class.
  *
- * This is thrown if you try to load factory definitions from a directory that
+ * This is thrown if you try to load model definitions from a directory that
  * doesn't exit.
  *
  * @author  Scott Robertson <scottymeuk@gmail.com>

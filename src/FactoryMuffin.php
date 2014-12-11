@@ -14,7 +14,6 @@
 
 namespace League\FactoryMuffin;
 
-use Closure;
 use Exception;
 use League\FactoryMuffin\Exceptions\DeleteFailedException;
 use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
@@ -46,18 +45,11 @@ class FactoryMuffin
     private $generatorFactory;
 
     /**
-     * The array of factories.
+     * The array of model definitions.
      *
-     * @var array
+     * @var \League\FactoryMuffin\Definition[]
      */
-    private $factories = [];
-
-    /**
-     * The array of callbacks to trigger on instance/create.
-     *
-     * @var array
-     */
-    private $callbacks = [];
+    private $definitions = [];
 
     /**
      * The array of objects we have created and are pending save.
@@ -122,7 +114,7 @@ class FactoryMuffin
      * database.
      *
      * @param int    $times The number of models to create.
-     * @param string $model The model class name.
+     * @param string $model The full model name.
      * @param array  $attr  The model attributes.
      *
      * @return object[]
@@ -143,7 +135,7 @@ class FactoryMuffin
      *
      * This object will be generated with mock attributes.
      *
-     * @param string $model The model class name.
+     * @param string $model The full model name.
      * @param array  $attr  The model attributes.
      *
      * @return object
@@ -189,13 +181,13 @@ class FactoryMuffin
      * Trigger the callback if we have one.
      *
      * @param object $object The model instance.
-     * @param string $model  The model class name.
+     * @param string $model  The full model name.
      *
      * @return bool
      */
     protected function triggerCallback($object, $model)
     {
-        if ($callback = Arr::get($this->callbacks, $model)) {
+        if ($callback = $this->getDefinition($model)->getCallback()) {
             $saved = $this->isPendingOrSaved($object);
 
             return $callback($object, $saved) !== false;
@@ -207,7 +199,7 @@ class FactoryMuffin
     /**
      * Make an instance of the model.
      *
-     * @param string $model The model class name.
+     * @param string $model The full model name.
      * @param array  $attr  The model attributes.
      * @param bool   $save  Are we saving, or just creating an instance?
      *
@@ -215,55 +207,23 @@ class FactoryMuffin
      */
     protected function make($model, array $attr, $save)
     {
-        $group = $this->getGroup($model);
-        $class = $this->getModelClass($model, $group);
-        $object = $this->makeClass($class);
+        $definition = $this->getDefinition($model);
+        $object = $this->makeClass($definition->getClass());
 
         // Make the object as saved so that other generators persist correctly
         if ($save) {
             Arr::add($this->pending, $object);
         }
 
-        // Get the group specific factory attributes
-        if ($group) {
-            $attr = array_merge($attr, $this->getFactoryAttrs($model));
+        // Get the group specific attribute definitions
+        if ($definition->getGroup()) {
+            $attr = array_merge($attr, $this->getDefinition($model)->getDefinitions());
         }
 
         // Generate and save each attribute for the model
         $this->generate($object, $attr);
 
         return $object;
-    }
-
-    /**
-     * Returns the group name for this factory definition.
-     *
-     * @param string $model The model class name.
-     *
-     * @return string|null
-     */
-    private function getGroup($model)
-    {
-        if (strpos($model, ':') !== false) {
-            return current(explode(':', $model));
-        }
-    }
-
-    /**
-     * Returns the real model class without the group prefix.
-     *
-     * @param string      $model The model class name.
-     * @param string|null $group The model group name.
-     *
-     * @return string
-     */
-    private function getModelClass($model, $group)
-    {
-        if ($group) {
-            return str_replace($group.':', '', $model);
-        }
-
-        return $model;
     }
 
     /**
@@ -424,7 +384,7 @@ class FactoryMuffin
      *
      * This does not save it in the database. Use create for that.
      *
-     * @param string $model The model class name.
+     * @param string $model The full model name.
      * @param array  $attr  The model attributes.
      *
      * @return object
@@ -448,8 +408,8 @@ class FactoryMuffin
      */
     protected function generate($object, array $attr = [])
     {
-        $factory = $this->getFactoryAttrs(get_class($object));
-        $attributes = array_merge($factory, $attr);
+        $definitions = $this->getDefinition(get_class($object))->getDefinitions();
+        $attributes = array_merge($definitions, $attr);
 
         // Generate and save each attribute
         foreach ($attributes as $key => $kind) {
@@ -459,18 +419,18 @@ class FactoryMuffin
     }
 
     /**
-     * Get factory attributes.
+     * Get a model definition.
      *
-     * @param string $model The model class name.
+     * @param string $model The full model name.
      *
      * @throws \League\FactoryMuffin\Exceptions\NoDefinedFactoryException
      *
-     * @return array
+     * @return \League\FactoryMuffin\Definition
      */
-    protected function getFactoryAttrs($model)
+    public function getDefinition($model)
     {
-        if (isset($this->factories[$model])) {
-            return $this->factories[$model];
+        if (isset($this->definitions[$model])) {
+            return $this->definitions[$model];
         }
 
         throw new NoDefinedFactoryException($model);
@@ -479,18 +439,13 @@ class FactoryMuffin
     /**
      * Define a new model factory.
      *
-     * @param string        $model      The model class name.
-     * @param array         $definition The attribute definitions.
-     * @param \Closure|null $callback   The closure callback.
+     * @param string $model The full model name.
      *
      * @return $this
      */
-    public function define($model, array $definition = [], $callback = null)
+    public function define($model)
     {
-        $this->factories[$model] = $definition;
-        $this->callbacks[$model] = $callback;
-
-        return $this;
+        return $this->definitions[$model] = new Definition($model);
     }
 
     /**
@@ -498,7 +453,7 @@ class FactoryMuffin
      *
      * This method expects either a single path to a directory containing php
      * files, or an array of directory paths, and will include_once every file.
-     * These files should contain factory definitions for your models.
+     * These files should contain definitions for your models.
      *
      * @param string|string[] $paths The directory path(s) to load.
      *

@@ -48,11 +48,11 @@ It maybe be useful for existing users to check out the [upgrade guide](UPGRADING
 
 This is the usage guide for Factory Muffin 3.0. Within this guide, you will see "the `xyz` function can be called". You should assume that these functions should be called on an instance of `League\FactoryMuffin\FactoryMuffin`; you should keep track of this instance yourself, and you can of course have multiple instances of this class for maximum flexibility. For simplicities sake, many of our examples include a `$fm` variable. This variable will actually be made available when files are required using the `loadFactories` function.
 
-### Factory Definitions
+### Model Definitions
 
-You can define model factories using the `define` function. You may call it like this: `$fm->define('Fully\Qualifed\ModelName', array('foo' => 'bar'))`, where `foo` is the name of the attribute you want set on your model, and `bar` describes how you wish to generate the attribute. Please see the generators section for more information on how this works.
+You can define model factories using the `define` function. You may call it like this: `$fm->define('Fully\Qualifed\ModelName')->addDefinitions('foo', 'bar')`, where `foo` is the name of the attribute you want set on your model, and `bar` describes how you wish to generate the attribute. You may also define multiple attributes at once like this: `$fm->define('Fully\Qualifed\ModelName')->setDefinitions('foo', 'bar')`. Note that both functions append to the internal attributes definition array rather than replacing it. Please see the generators section for more information on how this works.
 
-You can also define multiple different factory definitions for your models. You can do this by prefixing the model class name with your "group" followed by a colon. This results in you defining your model like this: `$fm->define('myGroup:Fully\Qualifed\ModelName', array('foo' => 'bar'))`. You don't have to entirely define your model here because we will first look for a definition without the group prefix, then apply your group definition on top of that definition, overriding attribute definitions where required.
+You can also define multiple different model definitions for your models. You can do this by prefixing the model class name with your "group" followed by a colon. This results in you defining your model like this: `$fm->define('myGroup:Fully\Qualifed\ModelName')->addDefinitions('bar', 'baz')`. You don't have to entirely define your model here because we will first look for a definition without the group prefix, then apply your group definition on top of that definition, overriding attribute definitions where required.
 
 We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `$fm->loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found.
 
@@ -70,7 +70,7 @@ The callable generator can be used if you want a more custom solution. Whatever 
 
 As you can see from this example, the ability to use a closure to generate attributes can be so useful and flexible. Here we use it to generate a slug based on the initially randomly generated 5 word long title.
 ```php
-$fm->define('MyModel', array(
+$fm->define('MyModel')->setDefinitions([
     'title' => Faker::sentence(5),
     'slug' => function ($object, $saved) {
         $slug = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $object->title);
@@ -79,16 +79,16 @@ $fm->define('MyModel', array(
 
         return $slug;
     },
-));
+]);
 ```
 
 ##### Example 2
 
 This will set the `foo` attribute to whatever calling `MyModel::exampleMethod($object, $saved)` returns.
 ```php
-$fm->define('MyModel', array(
+$fm->define('MyModel'->setDefinitions([
     'foo' => 'MyModel::exampleMethod',
-));
+]);
 ```
 
 ##### Example 3
@@ -97,13 +97,13 @@ There is a simple example of setting a few different attributes using our faker 
 ```php
 use League\FactoryMuffin\Faker\Facade as Faker;
 
-$fm->define('MyModel', array(
+$fm->define('MyModel')->setDefinitions([
     'foo'    => Faker::word(),          // Set the foo attribute to a random word
     'name'   => Faker::firstNameMale(), // Set the name attribute to a random male first name
     'email'  => Faker::email(),         // Set the email attribute to a random email address
     'body'   => Faker::text(),          // Set the body attribute to a random string of text
     'slogan' => Faker::sentence(),      // Set the slogan attribute to a random sentence
-));
+]);
 ```
 
 ##### Example 4
@@ -112,9 +112,9 @@ This will set the `age` attribute to a random number between 20 and 40.
 ```php
 use League\FactoryMuffin\Faker\Facade as Faker;
 
-$fm->define('MyModel', array(
+$fm->define('MyModel')->setDefinitions([
     'age' => Faker::numberBetween(20, 40),
-));
+]);
 ```
 
 ##### Example 5
@@ -123,9 +123,7 @@ This will set the `name` attribute to a random female first name. Because we've 
 ```php
 use League\FactoryMuffin\Faker\Facade as Faker;
 
-$fm->define('MyModel', array(
-    'name' => Faker::unique()->firstNameFemale(),
-));
+$fm->define('MyModel')->addDefinition('name', Faker::unique()->firstNameFemale());
 ```
 
 ##### Example 6
@@ -134,9 +132,7 @@ This will set the `profile_pic` attribute to a random image url of dimensions 40
 ```php
 use League\FactoryMuffin\Faker\Facade as Faker;
 
-$fm->define('MyModel', array(
-    'profile_pic' => Faker::optional()->imageUrl(400, 400),
-));
+$fm->define('MyModel')->addDefinition('profile_pic', Faker::optional()->imageUrl(400, 400));
 ```
 
 ##### More
@@ -151,13 +147,9 @@ The factory generator can be useful for setting up relationships between models.
 
 When we create a Foo object, we will find that the Bar object will been generated and saved too, and it's id will be assigned to the `bar_id` attribute of the Foo model.
 ```php
-$fm->define('Foo', array(
-    'bar_id' => 'factory|Bar',
-));
+$fm->define('Foo')->addDefinition('bar_id', 'factory|Bar');
 
-$fm->define('Bar', array(
-    'baz' => Faker::date('Y-m-d'),
-));
+$fm->define('Bar')->addDefinition('baz', Faker::date('Y-m-d'));
 ```
 
 ### Creating And Seeding
@@ -166,7 +158,7 @@ The `create` function will create and save your model, and will also save anythi
 
 You may encounter the following exceptions:
 * `League\FactoryMuffin\Exceptions\ModelNotFoundException` will be thrown if the model class defined is not found.
-* `League\FactoryMuffin\Exceptions\NoDefinedFactoryException` will be thrown if you try to create a model and you haven't defined a factory definition for it earlier.
+* `League\FactoryMuffin\Exceptions\NoDefinedFactoryException` will be thrown if you try to create a model and you haven't defined a model definition for it earlier.
 * `League\FactoryMuffin\Exceptions\SaveFailedException` will be thrown if the save function on your model returns false.
 * `League\FactoryMuffin\Exceptions\SaveMethodNotFoundException` will be thrown if the save function on your model does not exist.
 * Any other exception thrown by your model while trying to create or save it.
@@ -205,19 +197,19 @@ To start with, we need to create some definitions:
 
 use League\FactoryMuffin\Faker\Facade as Faker;
 
-$fm->define('Message', array(
+$fm->define('Message')->setDefinitions([
     'user_id'      => 'factory|User',
     'subject'      => Faker::sentence(),
     'message'      => Faker::text(),
     'phone_number' => Faker::randomNumber(8),
     'created'      => Faker::date('Ymd h:s'),
     'slug'         => 'Message::makeSlug',
-), function ($object, $saved) {
+])->setCallback(function ($object, $saved) {
     // we're taking advantage of the callback functionality here
     $object->message .= '!';
 });
 
-$fm->define('User', array(
+$fm->define('User')->setDefinitions([
     'username' => Faker::firstNameMale(),
     'email'    => Faker::email(),
     'avatar'   => Faker::imageUrl(400, 600),
@@ -225,7 +217,7 @@ $fm->define('User', array(
     'four'     => function() {
         return 2 + 2;
     },
-));
+]);
 ```
 
 You can then use these factories in your tests:
@@ -247,7 +239,7 @@ class TestUserModel extends PHPUnit_Framework_TestCase
         // you want to configure a few extra things
         static::$fm->setSaveMethod('save')->setDeleteMethod('delete');
 
-        // load your factory definitions
+        // load your model definitions
         static::$fm->loadFactories(__DIR__.'/factories');
 
         // you can optionally set the faker locale

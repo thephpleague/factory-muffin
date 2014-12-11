@@ -38,6 +38,54 @@ class DefinitionTest extends AbstractTestCase
         $this->assertContains('@', $user->email);
     }
 
+    public function testBasicDefinitionFunctions()
+    {
+        $definition = static::$fm->getDefinition('AttributeDefinitionsStub');
+
+        $this->assertNull($definition->getGroup());
+        $this->assertSame('AttributeDefinitionsStub', $definition->getClass());
+        $this->assertSame('AttributeDefinitionsStub', $definition->getModel());
+    }
+
+    public function testAttributeDefinitionFunctions()
+    {
+        $definition = static::$fm->getDefinition('AttributeDefinitionsStub');
+
+        $this->assertSame([], $definition->getDefinitions());
+
+        $definition->addDefinition('foo', 'bar');
+        $this->assertSame(['foo' => 'bar'], $definition->getDefinitions());
+
+        $definition->setDefinitions(['bar' => 'baz']);
+        $this->assertSame(['foo' => 'bar', 'bar' => 'baz'], $definition->getDefinitions());
+
+        $definition->setDefinitions([]);
+        $this->assertSame(['foo' => 'bar', 'bar' => 'baz'], $definition->getDefinitions());
+
+        $definition->clearDefinitions();
+        $this->assertSame([], $definition->getDefinitions());
+
+        $definition->setDefinitions(['bar' => 'baz', 'baz' => 'foo']);
+        $this->assertSame(['bar' => 'baz', 'baz' => 'foo'], $definition->getDefinitions());
+    }
+
+    public function testCallbackDefinitionFunctions()
+    {
+        $definition = static::$fm->getDefinition('AttributeDefinitionsStub');
+
+        $this->assertNull($definition->getCallback());
+
+        $callback = function () {
+            return $foo;
+        };
+
+        $definition->setCallback($callback);
+        $this->assertSame($callback, $definition->getCallback());
+
+        $definition->clearCallback();
+        $this->assertNull($definition->getCallback());
+    }
+
     public function testDefineWithReplacementGenerators()
     {
         $user = static::$fm->create('UserModelStub', [
@@ -60,7 +108,7 @@ class DefinitionTest extends AbstractTestCase
         try {
             static::$fm->create($model = 'NotAClass');
         } catch (ModelNotFoundException $e) {
-            $this->assertSame("No class was defined for the model of type: '$model'.", $e->getMessage());
+            $this->assertSame("No class was defined for the model: '$model'.", $e->getMessage());
             $this->assertSame($model, $e->getModel());
             throw $e;
         }
@@ -108,7 +156,7 @@ class DefinitionTest extends AbstractTestCase
         try {
             static::$fm->create('error:UserModelStub');
         } catch (NoDefinedFactoryException $e) {
-            $this->assertSame("No factory definition(s) were defined for the model of type: 'error:UserModelStub'.", $e->getMessage());
+            $this->assertSame("No model definition was defined for the model: 'error:UserModelStub'.", $e->getMessage());
             $this->assertSame('error:UserModelStub', $e->getModel());
             throw $e;
         }
@@ -122,7 +170,7 @@ class DefinitionTest extends AbstractTestCase
         try {
             static::$fm->create('foo:DogModelStub');
         } catch (NoDefinedFactoryException $e) {
-            $this->assertSame("No factory definition(s) were defined for the model of type: 'DogModelStub'.", $e->getMessage());
+            $this->assertSame("No model definition was defined for the model: 'DogModelStub'.", $e->getMessage());
             $this->assertSame('DogModelStub', $e->getModel());
             throw $e;
         }
@@ -212,6 +260,19 @@ class DefinitionTest extends AbstractTestCase
         ]);
 
         $this->assertInstanceOf('ProfileModelStub', $obj->profile);
+    }
+}
+
+class AttributeDefinitionsStub
+{
+    public function save()
+    {
+        return true;
+    }
+
+    public function delete()
+    {
+        return true;
     }
 }
 
