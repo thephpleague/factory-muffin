@@ -28,7 +28,7 @@ class Definition
     /**
      * The model group.
      *
-     * @var string|false
+     * @var string|null
      */
     protected $group;
 
