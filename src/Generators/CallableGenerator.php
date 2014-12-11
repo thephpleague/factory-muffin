@@ -18,10 +18,10 @@ use Closure;
 use League\FactoryMuffin\FactoryMuffin;
 
 /**
- * This is the closure generator class.
+ * This is the callable generator class.
  *
- * The closure generator can be used if you want a more custom solution.
- * Whatever you return from the closure you write will be set as the attribute.
+ * The callable generator can be used if you want a more custom solution.
+ * Whatever you return from the callable you write will be set as the attribute.
  *
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
