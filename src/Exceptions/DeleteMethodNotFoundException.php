@@ -50,7 +50,7 @@ class DeleteMethodNotFoundException extends MethodNotFoundException
         $model = get_class($object);
 
         if (!$message) {
-            $message = "The delete method '$method' was not found on the model of type: '$model'.";
+            $message = "The delete method '$method' was not found on the model: '$model'.";
         }
 
         parent::__construct($model, $method, $message);

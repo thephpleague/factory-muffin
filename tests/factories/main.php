@@ -14,19 +14,19 @@
 
 use League\FactoryMuffin\Faker\Facade as Faker;
 
-$fm->define('IdTestModelGetKeyStub', []);
-$fm->define('IdTestModelPkStub', []);
-$fm->define('IdTestModelIdStub', []);
-$fm->define('IdTestModelNullStub', []);
+$fm->define('IdTestModelGetKeyStub');
+$fm->define('IdTestModelPkStub');
+$fm->define('IdTestModelIdStub');
+$fm->define('IdTestModelNullStub');
 
-$fm->define('IdTestModelStub', [
+$fm->define('IdTestModelStub')->setDefinitions([
     'modelGetKey' => 'factory|IdTestModelGetKeyStub',
     'modelPk'     => 'factory|IdTestModelPkStub',
     'model_id'    => 'factory|IdTestModelIdStub',
     'model_null'  => 'factory|IdTestModelNullStub',
 ]);
 
-$fm->define('FakerDefaultingModelStub', [
+$fm->define('FakerDefaultingModelStub')->setDefinitions([
     'title'         => Faker::word(),
     'email'         => Faker::email(),
     'content'       => Faker::text(),
@@ -36,7 +36,7 @@ $fm->define('FakerDefaultingModelStub', [
     'optional_text' => Faker::optional()->text(),
 ]);
 
-$fm->define('MainModelStub', [
+$fm->define('MainModelStub')->setDefinitions([
     'modelb_id'    => 'factory|FakerDefaultingModelStub',
     'name'         => Faker::word(),
     'email'        => Faker::email(),
@@ -57,11 +57,9 @@ $fm->define('MainModelStub', [
     },
 ]);
 
-$fm->define('ComplexModelStub', [
-    'future'       => 'ComplexModelStub::fortyDaysFromNow',
-]);
+$fm->define('ComplexModelStub')->addDefinition('future', 'ComplexModelStub::fortyDaysFromNow');
 
-$fm->define('ModelWithStaticMethodFactory', [
+$fm->define('ModelWithStaticMethodFactory')->setDefinitions([
     'string' => 'just a string',
     'data'   => function ($object, $saved) {
         return compact('object', 'saved');

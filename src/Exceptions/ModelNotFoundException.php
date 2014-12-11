@@ -38,7 +38,7 @@ class ModelNotFoundException extends ModelException
     public function __construct($model, $message = null)
     {
         if (!$message) {
-            $message = "No class was defined for the model of type: '$model'.";
+            $message = "No class was defined for the model: '$model'.";
         }
 
         parent::__construct($model, $message);

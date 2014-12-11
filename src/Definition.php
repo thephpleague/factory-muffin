@@ -26,13 +26,6 @@ use Closure;
 class Definition
 {
     /**
-     * The full model name.
-     *
-     * @var string
-     */
-    protected $model;
-
-    /**
      * The model group.
      *
      * @var string|false
@@ -47,11 +40,11 @@ class Definition
     protected $class;
 
     /**
-     * The attribute definitions.
+     * The full model name.
      *
-     * @var array
+     * @var string
      */
-    protected $definitions;
+    protected $model;
 
     /**
      * The closure callback.
@@ -61,36 +54,29 @@ class Definition
     protected $callback;
 
     /**
+     * The attribute definitions.
+     *
+     * @var array
+     */
+    protected $definitions = [];
+
+    /**
      * Create a new model definition.
      *
-     * @param string        $model       The full model name.
-     * @param array         $definitions The attribute definitions.
-     * @param \Closure|null $callback    The closure callback.
+     * @param string $model The full model name.
      *
      * @return void
      */
-    public function __construct($model, array $definitions = [], Closure $callback = null)
+    public function __construct($model)
     {
-        $this->model = $model;
-        $this->definitions = $definitions;
-        $this->callback = $callback;
-
         if (strpos($model, ':') !== false) {
             $this->group = current(explode(':', $model));
             $this->class = str_replace($this->group.':', '', $model);
         } else {
             $this->class = $model;
         }
-    }
 
-    /**
-     * Get the full model name including group prefixes.
-     *
-     * @return string
-     */
-    public function getModel()
-    {
-        return $this->model;
+        $this->model = $model;
     }
 
     /**
@@ -114,13 +100,39 @@ class Definition
     }
 
     /**
-     * Get the attribute definitions.
+     * Get the full model name including group prefixes.
      *
-     * @return array
+     * @return string
      */
-    public function getDefinitions()
+    public function getModel()
     {
-        return $this->definitions;
+        return $this->model;
+    }
+
+    /**
+     * Set the closure callback.
+     *
+     * @param \Closure|null $callback
+     *
+     * @return $this
+     */
+    public function setCallback(Closure $callback = null)
+    {
+        $this->callback = $callback;
+
+        return $this;
+    }
+
+    /**
+     * Clear the closure callback.
+     *
+     * @return $this
+     */
+    public function clearCallback()
+    {
+        $this->callback = null;
+
+        return $this;
     }
 
     /**
@@ -131,5 +143,56 @@ class Definition
     public function getCallback()
     {
         return $this->callback;
+    }
+
+    /**
+     * Add an attribute definitions.
+     *
+     * @param string          $attribute
+     * @param string|callable $definition
+     *
+     * @return $this
+     */
+    public function addDefinition($attribute, $definition)
+    {
+        $this->definitions[$attribute] = $definition;
+
+        return $this;
+    }
+
+    /**
+     * Set the attribute definitions.
+     *
+     * @param array $definitions
+     *
+     * @return $this
+     */
+    public function setDefinitions(array $definitions = [])
+    {
+        $this->definitions = array_merge($this->definitions, $definitions);
+
+        return $this;
+    }
+
+    /**
+     * Clear the attribute definitions.
+     *
+     * @return $this
+     */
+    public function clearDefinitions()
+    {
+        $this->definitions = [];
+
+        return $this;
+    }
+
+    /**
+     * Get the attribute definitions.
+     *
+     * @return array
+     */
+    public function getDefinitions()
+    {
+        return (array) $this->definitions;
     }
 }

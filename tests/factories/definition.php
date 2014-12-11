@@ -14,45 +14,41 @@
 
 use League\FactoryMuffin\Faker\Facade as Faker;
 
-$fm->define('ProfileModelStub', [
-    'profile' => Faker::text(),
-]);
+$fm->define('ProfileModelStub')->addDefinition('profile', Faker::text());
 
-$fm->define('NotAClass', []);
+$fm->define('AttributeDefinitionsStub');
 
-$fm->define('UserModelStub', [
+$fm->define('NotAClass');
+
+$fm->define('UserModelStub')->setDefinitions([
     'name'    => Faker::word(),
     'active'  => Faker::boolean(),
     'email'   => Faker::email(),
     'profile' => 'factory|ProfileModelStub',
 ]);
 
-$fm->define('group:UserModelStub', [
-    'address' => Faker::address(),
-]);
+$fm->define('group:UserModelStub')->addDefinition('address', Faker::address());
 
-$fm->define('anothergroup:UserModelStub', [
+$fm->define('anothergroup:UserModelStub')->setDefinitions([
     'address' => Faker::address(),
     'active'  => 'custom',
 ]);
 
-$fm->define('callbackgroup:UserModelStub', [], function ($obj) {
+$fm->define('callbackgroup:UserModelStub')->setCallback(function ($obj) {
     $obj->test = 'bar';
 });
 
-$fm->define('foo:DogModelStub', [
+$fm->define('foo:DogModelStub')->setDefinitions([
     'name' => Faker::firstNameMale(),
     'age'  => Faker::numberBetween(1, 15),
 ]);
 
-$fm->define('ExampleCallbackStub', [], function ($obj, $saved) {
+$fm->define('ExampleCallbackStub')->setCallback(function ($obj, $saved) {
     $obj->callback = 'yaycalled';
     $obj->saved = $saved;
 });
 
-$fm->define('AnotherCallbackStub', [
-    'foo' => Faker::email(),
-], function ($obj, $saved) {
+$fm->define('AnotherCallbackStub')->addDefinition('foo', Faker::email())->setCallback(function ($obj, $saved) {
     $obj->foo = 'hello there';
     $obj->saved = $saved;
 });

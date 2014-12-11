@@ -428,7 +428,7 @@ class FactoryMuffin
      *
      * @return \League\FactoryMuffin\Definition
      */
-    protected function getDefinition($model)
+    public function getDefinition($model)
     {
         if (isset($this->definitions[$model])) {
             return $this->definitions[$model];
@@ -440,17 +440,13 @@ class FactoryMuffin
     /**
      * Define a new model factory.
      *
-     * @param string        $model       The full model name.
-     * @param array         $definitions The attribute definitions.
-     * @param \Closure|null $callback    The closure callback.
+     * @param string $model The full model name.
      *
      * @return $this
      */
-    public function define($model, array $definitions = [], Closure $callback = null)
+    public function define($model)
     {
-        $this->definitions[$model] = new Definition($model, $definitions, $callback);
-
-        return $this;
+        return $this->definitions[$model] = new Definition($model);
     }
 
     /**

@@ -12,20 +12,23 @@
  * THE SOFTWARE.
  */
 
-$fm->define('ModelThatWillSaveStub', []);
-$fm->define('ModelThatFailsToSaveStub', []);
-$fm->define('ModelThatFailsToDeleteStub', []);
-$fm->define('ModelThatAlsoFailsToDeleteStub', []);
-$fm->define('ModelWithNoSaveMethodStub', []);
-$fm->define('ModelWithNoDeleteMethodStub', []);
-$fm->define('ModelWithValidationErrorsStub', []);
-$fm->define('ModelWithTrackedSaves', []);
-$fm->define('no return:ModelWithTrackedSaves', [], function () {
+$fm->define('ModelThatWillSaveStub');
+$fm->define('ModelThatFailsToSaveStub');
+$fm->define('ModelThatFailsToDeleteStub');
+$fm->define('ModelThatAlsoFailsToDeleteStub');
+$fm->define('ModelWithNoSaveMethodStub');
+$fm->define('ModelWithNoDeleteMethodStub');
+$fm->define('ModelWithValidationErrorsStub');
+$fm->define('ModelWithTrackedSaves');
+
+$fm->define('no return:ModelWithTrackedSaves')->setCallback(function () {
     // No return is treated as true
 });
-$fm->define('return true:ModelWithTrackedSaves', [], function () {
+
+$fm->define('return true:ModelWithTrackedSaves')->setCallback(function () {
     return true;
 });
-$fm->define('return false:ModelWithTrackedSaves', [], function () {
+
+$fm->define('return false:ModelWithTrackedSaves')->setCallback(function () {
     return false;
 });

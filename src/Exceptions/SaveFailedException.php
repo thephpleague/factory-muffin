@@ -49,9 +49,9 @@ class SaveFailedException extends ModelException
 
         if (!$message) {
             if ($errors) {
-                $message = "$errors We could not save the model of type: '$model'.";
+                $message = "$errors We could not save the model: '$model'.";
             } else {
-                $message = "We could not save the model of type: '$model'.";
+                $message = "We could not save the model: '$model'.";
             }
         }
 

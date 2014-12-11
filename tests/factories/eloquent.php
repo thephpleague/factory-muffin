@@ -14,12 +14,12 @@
 
 use League\FactoryMuffin\Faker\Facade as Faker;
 
-$fm->define('User', [
+$fm->define('User')->setDefinitions([
     'name'   => Faker::firstNameMale(),
     'email'  => Faker::email(),
 ]);
 
-$fm->define('Cat', [
+$fm->define('Cat')->setDefinitions([
     'name'    => Faker::firstNameFemale(),
     'user_id' => Faker::numberBetween(1, 5),
 ]);
