@@ -441,7 +441,7 @@ class FactoryMuffin
      *
      * @param string $model The full model name.
      *
-     * @return $this
+     * @return \League\FactoryMuffin\Definition
      */
     public function define($model)
     {
