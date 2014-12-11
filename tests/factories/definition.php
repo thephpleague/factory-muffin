@@ -18,6 +18,8 @@ $fm->define('ProfileModelStub', [
     'profile' => Faker::text(),
 ]);
 
+$fm->define('NotAClass', []);
+
 $fm->define('UserModelStub', [
     'name'    => Faker::word(),
     'active'  => Faker::boolean(),
