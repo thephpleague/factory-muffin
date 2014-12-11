@@ -2,6 +2,7 @@
 
 namespace League\FactoryMuffin\Generators;
 
+use Closure;
 use League\FactoryMuffin\FactoryMuffin;
 
 /**
@@ -49,7 +50,7 @@ class CallableGenerator implements GeneratorInterface
      */
     public function __construct(callable $kind, $object, FactoryMuffin $factoryMuffin)
     {
-        if ($kind instanceof \Closure) {
+        if ($kind instanceof Closure) {
             $kind = $kind->bindTo($factoryMuffin);
         }
 
