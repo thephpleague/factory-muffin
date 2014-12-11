@@ -195,6 +195,17 @@ class SaveAndDeleteTest extends AbstractTestCase
             throw $e;
         }
     }
+
+    public function testModelIsNotPersistedASecondTimeIfClosureReturnsFalse()
+    {
+        $obj1 = FactoryMuffin::create('no return:ModelWithTrackedSaves');
+        $obj2 = FactoryMuffin::create('return true:ModelWithTrackedSaves');
+        $obj3 = FactoryMuffin::create('return false:ModelWithTrackedSaves');
+
+        $this->assertEquals(2, $obj1->saveCounter);
+        $this->assertEquals(2, $obj2->saveCounter);
+        $this->assertEquals(1, $obj3->saveCounter);
+    }
 }
 
 class ModelThatWillSaveStub
@@ -274,6 +285,23 @@ class ModelWithValidationErrorsStub
     public function save()
     {
 
+    }
+
+    public function delete()
+    {
+        return true;
+    }
+}
+
+class ModelWithTrackedSaves
+{
+    public $saveCounter = 0;
+
+    public function save()
+    {
+        $this->saveCounter++;
+
+        return true;
     }
 
     public function delete()
