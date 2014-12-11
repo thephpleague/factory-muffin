@@ -14,7 +14,6 @@
 
 namespace League\FactoryMuffin;
 
-use Closure;
 use Exception;
 use League\FactoryMuffin\Exceptions\DeleteFailedException;
 use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
