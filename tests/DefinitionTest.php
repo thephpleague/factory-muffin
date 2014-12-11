@@ -184,6 +184,17 @@ class DefinitionTest extends AbstractTestCase
     {
         $this->assertInstanceOf('League\FactoryMuffin\Generators\GeneratorFactory', static::$fm->getGeneratorFactory());
     }
+
+    public function testFactoryIsBoundToClosure()
+    {
+        $obj = static::$fm->instance('UserModelStub', [
+            'profile' => function () {
+                return $this->instance('ProfileModelStub');
+            }
+        ]);
+
+        $this->assertInstanceOf('ProfileModelStub', $obj->profile);
+    }
 }
 
 class UserModelStub
