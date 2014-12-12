@@ -51,6 +51,20 @@ class FactoryGenerator implements GeneratorInterface
     private $factoryMuffin;
 
     /**
+     * Generate, and return the attribute.
+     *
+     * @var string[]
+     */
+    private static $methods = ['getKey', 'pk'];
+
+    /**
+     * The factory properties.
+     *
+     * @var string[]
+     */
+    private static $properties = ['id', '_id'];
+
+    /**
      * Create a new instance.
      *
      * @param string                              $kind          The kind of attribute.
@@ -65,20 +79,6 @@ class FactoryGenerator implements GeneratorInterface
         $this->object = $object;
         $this->factoryMuffin = $factoryMuffin;
     }
-
-    /**
-     * Generate, and return the attribute.
-     *
-     * @var string[]
-     */
-    private $methods = ['getKey', 'pk'];
-
-    /**
-     * The factory properties.
-     *
-     * @var string[]
-     */
-    private $properties = ['id', '_id'];
 
     /**
      * Return generated data.
@@ -123,14 +123,14 @@ class FactoryGenerator implements GeneratorInterface
     private function getId($object)
     {
         // Check to see if we can get an id via our defined methods
-        foreach ($this->methods as $method) {
+        foreach (self::$methods as $method) {
             if (method_exists($object, $method)) {
                 return $object->$method();
             }
         }
 
         // Check to see if we can get an id via our defined properties
-        foreach ($this->properties as $property) {
+        foreach (self::$properties as $property) {
             if (isset($object->$property)) {
                 return $object->$property;
             }
