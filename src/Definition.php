@@ -40,7 +40,14 @@ class Definition
     protected $group;
 
     /**
-     * The closure callback.
+     * The maker closure.
+     *
+     * @var \Closure|null
+     */
+    protected $maker;
+
+    /**
+     * The callback closure.
      *
      * @var \Closure|null
      */
@@ -100,7 +107,43 @@ class Definition
     }
 
     /**
-     * Set the closure callback.
+     * Set the maker closure.
+     *
+     * @param \Closure $maker
+     *
+     * @return $this
+     */
+    public function setMaker(Closure $maker)
+    {
+        $this->maker = $maker;
+
+        return $this;
+    }
+
+    /**
+     * Clear the maker closure.
+     *
+     * @return $this
+     */
+    public function clearMaker()
+    {
+        $this->maker = null;
+
+        return $this;
+    }
+
+    /**
+     * Get the maker closure.
+     *
+     * @return \Closure|null
+     */
+    public function getMaker()
+    {
+        return $this->maker;
+    }
+
+    /**
+     * Set the callback closure.
      *
      * @param \Closure $callback
      *
@@ -114,7 +157,7 @@ class Definition
     }
 
     /**
-     * Clear the closure callback.
+     * Clear the callback closure.
      *
      * @return $this
      */
@@ -126,7 +169,7 @@ class Definition
     }
 
     /**
-     * Get the closure callback.
+     * Get the callback closure.
      *
      * @return \Closure|null
      */

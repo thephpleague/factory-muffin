@@ -51,3 +51,13 @@ $fm->define('AnotherCallbackStub')->addDefinition('foo', Faker::email())->setCal
     $obj->foo = 'hello there';
     $obj->saved = $saved;
 });
+
+$fm->define('CustomMakerStub')->setMaker(function ($class) {
+    return new $class('qwerty');
+});
+
+$fm->define('group:CustomMakerStub')->setMaker(function ($class) {
+    return new $class('qwertyuiop');
+});
+
+$fm->define('clear:CustomMakerStub')->clearMaker();
