@@ -25,7 +25,9 @@ $fm->define('UserModelStub')->setDefinitions([
     'active'  => Faker::boolean(),
     'email'   => Faker::email(),
     'profile' => 'factory|ProfileModelStub',
-]);
+])->setCallback(function ($obj) {
+    $obj->test = 'foo';
+});
 
 $fm->define('group:UserModelStub')->addDefinition('address', Faker::address());
 
@@ -38,10 +40,7 @@ $fm->define('callbackgroup:UserModelStub')->setCallback(function ($obj) {
     $obj->test = 'bar';
 });
 
-$fm->define('foo:DogModelStub')->setDefinitions([
-    'name' => Faker::firstNameMale(),
-    'age'  => Faker::numberBetween(1, 15),
-]);
+$fm->define('noattributes:UserModelStub')->clearDefinitions();
 
 $fm->define('ExampleCallbackStub')->setCallback(function ($obj, $saved) {
     $obj->callback = 'yaycalled';

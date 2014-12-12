@@ -26,13 +26,6 @@ use Closure;
 class Definition
 {
     /**
-     * The model group.
-     *
-     * @var string|null
-     */
-    protected $group;
-
-    /**
      * The model class name.
      *
      * @var string
@@ -40,11 +33,11 @@ class Definition
     protected $class;
 
     /**
-     * The full model name.
+     * The model group.
      *
-     * @var string
+     * @var string|null
      */
-    protected $model;
+    protected $group;
 
     /**
      * The closure callback.
@@ -63,30 +56,13 @@ class Definition
     /**
      * Create a new model definition.
      *
-     * @param string $model The full model name.
+     * @param string $class The model class name.
      *
      * @return void
      */
-    public function __construct($model)
+    public function __construct($class)
     {
-        if (strpos($model, ':') !== false) {
-            $this->group = current(explode(':', $model));
-            $this->class = str_replace($this->group.':', '', $model);
-        } else {
-            $this->class = $model;
-        }
-
-        $this->model = $model;
-    }
-
-    /**
-     * Get the definition group.
-     *
-     * @return string|null
-     */
-    public function getGroup()
-    {
-        return $this->group;
+        $this->class = $class;
     }
 
     /**
@@ -100,13 +76,27 @@ class Definition
     }
 
     /**
-     * Get the full model name including group prefixes.
+     * Set the model group.
      *
-     * @return string
+     * @param string|null $group
+     *
+     * @return $this
      */
-    public function getModel()
+    public function setGroup($group)
     {
-        return $this->model;
+        $this->group = $group;
+
+        return $this;
+    }
+
+    /**
+     * Get the model group.
+     *
+     * @return string|null
+     */
+    public function getGroup()
+    {
+        return $this->group;
     }
 
     /**

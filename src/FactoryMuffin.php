@@ -215,13 +215,11 @@ class FactoryMuffin
             Arr::add($this->pending, $object);
         }
 
-        // Get the group specific attribute definitions
-        if ($definition->getGroup()) {
-            $attr = array_merge($attr, $this->getDefinition($model)->getDefinitions());
-        }
+        // Get the attribute definitions
+        $attributes = array_merge($this->getDefinition($model)->getDefinitions(), $attr);
 
         // Generate and save each attribute for the model
-        $this->generate($object, $attr);
+        $this->generate($object, $attributes);
 
         return $object;
     }
@@ -408,11 +406,8 @@ class FactoryMuffin
      */
     protected function generate($object, array $attr = [])
     {
-        $definitions = $this->getDefinition(get_class($object))->getDefinitions();
-        $attributes = array_merge($definitions, $attr);
-
         // Generate and save each attribute
-        foreach ($attributes as $key => $kind) {
+        foreach ($attr as $key => $kind) {
             $generated = $this->getGeneratorFactory()->generate($kind, $object);
             $this->setAttribute($object, $key, $generated);
         }
@@ -445,7 +440,16 @@ class FactoryMuffin
      */
     public function define($model)
     {
-        return $this->definitions[$model] = new Definition($model);
+        if (strpos($model, ':') !== false) {
+            $group = current(explode(':', $model));
+            $class = str_replace($group.':', '', $model);
+            $this->definitions[$model] = clone $this->getDefinition($class);
+            $this->definitions[$model]->setGroup($group);
+        } else {
+            $this->definitions[$model] = new Definition($model);
+        }
+
+        return $this->definitions[$model];
     }
 
     /**

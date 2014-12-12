@@ -44,7 +44,6 @@ class DefinitionTest extends AbstractTestCase
 
         $this->assertNull($definition->getGroup());
         $this->assertSame('AttributeDefinitionsStub', $definition->getClass());
-        $this->assertSame('AttributeDefinitionsStub', $definition->getModel());
     }
 
     public function testAttributeDefinitionFunctions()
@@ -93,6 +92,7 @@ class DefinitionTest extends AbstractTestCase
         ]);
 
         $this->assertInstanceOf('UserModelStub', $user);
+        $this->assertSame('foo', $user->test);
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('string', $user->fullName);
         $this->assertNotEquals('name', $user->fullName);
@@ -119,6 +119,7 @@ class DefinitionTest extends AbstractTestCase
         $user = static::$fm->create('group:UserModelStub');
 
         $this->assertInstanceOf('UserModelStub', $user);
+        $this->assertSame('foo', $user->test);
         $this->assertInternalType('string', $user->address);
         $this->assertNotEquals('address', $user->address);
         $this->assertInternalType('string', $user->name);
@@ -131,10 +132,19 @@ class DefinitionTest extends AbstractTestCase
         $user = static::$fm->create('anothergroup:UserModelStub');
 
         $this->assertInstanceOf('UserModelStub', $user);
+        $this->assertSame('foo', $user->test);
         $this->assertInternalType('string', $user->address);
         $this->assertInternalType('string', $user->name);
         $this->assertSame('custom', $user->active);
         $this->assertContains('@', $user->email);
+    }
+
+    public function testGroupKeepCallback()
+    {
+        $user = static::$fm->create('UserModelStub');
+
+        $this->assertInstanceOf('UserModelStub', $user);
+        $this->assertSame('foo', $user->test);
     }
 
     public function testGroupCallback()
@@ -146,6 +156,17 @@ class DefinitionTest extends AbstractTestCase
         $this->assertInternalType('string', $user->name);
         $this->assertInternalType('boolean', $user->active);
         $this->assertContains('@', $user->email);
+    }
+
+    public function testGroupClearAttributes()
+    {
+        $user = static::$fm->create('noattributes:UserModelStub');
+
+        $this->assertInstanceOf('UserModelStub', $user);
+        $this->assertSame('foo', $user->test);
+        $this->assertFalse(isset($user->name));
+        $this->assertFalse(isset($user->active));
+        $this->assertFalse(isset($user->email));
     }
 
     /**
@@ -168,7 +189,10 @@ class DefinitionTest extends AbstractTestCase
     public function testGroupDefineNoBaseModel()
     {
         try {
-            static::$fm->create('foo:DogModelStub');
+            static::$fm->define('foo:DogModelStub')->setDefinitions([
+                'name' => Faker::firstNameMale(),
+                'age'  => Faker::numberBetween(1, 15),
+            ]);
         } catch (NoDefinedFactoryException $e) {
             $this->assertSame("No model definition was defined for the model: 'DogModelStub'.", $e->getMessage());
             $this->assertSame('DogModelStub', $e->getModel());
