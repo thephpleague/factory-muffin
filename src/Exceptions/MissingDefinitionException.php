@@ -15,17 +15,17 @@
 namespace League\FactoryMuffin\Exceptions;
 
 /**
- * This is the no defined factory exception class.
+ * This is the missing definition exception class.
  *
- * This is thrown when you try to create a model without defining its factory.
- * This class extends ModelException, so you may want to try to catch that
- * exception instead, if you want to be more general.
+ * This is thrown when you try to create a model without registering its
+ * definitions first. This class extends ModelException, so you may want to try
+ * to catch that exception instead, if you want to be more general.
  *
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
-class NoDefinedFactoryException extends ModelException
+class MissingDefinitionException extends ModelException
 {
     /**
      * Create a new instance.
@@ -38,7 +38,7 @@ class NoDefinedFactoryException extends ModelException
     public function __construct($model, $message = null)
     {
         if (!$message) {
-            $message = "No model definition was defined for the model: '$model'.";
+            $message = "A model definition for '$model' has not been registered.";
         }
 
         parent::__construct($model, $message);
