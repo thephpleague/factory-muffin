@@ -14,6 +14,7 @@
 
 namespace League\FactoryMuffin;
 
+use Closure;
 use Exception;
 use League\FactoryMuffin\Exceptions\DeleteFailedException;
 use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
@@ -208,7 +209,7 @@ class FactoryMuffin
     protected function make($model, array $attr, $save)
     {
         $definition = $this->getDefinition($model);
-        $object = $this->makeClass($definition->getClass());
+        $object = $this->makeClass($definition->getClass(), $definition->getMaker());
 
         // Make the object as saved so that other generators persist correctly
         if ($save) {
@@ -227,16 +228,21 @@ class FactoryMuffin
     /**
      * Make an instance of the class.
      *
-     * @param string $class The class name.
+     * @param string        $class The class name.
+     * @param \Closure|null $maker The maker closure.
      *
      * @throws \League\FactoryMuffin\Exceptions\ModelNotFoundException
      *
      * @return object
      */
-    protected function makeClass($class)
+    protected function makeClass($class, Closure $maker = null)
     {
         if (!class_exists($class)) {
             throw new ModelNotFoundException($class);
+        }
+
+        if ($maker) {
+            return $maker($class);
         }
 
         return new $class();

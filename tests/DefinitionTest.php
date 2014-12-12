@@ -285,6 +285,30 @@ class DefinitionTest extends AbstractTestCase
 
         $this->assertInstanceOf('ProfileModelStub', $obj->profile);
     }
+
+    public function testCustomMaker()
+    {
+        $obj = static::$fm->instance('CustomMakerStub');
+
+        $this->assertInstanceOf('CustomMakerStub', $obj);
+        $this->assertSame('qwerty', $obj->foo);
+    }
+
+    public function testCustomMakerGroup()
+    {
+        $obj = static::$fm->instance('group:CustomMakerStub');
+
+        $this->assertInstanceOf('CustomMakerStub', $obj);
+        $this->assertSame('qwertyuiop', $obj->foo);
+    }
+
+    public function testNoMakerGroup()
+    {
+        $obj = static::$fm->instance('clear:CustomMakerStub');
+
+        $this->assertInstanceOf('CustomMakerStub', $obj);
+        $this->assertSame('bar', $obj->foo);
+    }
 }
 
 class AttributeDefinitionsStub
@@ -360,6 +384,26 @@ class ExampleCallbackStub
 class AnotherCallbackStub
 {
     public $foo;
+
+    public function save()
+    {
+        return true;
+    }
+
+    public function delete()
+    {
+        return true;
+    }
+}
+
+class CustomMakerStub
+{
+    public $foo;
+
+    public function __construct($foo = 'bar')
+    {
+        $this->foo = $foo;
+    }
 
     public function save()
     {
