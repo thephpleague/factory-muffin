@@ -20,8 +20,8 @@ use League\FactoryMuffin\Exceptions\DeleteFailedException;
 use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
 use League\FactoryMuffin\Exceptions\DeletingFailedException;
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
-use League\FactoryMuffin\Exceptions\ModelNotFoundException;
-use League\FactoryMuffin\Exceptions\NoDefinedFactoryException;
+use League\FactoryMuffin\Exceptions\MissingDefinitionException;
+use League\FactoryMuffin\Exceptions\MissingModelException;
 use League\FactoryMuffin\Exceptions\SaveFailedException;
 use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
 use League\FactoryMuffin\Generators\GeneratorFactory;
@@ -231,14 +231,14 @@ class FactoryMuffin
      * @param string        $class The class name.
      * @param \Closure|null $maker The maker closure.
      *
-     * @throws \League\FactoryMuffin\Exceptions\ModelNotFoundException
+     * @throws \League\FactoryMuffin\Exceptions\MissingModelException
      *
      * @return object
      */
     protected function makeClass($class, Closure $maker = null)
     {
         if (!class_exists($class)) {
-            throw new ModelNotFoundException($class);
+            throw new MissingModelException($class);
         }
 
         if ($maker) {
@@ -424,7 +424,7 @@ class FactoryMuffin
      *
      * @param string $model The full model name.
      *
-     * @throws \League\FactoryMuffin\Exceptions\NoDefinedFactoryException
+     * @throws \League\FactoryMuffin\Exceptions\MissingDefinitionException
      *
      * @return \League\FactoryMuffin\Definition
      */
@@ -434,7 +434,7 @@ class FactoryMuffin
             return $this->definitions[$model];
         }
 
-        throw new NoDefinedFactoryException($model);
+        throw new MissingDefinitionException($model);
     }
 
     /**
