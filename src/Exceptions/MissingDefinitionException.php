@@ -28,7 +28,7 @@ namespace League\FactoryMuffin\Exceptions;
 class MissingDefinitionException extends ModelException
 {
     /**
-     * Create a new instance.
+     * Create a new missing definition exception instance.
      *
      * @param string      $class   The model class name.
      * @param string|null $message The exception message.

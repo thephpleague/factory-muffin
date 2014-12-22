@@ -51,7 +51,7 @@ class CallableGenerator implements GeneratorInterface
     protected $factoryMuffin;
 
     /**
-     * Create a new instance.
+     * Create a new callable generator instance.
      *
      * @param callable                            $kind          The kind of attribute.
      * @param object                              $object        The model instance.

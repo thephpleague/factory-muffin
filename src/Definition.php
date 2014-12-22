@@ -61,7 +61,7 @@ class Definition
     protected $definitions = [];
 
     /**
-     * Create a new model definition.
+     * Create a new model definition instance.
      *
      * @param string $class The model class name.
      *

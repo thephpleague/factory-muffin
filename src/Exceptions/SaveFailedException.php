@@ -35,7 +35,7 @@ class SaveFailedException extends ModelException
     private $validationErrors;
 
     /**
-     * Create a new instance.
+     * Create a new save failed exception instance.
      *
      * @param string      $class   The model class name.
      * @param string|null $errors  The validation errors.

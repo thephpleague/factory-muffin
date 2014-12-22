@@ -65,7 +65,7 @@ class FactoryGenerator implements GeneratorInterface
     private static $properties = ['id', '_id'];
 
     /**
-     * Create a new instance.
+     * Create a new factory generator instance.
      *
      * @param string                              $kind          The kind of attribute.
      * @param object                              $object        The model instance.

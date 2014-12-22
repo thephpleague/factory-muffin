@@ -36,7 +36,7 @@ class ModelException extends Exception
     private $modelClass;
 
     /**
-     * Create a new instance.
+     * Create a new model exception instance.
      *
      * @param string $class   The model class name.
      * @param string $message The exception message.
