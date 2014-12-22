@@ -344,7 +344,7 @@ class FactoryMuffin
      *
      * @throws \League\FactoryMuffin\Exceptions\DeletingFailedException
      *
-     * return $this
+     * @return $this
      */
     public function deleteSaved()
     {
