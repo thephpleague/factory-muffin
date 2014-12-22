@@ -19,8 +19,8 @@ use League\FactoryMuffin\Arr;
  *
  * @group array
  *
- * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
+ * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class ArrayTest extends AbstractTestCase

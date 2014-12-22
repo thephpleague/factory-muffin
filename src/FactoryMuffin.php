@@ -31,8 +31,8 @@ use RegexIterator;
 /**
  * This is the factory muffin class.
  *
- * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
+ * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class FactoryMuffin
@@ -84,7 +84,7 @@ class FactoryMuffin
      *
      * @param string $method The save method name.
      *
-     * @return $this
+     * @return \League\FactoryMuffin\FactoryMuffin
      */
     public function setSaveMethod($method)
     {
@@ -98,7 +98,7 @@ class FactoryMuffin
      *
      * @param string $method The delete method name.
      *
-     * @return $this
+     * @return \League\FactoryMuffin\FactoryMuffin
      */
     public function setDeleteMethod($method)
     {
@@ -344,7 +344,7 @@ class FactoryMuffin
      *
      * @throws \League\FactoryMuffin\Exceptions\DeletingFailedException
      *
-     * @return $this
+     * @return \League\FactoryMuffin\FactoryMuffin
      */
     public function deleteSaved()
     {
@@ -474,7 +474,7 @@ class FactoryMuffin
      *
      * @throws \League\FactoryMuffin\Exceptions\DirectoryNotFoundException
      *
-     * @return $this
+     * @return \League\FactoryMuffin\FactoryMuffin
      */
     public function loadFactories($paths)
     {
@@ -491,6 +491,8 @@ class FactoryMuffin
 
     /**
      * Load all the files in a directory.
+     *
+     * Each required file will have this instance available as "$fm".
      *
      * @param string $path The directory path to load.
      *

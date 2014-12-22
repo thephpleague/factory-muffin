@@ -21,8 +21,8 @@ namespace League\FactoryMuffin\Exceptions;
  * loose comparison. This class extends ModelException, so you may want to try
  * to catch that exception instead, if you want to be more general.
  *
- * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
+ * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class SaveFailedException extends ModelException
@@ -30,7 +30,7 @@ class SaveFailedException extends ModelException
     /**
      * The validation errors.
      *
-     * @var string
+     * @var string|null
      */
     private $validationErrors;
 
@@ -86,7 +86,7 @@ class SaveFailedException extends ModelException
     /**
      * Get the validation errors.
      *
-     * @return string
+     * @return string|null
      */
     public function getValidationErrors()
     {

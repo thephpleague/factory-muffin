@@ -23,8 +23,8 @@ use League\FactoryMuffin\FactoryMuffin;
  * The callable generator can be used if you want a more custom solution.
  * Whatever you return from the callable you write will be set as the attribute.
  *
- * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
+ * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class CallableGenerator implements GeneratorInterface
@@ -72,6 +72,8 @@ class CallableGenerator implements GeneratorInterface
 
     /**
      * Generate, and return the attribute.
+     *
+     * The value returned is the result of calling the callable.
      *
      * @return mixed
      */

@@ -17,8 +17,8 @@ namespace League\FactoryMuffin;
 /**
  * This is the model definition class.
  *
- * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
+ * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class Definition
@@ -83,9 +83,9 @@ class Definition
     /**
      * Set the model group.
      *
-     * @param string|null $group
+     * @param string|null $group The model group.
      *
-     * @return $this
+     * @return \League\FactoryMuffin\Definition
      */
     public function setGroup($group)
     {
@@ -107,9 +107,9 @@ class Definition
     /**
      * Set the maker.
      *
-     * @param callable $maker
+     * @param callable $maker The maker.
      *
-     * @return $this
+     * @return \League\FactoryMuffin\Definition
      */
     public function setMaker(callable $maker)
     {
@@ -121,7 +121,7 @@ class Definition
     /**
      * Clear the maker.
      *
-     * @return $this
+     * @return \League\FactoryMuffin\Definition
      */
     public function clearMaker()
     {
@@ -143,9 +143,9 @@ class Definition
     /**
      * Set the callback.
      *
-     * @param callable $callback
+     * @param callable $callback The callback.
      *
-     * @return $this
+     * @return \League\FactoryMuffin\Definition
      */
     public function setCallback(callable $callback)
     {
@@ -157,7 +157,7 @@ class Definition
     /**
      * Clear the callback.
      *
-     * @return $this
+     * @return \League\FactoryMuffin\Definition
      */
     public function clearCallback()
     {
@@ -181,10 +181,10 @@ class Definition
      *
      * Note that we're appending to the original attribute definitions here.
      *
-     * @param string          $attribute
-     * @param string|callable $definition
+     * @param string          $attribute  The attribute name.
+     * @param string|callable $definition The attribute definition.
      *
-     * @return $this
+     * @return \League\FactoryMuffin\Definition
      */
     public function addDefinition($attribute, $definition)
     {
@@ -199,9 +199,9 @@ class Definition
      * Note that we're appending to the original attribute definitions here
      * instead of switching them out for the new ones.
      *
-     * @param array $definitions
+     * @param array $definitions The attribute definitions.
      *
-     * @return $this
+     * @return \League\FactoryMuffin\Definition
      */
     public function setDefinitions(array $definitions = [])
     {
@@ -213,7 +213,7 @@ class Definition
     /**
      * Clear the attribute definitions.
      *
-     * @return $this
+     * @return \League\FactoryMuffin\Definition
      */
     public function clearDefinitions()
     {
