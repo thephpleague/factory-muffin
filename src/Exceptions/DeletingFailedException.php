@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Factory Muffin.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
