@@ -14,8 +14,6 @@
 
 namespace League\FactoryMuffin;
 
-use Closure;
-
 /**
  * This is the model definition class.
  *
@@ -40,16 +38,16 @@ class Definition
     protected $group;
 
     /**
-     * The maker closure.
+     * The maker.
      *
-     * @var \Closure|null
+     * @var callable|null
      */
     protected $maker;
 
     /**
-     * The callback closure.
+     * The callback.
      *
-     * @var \Closure|null
+     * @var callable|null
      */
     protected $callback;
 
@@ -107,13 +105,13 @@ class Definition
     }
 
     /**
-     * Set the maker closure.
+     * Set the maker.
      *
-     * @param \Closure $maker
+     * @param callable $maker
      *
      * @return $this
      */
-    public function setMaker(Closure $maker)
+    public function setMaker(callable $maker)
     {
         $this->maker = $maker;
 
@@ -121,7 +119,7 @@ class Definition
     }
 
     /**
-     * Clear the maker closure.
+     * Clear the maker.
      *
      * @return $this
      */
@@ -133,9 +131,9 @@ class Definition
     }
 
     /**
-     * Get the maker closure.
+     * Get the maker.
      *
-     * @return \Closure|null
+     * @return callable|null
      */
     public function getMaker()
     {
@@ -143,13 +141,13 @@ class Definition
     }
 
     /**
-     * Set the callback closure.
+     * Set the callback.
      *
-     * @param \Closure $callback
+     * @param callable $callback
      *
      * @return $this
      */
-    public function setCallback(Closure $callback)
+    public function setCallback(callable $callback)
     {
         $this->callback = $callback;
 
@@ -157,7 +155,7 @@ class Definition
     }
 
     /**
-     * Clear the callback closure.
+     * Clear the callback.
      *
      * @return $this
      */
@@ -169,9 +167,9 @@ class Definition
     }
 
     /**
-     * Get the callback closure.
+     * Get the callback.
      *
-     * @return \Closure|null
+     * @return callable|null
      */
     public function getCallback()
     {
