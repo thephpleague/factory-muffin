@@ -65,7 +65,7 @@ class DeletingFailedException extends Exception
      * @param string $word
      * @param int    $count
      *
-     * @return mixed
+     * @return string
      */
     private function plural($word, $count)
     {
