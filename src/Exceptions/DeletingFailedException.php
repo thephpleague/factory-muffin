@@ -39,7 +39,7 @@ class DeletingFailedException extends Exception
     private $exceptions;
 
     /**
-     * Create a new instance.
+     * Create a new deleting failed exception instance.
      *
      * @param \Exception[] $exceptions The caught exceptions.
      * @param string|null  $message    The exception message.

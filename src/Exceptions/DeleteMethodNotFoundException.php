@@ -28,7 +28,7 @@ namespace League\FactoryMuffin\Exceptions;
 class DeleteMethodNotFoundException extends MethodNotFoundException
 {
     /**
-     * Create a new instance.
+     * Create a new delete method not found instance.
      *
      * @param string      $class   The model class name.
      * @param string      $method  The method name.

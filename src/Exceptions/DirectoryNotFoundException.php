@@ -36,7 +36,7 @@ class DirectoryNotFoundException extends Exception
     private $path;
 
     /**
-     * Create a new instance.
+     * Create a new directory not found exception instance.
      *
      * @param string      $path    The directory path.
      * @param string|null $message The exception message.

@@ -33,7 +33,7 @@ class GeneratorFactory
     protected $factoryMuffin;
 
     /**
-     * Create a new instance.
+     * Create a new generator factory instance.
      *
      * @param \League\FactoryMuffin\FactoryMuffin $factoryMuffin The factory muffin instance.
      *

@@ -34,7 +34,7 @@ class MethodNotFoundException extends ModelException
     private $methodName;
 
     /**
-     * Create a new instance.
+     * Create a new method not found exception instance.
      *
      * @param string $class   The model class name.
      * @param string $method  The method name.
