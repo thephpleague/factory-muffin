@@ -6,12 +6,12 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Scott Robertson",
-            "email": "scottymeuk@gmail.com"
-        },
-        {
             "name": "Graham Campbell",
             "email": "graham@mineuk.com"
+        },
+        {
+            "name": "Scott Robertson",
+            "email": "scottymeuk@gmail.com"
         }
     ],
     "require": {

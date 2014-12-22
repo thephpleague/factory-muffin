@@ -275,7 +275,7 @@ Please check out our [contribution guidelines](CONTRIBUTING.md) for details.
 
 ## Credits
 
-Factory Muffin is based on [Zizaco Zizuini](https://github.com/Zizaco)'s original work on "Factory Muff", and is currently maintained by [Scott Robertson](https://github.com/scottrobertson) and [Graham Campbell](https://github.com/GrahamCampbell). Thank you to all our wonderful [contributors](https://github.com/thephpleague/factory-muffin/contributors) too.
+Factory Muffin is based on [Zizaco Zizuini](https://github.com/Zizaco)'s original work on "Factory Muff", and is currently maintained by [Graham Campbell](https://github.com/GrahamCampbell) and [Scott Robertson](https://github.com/scottrobertson). Thank you to all our wonderful [contributors](https://github.com/thephpleague/factory-muffin/contributors) too.
 
 
 ## License
