@@ -14,7 +14,6 @@
 
 namespace League\FactoryMuffin;
 
-use Closure;
 use Exception;
 use League\FactoryMuffin\Exceptions\DeleteFailedException;
 use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
@@ -191,7 +190,7 @@ class FactoryMuffin
         if ($callback = $this->getDefinition($model)->getCallback()) {
             $saved = $this->isPendingOrSaved($object);
 
-            return $callback($object, $saved) !== false;
+            return call_user_func($callback, $object, $saved) !== false;
         }
 
         return false;
@@ -229,20 +228,20 @@ class FactoryMuffin
      * Make an instance of the class.
      *
      * @param string        $class The model class name.
-     * @param \Closure|null $maker The maker closure.
+     * @param callable|null $maker The maker callable.
      *
      * @throws \League\FactoryMuffin\Exceptions\MissingModelException
      *
      * @return object
      */
-    protected function makeClass($class, Closure $maker = null)
+    protected function makeClass($class, callable $maker = null)
     {
         if (!class_exists($class)) {
             throw new MissingModelException($class);
         }
 
         if ($maker) {
-            return $maker($class);
+            return call_user_func($maker, $class);
         }
 
         return new $class();
