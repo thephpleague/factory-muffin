@@ -122,9 +122,9 @@ class FactoryMuffin
     public function seed($times, $model, array $attr = [])
     {
         $seeds = [];
-        while ($times > 0) {
+
+        for ($i = 0; $i < $times; ++$i) {
             $seeds[] = $this->create($model, $attr);
-            $times--;
         }
 
         return $seeds;
@@ -187,7 +187,9 @@ class FactoryMuffin
      */
     protected function triggerCallback($object, $model)
     {
-        if ($callback = $this->getDefinition($model)->getCallback()) {
+        $callback = $this->getDefinition($model)->getCallback();
+
+        if ($callback) {
             $saved = $this->isPendingOrSaved($object);
 
             return call_user_func($callback, $object, $saved) !== false;
@@ -272,7 +274,9 @@ class FactoryMuffin
      */
     protected function save($object)
     {
-        if (method_exists($object, $method = $this->saveMethod)) {
+        $method = $this->saveMethod;
+
+        if (method_exists($object, $method)) {
             return $object->$method();
         }
 
@@ -332,7 +336,7 @@ class FactoryMuffin
      */
     public function isPendingOrSaved($object)
     {
-        return ($this->isSaved($object) || $this->isPending($object));
+        return $this->isSaved($object) || $this->isPending($object);
     }
 
     /**
@@ -375,7 +379,9 @@ class FactoryMuffin
      */
     protected function delete($object)
     {
-        if (method_exists($object, $method = $this->deleteMethod)) {
+        $method = $this->deleteMethod;
+
+        if (method_exists($object, $method)) {
             return $object->$method();
         }
 
@@ -496,23 +502,11 @@ class FactoryMuffin
         $iterator = new RecursiveIteratorIterator($directory);
         $files = new RegexIterator($iterator, '/^.+\.php$/i');
 
-        foreach ($files as $file) {
-            $this->requireFile($file->getPathName());
-        }
-    }
-
-    /**
-     * Require a file with this instance available as "$fm".
-     *
-     * @param string $file The file path to load.
-     *
-     * @return void
-     */
-    private function requireFile($file)
-    {
         $fm = $this;
 
-        require $file;
+        foreach ($files as $file) {
+            require $file->getPathName();
+        }
     }
 
     /**

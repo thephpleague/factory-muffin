@@ -54,7 +54,9 @@ class GeneratorFactory
      */
     public function generate($kind, $object)
     {
-        if ($generator = $this->make($kind, $object)) {
+        $generator = $this->make($kind, $object);
+
+        if ($generator) {
             return $generator->generate();
         }
 
