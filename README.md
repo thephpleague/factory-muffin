@@ -17,11 +17,11 @@ It's basically a "[factory\_girl](https://github.com/thoughtbot/factory_girl)", 
 
 [PHP](https://php.net) 5.3+ and [Composer](https://getcomposer.org) are required.
 
-In your composer.json, simply add `"league/factory-muffin": "~2.0"` to your `"require-dev"` section:
+In your composer.json, simply add `"league/factory-muffin": "~2.1"` to your `"require-dev"` section:
 ```json
 {
     "require-dev": {
-        "league/factory-muffin": "~2.0"
+        "league/factory-muffin": "~2.1"
     }
 }
 ```
