@@ -25,14 +25,14 @@ use Exception;
  * underlying exception, in the order they were thrown during the whole
  * process, by calling getExceptions to return an array of exceptions.
  *
- * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
+ * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class DeletingFailedException extends Exception
 {
     /**
-     * The array of exceptions.
+     * The array of caught exceptions.
      *
      * @var \Exception[]
      */
@@ -77,7 +77,7 @@ class DeletingFailedException extends Exception
     }
 
     /**
-     * Get the array of exceptions.
+     * Get the array of caught exceptions.
      *
      * @return \Exception[]
      */

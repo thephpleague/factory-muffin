@@ -22,8 +22,8 @@ use League\FactoryMuffin\Faker\Facade as Faker;
  *
  * @group definition
  *
- * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
+ * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class DefinitionTest extends AbstractTestCase

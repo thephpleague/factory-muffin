@@ -19,8 +19,8 @@ namespace League\FactoryMuffin;
  *
  * This class contains some array helpers we use internally.
  *
- * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
+ * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class Arr
@@ -28,8 +28,8 @@ class Arr
     /**
      * Get an item from an array.
      *
-     * @param array  $array
-     * @param string $key
+     * @param array  $array The array to get the item from.
+     * @param string $key   The index the item is located at.
      *
      * @return mixed
      */
@@ -43,8 +43,8 @@ class Arr
     /**
      * Is the item in the array.
      *
-     * @param array $array
-     * @param mixed $item
+     * @param array $array The array to search.
+     * @param mixed $item  The item to search for.
      *
      * @return bool
      */
@@ -56,8 +56,8 @@ class Arr
     /**
      * Add an object to an array.
      *
-     * @param array  $array
-     * @param object $object
+     * @param array  $array  The array to add to.
+     * @param object $object The object to add.
      *
      * @return void
      */
@@ -69,9 +69,9 @@ class Arr
     /**
      * Move an object to another array.
      *
-     * @param array  $old
-     * @param array  $new
-     * @param object $object
+     * @param array  $old    The old array.
+     * @param array  $new    The new array.
+     * @param object $object The object to move.
      *
      * @return void
      */

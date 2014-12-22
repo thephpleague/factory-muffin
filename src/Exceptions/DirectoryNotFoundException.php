@@ -22,8 +22,8 @@ use Exception;
  * This is thrown if you try to load model definitions from a directory that
  * doesn't exit.
  *
- * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
+ * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class DirectoryNotFoundException extends Exception

@@ -20,14 +20,14 @@ namespace League\FactoryMuffin\Exceptions;
  * This exception is never directly thrown, but you may try to catch this
  * exception rather than the 2 other exceptions that extend this class.
  *
- * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
+ * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class MethodNotFoundException extends ModelException
 {
     /**
-     * The method.
+     * The method name.
      *
      * @var string
      */
@@ -50,7 +50,7 @@ class MethodNotFoundException extends ModelException
     }
 
     /**
-     * Get the method.
+     * Get the method name.
      *
      * @return string
      */

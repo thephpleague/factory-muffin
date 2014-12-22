@@ -23,8 +23,8 @@ use League\FactoryMuffin\FactoryMuffin;
  * models. The factory generator will return the model id of the model you ask
  * it to generate.
  *
- * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
+ * @author  Scott Robertson <scottymeuk@gmail.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
  */
 class FactoryGenerator implements GeneratorInterface
@@ -81,7 +81,9 @@ class FactoryGenerator implements GeneratorInterface
     }
 
     /**
-     * Return generated data.
+     * Generate, and return the attribute.
+     *
+     * The value returned is the id of the generated model, if applicable.
      *
      * @return int|null
      */
@@ -100,7 +102,7 @@ class FactoryGenerator implements GeneratorInterface
      * This model will be automatically saved to the database if the model we
      * are generating it for has been saved (the create function was used).
      *
-     * @param string $model Model class name.
+     * @param string $model The full model name.
      *
      * @return object
      */
