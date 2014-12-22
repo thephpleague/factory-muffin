@@ -75,7 +75,7 @@ class SaveFailedException extends ModelException
         if ($errors) {
             $errors = trim($errors);
 
-            if (in_array(substr($errors, - 1), array('.', '!', '?'), true)) {
+            if (in_array(substr($errors, - 1), ['.', '!', '?'], true)) {
                 return $errors;
             }
 
