@@ -31,22 +31,22 @@ class MethodNotFoundException extends ModelException
      *
      * @var string
      */
-    private $method;
+    private $methodName;
 
     /**
      * Create a new instance.
      *
-     * @param string $model
-     * @param string $method
-     * @param string $message
+     * @param string $class   The model class name.
+     * @param string $method  The method name.
+     * @param string $message The exception message.
      *
      * @return void
      */
-    public function __construct($model, $method, $message)
+    public function __construct($class, $method, $message)
     {
-        $this->method = $method;
+        $this->methodName = $method;
 
-        parent::__construct($model, $message);
+        parent::__construct($class, $message);
     }
 
     /**
@@ -54,8 +54,8 @@ class MethodNotFoundException extends ModelException
      *
      * @return string
      */
-    public function getMethod()
+    public function getMethodName()
     {
-        return $this->method;
+        return $this->methodName;
     }
 }

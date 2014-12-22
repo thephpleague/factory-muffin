@@ -228,7 +228,7 @@ class FactoryMuffin
     /**
      * Make an instance of the class.
      *
-     * @param string        $class The class name.
+     * @param string        $class The model class name.
      * @param \Closure|null $maker The maker closure.
      *
      * @throws \League\FactoryMuffin\Exceptions\MissingModelException
@@ -277,7 +277,7 @@ class FactoryMuffin
             return $object->$method();
         }
 
-        throw new SaveMethodNotFoundException($object, $method);
+        throw new SaveMethodNotFoundException(get_class($object), $method);
     }
 
     /**
@@ -380,7 +380,7 @@ class FactoryMuffin
             return $object->$method();
         }
 
-        throw new DeleteMethodNotFoundException($object, $method);
+        throw new DeleteMethodNotFoundException(get_class($object), $method);
     }
 
     /**

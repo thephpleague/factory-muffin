@@ -41,8 +41,8 @@ class DeletingFailedException extends Exception
     /**
      * Create a new instance.
      *
-     * @param \Exception[] $exceptions
-     * @param string|null  $message
+     * @param \Exception[] $exceptions The caught exceptions.
+     * @param string|null  $message    The exception message.
      *
      * @return void
      */
@@ -50,13 +50,30 @@ class DeletingFailedException extends Exception
     {
         $this->exceptions = $exceptions;
 
-        $count = count($exceptions);
-
         if (!$message) {
-            $message = "We encountered $count problem(s) while trying to delete the saved models.";
+            $count = count($exceptions);
+            $problems = $this->plural('problem', $count);
+            $message = "We encountered $count $problems while trying to delete the saved models.";
         }
 
         parent::__construct($message);
+    }
+
+    /**
+     * Get the plural form of a word if required by the "count".
+     *
+     * @param string $word
+     * @param int    $count
+     *
+     * @return mixed
+     */
+    private function plural($word, $count)
+    {
+        if ($count === 1) {
+            return $word;
+        }
+
+        return $word.'s';
     }
 
     /**

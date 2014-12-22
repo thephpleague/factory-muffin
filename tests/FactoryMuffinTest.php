@@ -90,7 +90,7 @@ class FactoryMuffinTest extends AbstractTestCase
             static::$fm->instance($model = 'ModelWithNoFactoryClassStub');
         } catch (MissingDefinitionException $e) {
             $this->assertSame("A model definition for '$model' has not been registered.", $e->getMessage());
-            $this->assertSame($model, $e->getModel());
+            $this->assertSame($model, $e->getModelClass());
             throw $e;
         }
     }

@@ -33,30 +33,30 @@ class ModelException extends Exception
      *
      * @var string
      */
-    private $model;
+    private $modelClass;
 
     /**
      * Create a new instance.
      *
-     * @param string $model
-     * @param string $message
+     * @param string $class   The model class name.
+     * @param string $message The exception message.
      *
      * @return void
      */
-    public function __construct($model, $message)
+    public function __construct($class, $message)
     {
-        $this->model = $model;
+        $this->modelClass = $class;
 
         parent::__construct($message);
     }
 
     /**
-     * Get the model.
+     * Get the model class name.
      *
      * @return string
      */
-    public function getModel()
+    public function getModelClass()
     {
-        return $this->model;
+        return $this->modelClass;
     }
 }

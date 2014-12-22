@@ -109,7 +109,7 @@ class DefinitionTest extends AbstractTestCase
             static::$fm->create($model = 'NotAClass');
         } catch (MissingModelException $e) {
             $this->assertSame("The model class '$model' is undefined.", $e->getMessage());
-            $this->assertSame($model, $e->getModel());
+            $this->assertSame($model, $e->getModelClass());
             throw $e;
         }
     }
@@ -178,7 +178,7 @@ class DefinitionTest extends AbstractTestCase
             static::$fm->create($model = 'error:UserModelStub');
         } catch (MissingDefinitionException $e) {
             $this->assertSame("A model definition for '$model' has not been registered.", $e->getMessage());
-            $this->assertSame($model, $e->getModel());
+            $this->assertSame($model, $e->getModelClass());
             throw $e;
         }
     }
@@ -195,7 +195,7 @@ class DefinitionTest extends AbstractTestCase
             ]);
         } catch (MissingDefinitionException $e) {
             $this->assertSame("A model definition for 'DogModelStub' has not been registered.", $e->getMessage());
-            $this->assertSame('DogModelStub', $e->getModel());
+            $this->assertSame('DogModelStub', $e->getModelClass());
             throw $e;
         }
     }
