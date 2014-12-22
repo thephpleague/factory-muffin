@@ -19,6 +19,7 @@ $fm->define('ModelThatAlsoFailsToDeleteStub');
 $fm->define('ModelWithNoSaveMethodStub');
 $fm->define('ModelWithNoDeleteMethodStub');
 $fm->define('ModelWithValidationErrorsStub');
+$fm->define('ModelWithBadValidationErrorsStub');
 $fm->define('ModelWithTrackedSaves');
 
 $fm->define('no return:ModelWithTrackedSaves')->setCallback(function () {

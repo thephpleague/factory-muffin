@@ -30,17 +30,17 @@ class MissingDefinitionException extends ModelException
     /**
      * Create a new instance.
      *
-     * @param string      $model
-     * @param string|null $message
+     * @param string      $class   The model class name.
+     * @param string|null $message The exception message.
      *
      * @return void
      */
-    public function __construct($model, $message = null)
+    public function __construct($class, $message = null)
     {
         if (!$message) {
-            $message = "A model definition for '$model' has not been registered.";
+            $message = "A model definition for '$class' has not been registered.";
         }
 
-        parent::__construct($model, $message);
+        parent::__construct($class, $message);
     }
 }

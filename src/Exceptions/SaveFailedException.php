@@ -28,43 +28,68 @@ namespace League\FactoryMuffin\Exceptions;
 class SaveFailedException extends ModelException
 {
     /**
-     * The errors.
+     * The validation errors.
      *
      * @var string
      */
-    private $errors;
+    private $validationErrors;
 
     /**
      * Create a new instance.
      *
-     * @param string      $model
-     * @param string|null $errors
-     * @param string|null $message
+     * @param string      $class   The model class name.
+     * @param string|null $errors  The validation errors.
+     * @param string|null $message The exception message.
      *
      * @return void
      */
-    public function __construct($model, $errors = null, $message = null)
+    public function __construct($class, $errors = null, $message = null)
     {
-        $this->errors = $errors;
+        $errors = $this->formatErrors($errors);
+
+        $this->validationErrors = $errors;
 
         if (!$message) {
             if ($errors) {
-                $message = "$errors We could not save the model: '$model'.";
+                $message = "$errors We could not save the model: '$class'.";
             } else {
-                $message = "We could not save the model: '$model'.";
+                $message = "We could not save the model: '$class'.";
             }
         }
 
-        parent::__construct($model, $message);
+        parent::__construct($class, $message);
     }
 
     /**
-     * Get the errors.
+     * Format the given errors correctly.
+     *
+     * We're stripping any trailing whitespace, and ensuring they end in a
+     * punctuation character. If null is passed, then null is returned also.
+     *
+     * @param string|null $errors
+     *
+     * @return string|null
+     */
+    private function formatErrors($errors)
+    {
+        if ($errors) {
+            $errors = trim($errors);
+
+            if (in_array(substr($errors, - 1), array('.', '!', '?'), true)) {
+                return $errors;
+            }
+
+            return $errors.'.';
+        }
+    }
+
+    /**
+     * Get the validation errors.
      *
      * @return string
      */
-    public function getErrors()
+    public function getValidationErrors()
     {
-        return $this->errors;
+        return $this->validationErrors;
     }
 }

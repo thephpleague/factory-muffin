@@ -28,41 +28,20 @@ namespace League\FactoryMuffin\Exceptions;
 class SaveMethodNotFoundException extends MethodNotFoundException
 {
     /**
-     * The model instance.
-     *
-     * @var object
-     */
-    private $object;
-
-    /**
      * Create a new instance.
      *
-     * @param object      $object
-     * @param string      $method
-     * @param string|null $message
+     * @param string      $class   The model class name.
+     * @param string      $method  The method name.
+     * @param string|null $message The exception message.
      *
      * @return void
      */
-    public function __construct($object, $method, $message = null)
+    public function __construct($class, $method, $message = null)
     {
-        $this->object = $object;
-
-        $model = get_class($object);
-
         if (!$message) {
-            $message = "The save method '$method' was not found on the model: '$model'.";
+            $message = "The save method '$method' was not found on the model: '$class'.";
         }
 
-        parent::__construct($model, $method, $message);
-    }
-
-    /**
-     * Get the model instance.
-     *
-     * @return object
-     */
-    public function getObject()
-    {
-        return $this->object;
+        parent::__construct($class, $method, $message);
     }
 }

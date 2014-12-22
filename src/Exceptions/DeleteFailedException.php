@@ -30,17 +30,17 @@ class DeleteFailedException extends ModelException
     /**
      * Create a new instance.
      *
-     * @param string      $model
-     * @param string|null $message
+     * @param string      $class   The model class name.
+     * @param string|null $message The exception message.
      *
      * @return void
      */
-    public function __construct($model, $message = null)
+    public function __construct($class, $message = null)
     {
         if (!$message) {
-            $message = "We could not delete the model: '$model'.";
+            $message = "We could not delete the model: '$class'.";
         }
 
-        parent::__construct($model, $message);
+        parent::__construct($class, $message);
     }
 }
