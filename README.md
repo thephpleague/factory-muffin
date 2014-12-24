@@ -31,7 +31,7 @@ In your composer.json, simply add `"league/factory-muffin": "~3.0"` to your `"re
 }
 ```
 
-If you want to enable faker support, then you need to add `"league/factory-muffin-faker": "~1.0"` too:
+[Faker](https://github.com/fzaninotto/Faker) support is provided by [Factory Muffin Faker](https://github.com/thephpleague/factory-muffin-faker). If you want to enable faker support, then you need to add `"league/factory-muffin-faker": "~1.0"` too:
 ```json
 {
     "require-dev": {
