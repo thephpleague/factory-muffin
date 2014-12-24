@@ -13,6 +13,11 @@ The goal of this package is to enable the rapid creation of objects for the purp
 It's basically a "[factory\_girl](https://github.com/thoughtbot/factory_girl)", simplified for use with PHP.
 
 
+## Looking For Version 2.1?
+
+Version 2.1 is the current stable release, and is fully documented. It is available on the [2.1 branch](https://github.com/thephpleague/factory-muffin/tree/2.1). Version 3.0 is the current beta release, and is only partially documented.
+
+
 ## Installing
 
 [PHP](https://php.net) 5.4+ and [Composer](https://getcomposer.org) are required.
