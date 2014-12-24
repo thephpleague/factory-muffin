@@ -41,7 +41,7 @@ class FactoryGenerator implements GeneratorInterface
      *
      * @var object
      */
-    private $object;
+    private $model;
 
     /**
      * The factory muffin instance.
@@ -68,15 +68,15 @@ class FactoryGenerator implements GeneratorInterface
      * Create a new factory generator instance.
      *
      * @param string                              $kind          The kind of attribute.
-     * @param object                              $object        The model instance.
+     * @param object                              $model         The model instance.
      * @param \League\FactoryMuffin\FactoryMuffin $factoryMuffin The factory muffin instance.
      *
      * @return void
      */
-    public function __construct($kind, $object, FactoryMuffin $factoryMuffin)
+    public function __construct($kind, $model, FactoryMuffin $factoryMuffin)
     {
         $this->kind = $kind;
-        $this->object = $object;
+        $this->model = $model;
         $this->factoryMuffin = $factoryMuffin;
     }
 
@@ -89,11 +89,11 @@ class FactoryGenerator implements GeneratorInterface
      */
     public function generate()
     {
-        $model = substr($this->kind, 8);
+        $name = substr($this->kind, 8);
 
-        $object = $this->factory($model);
+        $model = $this->factory($name);
 
-        return $this->getId($object);
+        return $this->getId($model);
     }
 
     /**
@@ -102,39 +102,39 @@ class FactoryGenerator implements GeneratorInterface
      * This model will be automatically saved to the database if the model we
      * are generating it for has been saved (the create function was used).
      *
-     * @param string $model The full model name.
+     * @param string $name The model definition name.
      *
      * @return object
      */
-    private function factory($model)
+    private function factory($name)
     {
-        if ($this->factoryMuffin->isPendingOrSaved($this->object)) {
-            return $this->factoryMuffin->create($model);
+        if ($this->factoryMuffin->isPendingOrSaved($this->model)) {
+            return $this->factoryMuffin->create($name);
         }
 
-        return $this->factoryMuffin->instance($model);
+        return $this->factoryMuffin->instance($name);
     }
 
     /**
      * Get the model id.
      *
-     * @param object $object The model instance.
+     * @param object $model The model instance.
      *
      * @return int|null
      */
-    private function getId($object)
+    private function getId($model)
     {
         // Check to see if we can get an id via our defined methods
         foreach (self::$methods as $method) {
-            if (method_exists($object, $method)) {
-                return $object->$method();
+            if (method_exists($model, $method)) {
+                return $model->$method();
             }
         }
 
         // Check to see if we can get an id via our defined properties
         foreach (self::$properties as $property) {
-            if (isset($object->$property)) {
-                return $object->$property;
+            if (isset($model->$property)) {
+                return $model->$property;
             }
         }
     }

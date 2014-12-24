@@ -12,9 +12,10 @@
  * THE SOFTWARE.
  */
 
+use League\FactoryMuffin\Exceptions\DefinitionAlreadyDefinedException;
+use League\FactoryMuffin\Exceptions\DefinitionNotFoundException;
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
-use League\FactoryMuffin\Exceptions\MissingDefinitionException;
-use League\FactoryMuffin\Exceptions\MissingModelException;
+use League\FactoryMuffin\Exceptions\ModelNotFoundException;
 use League\FactoryMuffin\Faker\Facade as Faker;
 
 /**
@@ -101,13 +102,13 @@ class DefinitionTest extends AbstractTestCase
     }
 
     /**
-     * @expectedException \League\FactoryMuffin\Exceptions\MissingModelException
+     * @expectedException \League\FactoryMuffin\Exceptions\ModelNotFoundException
      */
     public function testModelNotFound()
     {
         try {
             static::$fm->create($model = 'NotAClass');
-        } catch (MissingModelException $e) {
+        } catch (ModelNotFoundException $e) {
             $this->assertSame("The model class '$model' is undefined.", $e->getMessage());
             $this->assertSame($model, $e->getModelClass());
             throw $e;
@@ -170,21 +171,21 @@ class DefinitionTest extends AbstractTestCase
     }
 
     /**
-     * @expectedException \League\FactoryMuffin\Exceptions\MissingDefinitionException
+     * @expectedException \League\FactoryMuffin\Exceptions\DefinitionNotFoundException
      */
     public function testShouldThrowExceptionWhenLoadingANonExistentGroup()
     {
         try {
             static::$fm->create($model = 'error:UserModelStub');
-        } catch (MissingDefinitionException $e) {
-            $this->assertSame("A model definition for '$model' has not been registered.", $e->getMessage());
-            $this->assertSame($model, $e->getModelClass());
+        } catch (DefinitionNotFoundException $e) {
+            $this->assertSame("The model definition '$model' is undefined.", $e->getMessage());
+            $this->assertSame($model, $e->getDefinitionName());
             throw $e;
         }
     }
 
     /**
-     * @expectedException \League\FactoryMuffin\Exceptions\MissingDefinitionException
+     * @expectedException \League\FactoryMuffin\Exceptions\DefinitionNotFoundException
      */
     public function testGroupDefineNoBaseModel()
     {
@@ -193,9 +194,23 @@ class DefinitionTest extends AbstractTestCase
                 'name' => Faker::firstNameMale(),
                 'age'  => Faker::numberBetween(1, 15),
             ]);
-        } catch (MissingDefinitionException $e) {
-            $this->assertSame("A model definition for 'DogModelStub' has not been registered.", $e->getMessage());
-            $this->assertSame('DogModelStub', $e->getModelClass());
+        } catch (DefinitionNotFoundException $e) {
+            $this->assertSame("The model definition 'DogModelStub' is undefined.", $e->getMessage());
+            $this->assertSame('DogModelStub', $e->getDefinitionName());
+            throw $e;
+        }
+    }
+
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\DefinitionAlreadyDefinedException
+     */
+    public function testCannotDefineAgain()
+    {
+        try {
+            static::$fm->define('UserModelStub');
+        } catch (DefinitionAlreadyDefinedException $e) {
+            $this->assertSame("The model definition 'UserModelStub' has already been defined.", $e->getMessage());
+            $this->assertSame('UserModelStub', $e->getDefinitionName());
             throw $e;
         }
     }
@@ -268,11 +283,6 @@ class DefinitionTest extends AbstractTestCase
             $this->assertSame($path, $e->getPath());
             throw $e;
         }
-    }
-
-    public function testGetGeneratorFactory()
-    {
-        $this->assertInstanceOf('League\FactoryMuffin\Generators\GeneratorFactory', static::$fm->getGeneratorFactory());
     }
 
     public function testFactoryIsBoundToClosure()

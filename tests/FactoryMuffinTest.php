@@ -12,7 +12,7 @@
  * THE SOFTWARE.
  */
 
-use League\FactoryMuffin\Exceptions\MissingDefinitionException;
+use League\FactoryMuffin\Exceptions\DefinitionNotFoundException;
 
 /**
  * This is factory muffin test class.
@@ -82,15 +82,15 @@ class FactoryMuffinTest extends AbstractTestCase
     }
 
     /**
-     * @expectedException \League\FactoryMuffin\Exceptions\MissingDefinitionException
+     * @expectedException \League\FactoryMuffin\Exceptions\DefinitionNotFoundException
      */
-    public function testShouldThrowExceptionWhenMissingDefinitionException()
+    public function testShouldThrowExceptionWhenDefinitionNotFoundException()
     {
         try {
             static::$fm->instance($model = 'ModelWithNoFactoryClassStub');
-        } catch (MissingDefinitionException $e) {
-            $this->assertSame("A model definition for '$model' has not been registered.", $e->getMessage());
-            $this->assertSame($model, $e->getModelClass());
+        } catch (DefinitionNotFoundException $e) {
+            $this->assertSame("The model definition '$model' is undefined.", $e->getMessage());
+            $this->assertSame($model, $e->getDefinitionName());
             throw $e;
         }
     }

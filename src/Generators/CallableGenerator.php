@@ -41,7 +41,7 @@ class CallableGenerator implements GeneratorInterface
      *
      * @var object
      */
-    protected $object;
+    protected $model;
 
     /**
      * The factory muffin instance.
@@ -54,19 +54,19 @@ class CallableGenerator implements GeneratorInterface
      * Create a new callable generator instance.
      *
      * @param callable                            $kind          The kind of attribute.
-     * @param object                              $object        The model instance.
+     * @param object                              $model         The model instance.
      * @param \League\FactoryMuffin\FactoryMuffin $factoryMuffin The factory muffin instance.
      *
      * @return void
      */
-    public function __construct(callable $kind, $object, FactoryMuffin $factoryMuffin)
+    public function __construct(callable $kind, $model, FactoryMuffin $factoryMuffin)
     {
         if ($kind instanceof Closure) {
             $kind = $kind->bindTo($factoryMuffin);
         }
 
         $this->kind = $kind;
-        $this->object = $object;
+        $this->model = $model;
         $this->factoryMuffin = $factoryMuffin;
     }
 
@@ -79,8 +79,8 @@ class CallableGenerator implements GeneratorInterface
      */
     public function generate()
     {
-        $saved = $this->factoryMuffin->isPendingOrSaved($this->object);
+        $saved = $this->factoryMuffin->isPendingOrSaved($this->model);
 
-        return call_user_func($this->kind, $this->object, $saved);
+        return call_user_func($this->kind, $this->model, $saved);
     }
 }
