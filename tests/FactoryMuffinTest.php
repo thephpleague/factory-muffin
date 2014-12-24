@@ -84,7 +84,7 @@ class FactoryMuffinTest extends AbstractTestCase
     /**
      * @expectedException \League\FactoryMuffin\Exceptions\DefinitionNotFoundException
      */
-    public function testShouldThrowExceptionWhenDefinitionNotFoundException()
+    public function testShouldThrowDefinitionNotFoundException()
     {
         try {
             static::$fm->instance($model = 'ModelWithNoFactoryClassStub');
