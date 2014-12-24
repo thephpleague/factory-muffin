@@ -47,14 +47,14 @@ class GeneratorFactory
     /**
      * Automatically generate the attribute we want.
      *
-     * @param string|callable $kind   The kind of attribute.
-     * @param object          $object The model instance.
+     * @param string|callable $kind  The kind of attribute.
+     * @param object          $model The model instance.
      *
      * @return mixed
      */
-    public function generate($kind, $object)
+    public function generate($kind, $model)
     {
-        $generator = $this->make($kind, $object);
+        $generator = $this->make($kind, $model);
 
         if ($generator) {
             return $generator->generate();
@@ -66,19 +66,19 @@ class GeneratorFactory
     /**
      * Automatically make the generator class we need.
      *
-     * @param string|callable $kind   The kind of attribute.
-     * @param object          $object The model instance.
+     * @param string|callable $kind  The kind of attribute.
+     * @param object          $model The model instance.
      *
      * @return \League\FactoryMuffin\Generators\GeneratorInterface|null
      */
-    public function make($kind, $object)
+    public function make($kind, $model)
     {
         if (is_callable($kind)) {
-            return new CallableGenerator($kind, $object, $this->factoryMuffin);
+            return new CallableGenerator($kind, $model, $this->factoryMuffin);
         }
 
         if (strpos($kind, 'factory|') !== false) {
-            return new FactoryGenerator($kind, $object, $this->factoryMuffin);
+            return new FactoryGenerator($kind, $model, $this->factoryMuffin);
         }
     }
 }
