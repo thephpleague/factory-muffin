@@ -30,7 +30,7 @@ class GeneratorFactory
      *
      * @var \League\FactoryMuffin\FactoryMuffin
      */
-    private $factoryMuffin;
+    protected $factoryMuffin;
 
     /**
      * Create a new generator factory instance.
