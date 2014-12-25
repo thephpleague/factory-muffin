@@ -30,11 +30,16 @@ class SaveAndDeleteTest extends AbstractTestCase
     public function testShouldCreateAndDelete()
     {
         $obj = static::$fm->create('ModelThatWillSaveStub');
-        $this->assertTrue(static::$fm->isSaved($obj));
+        $reflection = new ReflectionClass(static::$fm);
+        $store = $reflection->getProperty('modelStore');
+        $store->setAccessible(true);
+        $value = $store->getValue(static::$fm);
+
+        $this->assertTrue($value->isSaved($obj));
         $this->assertTrue(is_numeric($obj->id));
-        $this->assertInternalType('array', static::$fm->saved());
-        $this->assertCount(1, static::$fm->saved());
-        $this->assertCount(0, static::$fm->pending());
+        $this->assertInternalType('array', $value->saved());
+        $this->assertCount(1, $value->saved());
+        $this->assertCount(0, $value->pending());
 
         static::$fm->deleteSaved();
     }
@@ -42,9 +47,14 @@ class SaveAndDeleteTest extends AbstractTestCase
     public function testShouldNotSave()
     {
         $obj = static::$fm->instance('ModelThatWillSaveStub');
-        $this->assertCount(0, static::$fm->saved());
-        $this->assertCount(0, static::$fm->pending());
-        $this->assertFalse(static::$fm->isSaved($obj));
+        $reflection = new ReflectionClass(static::$fm);
+        $store = $reflection->getProperty('modelStore');
+        $store->setAccessible(true);
+        $value = $store->getValue(static::$fm);
+
+        $this->assertCount(0, $value->saved());
+        $this->assertCount(0, $value->pending());
+        $this->assertFalse($value->isSaved($obj));
     }
 
     /**

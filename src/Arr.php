@@ -26,34 +26,6 @@ namespace League\FactoryMuffin;
 class Arr
 {
     /**
-     * Get an item from an array.
-     *
-     * @param array  $array The array to get the item from.
-     * @param string $key   The index the item is located at.
-     *
-     * @return mixed
-     */
-    public static function get(&$array, $key)
-    {
-        if (in_array($key, array_keys($array), true)) {
-            return $array[$key];
-        }
-    }
-
-    /**
-     * Is the item in the array.
-     *
-     * @param array $array The array to search.
-     * @param mixed $item  The item to search for.
-     *
-     * @return bool
-     */
-    public static function has(&$array, $item)
-    {
-        return in_array($item, $array, true);
-    }
-
-    /**
      * Add an object to an array.
      *
      * @param array  $array  The array to add to.

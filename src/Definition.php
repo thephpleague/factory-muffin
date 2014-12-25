@@ -28,35 +28,35 @@ class Definition
      *
      * @var string
      */
-    protected $class;
+    private $class;
 
     /**
      * The model group.
      *
      * @var string|null
      */
-    protected $group;
+    private $group;
 
     /**
      * The maker.
      *
      * @var callable|null
      */
-    protected $maker;
+    private $maker;
 
     /**
      * The callback.
      *
      * @var callable|null
      */
-    protected $callback;
+    private $callback;
 
     /**
      * The attribute definitions.
      *
      * @var array
      */
-    protected $definitions = [];
+    private $definitions = [];
 
     /**
      * Create a new model definition instance.

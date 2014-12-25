@@ -14,16 +14,10 @@
 
 namespace League\FactoryMuffin;
 
-use Exception;
 use League\FactoryMuffin\Exceptions\DefinitionAlreadyDefinedException;
 use League\FactoryMuffin\Exceptions\DefinitionNotFoundException;
-use League\FactoryMuffin\Exceptions\DeleteFailedException;
-use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
-use League\FactoryMuffin\Exceptions\DeletingFailedException;
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
 use League\FactoryMuffin\Exceptions\ModelNotFoundException;
-use League\FactoryMuffin\Exceptions\SaveFailedException;
-use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
 use League\FactoryMuffin\Generators\GeneratorFactory;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -46,39 +40,18 @@ class FactoryMuffin
     private $definitions = [];
 
     /**
-     * The array of models we have created and are pending save.
+     * The model store instance.
      *
-     * @var array
+     * @var \League\FactoryMuffin\ModelStore
      */
-    private $pending = [];
-
-    /**
-     * The array of models we have created and have saved.
-     *
-     * @var array
-     */
-    private $saved = [];
-
-    /**
-     * This is the method used when saving models.
-     *
-     * @var string
-     */
-    protected $saveMethod = 'save';
-
-    /**
-     * This is the method used when deleting models.
-     *
-     * @var string
-     */
-    protected $deleteMethod = 'delete';
+    protected $modelStore;
 
     /**
      * The generator factory instance.
      *
      * @var \League\FactoryMuffin\Generators\GeneratorFactory
      */
-    private $generatorFactory;
+    protected $generatorFactory;
 
     /**
      * Create a new factory muffin instance.
@@ -87,6 +60,7 @@ class FactoryMuffin
      */
     public function __construct()
     {
+        $this->modelStore = new ModelStore();
         $this->generatorFactory = new GeneratorFactory($this);
     }
 
@@ -99,7 +73,7 @@ class FactoryMuffin
      */
     public function setSaveMethod($method)
     {
-        $this->saveMethod = $method;
+        $this->modelStore->setSaveMethod($method);
 
         return $this;
     }
@@ -113,7 +87,7 @@ class FactoryMuffin
      */
     public function setDeleteMethod($method)
     {
-        $this->deleteMethod = $method;
+        $this->modelStore->setDeleteMethod($method);
 
         return $this;
     }
@@ -152,37 +126,13 @@ class FactoryMuffin
     {
         $model = $this->make($name, $attr, true);
 
-        $this->persist($model);
+        $this->modelStore->persist($model);
 
         if ($this->triggerCallback($model, $name)) {
-            $this->persist($model);
+            $this->modelStore->persist($model);
         }
 
         return $model;
-    }
-
-    /**
-     * Save the model to the database.
-     *
-     * @param object $model The model instance.
-     *
-     * @throws \League\FactoryMuffin\Exceptions\SaveFailedException
-     *
-     * @return void
-     */
-    protected function persist($model)
-    {
-        if (!$this->save($model)) {
-            if (isset($model->validationErrors) && $model->validationErrors) {
-                throw new SaveFailedException(get_class($model), $model->validationErrors);
-            }
-
-            throw new SaveFailedException(get_class($model));
-        }
-
-        if (!$this->isSaved($model)) {
-            Arr::move($this->pending, $this->saved, $model);
-        }
     }
 
     /**
@@ -222,7 +172,7 @@ class FactoryMuffin
 
         // Make the object as saved so that other generators persist correctly
         if ($save) {
-            Arr::add($this->pending, $model);
+            $this->modelStore->markPending($model);
         }
 
         // Get the attribute definitions
@@ -258,70 +208,6 @@ class FactoryMuffin
     }
 
     /**
-     * Save our object to the db, and keep track of it.
-     *
-     * @param object $model The model instance.
-     *
-     * @throws \League\FactoryMuffin\Exceptions\SaveMethodNotFoundException
-     *
-     * @return mixed
-     */
-    protected function save($model)
-    {
-        $method = $this->saveMethod;
-
-        if (!method_exists($model, $method)) {
-            throw new SaveMethodNotFoundException(get_class($model), $method);
-        }
-
-        return $model->$method();
-    }
-
-    /**
-     * Return an array of objects to be saved.
-     *
-     * @return object[]
-     */
-    public function pending()
-    {
-        return $this->pending;
-    }
-
-    /**
-     * Is the object going to be saved?
-     *
-     * @param object $model The model instance.
-     *
-     * @return bool
-     */
-    public function isPending($model)
-    {
-        return Arr::has($this->pending, $model);
-    }
-
-    /**
-     * Return an array of saved objects.
-     *
-     * @return object[]
-     */
-    public function saved()
-    {
-        return $this->saved;
-    }
-
-    /**
-     * Is the object saved?
-     *
-     * @param object $model The model instance.
-     *
-     * @return bool
-     */
-    public function isSaved($model)
-    {
-        return Arr::has($this->saved, $model);
-    }
-
-    /**
      * Is the object saved or will be saved?
      *
      * @param object $model The model instance.
@@ -330,56 +216,19 @@ class FactoryMuffin
      */
     public function isPendingOrSaved($model)
     {
-        return $this->isSaved($model) || $this->isPending($model);
+        return $this->modelStore->isSaved($model) || $this->modelStore->isPending($model);
     }
 
     /**
      * Call the delete method on any saved objects.
      *
-     * @throws \League\FactoryMuffin\Exceptions\DeletingFailedException
-     *
      * @return \League\FactoryMuffin\FactoryMuffin
      */
     public function deleteSaved()
     {
-        $exceptions = [];
-
-        while ($model = array_pop($this->saved)) {
-            try {
-                if (!$this->delete($model)) {
-                    throw new DeleteFailedException(get_class($model));
-                }
-            } catch (Exception $e) {
-                $exceptions[] = $e;
-            }
-        }
-
-        // If we ran into any problems, throw the exception now
-        if ($exceptions) {
-            throw new DeletingFailedException($exceptions);
-        }
+        $this->modelStore->deleteSaved();
 
         return $this;
-    }
-
-    /**
-     * Delete our object from the db.
-     *
-     * @param object $model The model instance.
-     *
-     * @throws \League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException
-     *
-     * @return mixed
-     */
-    protected function delete($model)
-    {
-        $method = $this->deleteMethod;
-
-        if (!method_exists($model, $method)) {
-            throw new DeleteMethodNotFoundException(get_class($model), $method);
-        }
-
-        return $model->$method();
     }
 
     /**
