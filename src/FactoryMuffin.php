@@ -56,12 +56,15 @@ class FactoryMuffin
     /**
      * Create a new factory muffin instance.
      *
+     * @param \League\FactoryMuffin\ModelStore|null                  $modelStore       The model store instance.
+     * @param \League\FactoryMuffin\Generators\GeneratorFactory|null $generatorFactory The generator factory instance.
+     *
      * @return void
      */
-    public function __construct()
+    public function __construct(ModelStore $modelStore = null, GeneratorFactory $generatorFactory = null)
     {
-        $this->modelStore = new ModelStore();
-        $this->generatorFactory = new GeneratorFactory($this);
+        $this->modelStore = $modelStore ?: new ModelStore();
+        $this->generatorFactory = $generatorFactory ?: new GeneratorFactory();
     }
 
     /**
@@ -261,7 +264,7 @@ class FactoryMuffin
     protected function generate($model, array $attr = [])
     {
         foreach ($attr as $key => $kind) {
-            $model->$key = $this->generatorFactory->generate($kind, $model);
+            $model->$key = $this->generatorFactory->generate($kind, $model, $this);
         }
     }
 

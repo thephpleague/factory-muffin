@@ -26,35 +26,17 @@ use League\FactoryMuffin\FactoryMuffin;
 class GeneratorFactory
 {
     /**
-     * The factory muffin instance.
-     *
-     * @var \League\FactoryMuffin\FactoryMuffin
-     */
-    protected $factoryMuffin;
-
-    /**
-     * Create a new generator factory instance.
-     *
-     * @param \League\FactoryMuffin\FactoryMuffin $factoryMuffin The factory muffin instance.
-     *
-     * @return void
-     */
-    public function __construct(FactoryMuffin $factoryMuffin)
-    {
-        $this->factoryMuffin = $factoryMuffin;
-    }
-
-    /**
      * Automatically generate the attribute we want.
      *
-     * @param string|callable $kind  The kind of attribute.
-     * @param object          $model The model instance.
+     * @param string|callable                     $kind          The kind of attribute.
+     * @param object                              $model         The model instance.
+     * @param \League\FactoryMuffin\FactoryMuffin $factoryMuffin The factory muffin instance.
      *
      * @return mixed
      */
-    public function generate($kind, $model)
+    public function generate($kind, $model, FactoryMuffin $factoryMuffin)
     {
-        $generator = $this->make($kind, $model);
+        $generator = $this->make($kind, $model, $factoryMuffin);
 
         if ($generator) {
             return $generator->generate();
@@ -66,19 +48,20 @@ class GeneratorFactory
     /**
      * Automatically make the generator class we need.
      *
-     * @param string|callable $kind  The kind of attribute.
-     * @param object          $model The model instance.
+     * @param string|callable                     $kind          The kind of attribute.
+     * @param object                              $model         The model instance.
+     * @param \League\FactoryMuffin\FactoryMuffin $factoryMuffin The factory muffin instance.
      *
      * @return \League\FactoryMuffin\Generators\GeneratorInterface|null
      */
-    public function make($kind, $model)
+    public function make($kind, $model, FactoryMuffin $factoryMuffin)
     {
         if (is_callable($kind)) {
-            return new CallableGenerator($kind, $model, $this->factoryMuffin);
+            return new CallableGenerator($kind, $model, $factoryMuffin);
         }
 
-        if (strpos($kind, 'factory|') !== false) {
-            return new FactoryGenerator($kind, $model, $this->factoryMuffin);
+        if (is_string($kind) && strpos($kind, 'factory|') !== false) {
+            return new FactoryGenerator($kind, $model, $factoryMuffin);
         }
     }
 }
