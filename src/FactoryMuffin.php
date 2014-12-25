@@ -220,7 +220,7 @@ class FactoryMuffin
     }
 
     /**
-     * Call the delete method on any saved objects.
+     * Delete all the saved models.
      *
      * @return \League\FactoryMuffin\FactoryMuffin
      */
