@@ -127,7 +127,7 @@ class ModelStore
     }
 
     /**
-     * Return an array of models to be saved.
+     * Return an array of models waiting to be saved.
      *
      * @return object[]
      */
@@ -137,7 +137,7 @@ class ModelStore
     }
 
     /**
-     * Mark an object as pending to be saved.
+     * Mark a model as waiting to be saved.
      *
      * @param object $model The model instance.
      *
@@ -151,7 +151,7 @@ class ModelStore
     }
 
     /**
-     * Is the object going to be saved?
+     * Is the model waiting to be saved?
      *
      * @param object $model The model instance.
      *
@@ -173,7 +173,7 @@ class ModelStore
     }
 
     /**
-     * Move an object from being pending to actually saved.
+     * Mark a model as saved.
      *
      * @param object $model The model instance.
      *
@@ -183,13 +183,15 @@ class ModelStore
     {
         $hash = spl_object_hash($model);
 
-        unset($this->pending[$hash]);
+        if (isset($this->pending[$hash])) {
+            unset($this->pending[$hash]);
+        }
 
         $this->saved[$hash] = $model;
     }
 
     /**
-     * Is the object saved?
+     * Is the model saved?
      *
      * @param object $model The model instance.
      *
