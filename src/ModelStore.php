@@ -102,7 +102,7 @@ class ModelStore
         }
 
         if (!$this->isSaved($model)) {
-            Arr::move($this->pending, $this->saved, $model);
+            $this->markSaved($model);
         }
     }
 
@@ -127,7 +127,7 @@ class ModelStore
     }
 
     /**
-     * Return an array of objects to be saved.
+     * Return an array of models waiting to be saved.
      *
      * @return object[]
      */
@@ -137,7 +137,7 @@ class ModelStore
     }
 
     /**
-     * Mark an object as pending being saved.
+     * Mark a model as waiting to be saved.
      *
      * @param object $model The model instance.
      *
@@ -145,11 +145,13 @@ class ModelStore
      */
     public function markPending($model)
     {
-        Arr::add($this->pending, $model);
+        $hash = spl_object_hash($model);
+
+        $this->pending[$hash] = $model;
     }
 
     /**
-     * Is the object going to be saved?
+     * Is the model waiting to be saved?
      *
      * @param object $model The model instance.
      *
@@ -161,7 +163,7 @@ class ModelStore
     }
 
     /**
-     * Return an array of saved objects.
+     * Return an array of saved models.
      *
      * @return object[]
      */
@@ -171,7 +173,25 @@ class ModelStore
     }
 
     /**
-     * Is the object saved?
+     * Mark a model as saved.
+     *
+     * @param object $model The model instance.
+     *
+     * @return void
+     */
+    public function markSaved($model)
+    {
+        $hash = spl_object_hash($model);
+
+        if (isset($this->pending[$hash])) {
+            unset($this->pending[$hash]);
+        }
+
+        $this->saved[$hash] = $model;
+    }
+
+    /**
+     * Is the model saved?
      *
      * @param object $model The model instance.
      *
@@ -183,7 +203,7 @@ class ModelStore
     }
 
     /**
-     * Call the delete method on any saved objects.
+     * Delete all the saved models.
      *
      * @throws \League\FactoryMuffin\Exceptions\DeletingFailedException
      *
