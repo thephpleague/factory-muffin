@@ -110,8 +110,13 @@ class EloquentTest extends AbstractTestCase
 
     public function testSavedObjects()
     {
-        $this->assertCount(55, static::$fm->saved());
-        $this->assertCount(0, static::$fm->pending());
+        $reflection = new ReflectionClass(static::$fm);
+        $store = $reflection->getProperty('modelStore');
+        $store->setAccessible(true);
+        $value = $store->getValue(static::$fm);
+
+        $this->assertCount(55, $value->saved());
+        $this->assertCount(0, $value->pending());
     }
 }
 
