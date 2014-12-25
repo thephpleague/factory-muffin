@@ -157,7 +157,7 @@ class ModelStore
      */
     public function isPending($model)
     {
-        return Arr::has($this->pending, $model);
+        return in_array($model, $this->pending, true);
     }
 
     /**
@@ -179,7 +179,7 @@ class ModelStore
      */
     public function isSaved($model)
     {
-        return Arr::has($this->saved, $model);
+        return in_array($model, $this->saved, true);
     }
 
     /**
