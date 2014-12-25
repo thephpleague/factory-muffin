@@ -14,7 +14,6 @@
 
 namespace League\FactoryMuffin;
 
-use Exception;
 use League\FactoryMuffin\Exceptions\DefinitionAlreadyDefinedException;
 use League\FactoryMuffin\Exceptions\DefinitionNotFoundException;
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
@@ -45,14 +44,14 @@ class FactoryMuffin
      *
      * @var \League\FactoryMuffin\ModelStore
      */
-    private $modelStore;
+    protected $modelStore;
 
     /**
      * The generator factory instance.
      *
      * @var \League\FactoryMuffin\Generators\GeneratorFactory
      */
-    private $generatorFactory;
+    protected $generatorFactory;
 
     /**
      * Create a new factory muffin instance.
