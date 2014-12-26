@@ -13,11 +13,19 @@ Factory Muffin 3.0 has many changes and improvements. More documentation will co
 
 ### Faker Support Changed
 
-Our integration with faker has been totally re-written, and has been moved to a new repo, factory-muffin-faker. More documentation is coming soon.
+Our integration with faker has been totally re-written, and has been moved to a new repo, [Factory Muffin Faker](https://github.com/thephpleague/factory-muffin-faker).
 
 ### Deleting Saved Models
 
 We are now deleting saved models in the reverse order they were saved to ensure relationships behave correctly.
+
+### Exceptions
+
+The exceptions have been cleaned up, and reviewed since 2.0.
+
+You can see a diagram showing the exception hierarchy here:
+
+![diagram](https://cloud.githubusercontent.com/assets/2829600/5558262/8ef3dec8-8d17-11e4-8fb1-4b272fb76abe.png)
 
 ### Installing This Version
 
@@ -29,14 +37,6 @@ In your composer.json, add:
     }
 }
 ```
-
-### Exceptions
-
-The exceptions have been cleaned up, and reviewed since 2.0.
-
-You can see a diagram showing the exception hierarchy here:
-
-![diagram](https://cloud.githubusercontent.com/assets/2829600/5558262/8ef3dec8-8d17-11e4-8fb1-4b272fb76abe.png)
 
 
 ## Upgrading from 2.0.x to 2.1.x
