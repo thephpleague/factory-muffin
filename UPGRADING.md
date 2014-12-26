@@ -36,7 +36,7 @@ The exceptions have been cleaned up, and reviewed since 2.0.
 
 You can see a diagram showing the exception hierarchy here:
 
-![diagram](https://cloud.githubusercontent.com/assets/2829600/5558225/4b1935e6-8d16-11e4-9902-d474e24acf36.png)
+![diagram](https://cloud.githubusercontent.com/assets/2829600/5558262/8ef3dec8-8d17-11e4-8fb1-4b272fb76abe.png)
 
 
 ## Upgrading from 2.0.x to 2.1.x
