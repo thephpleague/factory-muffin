@@ -21,9 +21,8 @@ namespace League\FactoryMuffin\Exceptions;
  * was not found. This class extends ModelException, so you may want to try to
  * catch that exception instead, if you want to be more general.
  *
- * @author  Graham Campbell <graham@mineuk.com>
- * @author  Scott Robertson <scottymeuk@gmail.com>
- * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
+ * @author Graham Campbell <graham@mineuk.com>
+ * @author Scott Robertson <scottymeuk@gmail.com>
  */
 class ModelNotFoundException extends ModelException
 {

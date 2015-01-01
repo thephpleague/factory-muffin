@@ -19,9 +19,8 @@ use League\FactoryMuffin\FactoryMuffin;
 /**
  * This is the generator factory class.
  *
- * @author  Graham Campbell <graham@mineuk.com>
- * @author  Scott Robertson <scottymeuk@gmail.com>
- * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
+ * @author Graham Campbell <graham@mineuk.com>
+ * @author Scott Robertson <scottymeuk@gmail.com>
  */
 class GeneratorFactory
 {

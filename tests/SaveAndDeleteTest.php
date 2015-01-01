@@ -21,9 +21,8 @@ use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
  *
  * @group savedelete
  *
- * @author  Graham Campbell <graham@mineuk.com>
- * @author  Scott Robertson <scottymeuk@gmail.com>
- * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
+ * @author Graham Campbell <graham@mineuk.com>
+ * @author Scott Robertson <scottymeuk@gmail.com>
  */
 class SaveAndDeleteTest extends AbstractTestCase
 {

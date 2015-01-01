@@ -22,9 +22,8 @@ use Exception;
  * This exception is never directly thrown, but you may try to catch this
  * exception rather than the many other exceptions that extend this class.
  *
- * @author  Graham Campbell <graham@mineuk.com>
- * @author  Scott Robertson <scottymeuk@gmail.com>
- * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
+ * @author Graham Campbell <graham@mineuk.com>
+ * @author Scott Robertson <scottymeuk@gmail.com>
  */
 class DefinitionException extends Exception
 {

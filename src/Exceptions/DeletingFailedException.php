@@ -25,9 +25,8 @@ use Exception;
  * underlying exception, in the order they were thrown during the whole
  * process, by calling getExceptions to return an array of exceptions.
  *
- * @author  Graham Campbell <graham@mineuk.com>
- * @author  Scott Robertson <scottymeuk@gmail.com>
- * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
+ * @author Graham Campbell <graham@mineuk.com>
+ * @author Scott Robertson <scottymeuk@gmail.com>
  */
 class DeletingFailedException extends Exception
 {

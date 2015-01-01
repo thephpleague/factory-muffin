@@ -18,9 +18,8 @@ use League\FactoryMuffin\Faker\Facade as Faker;
 /**
  * This is abstract test case class.
  *
- * @author  Graham Campbell <graham@mineuk.com>
- * @author  Scott Robertson <scottymeuk@gmail.com>
- * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
+ * @author Graham Campbell <graham@mineuk.com>
+ * @author Scott Robertson <scottymeuk@gmail.com>
  */
 abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 {

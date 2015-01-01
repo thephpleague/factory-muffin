@@ -20,9 +20,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  *
  * @group eloquent
  *
- * @author  Graham Campbell <graham@mineuk.com>
- * @author  Scott Robertson <scottymeuk@gmail.com>
- * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
+ * @author Graham Campbell <graham@mineuk.com>
+ * @author Scott Robertson <scottymeuk@gmail.com>
  */
 class EloquentTest extends AbstractTestCase
 {

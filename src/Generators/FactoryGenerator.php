@@ -23,9 +23,8 @@ use League\FactoryMuffin\FactoryMuffin;
  * models. The factory generator will return the model id of the model you ask
  * it to generate.
  *
- * @author  Graham Campbell <graham@mineuk.com>
- * @author  Scott Robertson <scottymeuk@gmail.com>
- * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
+ * @author Graham Campbell <graham@mineuk.com>
+ * @author Scott Robertson <scottymeuk@gmail.com>
  */
 class FactoryGenerator implements GeneratorInterface
 {
