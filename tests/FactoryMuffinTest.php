@@ -17,8 +17,6 @@ use League\FactoryMuffin\Exceptions\DefinitionNotFoundException;
 /**
  * This is factory muffin test class.
  *
- * @group main
- *
  * @author Graham Campbell <graham@mineuk.com>
  * @author Scott Robertson <scottymeuk@gmail.com>
  */

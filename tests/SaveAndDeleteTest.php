@@ -19,8 +19,6 @@ use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
 /**
  * This is save and delete test class.
  *
- * @group savedelete
- *
  * @author Graham Campbell <graham@mineuk.com>
  * @author Scott Robertson <scottymeuk@gmail.com>
  */

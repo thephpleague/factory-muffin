@@ -21,8 +21,6 @@ use League\FactoryMuffin\Faker\Facade as Faker;
 /**
  * This is definition test class.
  *
- * @group definition
- *
  * @author Graham Campbell <graham@mineuk.com>
  * @author Scott Robertson <scottymeuk@gmail.com>
  */

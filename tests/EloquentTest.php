@@ -18,8 +18,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 /**
  * This is eloquent test class.
  *
- * @group eloquent
- *
  * @author Graham Campbell <graham@mineuk.com>
  * @author Scott Robertson <scottymeuk@gmail.com>
  */
