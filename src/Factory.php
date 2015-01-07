@@ -330,7 +330,7 @@ class Factory
 
         // Get the group specific factory attributes
         if ($group) {
-            $attr = array_merge($attr, $this->getFactoryAttrs($model));
+            $attr = array_merge($this->getFactoryAttrs($model), $attr);
         }
 
         // Get the factory attributes for that model

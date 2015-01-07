@@ -10,6 +10,7 @@ FactoryMuffin::define('UserModelStub', array(
     'name'    => 'word',
     'active'  => 'boolean',
     'email'   => 'email',
+    'age'     => 'numberBetween|18;35',
     'profile' => 'factory|ProfileModelStub',
 ));
 
@@ -20,6 +21,10 @@ FactoryMuffin::define('group:UserModelStub', array(
 FactoryMuffin::define('anothergroup:UserModelStub', array(
     'address' => 'address',
     'active'  => 'false',
+));
+
+FactoryMuffin::define('centenarian:UserModelStub', array(
+    'age' => 'numberBetween|100;100',
 ));
 
 FactoryMuffin::define('callbackgroup:UserModelStub', array(), function($obj) {

@@ -34,6 +34,20 @@ class DefinitionTest extends AbstractTestCase
         $this->assertContains('@', $user->email);
     }
 
+    public function testDefineWithReplacementGeneratorsOverwrite()
+    {
+        $user = FactoryMuffin::create('UserModelStub', array(
+            'age' => 'numberBetween|50;50'
+        ));
+
+        $this->assertInstanceOf('UserModelStub', $user);
+        $this->assertInternalType('string', $user->name);
+        $this->assertInternalType('boolean', $user->active);
+        $this->assertContains('@', $user->email);
+        $this->assertInternalType('integer', $user->age);
+        $this->assertSame(50, $user->age);
+    }
+
     /**
      * @expectedException \League\FactoryMuffin\Exceptions\ModelNotFoundException
      */
@@ -70,6 +84,21 @@ class DefinitionTest extends AbstractTestCase
         $this->assertNotInternalType('boolean', $user->active);
         $this->assertSame('false', $user->active);
         $this->assertContains('@', $user->email);
+    }
+
+    public function testGroupDefineWithReplacementGeneratorsOverwrite()
+    {
+        $user = FactoryMuffin::create('centenarian:UserModelStub', array(
+            'age' => 'numberBetween|50;50'
+        ));
+
+        $this->assertInstanceOf('UserModelStub', $user);
+        $this->assertInternalType('string', $user->name);
+        $this->assertInternalType('boolean', $user->active);
+        $this->assertContains('@', $user->email);
+        $this->assertInternalType('integer', $user->age);
+
+        $this->assertSame(50, $user->age);
     }
 
     public function testGroupCallback()
