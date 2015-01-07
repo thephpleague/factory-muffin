@@ -98,7 +98,6 @@ class DefinitionTest extends AbstractTestCase
         $this->assertContains('@', $user->email);
         $this->assertInternalType('integer', $user->age);
 
-        $this->markTestSkipped('Fix has not yet been implemented.');
         $this->assertSame(50, $user->age);
     }
 
