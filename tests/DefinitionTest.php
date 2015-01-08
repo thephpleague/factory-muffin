@@ -93,7 +93,22 @@ class DefinitionTest extends AbstractTestCase
         $this->assertInternalType('string', $user->fullName);
         $this->assertNotEquals('name', $user->fullName);
         $this->assertInternalType('boolean', $user->active);
+        $this->assertInternalType('integer', $user->age);
+        $this->assertTrue($user->age >= 18 && $user->age <= 35);
         $this->assertContains('@', $user->email);
+    }
+
+    public function testDefineWithReplacementGeneratorsOverwrite()
+    {
+        $user = static::$fm->create('centenarian:UserModelStub', [
+            'age' => Faker::numberBetween(50, 50),
+        ]);
+        $this->assertInstanceOf('UserModelStub', $user);
+        $this->assertInternalType('string', $user->name);
+        $this->assertInternalType('boolean', $user->active);
+        $this->assertContains('@', $user->email);
+        $this->assertInternalType('integer', $user->age);
+        $this->assertSame(50, $user->age);
     }
 
     /**
@@ -133,6 +148,19 @@ class DefinitionTest extends AbstractTestCase
         $this->assertInternalType('string', $user->name);
         $this->assertSame('custom', $user->active);
         $this->assertContains('@', $user->email);
+    }
+
+    public function testGroupDefineWithReplacementGeneratorsOverwrite()
+    {
+        $user = static::$fm->create('centenarian:UserModelStub', [
+            'age' => Faker::numberBetween(50, 50),
+        ]);
+        $this->assertInstanceOf('UserModelStub', $user);
+        $this->assertInternalType('string', $user->name);
+        $this->assertInternalType('boolean', $user->active);
+        $this->assertContains('@', $user->email);
+        $this->assertInternalType('integer', $user->age);
+        $this->assertSame(50, $user->age);
     }
 
     public function testGroupKeepCallback()
