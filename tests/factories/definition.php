@@ -22,6 +22,7 @@ $fm->define('UserModelStub')->setDefinitions([
     'name'    => Faker::word(),
     'active'  => Faker::boolean(),
     'email'   => Faker::email(),
+    'age'     => Faker::numberBetween(18, 35),
     'profile' => 'factory|ProfileModelStub',
 ])->setCallback(function ($obj) {
     $obj->test = 'foo';
@@ -32,6 +33,10 @@ $fm->define('group:UserModelStub')->addDefinition('address', Faker::address());
 $fm->define('anothergroup:UserModelStub')->setDefinitions([
     'address' => Faker::address(),
     'active'  => 'custom',
+]);
+
+$fm->define('centenarian:UserModelStub')->setDefinitions([
+    'age' => Faker::numberBetween(100, 100),
 ]);
 
 $fm->define('callbackgroup:UserModelStub')->setCallback(function ($obj) {
