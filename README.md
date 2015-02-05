@@ -184,7 +184,8 @@ If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\Dele
 * `League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException` will be thrown if the delete function on your model does not exist.
 * Any other exception thrown by your model while trying to delete it.
 
-It's recommended that you call the `deleteSaved` function from PHPUnit's `tearDownAfterClass` function.
+It's recommended that you call the `deleteSaved` function from PHPUnit's `tearDownAfterClass` function.  However, if you are writing tests using Laravel's `TestCase`, you should call the `deleteSaved` function from the `tearDown` method before calling `parent::tearDown`.  This method flushes the application instance's bindings and FactoryMuffin would not unable to execute its deletes.  Further this unbinds the assigned Exception handler and you will not be able to troubleshoot your tests due to BindingResolutionExceptions obfuscating the exceptions.
+
 
 ### Exceptions
 
