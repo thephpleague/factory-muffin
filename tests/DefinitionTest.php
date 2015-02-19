@@ -313,7 +313,7 @@ class DefinitionTest extends AbstractTestCase
         $obj = static::$fm->instance('UserModelStub', [
             'profile' => function () {
                 return $this->instance('ProfileModelStub');
-            }
+            },
         ]);
 
         $this->assertInstanceOf('ProfileModelStub', $obj->profile);
