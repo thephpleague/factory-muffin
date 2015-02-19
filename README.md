@@ -163,12 +163,12 @@ The `create` function will create and save your model, and will also save anythi
 
 For example, let's create a `User` model and associate multiple `Location` and `Email` models to each one. Each `Email` will also have multiple `Token` models.
 ```php
-$user = FactoryMuffin::create('User');
-$profiles = FactoryMuffin::seed(5, 'Location', ['user_id' => $user->id]);
-$emails = FactoryMuffin::seed(100, 'Email', ['user_id' => $user->id]);
+$user = $fm->create('User');
+$profiles = $fm->seed(5, 'Location', ['user_id' => $user->id]);
+$emails = $fm->seed(100, 'Email', ['user_id' => $user->id]);
 
 foreach ($emails as $email)
-    $tokens = FactoryMuffin::seed(50, 'Token', ['email_id' => $email->id]); 
+    $tokens = $fm->seed(50, 'Token', ['email_id' => $email->id]); 
 ```
 
 It should be noted that you can set a custom save function before you get going with the `setSaveMethod` function. Also, a reminder that the `instance` function is still available if you don't want database persistence.
