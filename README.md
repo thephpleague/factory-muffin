@@ -163,13 +163,15 @@ $fm->define('Bar')->addDefinition('baz', Faker::date('Y-m-d'));
 The `create` function will create and save your model, and will also save anything you generate with the `Factory` generator too. If you want to create multiple instances, check out the seed `seed` function, which accepts an additional argument at the start which is the number of models to generate in the process. The `seed` function will effectively be calling the `create` function over and over. 
 
 For example, let's create a `User` model and associate multiple `Location` and `Email` models to each one. Each `Email` will also have multiple `Token` models.
+
 ```php
 $user = $fm->create('User');
 $profiles = $fm->seed(5, 'Location', ['user_id' => $user->id]);
 $emails = $fm->seed(100, 'Email', ['user_id' => $user->id]);
 
-foreach ($emails as $email)
+foreach ($emails as $email) {
     $tokens = $fm->seed(50, 'Token', ['email_id' => $email->id]); 
+}
 ```
 
 It should be noted that you can set a custom save function before you get going with the `setSaveMethod` function. Also, a reminder that the `instance` function is still available if you don't want database persistence.
