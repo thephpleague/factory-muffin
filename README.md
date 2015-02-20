@@ -74,6 +74,7 @@ The callable generator can be used if you want a more custom solution. Whatever 
 ##### Example 1
 
 As you can see from this example, the ability to use a closure to generate attributes can be so useful and flexible. Here we use it to generate a slug based on the initially randomly generated 5 word long title.
+
 ```php
 $fm->define('MyModel')->setDefinitions([
     'title' => Faker::sentence(5),
