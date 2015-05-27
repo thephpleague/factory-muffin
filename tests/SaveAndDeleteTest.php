@@ -84,7 +84,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             static::$fm->deleteSaved();
         } catch (DeletingFailedException $e) {
             $exceptions = $e->getExceptions();
-            $this->assertSame("We encountered 1 problem while trying to delete the saved models.", $e->getMessage());
+            $this->assertSame('We encountered 1 problem while trying to delete the saved models.', $e->getMessage());
             $this->assertSame("The delete method 'bar' was not found on the model: '$model'.", $exceptions[0]->getMessage());
             $this->assertSame($model, $exceptions[0]->getModelClass());
             $this->assertSame('bar', $exceptions[0]->getMethodName());
@@ -120,7 +120,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             static::$fm->deleteSaved();
         } catch (DeletingFailedException $e) {
             $exceptions = $e->getExceptions();
-            $this->assertSame("We encountered 1 problem while trying to delete the saved models.", $e->getMessage());
+            $this->assertSame('We encountered 1 problem while trying to delete the saved models.', $e->getMessage());
             $this->assertSame("We could not delete the model: '$model'.", $exceptions[0]->getMessage());
             throw $e;
         }
@@ -136,8 +136,8 @@ class SaveAndDeleteTest extends AbstractTestCase
             static::$fm->deleteSaved();
         } catch (DeletingFailedException $e) {
             $exceptions = $e->getExceptions();
-            $this->assertSame("We encountered 1 problem while trying to delete the saved models.", $e->getMessage());
-            $this->assertSame("OH NOES!", $exceptions[0]->getMessage());
+            $this->assertSame('We encountered 1 problem while trying to delete the saved models.', $e->getMessage());
+            $this->assertSame('OH NOES!', $exceptions[0]->getMessage());
             throw $e;
         }
     }
@@ -167,7 +167,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             static::$fm->deleteSaved();
         } catch (DeletingFailedException $e) {
             $exceptions = $e->getExceptions();
-            $this->assertSame("We encountered 1 problem while trying to delete the saved models.", $e->getMessage());
+            $this->assertSame('We encountered 1 problem while trying to delete the saved models.', $e->getMessage());
             $this->assertSame("The delete method 'delete' was not found on the model: '$model'.", $exceptions[0]->getMessage());
             $this->assertSame($model, $exceptions[0]->getModelClass());
             $this->assertSame('delete', $exceptions[0]->getMethodName());
@@ -216,8 +216,8 @@ class SaveAndDeleteTest extends AbstractTestCase
             static::$fm->deleteSaved();
         } catch (DeletingFailedException $e) {
             $exceptions = $e->getExceptions();
-            $this->assertSame("We encountered 2 problems while trying to delete the saved models.", $e->getMessage());
-            $this->assertSame("OH NOES!", $exceptions[0]->getMessage());
+            $this->assertSame('We encountered 2 problems while trying to delete the saved models.', $e->getMessage());
+            $this->assertSame('OH NOES!', $exceptions[0]->getMessage());
             $this->assertSame("The delete method 'delete' was not found on the model: '$model'.", $exceptions[1]->getMessage());
             $this->assertSame($model, $exceptions[1]->getModelClass());
             $this->assertSame('delete', $exceptions[1]->getMethodName());
