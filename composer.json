@@ -1,7 +1,7 @@
 {
     "name": "league/factory-muffin",
     "description": "The goal of this package is to enable the rapid creation of objects for the purpose of testing.",
-    "keywords": ["testing", "factory", "laravel"],
+    "keywords": ["testing", "factory"],
     "homepage": "http://factory-muffin.thephpleague.com/",
     "license": "MIT",
     "authors": [
