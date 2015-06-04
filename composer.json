@@ -26,8 +26,8 @@
         "zizaco/factory-muff": "self.version"
     },
     "suggest": {
-        "league/factory-muffin-faker": "Factory Muffin works well with faker.",
-        "illuminate/database": "Factory Muffin works well with eloquent models."
+        "illuminate/database": "Factory Muffin works well with eloquent models.",
+        "league/factory-muffin-faker": "Factory Muffin works well with faker."
     },
     "autoload": {
         "psr-4": {
