@@ -1,7 +1,7 @@
 {
     "name": "league/factory-muffin",
     "description": "The goal of this package is to enable the rapid creation of objects for the purpose of testing.",
-    "keywords": ["testing", "factory", "laravel"],
+    "keywords": ["testing", "factory"],
     "homepage": "http://factory-muffin.thephpleague.com/",
     "license": "MIT",
     "authors": [
@@ -26,8 +26,8 @@
         "zizaco/factory-muff": "self.version"
     },
     "suggest": {
-        "league/factory-muffin-faker": "Factory Muffin works well with faker.",
-        "illuminate/database": "Factory Muffin works well with eloquent models."
+        "illuminate/database": "Factory Muffin works well with eloquent models.",
+        "league/factory-muffin-faker": "Factory Muffin works well with faker."
     },
     "autoload": {
         "psr-4": {
