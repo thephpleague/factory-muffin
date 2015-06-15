@@ -276,6 +276,7 @@ If you want more information, the following resources are available to you:
 ## Integrations
 
 * [CakePHP 3](https://github.com/gourmet/muffin)
+* [Yii 2](https://github.com/saada/yii2-factory-muffin)
 
 
 ## Contributing
