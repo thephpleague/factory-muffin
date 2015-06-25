@@ -3,7 +3,7 @@
 /*
  * This file is part of Factory Muffin.
  *
- * (c) Graham Campbell <graham@mineuk.com>
+ * (c) Graham Campbell <graham@alt-three.com>
  * (c) Scott Robertson <scottymeuk@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 /**
  * This is eloquent test class.
  *
- * @author Graham Campbell <graham@mineuk.com>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class EloquentTest extends AbstractTestCase
 {

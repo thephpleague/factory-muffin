@@ -3,7 +3,7 @@
 /*
  * This file is part of Factory Muffin.
  *
- * (c) Graham Campbell <graham@mineuk.com>
+ * (c) Graham Campbell <graham@alt-three.com>
  * (c) Scott Robertson <scottymeuk@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
@@ -21,7 +21,7 @@ use League\FactoryMuffin\FactoryMuffin;
  * models. The factory generator will return the model id of the model you ask
  * it to generate.
  *
- * @author Graham Campbell <graham@mineuk.com>
+ * @author Graham Campbell <graham@alt-three.com>
  * @author Scott Robertson <scottymeuk@gmail.com>
  */
 class FactoryGenerator implements GeneratorInterface

@@ -3,7 +3,7 @@
 /*
  * This file is part of Factory Muffin.
  *
- * (c) Graham Campbell <graham@mineuk.com>
+ * (c) Graham Campbell <graham@alt-three.com>
  * (c) Scott Robertson <scottymeuk@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
@@ -18,7 +18,7 @@ namespace League\FactoryMuffin\Exceptions;
  * This exception is never directly thrown, but you may try to catch this
  * exception rather than the 2 other exceptions that extend this class.
  *
- * @author Graham Campbell <graham@mineuk.com>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class MethodNotFoundException extends ModelException
 {

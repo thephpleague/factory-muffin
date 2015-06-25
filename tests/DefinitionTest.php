@@ -3,7 +3,7 @@
 /*
  * This file is part of Factory Muffin.
  *
- * (c) Graham Campbell <graham@mineuk.com>
+ * (c) Graham Campbell <graham@alt-three.com>
  * (c) Scott Robertson <scottymeuk@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
@@ -19,7 +19,7 @@ use League\FactoryMuffin\Faker\Facade as Faker;
 /**
  * This is definition test class.
  *
- * @author Graham Campbell <graham@mineuk.com>
+ * @author Graham Campbell <graham@alt-three.com>
  * @author Scott Robertson <scottymeuk@gmail.com>
  */
 class DefinitionTest extends AbstractTestCase
