@@ -39,6 +39,9 @@
             "tests/AbstractTestCase.php"
         ]
     },
+    "config": {
+        "preferred-install": "dist"
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "3.0-dev"
