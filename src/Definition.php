@@ -17,7 +17,7 @@ namespace League\FactoryMuffin;
  *
  * @author Graham Campbell <graham@alt-three.com>
  */
-class Definition
+final class Definition
 {
     /**
      * The model class name.
