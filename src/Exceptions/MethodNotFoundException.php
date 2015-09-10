@@ -8,7 +8,6 @@ namespace League\FactoryMuffin\Exceptions;
  * This exception is never directly thrown, but you may try to catch this
  * exception rather than the 2 other exceptions that extend this class.
  *
- * @package League\FactoryMuffin\Exceptions
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT

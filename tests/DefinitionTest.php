@@ -22,9 +22,9 @@ class DefinitionTest extends AbstractTestCase
 
     public function testDefineWithReplacementGenerators()
     {
-        $user = FactoryMuffin::create('UserModelStub', array(
-            'fullName' => 'name'
-        ));
+        $user = FactoryMuffin::create('UserModelStub', [
+            'fullName' => 'name',
+        ]);
 
         $this->assertInstanceOf('UserModelStub', $user);
         $this->assertInternalType('string', $user->name);

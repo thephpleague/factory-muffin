@@ -1,6 +1,5 @@
 <?php
 
-use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
 use League\FactoryMuffin\Exceptions\DeletingFailedException;
 use League\FactoryMuffin\Exceptions\SaveFailedException;
 use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
@@ -64,7 +63,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             FactoryMuffin::deleteSaved();
         } catch (DeletingFailedException $e) {
             $exceptions = $e->getExceptions();
-            $this->assertSame("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
+            $this->assertSame('We encountered 1 problem(s) while trying to delete the saved models.', $e->getMessage());
             $this->assertSame("The delete method 'bar' was not found on the model of type: '$model'.", $exceptions[0]->getMessage());
             $this->assertSame($model, $exceptions[0]->getModel());
             $this->assertSame('bar', $exceptions[0]->getMethod());
@@ -101,7 +100,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             FactoryMuffin::deleteSaved();
         } catch (DeletingFailedException $e) {
             $exceptions = $e->getExceptions();
-            $this->assertSame("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
+            $this->assertSame('We encountered 1 problem(s) while trying to delete the saved models.', $e->getMessage());
             $this->assertSame("We could not delete the model of type: '$model'.", $exceptions[0]->getMessage());
             throw $e;
         }
@@ -117,8 +116,8 @@ class SaveAndDeleteTest extends AbstractTestCase
             FactoryMuffin::deleteSaved();
         } catch (DeletingFailedException $e) {
             $exceptions = $e->getExceptions();
-            $this->assertSame("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
-            $this->assertSame("OH NOES!", $exceptions[0]->getMessage());
+            $this->assertSame('We encountered 1 problem(s) while trying to delete the saved models.', $e->getMessage());
+            $this->assertSame('OH NOES!', $exceptions[0]->getMessage());
             throw $e;
         }
     }
@@ -149,7 +148,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             FactoryMuffin::deleteSaved();
         } catch (DeletingFailedException $e) {
             $exceptions = $e->getExceptions();
-            $this->assertSame("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
+            $this->assertSame('We encountered 1 problem(s) while trying to delete the saved models.', $e->getMessage());
             $this->assertSame("The delete method 'delete' was not found on the model of type: '$model'.", $exceptions[0]->getMessage());
             $this->assertSame($model, $exceptions[0]->getModel());
             $this->assertSame('delete', $exceptions[0]->getMethod());
@@ -184,8 +183,8 @@ class SaveAndDeleteTest extends AbstractTestCase
             FactoryMuffin::deleteSaved();
         } catch (DeletingFailedException $e) {
             $exceptions = $e->getExceptions();
-            $this->assertSame("We encountered 2 problem(s) while trying to delete the saved models.", $e->getMessage());
-            $this->assertSame("OH NOES!", $exceptions[0]->getMessage());
+            $this->assertSame('We encountered 2 problem(s) while trying to delete the saved models.', $e->getMessage());
+            $this->assertSame('OH NOES!', $exceptions[0]->getMessage());
             $this->assertSame("The delete method 'delete' was not found on the model of type: '$model'.", $exceptions[1]->getMessage());
             $this->assertSame($model, $exceptions[1]->getModel());
             $this->assertSame('delete', $exceptions[1]->getMethod());
@@ -273,7 +272,6 @@ class ModelWithValidationErrorsStub
 
     public function save()
     {
-
     }
 
     public function delete()

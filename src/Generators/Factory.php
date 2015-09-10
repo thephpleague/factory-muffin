@@ -10,7 +10,6 @@ namespace League\FactoryMuffin\Generators;
  * it to generate. Please note that class is not be considered part of the
  * public api, and should only be used internally by Factory Muffin.
  *
- * @package League\FactoryMuffin\Generators
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
@@ -23,14 +22,14 @@ final class Factory extends Base
      *
      * @var string[]
      */
-    private $methods = array('getKey', 'pk');
+    private $methods = ['getKey', 'pk'];
 
     /**
      * The factory properties.
      *
      * @var string[]
      */
-    private $properties = array('id', '_id');
+    private $properties = ['id', '_id'];
 
     /**
      * Return generated data.

@@ -7,7 +7,6 @@ namespace League\FactoryMuffin;
  *
  * This class contains some array helpers we use internally.
  *
- * @package League\FactoryMuffin
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT

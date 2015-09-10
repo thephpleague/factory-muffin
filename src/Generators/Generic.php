@@ -12,7 +12,6 @@ use InvalidArgumentException;
  * Please note that class is not be considered part of the public api, and
  * should only be used internally by Factory Muffin.
  *
- * @package League\FactoryMuffin\Generators
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
@@ -58,6 +57,6 @@ final class Generic extends Base
 
         $generator = $this->getGeneratorWithoutPrefix();
 
-        return call_user_func_array(array($faker, $generator), $this->getOptions());
+        return call_user_func_array([$faker, $generator], $this->getOptions());
     }
 }

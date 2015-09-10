@@ -13,11 +13,11 @@ class EloquentTest extends AbstractTestCase
     {
         $db = new DB();
 
-        $db->addConnection(array(
+        $db->addConnection([
             'driver'   => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => ''
-        ));
+            'prefix'   => '',
+        ]);
 
         $db->setAsGlobal();
         $db->bootEloquent();
@@ -43,10 +43,9 @@ class EloquentTest extends AbstractTestCase
 
     public function testNumberOfCats()
     {
-        $cats = array();
+        $cats = [];
         foreach (User::all() as $user) {
             foreach ($user->cats as $cat) {
-
                 $cats[] = $cat;
             }
         }
@@ -57,7 +56,7 @@ class EloquentTest extends AbstractTestCase
 
     public function testNumberOfCatOwners()
     {
-        $users = array();
+        $users = [];
         foreach (Cat::all() as $cat) {
             $users[] = $cat->user;
         }

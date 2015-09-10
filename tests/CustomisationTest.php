@@ -15,7 +15,6 @@ class CustomisationTest extends AbstractTestCase
             return new $class('example');
         });
 
-
         $obj = FactoryMuffin::instance('MakerCustomisationModelStub');
 
         $this->assertSame('example', $obj->test);
@@ -77,7 +76,7 @@ class CustomisationTest extends AbstractTestCase
             FactoryMuffin::deleteSaved();
         } catch (DeletingFailedException $e) {
             $exceptions = $e->getExceptions();
-            $this->assertSame("We encountered 1 problem(s) while trying to delete the saved models.", $e->getMessage());
+            $this->assertSame('We encountered 1 problem(s) while trying to delete the saved models.', $e->getMessage());
             $this->assertSame("We could not delete the model of type: '$model'.", $exceptions[0]->getMessage());
             $this->reload();
             throw $e;
@@ -90,6 +89,7 @@ class CustomisationTest extends AbstractTestCase
     {
         FactoryMuffin::setCustomSaver(function ($object) {
             $object->test = 'foo';
+
             return $object->customSave();
         });
 
@@ -117,7 +117,7 @@ class MakerCustomisationModelStub
 
 class SetterCustomisationModelStub
 {
-    public $attributes = array();
+    public $attributes = [];
 
     public function get($name)
     {

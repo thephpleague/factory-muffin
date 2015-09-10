@@ -13,7 +13,6 @@ use Exception;
  * underlying exception, in the order they were thrown during the whole
  * process, by calling getExceptions to return an array of exceptions.
  *
- * @package League\FactoryMuffin\Exceptions
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
  * @license <https://github.com/thephpleague/factory-muffin/blob/master/LICENSE> MIT
