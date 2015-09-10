@@ -11,7 +11,6 @@ use League\FactoryMuffin\Facade as FactoryMuffin;
  * Please note that class is not be considered part of the public api, and
  * should only be used internally by Factory Muffin.
  *
- * @package League\FactoryMuffin\Generators
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
@@ -24,11 +23,11 @@ abstract class Base
      *
      * @var string[]
      */
-    private static $generators = array(
+    private static $generators = [
         'call',
         'closure',
         'factory',
-    );
+    ];
 
     /**
      * The kind of attribute that will be generated.
@@ -118,6 +117,7 @@ abstract class Base
     protected function getGenerator()
     {
         $kind = explode('|', $this->kind);
+
         return reset($kind);
     }
 
@@ -142,7 +142,7 @@ abstract class Base
      */
     protected function getPrefix()
     {
-        $prefixes = array('unique', 'optional');
+        $prefixes = ['unique', 'optional'];
         $prefix = current(explode(':', $this->getGenerator()));
 
         return Arr::has($prefixes, $prefix) ? $prefix : false;

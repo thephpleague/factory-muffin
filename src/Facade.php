@@ -31,7 +31,6 @@ namespace League\FactoryMuffin;
  * @method static \Faker\Generator getFaker() Get the faker instance.
  * @method static Factory loadFactories(string|string[] $paths) Load the specified factories.
  *
- * @package League\FactoryMuffin
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
@@ -96,7 +95,7 @@ class Facade
             case 3:
                 return self::factory()->$method($args[0], $args[1], $args[2]);
             default:
-                return call_user_func_array(array(self::factory(), $method), $args);
+                return call_user_func_array([self::factory(), $method], $args);
         }
     }
 }

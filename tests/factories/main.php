@@ -2,23 +2,23 @@
 
 use League\FactoryMuffin\Facade as FactoryMuffin;
 
-FactoryMuffin::define('IdTestModelGetKeyStub', array());
-FactoryMuffin::define('IdTestModelPkStub', array());
-FactoryMuffin::define('IdTestModelIdStub', array());
-FactoryMuffin::define('IdTestModelNullStub', array());
+FactoryMuffin::define('IdTestModelGetKeyStub', []);
+FactoryMuffin::define('IdTestModelPkStub', []);
+FactoryMuffin::define('IdTestModelIdStub', []);
+FactoryMuffin::define('IdTestModelNullStub', []);
 
-FactoryMuffin::define('ModelWithMissingStaticMethod', array(
+FactoryMuffin::define('ModelWithMissingStaticMethod', [
     'does_not_exist' => 'call|doesNotExist',
-));
+]);
 
-FactoryMuffin::define('IdTestModelStub', array(
+FactoryMuffin::define('IdTestModelStub', [
     'modelGetKey' => 'factory|IdTestModelGetKeyStub',
     'modelPk'     => 'factory|IdTestModelPkStub',
     'model_id'    => 'factory|IdTestModelIdStub',
     'model_null'  => 'factory|IdTestModelNullStub',
-));
+]);
 
-FactoryMuffin::define('FakerDefaultingModelStub', array(
+FactoryMuffin::define('FakerDefaultingModelStub', [
     'title'         => 'word',
     'email'         => 'email',
     'content'       => 'text',
@@ -26,9 +26,9 @@ FactoryMuffin::define('FakerDefaultingModelStub', array(
     'image'         => 'imageUrl|400;600',
     'unique_text'   => 'unique:text',
     'optional_text' => 'optional:text',
-));
+]);
 
-FactoryMuffin::define('MainModelStub', array(
+FactoryMuffin::define('MainModelStub', [
     'modelb_id'    => 'factory|FakerDefaultingModelStub',
     'name'         => 'word',
     'email'        => 'email',
@@ -47,17 +47,17 @@ FactoryMuffin::define('MainModelStub', array(
     'text_closure' => function () {
         return 'just a string';
     },
-));
+]);
 
-FactoryMuffin::define('ComplexModelStub', array(
+FactoryMuffin::define('ComplexModelStub', [
     'future'       => 'call|fortyDaysFromNow',
     'slug'         => 'call|makeSlug|text',
     'munged_model' => 'call|mungeModel|factory|MainModelStub',
-));
+]);
 
-FactoryMuffin::define('ModelWithStaticMethodFactory', array(
+FactoryMuffin::define('ModelWithStaticMethodFactory', [
     'string' => 'just a string',
     'data'   => function ($object, $saved) {
         return compact('object', 'saved');
     },
-));
+]);

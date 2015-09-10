@@ -12,7 +12,6 @@ use League\FactoryMuffin\Facade as FactoryMuffin;
  * methods on your models. Please note that class is not be considered part of
  * the public api, and should only be used internally by Factory Muffin.
  *
- * @package League\FactoryMuffin\Generators
  * @author  Zizaco <zizaco@gmail.com>
  * @author  Scott Robertson <scottymeuk@gmail.com>
  * @author  Graham Campbell <graham@mineuk.com>
@@ -30,7 +29,7 @@ final class Call extends Base
     public function generate()
     {
         $method = substr($this->kind, 5);
-        $args = array();
+        $args = [];
 
         if (strstr($method, '|')) {
             $parts = explode('|', $method);
@@ -59,7 +58,7 @@ final class Call extends Base
     private function execute($method, $args)
     {
         if (method_exists($model = get_class($this->object), $method)) {
-            return call_user_func_array(array($model, $method), $args);
+            return call_user_func_array([$model, $method], $args);
         }
 
         throw new MethodNotFoundException($model, $method);

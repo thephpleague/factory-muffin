@@ -2,4 +2,4 @@
 
 use League\FactoryMuffin\Facade as FactoryMuffin;
 
-FactoryMuffin::define('ExampleDefinedModelStub', array());
+FactoryMuffin::define('ExampleDefinedModelStub', []);
