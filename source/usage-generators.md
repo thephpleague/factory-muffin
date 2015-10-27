@@ -95,7 +95,7 @@ League\FactoryMuffin\Facade::define('MyModel', array(
 
 ### Example 3
 
-This will set the `baz` attribute to whatever calling the `exampleMethod` method on the `OtherModel` after we generate and save it.
+This will set the `baz` attribute to whatever calling the `exampleMethod` method on the `OtherModel` returns after we generate and save it.
 ```php
 League\FactoryMuffin\Facade::define('MyModel', array(
     'baz' => 'call|exampleMethod|factory|OtherModel',
