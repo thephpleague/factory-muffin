@@ -18,9 +18,9 @@
         "php": ">=5.4.0"
     },
     "require-dev": {
-        "league/factory-muffin-faker": "~1.0@dev",
-        "phpunit/phpunit": "~4.0",
-        "illuminate/database": "5.0.*|5.1.*"
+        "illuminate/database": "5.0.*|5.1.*",
+        "league/factory-muffin-faker": "^1.0@dev",
+        "phpunit/phpunit": "^4.8|^5.0"
     },
     "replace": {
         "zizaco/factory-muff": "self.version"
