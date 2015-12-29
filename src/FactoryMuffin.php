@@ -55,7 +55,7 @@ class FactoryMuffin
     /**
      * Create a new factory muffin instance.
      *
-     * @param \League\FactoryMuffin\ModelStore|null                  $modelStore       The model store instance.
+     * @param \League\FactoryMuffin\ModelStore|null $modelStore The model store instance.
      * @param \League\FactoryMuffin\Generators\GeneratorFactory|null $generatorFactory The generator factory instance.
      *
      * @return void
@@ -99,9 +99,9 @@ class FactoryMuffin
      *
      * Under the hood, we're calling the create method over and over.
      *
-     * @param int    $times The number of models to create.
-     * @param string $name  The model definition name.
-     * @param array  $attr  The model attributes.
+     * @param int $times The number of models to create.
+     * @param string $name The model definition name.
+     * @param array $attr The model attributes.
      *
      * @return object[]
      */
@@ -120,7 +120,7 @@ class FactoryMuffin
      * Creates and saves a model.
      *
      * @param string $name The model definition name.
-     * @param array  $attr The model attributes.
+     * @param array $attr The model attributes.
      *
      * @return object
      */
@@ -141,7 +141,7 @@ class FactoryMuffin
      * Trigger the callback if we have one.
      *
      * @param object $model The model instance.
-     * @param string $name  The model definition name.
+     * @param string $name The model definition name.
      *
      * @return bool
      */
@@ -162,8 +162,8 @@ class FactoryMuffin
      * Make an instance of a model.
      *
      * @param string $name The model definition name.
-     * @param array  $attr The model attributes.
-     * @param bool   $save Are we saving, or just creating an instance?
+     * @param array $attr The model attributes.
+     * @param bool $save Are we saving, or just creating an instance?
      *
      * @return object
      */
@@ -189,7 +189,7 @@ class FactoryMuffin
     /**
      * Make an instance of a class.
      *
-     * @param string        $class The model class name.
+     * @param string $class The model class name.
      * @param callable|null $maker The maker callable.
      *
      * @throws \League\FactoryMuffin\Exceptions\ModelNotFoundException
@@ -239,7 +239,7 @@ class FactoryMuffin
      * This does not save it in the database. Use create for that.
      *
      * @param string $name The model definition name.
-     * @param array  $attr The model attributes.
+     * @param array $attr The model attributes.
      *
      * @return object
      */
@@ -256,7 +256,7 @@ class FactoryMuffin
      * Generate and set the model attributes.
      *
      * @param object $model The model instance.
-     * @param array  $attr  The model attributes.
+     * @param array $attr The model attributes.
      *
      * @return void
      */
@@ -265,10 +265,10 @@ class FactoryMuffin
         foreach ($attr as $key => $kind) {
             $value = $this->generatorFactory->generate($kind, $model, $this);
 
-            $setter = 'set'.$this->camelize($key);
+            $setter = 'set' . $this->camelize($key);
 
             // check if there is a setter and use it instead
-            if(method_exists($model, $setter)){
+            if (method_exists($model, $setter)) {
                 $model->$setter($value);
             } else {
                 $model->$key = $value;
@@ -314,7 +314,7 @@ class FactoryMuffin
 
         if (strpos($name, ':') !== false) {
             $group = current(explode(':', $name));
-            $class = str_replace($group.':', '', $name);
+            $class = str_replace($group . ':', '', $name);
             $this->definitions[$name] = clone $this->getDefinition($class);
             $this->definitions[$name]->setGroup($group);
         } else {
@@ -339,7 +339,7 @@ class FactoryMuffin
      */
     public function loadFactories($paths)
     {
-        foreach ((array) $paths as $path) {
+        foreach ((array)$paths as $path) {
             if (!is_dir($path)) {
                 throw new DirectoryNotFoundException($path);
             }
@@ -374,18 +374,19 @@ class FactoryMuffin
 
     /**
      * Translates a string with underscores
-     * into camel case (e.g. first_name -> firstName)
+     * into camel case (e.g. first_name -> firstName).
      *
-     * @param string $str String in underscore format
-     * @param bool $capitaliseFirstChar If true, capitalise the first char in $str
+     * @param string $str                 String in underscore format
+     * @param bool   $capitaliseFirstChar If true, capitalise the first char in $str
      * @return string $str translated into camel caps
      */
-    function camelize($str, $capitaliseFirstChar = false) {
-        if($capitaliseFirstChar) {
+    public function camelize($str, $capitaliseFirstChar = false)
+    {
+        if ($capitaliseFirstChar) {
             $str[0] = strtoupper($str[0]);
         }
 
-        return preg_replace_callback('/_([a-z])/', function($c){
+        return preg_replace_callback('/_([a-z])/', function ($c) {
             return strtoupper($c[1]);
         }, $str);
     }
