@@ -376,11 +376,12 @@ class FactoryMuffin
      * Translates a string with underscores
      * into camel case (e.g. first_name -> firstName).
      *
-     * @param string $str                 String in underscore format
-     * @param bool   $capitaliseFirstChar If true, capitalise the first char in $str
+     * @param string $str String in underscore format
+     * @param bool $capitaliseFirstChar If true, capitalise the first char in $str
+     *
      * @return string $str translated into camel caps
      */
-    public function camelize($str, $capitaliseFirstChar = false)
+    function camelize($str, $capitaliseFirstChar = false)
     {
         if ($capitaliseFirstChar) {
             $str[0] = strtoupper($str[0]);

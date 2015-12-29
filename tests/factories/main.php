@@ -65,5 +65,5 @@ $fm->define('ModelWithStaticMethodFactory')->setDefinitions([
 ]);
 
 $fm->define('SetterTestModelWithSetter')->setDefinitions([
-    'name' => 'Jack Sparrow'
+    'name' => 'Jack Sparrow',
 ]);

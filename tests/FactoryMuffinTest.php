@@ -111,7 +111,8 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertSame('Jack Sparrow', $obj->getName());
     }
 
-    public function testCamelization(){
+    public function testCamelization()
+    {
         $var = static::$fm->camelize('foo_bar');
         $this->assertSame('fooBar', $var);
 
@@ -231,11 +232,13 @@ class SetterTestModelWithSetter
 {
     private $name;
 
-    public function setName($name){
+    public function setName($name)
+    {
         $this->name = $name;
     }
 
-    public function getName(){
+    public function getName()
+    {
         return $this->name;
     }
 }
