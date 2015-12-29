@@ -11,6 +11,7 @@
  */
 
 use League\FactoryMuffin\Exceptions\DefinitionNotFoundException;
+use League\FactoryMuffin\FactoryMuffin;
 
 /**
  * This is factory muffin test class.
@@ -103,6 +104,24 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertSame('just a string', $obj->string);
         $this->assertInstanceOf('ModelWithStaticMethodFactory', $obj->data['object']);
         $this->assertFalse($obj->data['saved']);
+    }
+
+    public function testSetAttributeUsingSetter()
+    {
+        $obj = static::$fm->instance('SetterTestModelWithSetter');
+        $this->assertSame('Jack Sparrow', $obj->getName());
+    }
+
+    public function testCamelization()
+    {
+        $var = FactoryMuffin::camelize('foo_bar');
+        $this->assertSame('fooBar', $var);
+
+        $var = FactoryMuffin::camelize('foo');
+        $this->assertSame('foo', $var);
+
+        $var = FactoryMuffin::camelize('foo_bar2_bar');
+        $this->assertSame('fooBar2Bar', $var);
     }
 }
 
@@ -204,5 +223,20 @@ class ModelWithStaticMethodFactory
     public function save()
     {
         return true;
+    }
+}
+
+class SetterTestModelWithSetter
+{
+    private $name;
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 }
