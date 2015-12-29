@@ -373,8 +373,8 @@ class FactoryMuffin
     }
 
     /**
-     * Camelize string
-     * 
+     * Camelize string.
+     *
      * Transforms a string to camel case (e.g. first_name -> firstName).
      *
      * @param string $str                 String in underscore format
