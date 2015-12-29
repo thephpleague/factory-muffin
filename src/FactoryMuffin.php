@@ -265,7 +265,7 @@ class FactoryMuffin
         foreach ($attr as $key => $kind) {
             $value = $this->generatorFactory->generate($kind, $model, $this);
 
-            $setter = 'set'.$this->camelize($key, true);
+            $setter = 'set'.ucfirst($this->camelize($key));
 
             // check if there is a setter and use it instead
             if (method_exists($model, $setter)) {
@@ -378,16 +378,11 @@ class FactoryMuffin
      * Transforms a string to camel case (e.g. first_name -> firstName).
      *
      * @param string $str                 String in underscore format
-     * @param bool   $capitaliseFirstChar If true, capitalise the first char in $str
      *
      * @return string $str translated into camel caps
      */
-    public function camelize($str, $capitaliseFirstChar = false)
+    public function camelize($str)
     {
-        if ($capitaliseFirstChar) {
-            $str[0] = strtoupper($str[0]);
-        }
-
         return preg_replace_callback('/_([a-z])/', function ($c) {
             return strtoupper($c[1]);
         }, $str);
