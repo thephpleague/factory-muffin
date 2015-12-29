@@ -104,6 +104,27 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertInstanceOf('ModelWithStaticMethodFactory', $obj->data['object']);
         $this->assertFalse($obj->data['saved']);
     }
+
+    public function testSetAttributeUsingSetter()
+    {
+        $obj = static::$fm->instance('SetterTestModelWithSetter');
+        $this->assertSame('Jack Sparrow', $obj->getName());
+    }
+
+    public function testCamelization()
+    {
+        $var = static::$fm->camelize('foo_bar');
+        $this->assertSame('fooBar', $var);
+
+        $var = static::$fm->camelize('foo');
+        $this->assertSame('foo', $var);
+
+        $var = static::$fm->camelize('foo_bar_bar');
+        $this->assertSame('fooBarBar', $var);
+
+        $var = static::$fm->camelize('foo_bar', true);
+        $this->assertSame('FooBar', $var);
+    }
 }
 
 class MainModelStub
@@ -204,5 +225,20 @@ class ModelWithStaticMethodFactory
     public function save()
     {
         return true;
+    }
+}
+
+class SetterTestModelWithSetter
+{
+    private $name;
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 }
