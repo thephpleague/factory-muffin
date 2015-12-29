@@ -383,7 +383,7 @@ class FactoryMuffin
      */
     public function camelize($str)
     {
-        return preg_replace_callback('/_([a-z])/', function ($c) {
+        return preg_replace_callback('/_([a-z0-9])/', function ($c) {
             return strtoupper($c[1]);
         }, $str);
     }

@@ -121,6 +121,9 @@ class FactoryMuffinTest extends AbstractTestCase
 
         $var = static::$fm->camelize('foo_bar_bar');
         $this->assertSame('fooBarBar', $var);
+
+        $var = static::$fm->camelize('foo_bar2');
+        $this->assertSame('fooBar2', $var);
     }
 }
 
