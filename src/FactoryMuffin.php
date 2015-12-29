@@ -381,7 +381,7 @@ class FactoryMuffin
      *
      * @return string $str translated into camel caps
      */
-    function camelize($str, $capitaliseFirstChar = false)
+    public function camelize($str, $capitaliseFirstChar = false)
     {
         if ($capitaliseFirstChar) {
             $str[0] = strtoupper($str[0]);
