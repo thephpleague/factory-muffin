@@ -265,7 +265,7 @@ class FactoryMuffin
         foreach ($attr as $key => $kind) {
             $value = $this->generatorFactory->generate($kind, $model, $this);
 
-            $setter = 'set'.$this->camelize($key);
+            $setter = 'set'.$this->camelize($key, true);
 
             // check if there is a setter and use it instead
             if (method_exists($model, $setter)) {
