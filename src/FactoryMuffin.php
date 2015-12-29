@@ -377,7 +377,7 @@ class FactoryMuffin
      *
      * Transforms a string to camel case (e.g. first_name -> firstName).
      *
-     * @param string $str                 String in underscore format
+     * @param string $str String in underscore format
      *
      * @return string $str translated into camel caps
      */
