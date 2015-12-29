@@ -63,3 +63,7 @@ $fm->define('ModelWithStaticMethodFactory')->setDefinitions([
         return compact('object', 'saved');
     },
 ]);
+
+$fm->define('SetterTestModelWithSetter')->setDefinitions([
+    'name' => 'Jack Sparrow'
+]);

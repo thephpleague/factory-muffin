@@ -263,7 +263,16 @@ class FactoryMuffin
     protected function generate($model, array $attr = [])
     {
         foreach ($attr as $key => $kind) {
-            $model->$key = $this->generatorFactory->generate($kind, $model, $this);
+            $value = $this->generatorFactory->generate($kind, $model, $this);
+
+            $setter = 'set'.$this->camelize($key);
+
+            // check if there is a setter and use it instead
+            if(method_exists($model, $setter)){
+                $model->$setter($value);
+            } else {
+                $model->$key = $value;
+            }
         }
     }
 
@@ -361,5 +370,23 @@ class FactoryMuffin
         foreach ($files as $file) {
             require $file->getPathName();
         }
+    }
+
+    /**
+     * Translates a string with underscores
+     * into camel case (e.g. first_name -> firstName)
+     *
+     * @param string $str String in underscore format
+     * @param bool $capitaliseFirstChar If true, capitalise the first char in $str
+     * @return string $str translated into camel caps
+     */
+    function camelize($str, $capitaliseFirstChar = false) {
+        if($capitaliseFirstChar) {
+            $str[0] = strtoupper($str[0]);
+        }
+
+        return preg_replace_callback('/_([a-z])/', function($c){
+            return strtoupper($c[1]);
+        }, $str);
     }
 }
