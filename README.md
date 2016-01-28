@@ -91,7 +91,7 @@ $fm->define('MyModel')->setDefinitions([
 
 This will set the `foo` attribute to whatever calling `MyModel::exampleMethod($object, $saved)` returns.
 ```php
-$fm->define('MyModel'->setDefinitions([
+$fm->define('MyModel')->setDefinitions([
     'foo' => 'MyModel::exampleMethod',
 ]);
 ```
