@@ -19,6 +19,7 @@ use League\FactoryMuffin\Exceptions\ModelNotFoundException;
 use League\FactoryMuffin\Generators\GeneratorFactory;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use ReflectionMethod;
 use RegexIterator;
 
 /**
@@ -268,7 +269,7 @@ class FactoryMuffin
             $setter = 'set'.ucfirst(static::camelize($key));
 
             // check if there is a setter and use it instead
-            if (method_exists($model, $setter)) {
+            if (method_exists($model, $setter) && (new ReflectionMethod($model, $setter))->isPublic()) {
                 $model->$setter($value);
             } else {
                 $model->$key = $value;
