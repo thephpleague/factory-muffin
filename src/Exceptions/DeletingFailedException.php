@@ -50,6 +50,7 @@ class DeletingFailedException extends Exception
             $count = count($exceptions);
             $problems = $this->plural('problem', $count);
             $message = "We encountered $count $problems while trying to delete the saved models.";
+            $message .= "\r\nIncluding: " . $exceptions[0]->getMessage();
         }
 
         parent::__construct($message);
