@@ -25,7 +25,7 @@ class DoctrineTest extends AbstractTestCase
 {
     const USER_ENTITY = 'League\FactoryMuffin\Test\User';
     const CAT_ENTITY = 'League\FactoryMuffin\Test\Cat';
-    
+
     /**
      * @var EntityManager
      */
@@ -35,7 +35,7 @@ class DoctrineTest extends AbstractTestCase
     {
         $dbParams = [
             'driver'   => 'pdo_sqlite',
-            'dbname'   => 'memory'
+            'dbname'   => ':memory:',
         ];
         $entitiesPath = [__DIR__.'/entities'];
 
