@@ -17,14 +17,15 @@ use League\FactoryMuffin\Faker\Facade as Faker;
 use League\FactoryMuffin\RepositoryStore;
 
 /**
- * This is eloquent test class.
+ * This is doctrine test class.
  *
- * @author Graham Campbell <graham@alt-three.com>
+ * @author Michael Bodnarchuk <davert@codeception.com>
  */
 class DoctrineTest extends AbstractTestCase
 {
     const USER_ENTITY = 'League\FactoryMuffin\Test\User';
     const CAT_ENTITY = 'League\FactoryMuffin\Test\Cat';
+    
     /**
      * @var EntityManager
      */

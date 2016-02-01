@@ -110,13 +110,16 @@ class RepositoryStore extends ModelStore
     }
 
     /**
-     * {@inheritdoc}
+     * Delete all the saved models.
      *
-     * @throws DeletingFailedException
+     * @throws \League\FactoryMuffin\Exceptions\DeletingFailedException
+     *
+     * @return void
      */
     public function deleteSaved()
     {
         parent::deleteSaved();
+
         try {
             $this->storage->flush();
         } catch (\Exception $e) {
