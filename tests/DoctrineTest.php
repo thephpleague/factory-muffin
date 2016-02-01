@@ -33,9 +33,8 @@ class DoctrineTest extends AbstractTestCase
     public static function setupBeforeClass()
     {
         $dbParams = [
-            'driver'   => 'pdo_mysql',
-            'dbname'   => 'doctrine_test',
-            'user'     => 'root',
+            'driver'   => 'pdo_sqlite',
+            'dbname'   => 'memory'
         ];
         $entitiesPath = [__DIR__.'/entities'];
 
