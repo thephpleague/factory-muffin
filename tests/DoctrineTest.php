@@ -141,7 +141,10 @@ class DoctrineTest extends AbstractTestCase
     {
         $cat = self::$fm->create(self::CAT_ENTITY);
         $user = $cat->getUser();
-        
+        $this->assertInstanceOf(self::USER_ENTITY, $user);
+        static::tearDownAfterClass();
+        $users = static::$em->getRepository(self::USER_ENTITY)->findAll();
+        $this->assertCount(0, $users);
     }
 }
 
