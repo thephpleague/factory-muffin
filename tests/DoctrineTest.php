@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
 use League\FactoryMuffin\FactoryMuffin;
 use League\FactoryMuffin\Faker\Facade as Faker;
 use League\FactoryMuffin\RepositoryStore;
@@ -23,7 +23,6 @@ use League\FactoryMuffin\RepositoryStore;
  */
 class DoctrineTest extends AbstractTestCase
 {
-
     const USER_ENTITY = 'League\FactoryMuffin\Test\User';
     const CAT_ENTITY = 'League\FactoryMuffin\Test\Cat';
     /**
@@ -33,12 +32,12 @@ class DoctrineTest extends AbstractTestCase
 
     public static function setupBeforeClass()
     {
-        $dbParams = array(
+        $dbParams = [
             'driver'   => 'pdo_mysql',
             'dbname'   => 'doctrine_test',
-            'user' => 'root'
-        );
-        $entitiesPath = [__DIR__ . '/entities'];
+            'user'     => 'root',
+        ];
+        $entitiesPath = [__DIR__.'/entities'];
 
         $config = Setup::createAnnotationMetadataConfiguration($entitiesPath, true);
 
@@ -47,24 +46,23 @@ class DoctrineTest extends AbstractTestCase
         $schemaTool = new SchemaTool(static::$em);
         $classes = [
             static::$em->getClassMetadata(self::USER_ENTITY),
-            static::$em->getClassMetadata(self::CAT_ENTITY)
+            static::$em->getClassMetadata(self::CAT_ENTITY),
         ];
         $schemaTool->dropSchema($classes);
         $schemaTool->createSchema($classes);
-
 
         static::$fm->define(self::USER_ENTITY)->setDefinitions([
             'name'   => Faker::firstNameMale(),
             'email'  => Faker::email(),
         ]);
 
-        static::$fm->getDefinition(self::USER_ENTITY)->setCallback(function($model) {
+        static::$fm->getDefinition(self::USER_ENTITY)->setCallback(function ($model) {
             static::$em->refresh($model);
         });
 
         static::$fm->define(self::CAT_ENTITY)->setDefinitions([
             'name'    => Faker::firstNameFemale(),
-            'user' => 'entity|'.self::USER_ENTITY,
+            'user'    => 'entity|'.self::USER_ENTITY,
         ]);
 
         Faker::setLocale('en_GB');
@@ -78,7 +76,6 @@ class DoctrineTest extends AbstractTestCase
         static::$fm->deleteSaved();
         static::$fm = new FactoryMuffin();
     }
-
 
     public function testNumberOfCats()
     {
@@ -147,4 +144,3 @@ class DoctrineTest extends AbstractTestCase
         $this->assertCount(0, $users);
     }
 }
-

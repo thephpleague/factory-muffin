@@ -1,4 +1,5 @@
 <?php
+
 namespace League\FactoryMuffin\Test;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -33,6 +34,7 @@ class User
     {
         $this->cats = new ArrayCollection();
     }
+
     /**
      * @return mixed
      */

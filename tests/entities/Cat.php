@@ -1,4 +1,5 @@
 <?php
+
 namespace League\FactoryMuffin\Test;
 
 /**
@@ -60,5 +61,4 @@ class Cat
     {
         $this->user = $user;
     }
-
 }

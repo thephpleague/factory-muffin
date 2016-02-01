@@ -25,14 +25,14 @@ use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
 class RepositoryStore extends ModelStore
 {
     /**
-     * Methods to flush changes to storage
+     * Methods to flush changes to storage.
      *
      * @var string
      */
-    protected $flushMethod  = 'flush';
+    protected $flushMethod = 'flush';
 
     /**
-     * Instance of a class that performs flushes (EntityManager for Doctrine)
+     * Instance of a class that performs flushes (EntityManager for Doctrine).
      *
      * @var
      */
@@ -52,6 +52,7 @@ class RepositoryStore extends ModelStore
      *
      * @throws \League\FactoryMuffin\Exceptions\SaveMethodNotFoundException
      * @throws \League\FactoryMuffin\Exceptions\MethodNotFoundException
+     *
      * @return mixed
      */
     protected function save($model)
@@ -63,14 +64,16 @@ class RepositoryStore extends ModelStore
         }
         $this->storage->$method($model);
         $this->flush();
+
         return true;
     }
 
     /**
-     * Flushes changes to storage
+     * Flushes changes to storage.
+     *
+     * @throws MethodNotFoundException
      *
      * @return mixed
-     * @throws MethodNotFoundException
      */
     protected function flush()
     {
@@ -80,6 +83,7 @@ class RepositoryStore extends ModelStore
             throw new MethodNotFoundException(get_class($this->storage), $method, "Can't save: flush method not found");
         }
         $this->storage->$method();
+
         return true;
     }
 
@@ -101,6 +105,7 @@ class RepositoryStore extends ModelStore
         }
 
         $this->storage->$method($model);
+
         return true;
     }
 

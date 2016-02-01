@@ -27,7 +27,7 @@ use League\FactoryMuffin\FactoryMuffin;
 class EntityGenerator implements GeneratorInterface
 {
     /**
-     * Definition prefix to match this generator
+     * Definition prefix to match this generator.
      */
     const PREFIX = 'entity|';
     /**
@@ -54,10 +54,9 @@ class EntityGenerator implements GeneratorInterface
     /**
      * Create a new factory generator instance.
      *
-     * @param string $kind The kind of attribute.
-     * @param object $model The model instance.
+     * @param string                              $kind          The kind of attribute.
+     * @param object                              $model         The model instance.
      * @param \League\FactoryMuffin\FactoryMuffin $factoryMuffin The factory muffin instance.
-     *
      */
     public function __construct($kind, $model, FactoryMuffin $factoryMuffin)
     {
@@ -98,5 +97,4 @@ class EntityGenerator implements GeneratorInterface
 
         return $this->factoryMuffin->instance($name);
     }
-
 }

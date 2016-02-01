@@ -51,6 +51,7 @@ class FactoryGenerator extends EntityGenerator
     public function generate()
     {
         $model = parent::generate();
+
         return $this->getId($model);
     }
 
@@ -77,5 +78,4 @@ class FactoryGenerator extends EntityGenerator
             }
         }
     }
-
 }
