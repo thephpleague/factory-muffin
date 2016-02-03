@@ -53,7 +53,7 @@ class RepositoryStore extends ModelStore
      * @throws \League\FactoryMuffin\Exceptions\SaveMethodNotFoundException
      * @throws \League\FactoryMuffin\Exceptions\MethodNotFoundException
      *
-     * @return mixed
+     * @return boolean
      */
     protected function save($model)
     {
@@ -62,6 +62,7 @@ class RepositoryStore extends ModelStore
         if (!method_exists($this->storage, $method)) {
             throw new SaveMethodNotFoundException(get_class($this->storage), $method);
         }
+
         $this->storage->$method($model);
         $this->flush();
 
@@ -73,7 +74,7 @@ class RepositoryStore extends ModelStore
      *
      * @throws MethodNotFoundException
      *
-     * @return mixed
+     * @return boolean
      */
     protected function flush()
     {
@@ -82,6 +83,7 @@ class RepositoryStore extends ModelStore
         if (!method_exists($this->storage, $method)) {
             throw new MethodNotFoundException(get_class($this->storage), $method, "Can't save: flush method not found");
         }
+
         $this->storage->$method();
 
         return true;

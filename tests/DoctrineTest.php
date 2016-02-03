@@ -37,9 +37,7 @@ class DoctrineTest extends AbstractTestCase
             'driver'   => 'pdo_sqlite',
             'memory'   => true,
         ];
-        $entitiesPath = [__DIR__.'/entities'];
-
-        $config = Setup::createAnnotationMetadataConfiguration($entitiesPath, true);
+        $config = Setup::createAnnotationMetadataConfiguration([__DIR__.'/entities'], true);
 
         static::$em = EntityManager::create($dbParams, $config);
         static::$fm = new FactoryMuffin(new RepositoryStore(static::$em));
