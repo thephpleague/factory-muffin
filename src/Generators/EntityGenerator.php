@@ -54,8 +54,8 @@ class EntityGenerator implements GeneratorInterface
     /**
      * Create a new factory generator instance.
      *
-     * @param string $kind The kind of attribute.
-     * @param object $model The model instance.
+     * @param string                              $kind          The kind of attribute.
+     * @param object                              $model         The model instance.
      * @param \League\FactoryMuffin\FactoryMuffin $factoryMuffin The factory muffin instance.
      *
      * @return void

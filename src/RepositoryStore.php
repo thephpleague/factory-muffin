@@ -53,7 +53,7 @@ class RepositoryStore extends ModelStore
      * @throws \League\FactoryMuffin\Exceptions\SaveMethodNotFoundException
      * @throws \League\FactoryMuffin\Exceptions\MethodNotFoundException
      *
-     * @return boolean
+     * @return bool
      */
     protected function save($model)
     {
@@ -74,7 +74,7 @@ class RepositoryStore extends ModelStore
      *
      * @throws MethodNotFoundException
      *
-     * @return boolean
+     * @return bool
      */
     protected function flush()
     {
