@@ -24,12 +24,8 @@ use League\FactoryMuffin\FactoryMuffin;
  * @author Scott Robertson <scottymeuk@gmail.com>
  * @author Michael Bodnarchuk <davert@codeception.com>
  */
-class EntityGenerator implements GeneratorInterface
+class EntityGenerator implements GeneratorInterface, PrefixInterface
 {
-    /**
-     * Definition prefix to match this generator.
-     */
-    const PREFIX = 'entity|';
     /**
      * The kind of attribute that will be generated.
      *
@@ -76,7 +72,7 @@ class EntityGenerator implements GeneratorInterface
      */
     public function generate()
     {
-        $name = substr($this->kind, strlen(static::PREFIX));
+        $name = substr($this->kind, strlen(static::getPrefix()));
 
         return $this->factory($name);
     }
@@ -98,5 +94,15 @@ class EntityGenerator implements GeneratorInterface
         }
 
         return $this->factoryMuffin->instance($name);
+    }
+
+    /**
+     * Return the prefix for current generator
+     *
+     * @return string
+     */
+    public static function getPrefix()
+    {
+        return 'entity|';
     }
 }

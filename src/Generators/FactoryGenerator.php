@@ -25,8 +25,6 @@ namespace League\FactoryMuffin\Generators;
  */
 class FactoryGenerator extends EntityGenerator
 {
-    const PREFIX = 'factory|';
-
     /**
      * Generate, and return the attribute.
      *
@@ -77,5 +75,15 @@ class FactoryGenerator extends EntityGenerator
                 return $model->$property;
             }
         }
+    }
+
+    /**
+     * Return the prefix for current generator
+     *
+     * @return string
+     */
+    public static function getPrefix()
+    {
+        return 'factory|';
     }
 }
