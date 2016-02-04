@@ -78,7 +78,7 @@ class FactoryGenerator extends EntityGenerator
     }
 
     /**
-     * Return the prefix for current generator
+     * Return the prefix for current generator.
      *
      * @return string
      */

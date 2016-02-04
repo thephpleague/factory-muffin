@@ -97,7 +97,7 @@ class EntityGenerator implements GeneratorInterface, PrefixInterface
     }
 
     /**
-     * Return the prefix for current generator
+     * Return the prefix for current generator.
      *
      * @return string
      */
