@@ -34,7 +34,7 @@ class RepositoryStore extends ModelStore
     /**
      * Instance of a class that performs flushes (EntityManager for Doctrine).
      *
-     * @var
+     * @var object
      */
     protected $storage;
 
@@ -72,7 +72,7 @@ class RepositoryStore extends ModelStore
     /**
      * Flushes changes to storage.
      *
-     * @throws MethodNotFoundException
+     * @throws \League\FactoryMuffin\Exceptions\MethodNotFoundException
      *
      * @return bool
      */
@@ -96,7 +96,7 @@ class RepositoryStore extends ModelStore
      *
      * @throws \League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException
      *
-     * @return mixed
+     * @return bool
      */
     protected function delete($model)
     {
