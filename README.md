@@ -155,7 +155,18 @@ $fm->define('Bar')->addDefinition('baz', Faker::date('Y-m-d'));
 
 ### Creating And Seeding
 
-The `create` function will create and save your model, and will also save anything you generate with the `Factory` generator too. If you want to create multiple instances, check out the seed `seed` function, which accepts an additional argument at the start which is the number of models to generate in the process. The `seed` function will effectively be calling the `create` function over and over. Also, a reminder that the `instance` function is still available if you don't want database persistence.
+The `create` function will create and save your model, and will also save anything you generate with the `Factory` generator too. If you want to create multiple instances, check out the seed `seed` function, which accepts an additional argument at the start which is the number of models to generate in the process. The `seed` function will effectively be calling the `create` function over and over.
+
+For example, let's create a user model and associate multiple location and email models to each one. Each email will also have multiple token models.
+```php
+$user = $fm->create('User');
+$profiles = $fm->seed(5, 'Location', ['user_id' => $user->id]);
+$emails = $fm->seed(100, 'Email', ['user_id' => $user->id]);
+
+foreach ($emails as $email) {
+    $tokens = $fm->seed(50, 'Token', ['email_id' => $email->id]);
+}
+```
 
 You may encounter the following exceptions:
 * `League\FactoryMuffin\Exceptions\ModelNotFoundException` will be thrown if the model class defined is not found.
@@ -170,6 +181,8 @@ There are 5 other helper functions available:
 * You may call `saved` to return an array of all the saved objects.
 * You may call `isSaved` with an instance of a model to check if it's saved.
 * You may call `isPendingOrSaved` with an instance of a model to check if it will be saved, or is already saved.
+
+Also, a reminder that the `instance` function is still available if you don't want database persistence.
 
 ### Deleting
 
