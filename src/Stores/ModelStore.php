@@ -25,20 +25,6 @@ use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
 class ModelStore extends AbstractStore implements StoreInterface
 {
     /**
-     * The array of models we have created and are pending save.
-     *
-     * @var array
-     */
-    private $pending = [];
-
-    /**
-     * The array of models we have created and have saved.
-     *
-     * @var array
-     */
-    private $saved = [];
-
-    /**
      * Create a new model store instance.
      *
      * @param string|null $saveMethod
