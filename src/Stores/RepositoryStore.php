@@ -70,7 +70,7 @@ class RepositoryStore extends AbstractStore implements StoreInterface
     {
         $method = $this->methods['save'];
 
-        if (!is_callable([$this->storage, $method])) {
+        if (!method_exists($this->storage, $method) || !is_callable([$this->storage, $method])) {
             throw new SaveMethodNotFoundException(get_class($this->storage), $method);
         }
 
@@ -91,7 +91,7 @@ class RepositoryStore extends AbstractStore implements StoreInterface
     {
         $method = $this->methods['flush'];
 
-        if (!is_callable([$this->storage, $method])) {
+        if (!method_exists($this->storage, $method) || !is_callable([$this->storage, $method])) {
             throw new FlushMethodNotFoundException(get_class($this->storage), $method);
         }
 
@@ -113,7 +113,7 @@ class RepositoryStore extends AbstractStore implements StoreInterface
     {
         $method = $this->methods['delete'];
 
-        if (!is_callable([$this->storage, $method])) {
+        if (!method_exists($this->storage, $method) || !is_callable([$this->storage, $method])) {
             throw new DeleteMethodNotFoundException(get_class($this->storage), $method);
         }
 

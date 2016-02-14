@@ -64,7 +64,7 @@ class FactoryGenerator extends EntityGenerator
     {
         // Check to see if we can get an id via our defined methods
         foreach (self::$methods as $method) {
-            if (is_callable([$model, $method])) {
+            if (method_exists($model, $method) && is_callable([$model, $method])) {
                 return $model->$method();
             }
         }
