@@ -13,30 +13,25 @@ The goal of this package is to enable the rapid creation of objects for the purp
 It's basically a "[factory\_girl](https://github.com/thoughtbot/factory_girl)", simplified for use with PHP.
 
 
-## Looking For Version 2.1?
-
-Version 2.1 is the current stable release, and is fully documented. It is available on the [2.1 branch](https://github.com/thephpleague/factory-muffin/tree/2.1). Version 3.0 is the current beta release, and is only partially documented.
-
-
 ## Installing
 
 [PHP](https://php.net) 5.4+ and [Composer](https://getcomposer.org) are required.
 
-In your composer.json, simply add `"league/factory-muffin": "~3.0"` to your `"require-dev"` section:
+In your composer.json, simply add `"league/factory-muffin": "^3.0"` to your `"require-dev"` section:
 ```json
 {
     "require-dev": {
-        "league/factory-muffin": "~3.0"
+        "league/factory-muffin": "^3.0"
     }
 }
 ```
 
-[Faker](https://github.com/fzaninotto/Faker) support is provided by [Factory Muffin Faker](https://github.com/thephpleague/factory-muffin-faker). If you want to enable faker support, then you need to add `"league/factory-muffin-faker": "~1.0"` too:
+[Faker](https://github.com/fzaninotto/Faker) support is provided by [Factory Muffin Faker](https://github.com/thephpleague/factory-muffin-faker). If you want to enable faker support, then you need to add `"league/factory-muffin-faker": "^1.0"` too:
 ```json
 {
     "require-dev": {
-        "league/factory-muffin": "~3.0",
-        "league/factory-muffin-faker": "~1.0"
+        "league/factory-muffin": "^3.0",
+        "league/factory-muffin-faker": "^1.0"
     }
 }
 ```
@@ -185,15 +180,6 @@ If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\Dele
 * Any other exception thrown by your model while trying to delete it.
 
 It's recommended that you call the `deleteSaved` function from PHPUnit's `tearDownAfterClass` function, however, if you are writing tests using Laravel's `TestCase`, you should call the `deleteSaved` function from the `tearDown` method before calling `parent::tearDown`. This method flushes the application instance's bindings and Factory Muffin would not unable to execute its deletes. Further more, this unbinds the assigned exception handler and you will not be able to troubleshoot your tests due to binding resolution exceptions obfuscating the true exceptions.
-
-
-### Exceptions
-
-Each exception is documented with the documentation for the functions that throw them.
-
-You can see a diagram showing the exception hierarchy here:
-
-![diagram](https://cloud.githubusercontent.com/assets/2829600/5558262/8ef3dec8-8d17-11e4-8fb1-4b272fb76abe.png)
 
 ### Real Examples
 
