@@ -68,7 +68,7 @@ class RepositoryStore extends AbstractStore implements StoreInterface
      */
     protected function save($model)
     {
-        $method = $this->smethods['save'];
+        $method = $this->methods['save'];
 
         if (!method_exists($this->storage, $method)) {
             throw new SaveMethodNotFoundException(get_class($this->storage), $method);

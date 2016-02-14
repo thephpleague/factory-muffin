@@ -39,20 +39,6 @@ class ModelStore extends AbstractStore implements StoreInterface
     private $saved = [];
 
     /**
-     * This is the method used when saving models.
-     *
-     * @var string
-     */
-    protected $saveMethod = 'save';
-
-    /**
-     * This is the method used when deleting models.
-     *
-     * @var string
-     */
-    protected $deleteMethod = 'delete';
-
-    /**
      * Create a new model store instance.
      *
      * @param string|null $saveMethod
@@ -63,8 +49,8 @@ class ModelStore extends AbstractStore implements StoreInterface
     public function __construct($saveMethod = null, $deleteMethod = null)
     {
         $this->methods = [
-            'save'   => $saveMethod ?: 'persist',
-            'delete' => $deleteMethod ?: 'remove',
+            'save'   => $saveMethod ?: 'save',
+            'delete' => $deleteMethod ?: 'delete',
         ];
     }
 
