@@ -105,7 +105,7 @@ class EloquentTest extends AbstractTestCase
     public function testSavedObjects()
     {
         $reflection = new ReflectionClass(static::$fm);
-        $store = $reflection->getProperty('modelStore');
+        $store = $reflection->getProperty('store');
         $store->setAccessible(true);
         $value = $store->getValue(static::$fm);
 

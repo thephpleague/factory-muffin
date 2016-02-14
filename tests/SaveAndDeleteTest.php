@@ -28,7 +28,7 @@ class SaveAndDeleteTest extends AbstractTestCase
     {
         $obj = static::$fm->create('ModelThatWillSaveStub');
         $reflection = new ReflectionClass(static::$fm);
-        $store = $reflection->getProperty('modelStore');
+        $store = $reflection->getProperty('store');
         $store->setAccessible(true);
         $value = $store->getValue(static::$fm);
 
@@ -45,7 +45,7 @@ class SaveAndDeleteTest extends AbstractTestCase
     {
         $obj = static::$fm->instance('ModelThatWillSaveStub');
         $reflection = new ReflectionClass(static::$fm);
-        $store = $reflection->getProperty('modelStore');
+        $store = $reflection->getProperty('store');
         $store->setAccessible(true);
         $value = $store->getValue(static::$fm);
 

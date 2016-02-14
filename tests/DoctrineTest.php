@@ -20,6 +20,7 @@ use League\FactoryMuffin\Stores\RepositoryStore;
  * This is doctrine test class.
  *
  * @author Michael Bodnarchuk <davert@codeception.com>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class DoctrineTest extends AbstractTestCase
 {
@@ -120,7 +121,7 @@ class DoctrineTest extends AbstractTestCase
     public function testSavedObjects()
     {
         $reflection = new ReflectionClass(static::$fm);
-        $store = $reflection->getProperty('modelStore');
+        $store = $reflection->getProperty('store');
         $store->setAccessible(true);
         $value = $store->getValue(static::$fm);
 
