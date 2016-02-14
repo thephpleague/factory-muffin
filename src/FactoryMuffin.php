@@ -337,7 +337,7 @@ class FactoryMuffin
     {
         $directory = new RecursiveDirectoryIterator($path);
         $iterator = new RecursiveIteratorIterator($directory);
-        $files = new RegexIterator($iterator, '/^.+\.php$/i');
+        $files = new RegexIterator($iterator, '/^[^\.](?:(?!\/\.).)+?\.php$/i');
 
         $fm = $this;
 
