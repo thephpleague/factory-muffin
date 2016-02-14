@@ -53,7 +53,7 @@ class ModelStore extends AbstractStore implements StoreInterface
     {
         $method = $this->methods['save'];
 
-        if (!method_exists($model, $method)) {
+        if (!is_callable([$model, $method])) {
             throw new SaveMethodNotFoundException(get_class($model), $method);
         }
 
@@ -73,7 +73,7 @@ class ModelStore extends AbstractStore implements StoreInterface
     {
         $method = $this->methods['delete'];
 
-        if (!method_exists($model, $method)) {
+        if (!is_callable([$model, $method])) {
             throw new DeleteMethodNotFoundException(get_class($model), $method);
         }
 
