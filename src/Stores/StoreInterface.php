@@ -17,9 +17,8 @@ namespace League\FactoryMuffin\Stores;
  *
  * @author Graham Campbell <graham@alt-three.com>
  * @author Scott Robertson <scottymeuk@gmail.com>
- * @author Anderson Ribeiro e Silva <dimrsilva@gmail.com>
  */
-class StoreInterface
+interface StoreInterface
 {
     /**
      * Save the model to the database.
