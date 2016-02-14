@@ -17,6 +17,8 @@ use League\FactoryMuffin\Exceptions\DefinitionNotFoundException;
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
 use League\FactoryMuffin\Exceptions\ModelNotFoundException;
 use League\FactoryMuffin\Generators\GeneratorFactory;
+use League\FactoryMuffin\Stores\ModelStore;
+use League\FactoryMuffin\Stores\StoreInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RegexIterator;
@@ -39,31 +41,31 @@ class FactoryMuffin
     private $definitions = [];
 
     /**
-     * The model store instance.
+     * The store instance.
      *
-     * @var \League\FactoryMuffin\ModelStore
+     * @var \League\FactoryMuffin\Stores\StoreInterface
      */
-    protected $modelStore;
+    protected $store;
 
     /**
      * The generator factory instance.
      *
      * @var \League\FactoryMuffin\Generators\GeneratorFactory
      */
-    protected $generatorFactory;
+    protected $factory;
 
     /**
      * Create a new factory muffin instance.
      *
-     * @param \League\FactoryMuffin\ModelStore|null                  $modelStore       The model store instance.
-     * @param \League\FactoryMuffin\Generators\GeneratorFactory|null $generatorFactory The generator factory instance.
+     * @param \League\FactoryMuffin\Stores\StoreInterface|null       $store   The store instance.
+     * @param \League\FactoryMuffin\Generators\GeneratorFactory|null $factory The generator factory instance.
      *
      * @return void
      */
-    public function __construct(ModelStore $modelStore = null, GeneratorFactory $generatorFactory = null)
+    public function __construct(StoreInterface $store = null, GeneratorFactory $factory = null)
     {
-        $this->modelStore = $modelStore ?: new ModelStore();
-        $this->generatorFactory = $generatorFactory ?: new GeneratorFactory();
+        $this->store = $store ?: new ModelStore();
+        $this->factory = $factory ?: new GeneratorFactory();
     }
 
     /**
@@ -75,7 +77,7 @@ class FactoryMuffin
      */
     public function setSaveMethod($method)
     {
-        $this->modelStore->setSaveMethod($method);
+        $this->store->setSaveMethod($method);
 
         return $this;
     }
@@ -89,7 +91,7 @@ class FactoryMuffin
      */
     public function setDeleteMethod($method)
     {
-        $this->modelStore->setDeleteMethod($method);
+        $this->store->setDeleteMethod($method);
 
         return $this;
     }
@@ -128,10 +130,10 @@ class FactoryMuffin
     {
         $model = $this->make($name, $attr, true);
 
-        $this->modelStore->persist($model);
+        $this->store->persist($model);
 
         if ($this->triggerCallback($model, $name)) {
-            $this->modelStore->persist($model);
+            $this->store->persist($model);
         }
 
         return $model;
@@ -174,7 +176,7 @@ class FactoryMuffin
 
         // Make the object as saved so that other generators persist correctly
         if ($save) {
-            $this->modelStore->markPending($model);
+            $this->store->markPending($model);
         }
 
         // Get the attribute definitions
@@ -218,7 +220,7 @@ class FactoryMuffin
      */
     public function isPendingOrSaved($model)
     {
-        return $this->modelStore->isSaved($model) || $this->modelStore->isPending($model);
+        return $this->store->isSaved($model) || $this->store->isPending($model);
     }
 
     /**
@@ -228,7 +230,7 @@ class FactoryMuffin
      */
     public function deleteSaved()
     {
-        $this->modelStore->deleteSaved();
+        $this->store->deleteSaved();
 
         return $this;
     }
@@ -263,7 +265,7 @@ class FactoryMuffin
     protected function generate($model, array $attr = [])
     {
         foreach ($attr as $key => $kind) {
-            $value = $this->generatorFactory->generate($kind, $model, $this);
+            $value = $this->factory->generate($kind, $model, $this);
 
             $setter = 'set'.ucfirst(static::camelize($key));
 

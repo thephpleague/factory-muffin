@@ -10,39 +10,51 @@
  * file that was distributed with this source code.
  */
 
-namespace League\FactoryMuffin;
+namespace League\FactoryMuffin\Stores;
 
+use Exception;
 use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
 use League\FactoryMuffin\Exceptions\DeletingFailedException;
+use League\FactoryMuffin\Exceptions\FlushMethodNotFoundException;
 use League\FactoryMuffin\Exceptions\MethodNotFoundException;
 use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
 
 /**
- * This is the model store class.
+ * This is the repository store class.
  *
+ * @author Graham Campbell <graham@alt-three.com>
  * @author Michael Bodnarchuk <davert@codeception.com>
  */
-class RepositoryStore extends ModelStore
+class RepositoryStore extends AbstractStore implements StoreInterface
 {
     /**
-     * Methods to flush changes to storage.
+     * The underlying storage instance.
      *
-     * @var string
-     */
-    protected $flushMethod = 'flush';
-
-    /**
-     * Instance of a class that performs flushes (EntityManager for Doctrine).
+     * For Doctrine, this will be an EntityManager instance.
      *
      * @var object
      */
     protected $storage;
 
-    public function __construct($storage)
+    /**
+     * Create a new repository store instance.
+     *
+     * @param object $storage
+     * @param string|null $saveMethod
+     * @param string|null $deleteMethod
+     * @param string|null $deleteMethod
+     *
+     * @return void
+     */
+    public function __construct($storage, $saveMethod = null, $deleteMethod = null, $flushMethod = null)
     {
         $this->storage = $storage;
-        $this->saveMethod = 'persist';
-        $this->deleteMethod = 'remove';
+
+        $this->methods = [
+            'save'   => $saveMethod ?: 'persist',
+            'delete' => $deleteMethod ?: 'remove',
+            'flush'  => $flushMethod ?: 'flush',
+        ];
     }
 
     /**
@@ -50,14 +62,14 @@ class RepositoryStore extends ModelStore
      *
      * @param object $model The model instance.
      *
+     * @throws \League\FactoryMuffin\Exceptions\FlushMethodNotFoundException
      * @throws \League\FactoryMuffin\Exceptions\SaveMethodNotFoundException
-     * @throws \League\FactoryMuffin\Exceptions\MethodNotFoundException
      *
      * @return bool
      */
     protected function save($model)
     {
-        $method = $this->saveMethod;
+        $method = $this->smethods['save'];
 
         if (!method_exists($this->storage, $method)) {
             throw new SaveMethodNotFoundException(get_class($this->storage), $method);
@@ -72,16 +84,16 @@ class RepositoryStore extends ModelStore
     /**
      * Flushes changes to storage.
      *
-     * @throws \League\FactoryMuffin\Exceptions\MethodNotFoundException
+     * @throws \League\FactoryMuffin\Exceptions\FlushMethodNotFoundException
      *
      * @return bool
      */
     protected function flush()
     {
-        $method = $this->flushMethod;
+        $method = $this->methods['flush'];
 
         if (!method_exists($this->storage, $method)) {
-            throw new MethodNotFoundException(get_class($this->storage), $method, "Can't save: flush method not found");
+            throw new FLushMethodNotFoundException(get_class($this->storage), $method);
         }
 
         $this->storage->$method();
@@ -100,7 +112,7 @@ class RepositoryStore extends ModelStore
      */
     protected function delete($model)
     {
-        $method = $this->deleteMethod;
+        $method = $this->methods['delete'];
 
         if (!method_exists($this->storage, $method)) {
             throw new DeleteMethodNotFoundException(get_class($this->storage), $method);
@@ -123,8 +135,8 @@ class RepositoryStore extends ModelStore
         parent::deleteSaved();
 
         try {
-            $this->storage->flush();
-        } catch (\Exception $e) {
+            $this->flush();
+        } catch (Exception $e) {
             throw new DeletingFailedException([$e]);
         }
     }

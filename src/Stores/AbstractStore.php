@@ -10,14 +10,12 @@
  * file that was distributed with this source code.
  */
 
-namespace League\FactoryMuffin;
+namespace League\FactoryMuffin\Stores;
 
 use Exception;
 use League\FactoryMuffin\Exceptions\DeleteFailedException;
-use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
 use League\FactoryMuffin\Exceptions\DeletingFailedException;
 use League\FactoryMuffin\Exceptions\SaveFailedException;
-use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
 
 /**
  * This is the model store class.
@@ -26,7 +24,7 @@ use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
  * @author Scott Robertson <scottymeuk@gmail.com>
  * @author Anderson Ribeiro e Silva <dimrsilva@gmail.com>
  */
-class ModelStore
+abstract class AbstractStore
 {
     /**
      * The array of models we have created and are pending save.
@@ -41,44 +39,6 @@ class ModelStore
      * @var array
      */
     private $saved = [];
-
-    /**
-     * This is the method used when saving models.
-     *
-     * @var string
-     */
-    protected $saveMethod = 'save';
-
-    /**
-     * This is the method used when deleting models.
-     *
-     * @var string
-     */
-    protected $deleteMethod = 'delete';
-
-    /**
-     * Set the method we use when saving models.
-     *
-     * @param string $method The save method name.
-     *
-     * @return void
-     */
-    public function setSaveMethod($method)
-    {
-        $this->saveMethod = $method;
-    }
-
-    /**
-     * Set the method we use when deleting models.
-     *
-     * @param string $method The delete method name.
-     *
-     * @return void
-     */
-    public function setDeleteMethod($method)
-    {
-        $this->deleteMethod = $method;
-    }
 
     /**
      * Save the model to the database.
@@ -113,16 +73,7 @@ class ModelStore
      *
      * @return mixed
      */
-    protected function save($model)
-    {
-        $method = $this->saveMethod;
-
-        if (!method_exists($model, $method)) {
-            throw new SaveMethodNotFoundException(get_class($model), $method);
-        }
-
-        return $model->$method();
-    }
+    abstract protected function save($model);
 
     /**
      * Return an array of models waiting to be saved.
@@ -236,14 +187,5 @@ class ModelStore
      *
      * @return mixed
      */
-    protected function delete($model)
-    {
-        $method = $this->deleteMethod;
-
-        if (!method_exists($model, $method)) {
-            throw new DeleteMethodNotFoundException(get_class($model), $method);
-        }
-
-        return $model->$method();
-    }
+    abstract protected function delete($model);
 }
