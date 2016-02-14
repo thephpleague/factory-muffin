@@ -9,7 +9,7 @@ Welcome to the upgrade guide for Factory Muffin. We've tried to cover all change
 
 ### Introduction
 
-Factory Muffin 3.0 has many changes and improvements. More documentation will come as we be closer to the 3.0 release date.
+Factory Muffin 3.0 has many changes and improvements. Unfortunately, we were not able to provide complete documentation here, but would accept pull requests to improve our upgrading docs.
 
 ### Faker Support Changed
 
@@ -22,10 +22,6 @@ We are now deleting saved models in the reverse order they were saved to ensure 
 ### Exceptions
 
 The exceptions have been cleaned up, and reviewed since 2.0.
-
-You can see a diagram showing the exception hierarchy here:
-
-![diagram](https://cloud.githubusercontent.com/assets/2829600/5558262/8ef3dec8-8d17-11e4-8fb1-4b272fb76abe.png)
 
 ### Installing This Version
 
