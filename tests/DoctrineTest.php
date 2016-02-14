@@ -14,7 +14,7 @@ use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
 use League\FactoryMuffin\FactoryMuffin;
 use League\FactoryMuffin\Faker\Facade as Faker;
-use League\FactoryMuffin\RepositoryStore;
+use League\FactoryMuffin\Stores\RepositoryStore;
 
 /**
  * This is doctrine test class.
@@ -26,9 +26,6 @@ class DoctrineTest extends AbstractTestCase
     const USER_ENTITY = 'League\FactoryMuffin\Test\User';
     const CAT_ENTITY = 'League\FactoryMuffin\Test\Cat';
 
-    /**
-     * @var EntityManager
-     */
     protected static $em;
 
     public static function setupBeforeClass()
