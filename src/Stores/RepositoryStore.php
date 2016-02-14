@@ -16,7 +16,6 @@ use Exception;
 use League\FactoryMuffin\Exceptions\DeleteMethodNotFoundException;
 use League\FactoryMuffin\Exceptions\DeletingFailedException;
 use League\FactoryMuffin\Exceptions\FlushMethodNotFoundException;
-use League\FactoryMuffin\Exceptions\MethodNotFoundException;
 use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
 
 /**
@@ -39,7 +38,7 @@ class RepositoryStore extends AbstractStore implements StoreInterface
     /**
      * Create a new repository store instance.
      *
-     * @param object $storage
+     * @param object      $storage
      * @param string|null $saveMethod
      * @param string|null $deleteMethod
      * @param string|null $deleteMethod
