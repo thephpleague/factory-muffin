@@ -92,7 +92,7 @@ class RepositoryStore extends AbstractStore implements StoreInterface
         $method = $this->methods['flush'];
 
         if (!method_exists($this->storage, $method)) {
-            throw new FLushMethodNotFoundException(get_class($this->storage), $method);
+            throw new FlushMethodNotFoundException(get_class($this->storage), $method);
         }
 
         $this->storage->$method();
