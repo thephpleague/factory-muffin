@@ -19,6 +19,7 @@ use League\FactoryMuffin\FactoryMuffin;
  *
  * @author Graham Campbell <graham@alt-three.com>
  * @author Scott Robertson <scottymeuk@gmail.com>
+ * @author Michael Bodnarchuk <davert@codeception.com>
  */
 class GeneratorFactory
 {

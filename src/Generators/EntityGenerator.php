@@ -68,7 +68,7 @@ class EntityGenerator implements GeneratorInterface, PrefixInterface
      *
      * The value returned is the id of the generated model, if applicable.
      *
-     * @return int|null
+     * @return object
      */
     public function generate()
     {
@@ -97,7 +97,7 @@ class EntityGenerator implements GeneratorInterface, PrefixInterface
     }
 
     /**
-     * Return the prefix for current generator.
+     * Get the generator prefix.
      *
      * @return string
      */
