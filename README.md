@@ -1,6 +1,7 @@
 Factory Muffin 3.0
 ==================
 
+[![StyleCI Status](https://styleci.io/repos/7930464/shield)](https://styleci.io/repos/7930464)
 [![Build Status](https://img.shields.io/travis/thephpleague/factory-muffin.svg?style=flat-square)](https://travis-ci.org/thephpleague/factory-muffin)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/thephpleague/factory-muffin.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/factory-muffin/code-structure)
 [![Quality Score](https://img.shields.io/scrutinizer/g/thephpleague/factory-muffin.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/factory-muffin)
