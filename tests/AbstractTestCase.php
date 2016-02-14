@@ -21,6 +21,9 @@ use League\FactoryMuffin\Faker\Facade as Faker;
  */
 abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var FactoryMuffin
+     */
     protected static $fm;
 
     public static function setupBeforeClass()

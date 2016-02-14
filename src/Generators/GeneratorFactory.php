@@ -57,7 +57,11 @@ class GeneratorFactory
             return new CallableGenerator($kind, $model, $factoryMuffin);
         }
 
-        if (is_string($kind) && strpos($kind, 'factory|') !== false) {
+        if (is_string($kind) && strpos($kind, EntityGenerator::getPrefix()) === 0) {
+            return new EntityGenerator($kind, $model, $factoryMuffin);
+        }
+
+        if (is_string($kind) && strpos($kind, FactoryGenerator::getPrefix()) === 0) {
             return new FactoryGenerator($kind, $model, $factoryMuffin);
         }
     }

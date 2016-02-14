@@ -12,8 +12,6 @@
 
 namespace League\FactoryMuffin\Generators;
 
-use League\FactoryMuffin\FactoryMuffin;
-
 /**
  * This is the factory generator class.
  *
@@ -23,30 +21,10 @@ use League\FactoryMuffin\FactoryMuffin;
  *
  * @author Graham Campbell <graham@alt-three.com>
  * @author Scott Robertson <scottymeuk@gmail.com>
+ * @author Michael Bodnarchuk <davert@codeception.com>
  */
-class FactoryGenerator implements GeneratorInterface
+class FactoryGenerator extends EntityGenerator
 {
-    /**
-     * The kind of attribute that will be generated.
-     *
-     * @var string
-     */
-    private $kind;
-
-    /**
-     * The model instance.
-     *
-     * @var object
-     */
-    private $model;
-
-    /**
-     * The factory muffin instance.
-     *
-     * @var \League\FactoryMuffin\FactoryMuffin
-     */
-    private $factoryMuffin;
-
     /**
      * Generate, and return the attribute.
      *
@@ -62,22 +40,6 @@ class FactoryGenerator implements GeneratorInterface
     private static $properties = ['id', '_id'];
 
     /**
-     * Create a new factory generator instance.
-     *
-     * @param string                              $kind          The kind of attribute.
-     * @param object                              $model         The model instance.
-     * @param \League\FactoryMuffin\FactoryMuffin $factoryMuffin The factory muffin instance.
-     *
-     * @return void
-     */
-    public function __construct($kind, $model, FactoryMuffin $factoryMuffin)
-    {
-        $this->kind = $kind;
-        $this->model = $model;
-        $this->factoryMuffin = $factoryMuffin;
-    }
-
-    /**
      * Generate, and return the attribute.
      *
      * The value returned is the id of the generated model, if applicable.
@@ -86,30 +48,9 @@ class FactoryGenerator implements GeneratorInterface
      */
     public function generate()
     {
-        $name = substr($this->kind, 8);
-
-        $model = $this->factory($name);
+        $model = parent::generate();
 
         return $this->getId($model);
-    }
-
-    /**
-     * Create an instance of the model.
-     *
-     * This model will be automatically saved to the database if the model we
-     * are generating it for has been saved (the create function was used).
-     *
-     * @param string $name The model definition name.
-     *
-     * @return object
-     */
-    private function factory($name)
-    {
-        if ($this->factoryMuffin->isPendingOrSaved($this->model)) {
-            return $this->factoryMuffin->create($name);
-        }
-
-        return $this->factoryMuffin->instance($name);
     }
 
     /**
@@ -134,5 +75,15 @@ class FactoryGenerator implements GeneratorInterface
                 return $model->$property;
             }
         }
+    }
+
+    /**
+     * Return the prefix for current generator.
+     *
+     * @return string
+     */
+    public static function getPrefix()
+    {
+        return 'factory|';
     }
 }

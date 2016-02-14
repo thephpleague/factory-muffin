@@ -20,7 +20,8 @@
     "require-dev": {
         "illuminate/database": "5.0.*|5.1.*",
         "league/factory-muffin-faker": "^1.0@dev",
-        "phpunit/phpunit": "^4.8|^5.0"
+        "phpunit/phpunit": "^4.8|^5.0",
+        "doctrine/orm": "~2.5.0"
     },
     "replace": {
         "zizaco/factory-muff": "self.version"
@@ -37,7 +38,10 @@
     "autoload-dev": {
         "classmap": [
             "tests/AbstractTestCase.php"
-        ]
+        ],
+        "psr-4": {
+            "League\\FactoryMuffin\\Test\\": "tests/entities/"
+        }
     },
     "config": {
         "preferred-install": "dist"
