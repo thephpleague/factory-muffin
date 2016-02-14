@@ -67,3 +67,7 @@ $fm->define('ModelWithStaticMethodFactory')->setDefinitions([
 $fm->define('SetterTestModelWithSetter')->setDefinitions([
     'name' => 'Jack Sparrow',
 ]);
+
+$fm->define('SetterTestModelWithNonPublicSetter')->setDefinitions([
+    'name' => 'Jack Sparrow',
+]);
