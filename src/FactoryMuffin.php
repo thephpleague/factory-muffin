@@ -69,34 +69,6 @@ class FactoryMuffin
     }
 
     /**
-     * Set the method we use when saving models.
-     *
-     * @param string $method The save method name.
-     *
-     * @return \League\FactoryMuffin\FactoryMuffin
-     */
-    public function setSaveMethod($method)
-    {
-        $this->store->setSaveMethod($method);
-
-        return $this;
-    }
-
-    /**
-     * Set the method we use when deleting models.
-     *
-     * @param string $method The delete method name.
-     *
-     * @return \League\FactoryMuffin\FactoryMuffin
-     */
-    public function setDeleteMethod($method)
-    {
-        $this->store->setDeleteMethod($method);
-
-        return $this;
-    }
-
-    /**
      * Creates and saves multiple versions of a model.
      *
      * Under the hood, we're calling the create method over and over.

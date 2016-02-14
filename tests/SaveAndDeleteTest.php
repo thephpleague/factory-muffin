@@ -13,6 +13,8 @@
 use League\FactoryMuffin\Exceptions\DeletingFailedException;
 use League\FactoryMuffin\Exceptions\SaveFailedException;
 use League\FactoryMuffin\Exceptions\SaveMethodNotFoundException;
+use League\FactoryMuffin\FactoryMuffin;
+use League\FactoryMuffin\Stores\ModelStore;
 
 /**
  * This is save and delete test class.
@@ -57,8 +59,9 @@ class SaveAndDeleteTest extends AbstractTestCase
      */
     public function testShouldThrowExceptionAfterSaveMethodRename()
     {
-        $return = static::$fm->setSaveMethod('foo');
-        $this->assertInstanceOf('League\FactoryMuffin\FactoryMuffin', $return);
+        static::$fm = new FactoryMuffin(new ModelStore('foo'));
+        static::$fm->loadFactories(__DIR__.'/factories');
+
         try {
             static::$fm->create($model = 'ModelThatWillSaveStub');
         } catch (SaveMethodNotFoundException $e) {
@@ -77,9 +80,11 @@ class SaveAndDeleteTest extends AbstractTestCase
      */
     public function testShouldThrowExceptionAfterDeleteMethodRename()
     {
-        $return = static::$fm->setDeleteMethod('bar');
-        $this->assertInstanceOf('League\FactoryMuffin\FactoryMuffin', $return);
+        static::$fm = new FactoryMuffin(new ModelStore(null, 'bar'));
+        static::$fm->loadFactories(__DIR__.'/factories');
+
         static::$fm->create($model = 'ModelThatWillSaveStub');
+
         try {
             static::$fm->deleteSaved();
         } catch (DeletingFailedException $e) {

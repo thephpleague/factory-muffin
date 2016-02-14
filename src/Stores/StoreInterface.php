@@ -22,24 +22,6 @@ namespace League\FactoryMuffin\Stores;
 class StoreInterface
 {
     /**
-     * Set the method we use when saving models.
-     *
-     * @param string $method The save method name.
-     *
-     * @return void
-     */
-    public function setSaveMethod($method);
-
-    /**
-     * Set the method we use when deleting models.
-     *
-     * @param string $method The delete method name.
-     *
-     * @return void
-     */
-    public function setDeleteMethod($method);
-
-    /**
      * Save the model to the database.
      *
      * @param object $model The model instance.

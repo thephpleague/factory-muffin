@@ -41,6 +41,13 @@ abstract class AbstractStore
     private $saved = [];
 
     /**
+     * The underlying operational method names.
+     *
+     * @var string[]
+     */
+    protected $methods = [];
+
+    /**
      * Save the model to the database.
      *
      * @param object $model The model instance.

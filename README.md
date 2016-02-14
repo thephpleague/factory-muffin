@@ -159,7 +159,7 @@ $fm->define('Bar')->addDefinition('baz', Faker::date('Y-m-d'));
 
 ### Creating And Seeding
 
-The `create` function will create and save your model, and will also save anything you generate with the `Factory` generator too. If you want to create multiple instances, check out the seed `seed` function, which accepts an additional argument at the start which is the number of models to generate in the process. The `seed` function will effectively be calling the `create` function over and over. It should be noted that you can set a custom save function before you get going with the `setSaveMethod` function. Also, a reminder that the `instance` function is still available if you don't want database persistence.
+The `create` function will create and save your model, and will also save anything you generate with the `Factory` generator too. If you want to create multiple instances, check out the seed `seed` function, which accepts an additional argument at the start which is the number of models to generate in the process. The `seed` function will effectively be calling the `create` function over and over. Also, a reminder that the `instance` function is still available if you don't want database persistence.
 
 You may encounter the following exceptions:
 * `League\FactoryMuffin\Exceptions\ModelNotFoundException` will be thrown if the model class defined is not found.
@@ -177,7 +177,7 @@ There are 5 other helper functions available:
 
 ### Deleting
 
-You can delete all your saved models with the `deleteSaved` function. It should be noted that you can set a custom delete function before you get going with the `setDeleteMethod` function. Please note that your saved models will be deleted in the reverse order they were saved to ensure relationships behave correctly.
+You can delete all your saved models with the `deleteSaved` function. Please note that your saved models will be deleted in the reverse order they were saved to ensure relationships behave correctly.
 
 If one or more models cannot be deleted, a `League\FactoryMuffin\Exceptions\DeletingFailedException` will be raised after we have attempted to delete all the saved models. You may access each underlying exception, in the order they were thrown during the whole process, with the `getExceptions` function which will return an array of exceptions. You may encounter the following exceptions:
 * `League\FactoryMuffin\Exceptions\DeleteFailedException` will be thrown if the delete function on your model returns false.
@@ -241,9 +241,8 @@ class TestUserModel extends PHPUnit_Framework_TestCase
         // create a new factory muffin instance
         static::$fm = new FactoryMuffin();
 
-        // note that method chaining is supported if
-        // you want to configure a few extra things
-        static::$fm->setSaveMethod('save')->setDeleteMethod('delete');
+        // you can customize the save/delete methods
+        // new FactoryMuffin(new ModelStore('save', 'delete'));
 
         // load your model definitions
         static::$fm->loadFactories(__DIR__.'/factories');
