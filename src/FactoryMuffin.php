@@ -314,11 +314,17 @@ class FactoryMuffin
     public function loadFactories($paths)
     {
         foreach ((array) $paths as $path) {
-            if (!is_dir($path)) {
+            $real = realpath($path);
+
+            if (!$real) {
                 throw new DirectoryNotFoundException($path);
             }
 
-            $this->loadDirectory($path);
+            if (!is_dir($real)) {
+                throw new DirectoryNotFoundException($real);
+            }
+
+            $this->loadDirectory($real);
         }
 
         return $this;
