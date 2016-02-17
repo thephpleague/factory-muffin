@@ -59,13 +59,13 @@ We have provided a nifty way for you to do this in your tests. PHPUnit provides 
 
 ### Creation/Instantiation Callbacks
 
-You may optionally specify a callback to be executed on model creation/instantiation as a third parameter when defining a definition. We will pass your model instance as the first parameter to the closure if you specify one. We additionally pass a boolean as the second parameter that will be `true` if the model is being persisted to the database (the create function was used), and `false` if it's not being persisted (the instance function was used). We're using the `isPendingOrSaved` function under the hood here. Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback.
+You may optionally specify a callback to be executed on model creation/instantiation using the `setCallback` function, like this: `$fm->define('MyModel')->setCallback(function ($object, $saved) {})`. We will pass your model instance as the first parameter to the callback and a boolean as the second parameter. The boolean will be `true` if the model is being persisted to the database (the create function was used), and `false` if it's not being persisted (the instance function was used). We're using the `isPendingOrSaved` function under the hood here. Note that if you specify a callback and use the `create` function, we will try to save your model to the database both before and after we execute the callback.
 
 ### Generators
 
 #### Callable
 
-The callable generator can be used if you want a more custom solution. Whatever you return from your closure, or valid callable, will be set as the attribute. Note that we pass an instance of your model as the first parameter of the closure/callable to give you even more flexibility to modify it as you wish. We additionally pass a boolean as the second parameter that will be `true` if the model is being persisted to the database (the create function was used), and `false` if it's not being persisted (the instance function was used). We're using the `isPendingOrSaved` function under the hood here. In the following examples, we will go through using a closure, or callable, and then how to use faker to generate attributes.
+The callable generator can be used if you want a more custom solution. Whatever you return from your closure, or valid callable, will be set as the attribute. The closure/callable will be called with the same parameters as creation/instantiation callbacks described above: an instance of your model as the first parameter (to give you even more flexibility to modify it as you wish) and a boolean indicating if the model is being persisted to the database. In the following examples, we will go through using a closure, or callable, and then how to use faker to generate attributes.
 
 ##### Example 1
 
