@@ -27,8 +27,9 @@
         "zizaco/factory-muff": "self.version"
     },
     "suggest": {
-        "illuminate/database": "Factory Muffin works well with eloquent models.",
-        "league/factory-muffin-faker": "Factory Muffin works well with faker."
+        "doctrine/orm": "Factory Muffin supports doctrine through the repository store.",
+        "illuminate/database": "Factory Muffin supports eloquent through the model store.",
+        "league/factory-muffin-faker": "Factory Muffin is very powerful together with faker."
     },
     "autoload": {
         "psr-4": {
