@@ -20,7 +20,7 @@
     "require-dev": {
         "doctrine/orm": "2.5.*",
         "illuminate/database": "5.0.*|5.1.*",
-        "league/factory-muffin-faker": "^1.0",
+        "league/factory-muffin-faker": "^2.0",
         "phpunit/phpunit": "^4.8|^5.0"
     },
     "replace": {
