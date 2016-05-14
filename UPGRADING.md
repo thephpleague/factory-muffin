@@ -34,6 +34,54 @@ In your composer.json, add:
 }
 ```
 
+### No More Facade, No More Statics
+
+The Factory Muffin `Facade` class is gone in 3.x. All of the static methods from the facade are now instance methods directly on the `FactoryMuffin` class. You must create your own instance of `FactoryMuffin` and store it where you please. A reasonable choice is to store it as a protected property of your base test case object.
+
+For example, in 2.x, you might load your factories in a base `TestCase` as such:
+
+    static function setupBeforeClass()
+    {
+        Facade::loadFactories(__DIR__ . '/factories');
+    }
+
+In 3.x you must use an instance variable instead:
+
+    function setUp()
+    {
+        parent::setUp();
+
+        $this->fm = new FactoryMuffin();
+        $this->fm->loadFactories(__DIR__ . '/factories');
+    }
+
+In all of your inheriting test cases, you can simply replace the static call to the facade with a call to the instance you created.
+
+For example, in 2.x, you might have created a shiny object this way:
+
+    Facade::create('ShinyObject');
+
+In 3.x, simply call `create` from the instance instead:
+
+    $this->fm->create('ShinyObject');
+
+### Factory Definitions
+
+The signature of the `define` method has changed. Rather than passing an array of definitions as the second parameter, you must instead create the object first and then set the definitions.
+
+For example, in 2.x:
+
+    FactoryMuffin::define('Agent', [
+        'name' => 'Bill Smith'
+    ]);
+
+Now becomes:
+
+    $fm->define('Agent')->setDefinitions([
+        'name' => 'Bill Smith'
+    ]);
+
+Be aware that the `$fm` variable is available in your factory definition files and refers to the same instance of `FactoryMuffin` from which you called the `loadFactories` method. Really it is just an alias of `$this` from inside the instance.
 
 ## Upgrading from 2.0.x to 2.1.x
 
