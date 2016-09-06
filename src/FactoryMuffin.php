@@ -239,7 +239,8 @@ class FactoryMuffin
         foreach ($attr as $key => $kind) {
             $value = $this->factory->generate($kind, $model, $this);
 
-            $setter = 'set'.ucfirst(static::camelize($key));
+            $prefix = preg_match('#([^aeuiy])(?=es)es$|([^s])(?=s)s$#', $key) ? 'add' : 'set';
+            $setter = $prefix.ucfirst(static::camelize($key));
 
             // check if there is a setter and use it instead
             if (method_exists($model, $setter) && is_callable([$model, $setter])) {
