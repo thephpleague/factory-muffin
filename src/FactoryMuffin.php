@@ -239,7 +239,7 @@ class FactoryMuffin
         foreach ($attr as $key => $kind) {
             $value = $this->factory->generate($kind, $model, $this);
 
-            $prefix = preg_match('#([^aeuiy])(?=es)es$|([^s])(?=s)s$#', $key) ? 'add' : 'set';
+            $prefix = preg_match('#[^aeuiy]es$|[^saeuiy]s$#', $key) ? 'add' : 'set';
             $setter = $prefix.ucfirst(static::camelize($key));
 
             // check if there is a setter and use it instead
