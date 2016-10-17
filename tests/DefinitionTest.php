@@ -34,6 +34,13 @@ class DefinitionTest extends AbstractTestCase
         $this->assertContains('@', $user->email);
     }
 
+    public function testGetDefinitions()
+    {
+        $definitions = static::$fm->getDefinitions();
+
+        $this->assertCount(39, $definitions);
+    }
+
     public function testBasicDefinitionFunctions()
     {
         $definition = static::$fm->getDefinition('AttributeDefinitionsStub');
