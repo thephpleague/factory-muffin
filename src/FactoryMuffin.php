@@ -251,6 +251,16 @@ class FactoryMuffin
     }
 
     /**
+     * Get all defined model definitions
+     *
+     * @return \League\FactoryMuffin\Definition[]
+     */
+    public function getDefinitions()
+    {
+        return $this->definitions;
+    }
+
+    /**
      * Get a model definition.
      *
      * @param string $name The model definition name.
