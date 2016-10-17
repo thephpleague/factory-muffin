@@ -251,7 +251,7 @@ class FactoryMuffin
     }
 
     /**
-     * Get all defined model definitions
+     * Get all defined model definitions.
      *
      * @return \League\FactoryMuffin\Definition[]
      */
