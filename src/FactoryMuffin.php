@@ -76,15 +76,18 @@ class FactoryMuffin
      * @param int    $times The number of models to create.
      * @param string $name  The model definition name.
      * @param array  $attr  The model attributes.
+     * @param bool   $save  Are we saving, or just creating an instance?
      *
      * @return object[]
      */
-    public function seed($times, $name, array $attr = [])
+    public function seed($times, $name, array $attr = [], $save = true)
     {
         $seeds = [];
 
+        $method = $save ? 'create' : 'instance';
+
         for ($i = 0; $i < $times; $i++) {
-            $seeds[] = $this->create($name, $attr);
+            $seeds[] = $this->{$method}($name, $attr);
         }
 
         return $seeds;
