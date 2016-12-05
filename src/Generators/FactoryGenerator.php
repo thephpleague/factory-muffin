@@ -40,6 +40,66 @@ class FactoryGenerator extends EntityGenerator
     private static $properties = ['id', '_id'];
 
     /**
+     * Set methods for accessing model id.
+     *
+     * @param array $methods
+     */
+    public static function setMethods(array $methods)
+    {
+        self::$methods = $methods;
+    }
+
+    /**
+     * Get methods for accessing model id.
+     *
+     * @return string[]
+     */
+    public static function getMethods()
+    {
+        return self::$methods;
+    }
+
+    /**
+     * Add method for accessing model id.
+     *
+     * @param $method
+     */
+    public static function addMethod($method)
+    {
+        self::$methods[] = $method;
+    }
+
+    /**
+     * Set properties for accessing model id.
+     *
+     * @param array $properties
+     */
+    public static function setProperties(array $properties)
+    {
+        self::$properties = $properties;
+    }
+
+    /**
+     * Get properties for accessing model id.
+     *
+     * @return string[]
+     */
+    public static function getProperties()
+    {
+        return self::$properties;
+    }
+
+    /**
+     * Add property for accessing model id.
+     *
+     * @param $property
+     */
+    public static function addProperty($property)
+    {
+        self::$properties[] = $property;
+    }
+
+    /**
      * Generate, and return the attribute.
      *
      * The value returned is the id of the generated model, if applicable.
