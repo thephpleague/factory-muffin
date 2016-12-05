@@ -38,7 +38,7 @@ class DefinitionTest extends AbstractTestCase
     {
         $definitions = static::$fm->getDefinitions();
 
-        $this->assertCount(39, $definitions);
+        $this->assertCount(40, $definitions);
     }
 
     public function testBasicDefinitionFunctions()
@@ -348,6 +348,61 @@ class DefinitionTest extends AbstractTestCase
 
         $this->assertInstanceOf('CustomMakerStub', $obj);
         $this->assertSame('bar', $obj->foo);
+    }
+
+    public function testDefineWithCallback()
+    {
+        $user = static::$fm->create('definitionscallback:UserModelStub');
+
+        $this->assertInstanceOf('UserModelStub', $user);
+        $this->assertInternalType('string', $user->name);
+        $this->assertInternalType('boolean', $user->active);
+        $this->assertContains('@', $user->email);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testShouldThrowExceptionWhenDefinitionsAreNeitherArrayNorCallback()
+    {
+        try {
+            static::$fm->define('invaliddefinitions:UserModelStub')->setDefinitions('invalid definitions');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertSame('Definitions must be array or callable.', $e->getMessage());
+            throw $e;
+        }
+    }
+
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\DefinitionException
+     */
+    public function testShouldThrowExceptionWhenDefinitionsCallbakcDoesntReturnArray()
+    {
+        try {
+            $model = 'noarraydefinitions:UserModelStub';
+
+            static::$fm->define($model)->setDefinitions(function () {
+                return 'not an array';
+            });
+            static::$fm->getDefinition($model)->getDefinitions();
+        } catch (\League\FactoryMuffin\Exceptions\DefinitionException $e) {
+            $this->assertSame('Definitions callback must return array.', $e->getMessage());
+            throw $e;
+        }
+    }
+
+    /**
+     * @expectedException \League\FactoryMuffin\Exceptions\DefinitionException
+     */
+    public function testShouldThrowExceptionWhenDefinitionsAreSetWithCallbackAndTryToAddDefinition()
+    {
+        try {
+            static::$fm->getDefinition('definitionscallback:UserModelStub')->addDefinition('name', 'foo');
+        } catch (\League\FactoryMuffin\Exceptions\DefinitionException $e) {
+            $message = "Can't add definition for attribute 'name'. Definitions are already defined by a callback.";
+            $this->assertSame($message, $e->getMessage());
+            throw $e;
+        }
     }
 }
 

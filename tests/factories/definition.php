@@ -64,3 +64,13 @@ $fm->define('group:CustomMakerStub')->setMaker(function ($class) {
 });
 
 $fm->define('clear:CustomMakerStub')->clearMaker();
+
+$fm->define('definitionscallback:UserModelStub')->setDefinitions(function () {
+    return [
+        'name'    => Faker::word(),
+        'active'  => Faker::boolean(),
+        'email'   => Faker::email(),
+        'age'     => Faker::numberBetween(18, 35),
+        'profile' => 'factory|ProfileModelStub',
+    ];
+});
