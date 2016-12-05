@@ -22,6 +22,9 @@ use PHPUnit\Framework\TestCase;
  */
 abstract class AbstractTestCase extends TestCase
 {
+    /**
+     * @var FactoryMuffin
+     */
     protected static $fm;
 
     public static function setupBeforeClass()

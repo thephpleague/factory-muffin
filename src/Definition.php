@@ -12,6 +12,8 @@
 
 namespace League\FactoryMuffin;
 
+use League\FactoryMuffin\Exceptions\DefinitionException;
+
 /**
  * This is the model definition class.
  *
@@ -50,7 +52,7 @@ final class Definition
     /**
      * The attribute definitions.
      *
-     * @var array
+     * @var array|callable
      */
     private $definitions = [];
 
@@ -176,14 +178,24 @@ final class Definition
      * Add an attribute definitions.
      *
      * Note that we're appending to the original attribute definitions here.
+     * Will throw exception if definitions are already defined by a callback.
      *
      * @param string          $attribute  The attribute name.
      * @param string|callable $definition The attribute definition.
+     *
+     * @throws DefinitionException
      *
      * @return \League\FactoryMuffin\Definition
      */
     public function addDefinition($attribute, $definition)
     {
+        if (is_callable($this->definitions)) {
+            $message = "Can't add definition for attribute '$attribute'. "
+                .'Definitions are already defined by a callback.';
+
+            throw new DefinitionException($this->class, $message);
+        }
+
         $this->definitions[$attribute] = $definition;
 
         return $this;
@@ -195,13 +207,21 @@ final class Definition
      * Note that we're appending to the original attribute definitions here
      * instead of switching them out for the new ones.
      *
-     * @param array $definitions The attribute definitions.
+     * @param array|callable $definitions The attribute definitions.
+     *
+     * @throws \InvalidArgumentException
      *
      * @return \League\FactoryMuffin\Definition
      */
-    public function setDefinitions(array $definitions = [])
+    public function setDefinitions($definitions)
     {
-        $this->definitions = array_merge($this->definitions, $definitions);
+        if (is_callable($definitions)) {
+            $this->definitions = $definitions;
+        } elseif (is_array($definitions)) {
+            $this->definitions = array_merge($this->definitions, $definitions);
+        } else {
+            throw new \InvalidArgumentException('Definitions must be array or callable.');
+        }
 
         return $this;
     }
@@ -221,10 +241,21 @@ final class Definition
     /**
      * Get the attribute definitions.
      *
+     * @throws DefinitionException
+     *
      * @return array
      */
     public function getDefinitions()
     {
-        return $this->definitions;
+        if (is_callable($this->definitions)) {
+            $definitions = call_user_func($this->definitions);
+            if (!is_array($definitions)) {
+                throw new DefinitionException($this->class, 'Definitions callback must return array.');
+            }
+
+            return $definitions;
+        } else {
+            return $this->definitions;
+        }
     }
 }
