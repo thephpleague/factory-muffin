@@ -37,7 +37,7 @@ class FactoryGenerator extends EntityGenerator
      *
      * @var string[]
      */
-    private static $properties = ['id', '_id'];
+    private static $properties = ['id', '_id', 'Id'];
 
     /**
      * Generate, and return the attribute.
