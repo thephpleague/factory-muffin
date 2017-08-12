@@ -87,6 +87,7 @@ class FactoryMuffinTest extends AbstractTestCase
         } catch (DefinitionNotFoundException $e) {
             $this->assertSame("The model definition '$model' is undefined.", $e->getMessage());
             $this->assertSame($model, $e->getDefinitionName());
+
             throw $e;
         }
     }

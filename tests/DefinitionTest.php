@@ -128,6 +128,7 @@ class DefinitionTest extends AbstractTestCase
         } catch (ModelNotFoundException $e) {
             $this->assertSame("The model class '$model' is undefined.", $e->getMessage());
             $this->assertSame($model, $e->getModelClass());
+
             throw $e;
         }
     }
@@ -210,6 +211,7 @@ class DefinitionTest extends AbstractTestCase
         } catch (DefinitionNotFoundException $e) {
             $this->assertSame("The model definition '$model' is undefined.", $e->getMessage());
             $this->assertSame($model, $e->getDefinitionName());
+
             throw $e;
         }
     }
@@ -227,6 +229,7 @@ class DefinitionTest extends AbstractTestCase
         } catch (DefinitionNotFoundException $e) {
             $this->assertSame("The model definition 'DogModelStub' is undefined.", $e->getMessage());
             $this->assertSame('DogModelStub', $e->getDefinitionName());
+
             throw $e;
         }
     }
@@ -241,6 +244,7 @@ class DefinitionTest extends AbstractTestCase
         } catch (DefinitionAlreadyDefinedException $e) {
             $this->assertSame("The model definition 'UserModelStub' has already been defined.", $e->getMessage());
             $this->assertSame('UserModelStub', $e->getDefinitionName());
+
             throw $e;
         }
     }
@@ -311,6 +315,7 @@ class DefinitionTest extends AbstractTestCase
         } catch (DirectoryNotFoundException $e) {
             $this->assertSame("The directory '$path' was not found.", $e->getMessage());
             $this->assertSame($path, $e->getPath());
+
             throw $e;
         }
     }

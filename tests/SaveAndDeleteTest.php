@@ -69,6 +69,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertSame($model, $e->getModelClass());
             $this->assertSame('foo', $e->getMethodName());
             $this->reload();
+
             throw $e;
         }
 
@@ -94,6 +95,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertSame($model, $exceptions[0]->getModelClass());
             $this->assertSame('bar', $exceptions[0]->getMethodName());
             $this->reload();
+
             throw $e;
         }
 
@@ -111,6 +113,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertSame("We could not save the model: '$model'.", $e->getMessage());
             $this->assertSame($model, $e->getModelClass());
             $this->assertNull($e->getValidationErrors());
+
             throw $e;
         }
     }
@@ -127,6 +130,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             $exceptions = $e->getExceptions();
             $this->assertSame('We encountered 1 problem while trying to delete the saved models.', $e->getMessage());
             $this->assertSame("We could not delete the model: '$model'.", $exceptions[0]->getMessage());
+
             throw $e;
         }
     }
@@ -143,6 +147,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             $exceptions = $e->getExceptions();
             $this->assertSame('We encountered 1 problem while trying to delete the saved models.', $e->getMessage());
             $this->assertSame('OH NOES!', $exceptions[0]->getMessage());
+
             throw $e;
         }
     }
@@ -158,6 +163,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertSame("The save method 'save' was not found on the model: '$model'.", $e->getMessage());
             $this->assertSame($model, $e->getModelClass());
             $this->assertSame('save', $e->getMethodName());
+
             throw $e;
         }
     }
@@ -176,6 +182,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertSame("The delete method 'delete' was not found on the model: '$model'.", $exceptions[0]->getMessage());
             $this->assertSame($model, $exceptions[0]->getModelClass());
             $this->assertSame('delete', $exceptions[0]->getMethodName());
+
             throw $e;
         }
     }
@@ -191,6 +198,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertSame("Failed to save! We could not save the model: '$model'.", $e->getMessage());
             $this->assertSame($model, $e->getModelClass());
             $this->assertSame('Failed to save!', $e->getValidationErrors());
+
             throw $e;
         }
     }
@@ -206,6 +214,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertSame("Oh noes. We could not save the model: '$model'.", $e->getMessage());
             $this->assertSame($model, $e->getModelClass());
             $this->assertSame('Oh noes.', $e->getValidationErrors());
+
             throw $e;
         }
     }
@@ -228,6 +237,7 @@ class SaveAndDeleteTest extends AbstractTestCase
             $this->assertSame('delete', $exceptions[1]->getMethodName());
             $this->assertInternalType('array', $e->getExceptions());
             $this->assertCount(2, $e->getExceptions());
+
             throw $e;
         }
     }
