@@ -1,6 +1,5 @@
 <?php
 
-use League\FactoryMuffin\HydrationStrategies\HydrationStrategyInterface;
 use League\FactoryMuffin\HydrationStrategies\PublicSetterHydrationStrategy;
 use League\FactoryMuffin\HydrationStrategies\ReflectionHydrationStrategy;
 use Prophecy\Argument;
@@ -9,7 +8,7 @@ class HydrationStrategyTest extends AbstractTestCase
 {
     public function testHydrationStrategyIsBeingUsed()
     {
-        $strategy = $this->prophesize(HydrationStrategyInterface::class);
+        $strategy = $this->prophesize('League\FactoryMuffin\HydrationStrategies\HydrationStrategyInterface');
 
         static::$fm->setHydrationStrategy('FakerHydrationModel', $strategy->reveal());
         static::$fm->instance('FakerHydrationModel');
