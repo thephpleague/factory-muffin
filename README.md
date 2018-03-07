@@ -57,6 +57,16 @@ You can also define multiple different model definitions for your models. You ca
 
 We have provided a nifty way for you to do this in your tests. PHPUnit provides a `setupBeforeClass` function. Within that function you can call `$fm->loadFactories(__DIR__ . '/factories');`, and it will include all files in the factories folder. Within those php files, you can put your definitions (all your code that calls the define function). The `loadFactories` function will throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the directory you're loading is not found.
 
+### Model Hydration
+
+If your model classes use public setter methods or public properties, FactoryMuffin can automatically hydrate your models using its default hydration strategy `League\FactoryMuffin\HydrationStrategies\PublicSetterHydrationStrategy`.
+
+However, if your models use completely different ways to access their properties, you can implement your own hydration strategies and register them per model. 
+You simply need to implement the interface `League\FactoryMuffin\HydrationStrategies\HydrationStrategyInterface` and register an instance of your strategy with the class name of your model `$fm->setHydrationStrategy('Fully\Qualified\ModelName', $my_custom_strategy);`.
+
+For convenience, FactoryMuffin already ships with an alternative hydration strategy called `League\FactoryMuffin\HydrationStrategies\ReflectionHydrationStrategy`. 
+As the name suggests, this strategy uses reflection to set the attributes directly, which allows it to set `private/protected` properties. You simply need to register an instance of this strategy with every model that you want to be hydrated by this strategy.
+
 ### Creation/Instantiation Callbacks
 
 You may optionally specify a callback to be executed on model creation/instantiation as a third parameter when defining a definition. We will pass your model instance as the first parameter to the closure if you specify one. We additionally pass a boolean as the second parameter that will be `true` if the model is being persisted to the database (the create function was used), and `false` if it's not being persisted (the instance function was used). We're using the `isPendingOrSaved` function under the hood here. Note that if you specify a callback and use the create function, we will try to save your model to the database both before and after we execute the callback.
