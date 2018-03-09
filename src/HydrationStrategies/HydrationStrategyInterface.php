@@ -14,8 +14,8 @@ interface HydrationStrategyInterface
      * the given object to the given value.
      *
      * @param object $model The model instance to set the attribute on.
-     * @param string $key The key of the attribute to be set.
-     * @param mixed $value The new value for the given attribute.
+     * @param string $key   The key of the attribute to be set.
+     * @param mixed  $value The new value for the given attribute.
      */
     public function set($model, $key, $value);
 }

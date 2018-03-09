@@ -19,11 +19,11 @@ class PublicSetterHydrationStrategy implements HydrationStrategyInterface
      *
      * @param object $model
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function set($model, $key, $value)
     {
-        $setter = 'set' . ucfirst(static::camelize($key));
+        $setter = 'set'.ucfirst(static::camelize($key));
 
         // check if there is a setter and use it instead
         if (method_exists($model, $setter) && is_callable([$model, $setter])) {
@@ -39,6 +39,7 @@ class PublicSetterHydrationStrategy implements HydrationStrategyInterface
      * Transforms a string to camel case (e.g. first_name -> firstName).
      *
      * @param string $str String in underscore format.
+     *
      * @return string
      */
     protected static function camelize($str)

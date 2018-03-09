@@ -74,8 +74,8 @@ class FactoryMuffin
     /**
      * Create a new factory muffin instance.
      *
-     * @param \League\FactoryMuffin\Stores\StoreInterface|null                          $store The store instance.
-     * @param \League\FactoryMuffin\Generators\GeneratorFactory|null                    $factory The generator factory instance.
+     * @param \League\FactoryMuffin\Stores\StoreInterface|null                          $store                      The store instance.
+     * @param \League\FactoryMuffin\Generators\GeneratorFactory|null                    $factory                    The generator factory instance.
      * @param \League\FactoryMuffin\HydrationStrategies\HydrationStrategyInterface|null $default_hydration_strategy The default hydration strategy instance.
      */
     public function __construct(StoreInterface $store = null, GeneratorFactory $factory = null, HydrationStrategyInterface $default_hydration_strategy = null)
@@ -100,7 +100,7 @@ class FactoryMuffin
     {
         $seeds = [];
 
-        for ($i = 0; $i < $times; ++$i) {
+        for ($i = 0; $i < $times; $i++) {
             $seeds[] = $this->create($name, $attr);
         }
 
@@ -255,7 +255,7 @@ class FactoryMuffin
     {
         // Get the hydration strategy that has been
         // registered for the given model class
-        $hydration_strategy = $this->getHydrationStrategy( get_class($model) );
+        $hydration_strategy = $this->getHydrationStrategy(get_class($model));
 
         foreach ($attr as $key => $kind) {
             $value = $this->factory->generate($kind, $model, $this);
@@ -268,7 +268,7 @@ class FactoryMuffin
      * Register a hydration strategy instance that will be used
      * to hydrate all models of the given class.
      *
-     * @param string $name The class name of the model.
+     * @param string                     $name     The class name of the model.
      * @param HydrationStrategyInterface $strategy
      */
     public function setHydrationStrategy($name, HydrationStrategyInterface $strategy)
@@ -282,11 +282,12 @@ class FactoryMuffin
      * If no specific hydration strategy has been registered, the default strategy will be returned.
      *
      * @param string $name
+     *
      * @return HydrationStrategyInterface
      */
     public function getHydrationStrategy($name)
     {
-        if (key_exists($name, $this->hydration_strategies)) {
+        if (array_key_exists($name, $this->hydration_strategies)) {
             return $this->hydration_strategies[$name];
         }
 

@@ -77,7 +77,6 @@ class ModelWithProtectedAttributes
     {
         return $this->separated_value;
     }
-
 }
 
 class ModelWithPublicSetters extends ModelWithProtectedAttributes
