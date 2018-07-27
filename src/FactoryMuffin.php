@@ -83,7 +83,7 @@ class FactoryMuffin
     {
         $seeds = [];
 
-        for ($i = 0; $i < $times; ++$i) {
+        for ($i = 0; $i < $times; $i++) {
             $seeds[] = $this->create($name, $attr);
         }
 
@@ -341,7 +341,8 @@ class FactoryMuffin
     }
 
     /**
-     * Load all the files in a directory.
+     * Load all the files in a directory or sub-directory.
+     * Files that start with a . or do not have a .php extension are ignored.
      *
      * Each required file will have this instance available as "$fm".
      *
@@ -353,11 +354,17 @@ class FactoryMuffin
     {
         $directory = new RecursiveDirectoryIterator($path);
         $iterator = new RecursiveIteratorIterator($directory);
-        $files = new RegexIterator($iterator, '/^[^\.](?:(?!\/\.).)+?\.php$/i');
+        $files = new RegexIterator($iterator, '/^.+\.php$/i');
 
         $fm = $this;
 
         foreach ($files as $file) {
+            // Ignore factories in hidden subdirectories (e.g. '.AppleDouble'), to stop invalid files being loaded.
+            // See: https://github.com/thephpleague/factory-muffin/issues/414
+            if ('.' === substr($file->getPathInfo()->getFilename(), 0, 1)) {
+                continue;
+            }
+
             require $file->getPathName();
         }
     }
