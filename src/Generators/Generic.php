@@ -30,6 +30,10 @@ final class Generic extends Base
      */
     public function generate()
     {
+        if ($this->kind === false) {
+            return $this->kind;
+        }
+
         // Only try and use Faker when there are no spaces in the string
         if (!is_string($this->getGenerator()) || strpos($this->getGenerator(), ' ') !== false) {
             return $this->getGenerator();
