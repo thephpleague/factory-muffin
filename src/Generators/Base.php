@@ -117,7 +117,10 @@ abstract class Base
      */
     protected function getGenerator()
     {
+        if ($this->kind === false) return $this->kind;
+
         $kind = explode('|', $this->kind);
+
         return reset($kind);
     }
 
