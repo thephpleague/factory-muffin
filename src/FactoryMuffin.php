@@ -90,7 +90,7 @@ class FactoryMuffin
     }
 
     /**
-     * Get the boolean flag indicating usage of model inherent internal setter methods
+     * Get the boolean flag indicating usage of model inherent internal setter methods.
      *
      * @return bool
      */
