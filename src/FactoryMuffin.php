@@ -114,7 +114,7 @@ class FactoryMuffin
     {
         $seeds = [];
 
-        for ($i = 0; $i < $times; ++$i) {
+        for ($i = 0; $i < $times; $i++) {
             $seeds[] = $this->create($name, $attr);
         }
 
