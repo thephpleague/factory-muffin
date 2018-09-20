@@ -288,7 +288,7 @@ class SetterTestNotUseModelSetters
 
     public function setName($name)
     {
-        $this->name = "we do not want to see this as name";
+        $this->name = 'we do not want to see this as name';
     }
 
     public function getName()

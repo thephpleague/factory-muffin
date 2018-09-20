@@ -62,7 +62,6 @@ class FactoryMuffin
      */
     protected $useModelSetters;
 
-
     /**
      * Create a new factory muffin instance.
      *
@@ -79,7 +78,7 @@ class FactoryMuffin
     }
 
     /**
-     * Set the boolean flag indicating usage of model inherent internal setter methods
+     * Set the boolean flag indicating usage of model inherent internal setter methods.
      *
      * @param bool use the model provided setter methods?
      *
