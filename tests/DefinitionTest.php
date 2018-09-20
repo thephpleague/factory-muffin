@@ -38,7 +38,7 @@ class DefinitionTest extends AbstractTestCase
     {
         $definitions = static::$fm->getDefinitions();
 
-        $this->assertCount(39, $definitions);
+        $this->assertCount(40, $definitions);
     }
 
     public function testBasicDefinitionFunctions()

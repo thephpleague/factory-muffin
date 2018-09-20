@@ -119,6 +119,16 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertSame('Jack Sparrow', $obj->getName());
     }
 
+    public function testDoNotUseModelSetter()
+    {
+        // setting use of model setters to false
+        static::$fm->setUseModelSetters(false);
+        $obj = static::$fm->instance('SetterTestNotUseModelSetters');
+        $this->assertSame('Jack Sparrow', $obj->getName());
+        // setting use of model setters to true again
+        static::$fm->setUseModelSetters(true);
+    }
+
     public function testCamelization()
     {
         $var = FactoryMuffin::camelize('foo_bar');
@@ -264,6 +274,21 @@ class SetterTestModelWithNonPublicSetter
     private function setName($name)
     {
         $this->name = $name;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+}
+
+class SetterTestNotUseModelSetters
+{
+    public $name;
+
+    public function setName($name)
+    {
+        $this->name = "we do not want to see this as name";
     }
 
     public function getName()

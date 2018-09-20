@@ -71,3 +71,8 @@ $fm->define('SetterTestModelWithSetter')->setDefinitions([
 $fm->define('SetterTestModelWithNonPublicSetter')->setDefinitions([
     'name' => 'Jack Sparrow',
 ]);
+
+
+$fm->define('SetterTestNotUseModelSetters')->setDefinitions([
+    'name' => 'Jack Sparrow',
+]);

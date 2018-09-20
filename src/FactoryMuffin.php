@@ -55,6 +55,15 @@ class FactoryMuffin
     protected $factory;
 
     /**
+     * Do we want to allow usage of model setter methods
+     * inferred by name?
+     *
+     * @var bool
+     */
+    protected $useModelSetters;
+
+
+    /**
      * Create a new factory muffin instance.
      *
      * @param \League\FactoryMuffin\Stores\StoreInterface|null       $store   The store instance.
@@ -62,10 +71,33 @@ class FactoryMuffin
      *
      * @return void
      */
-    public function __construct(StoreInterface $store = null, GeneratorFactory $factory = null)
+    public function __construct(StoreInterface $store = null, GeneratorFactory $factory = null, bool $useModelSetters = true)
     {
         $this->store = $store ?: new ModelStore();
         $this->factory = $factory ?: new GeneratorFactory();
+        $this->useModelSetters = $useModelSetters;
+    }
+
+    /**
+     * Set the boolean flag indicating usage of model inherent internal setter methods
+     *
+     * @param bool use the model provided setter methods?
+     *
+     * @return void
+     */
+    public function setUseModelSetters($useModelSetters)
+    {
+        $this->useModelSetters = $useModelSetters;
+    }
+
+    /**
+     * Get the boolean flag indicating usage of model inherent internal setter methods
+     *
+     * @return bool
+     */
+    public function getUseModelSetters()
+    {
+        return $this->useModelSetters;
     }
 
     /**
@@ -242,7 +274,7 @@ class FactoryMuffin
             $setter = 'set'.ucfirst(static::camelize($key));
 
             // check if there is a setter and use it instead
-            if (method_exists($model, $setter) && is_callable([$model, $setter])) {
+            if ($this->useModelSetters && method_exists($model, $setter) && is_callable([$model, $setter])) {
                 $model->$setter($value);
             } else {
                 $model->$key = $value;
