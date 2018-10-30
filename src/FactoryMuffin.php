@@ -67,10 +67,11 @@ class FactoryMuffin
      *
      * @param \League\FactoryMuffin\Stores\StoreInterface|null       $store   The store instance.
      * @param \League\FactoryMuffin\Generators\GeneratorFactory|null $factory The generator factory instance.
+     * @param bool $useModelSetters Allow/disallow usage of model setter methods.
      *
      * @return void
      */
-    public function __construct(StoreInterface $store = null, GeneratorFactory $factory = null, bool $useModelSetters = true)
+    public function __construct(StoreInterface $store = null, GeneratorFactory $factory = null, $useModelSetters = true)
     {
         $this->store = $store ?: new ModelStore();
         $this->factory = $factory ?: new GeneratorFactory();
