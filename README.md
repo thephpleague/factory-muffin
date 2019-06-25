@@ -280,12 +280,17 @@ If you want more information, the following resources are available to you:
 
 ## Contributing
 
-Please check out our [contribution guidelines](CONTRIBUTING.md) for details.
+Please check out our [contribution guidelines](.github/CONTRIBUTING.md) for details.
 
 
 ## Credits
 
 Factory Muffin is based on [Zizaco Zizuini](https://github.com/Zizaco)'s original work on "Factory Muff", and is currently maintained by [Graham Campbell](https://github.com/GrahamCampbell). [Scott Robertson](https://github.com/scottrobertson) was also a co-maintainer before the 3.0 release. Thank you to all our wonderful [contributors](https://github.com/thephpleague/factory-muffin/contributors) too.
+
+
+## Security
+
+If you discover a security vulnerability within this package, please send an email to Graham Campbell at graham@alt-three.com. All security vulnerabilities will be promptly addressed. You may view our full security policy [here](https://github.com/thephpleague/factory-muffin/security/policy).
 
 
 ## License
