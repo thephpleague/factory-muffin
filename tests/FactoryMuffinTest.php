@@ -30,7 +30,7 @@ class FactoryMuffinTest extends AbstractTestCase
         $this->assertArrayHasKey('name', $obj->card);
         $this->assertArrayHasKey('expirationDate', $obj->card);
 
-        $this->assertSame('https://lorempixel.com/400/600/', substr($obj->image, 0, 30));
+        $this->assertSame('https://lorempixel.com/400/600', substr($obj->image, 0, 30));
         $this->assertNotEquals('unique::text', $obj->unique_text);
         $this->assertNotEquals('optional::text', $obj->optional_text);
     }
