@@ -341,8 +341,9 @@ class FactoryMuffin
     }
 
     /**
-     * Load all the files in a directory.
+     * Load all the files in a directory or sub-directory.
      *
+     * Files that start with a . or do not have a .php extension are ignored.
      * Each required file will have this instance available as "$fm".
      *
      * @param string $path The directory path to load.
@@ -353,11 +354,16 @@ class FactoryMuffin
     {
         $directory = new RecursiveDirectoryIterator($path);
         $iterator = new RecursiveIteratorIterator($directory);
-        $files = new RegexIterator($iterator, '/^[^\.](?:(?!\/\.).)+?\.php$/i');
+        $files = new RegexIterator($iterator, '/^.+\.php$/i');
 
         $fm = $this;
 
         foreach ($files as $file) {
+            // Ignore factories in hidden subdirectories
+            if ('.' === substr($file->getPathInfo()->getFilename(), 0, 1)) {
+                continue;
+            }
+
             require $file->getPathName();
         }
     }
