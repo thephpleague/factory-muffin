@@ -17,6 +17,8 @@ use League\FactoryMuffin\Exceptions\DefinitionNotFoundException;
 use League\FactoryMuffin\Exceptions\DirectoryNotFoundException;
 use League\FactoryMuffin\Exceptions\ModelNotFoundException;
 use League\FactoryMuffin\Generators\GeneratorFactory;
+use League\FactoryMuffin\HydrationStrategies\HydrationStrategyInterface;
+use League\FactoryMuffin\HydrationStrategies\PublicSetterHydrationStrategy;
 use League\FactoryMuffin\Stores\ModelStore;
 use League\FactoryMuffin\Stores\StoreInterface;
 use RecursiveDirectoryIterator;
@@ -55,17 +57,32 @@ class FactoryMuffin
     protected $factory;
 
     /**
+     * The array of registered hydration strategies.
+     *
+     * @var \League\FactoryMuffin\HydrationStrategies\HydrationStrategyInterface[]
+     */
+    private $hydration_strategies = [];
+
+    /**
+     * The default hydration strategy instance that will be used if no specialized
+     * hydration strategy has been registered for a model class.
+     *
+     * @var \League\FactoryMuffin\HydrationStrategies\HydrationStrategyInterface
+     */
+    private $default_hydration_strategy;
+
+    /**
      * Create a new factory muffin instance.
      *
-     * @param \League\FactoryMuffin\Stores\StoreInterface|null       $store   The store instance.
-     * @param \League\FactoryMuffin\Generators\GeneratorFactory|null $factory The generator factory instance.
-     *
-     * @return void
+     * @param \League\FactoryMuffin\Stores\StoreInterface|null                          $store                      The store instance.
+     * @param \League\FactoryMuffin\Generators\GeneratorFactory|null                    $factory                    The generator factory instance.
+     * @param \League\FactoryMuffin\HydrationStrategies\HydrationStrategyInterface|null $default_hydration_strategy The default hydration strategy instance.
      */
-    public function __construct(StoreInterface $store = null, GeneratorFactory $factory = null)
+    public function __construct(StoreInterface $store = null, GeneratorFactory $factory = null, HydrationStrategyInterface $default_hydration_strategy = null)
     {
         $this->store = $store ?: new ModelStore();
         $this->factory = $factory ?: new GeneratorFactory();
+        $this->default_hydration_strategy = $default_hydration_strategy ?: new PublicSetterHydrationStrategy();
     }
 
     /**
@@ -236,18 +253,45 @@ class FactoryMuffin
      */
     protected function generate($model, array $attr = [])
     {
+        // Get the hydration strategy that has been
+        // registered for the given model class
+        $hydration_strategy = $this->getHydrationStrategy(get_class($model));
+
         foreach ($attr as $key => $kind) {
             $value = $this->factory->generate($kind, $model, $this);
 
-            $setter = 'set'.ucfirst(static::camelize($key));
-
-            // check if there is a setter and use it instead
-            if (method_exists($model, $setter) && is_callable([$model, $setter])) {
-                $model->$setter($value);
-            } else {
-                $model->$key = $value;
-            }
+            $hydration_strategy->set($model, $key, $value);
         }
+    }
+
+    /**
+     * Register a hydration strategy instance that will be used
+     * to hydrate all models of the given class.
+     *
+     * @param string                     $name     The class name of the model.
+     * @param HydrationStrategyInterface $strategy
+     */
+    public function setHydrationStrategy($name, HydrationStrategyInterface $strategy)
+    {
+        $this->hydration_strategies[$name] = $strategy;
+    }
+
+    /**
+     * Get the hydration strategy for the given model class.
+     *
+     * If no specific hydration strategy has been registered, the default strategy will be returned.
+     *
+     * @param string $name
+     *
+     * @return HydrationStrategyInterface
+     */
+    public function getHydrationStrategy($name)
+    {
+        if (array_key_exists($name, $this->hydration_strategies)) {
+            return $this->hydration_strategies[$name];
+        }
+
+        return $this->default_hydration_strategy;
     }
 
     /**

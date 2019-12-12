@@ -59,6 +59,16 @@ We have provided a nifty way for you to do this in your tests. PHPUnit provides 
  
 The `loadFactories` function will recurse through all sub-folders of the path you specify when searching for factory files, except for hidden folders (i.e. starting with a .) which will be ignored. It will also throw a `League\FactoryMuffin\Exceptions\DirectoryNotFoundException` exception if the factories directory you specify is not found. 
 
+### Model Hydration
+
+If your model classes use public setter methods or public properties, FactoryMuffin can automatically hydrate your models using its default hydration strategy `League\FactoryMuffin\HydrationStrategies\PublicSetterHydrationStrategy`.
+
+However, if your models use completely different ways to access their properties, you can implement your own hydration strategies and register them per model. 
+You simply need to implement the interface `League\FactoryMuffin\HydrationStrategies\HydrationStrategyInterface` and register an instance of your strategy with the class name of your model `$fm->setHydrationStrategy('Fully\Qualified\ModelName', $my_custom_strategy);`.
+
+For convenience, FactoryMuffin already ships with an alternative hydration strategy called `League\FactoryMuffin\HydrationStrategies\ReflectionHydrationStrategy`. 
+As the name suggests, this strategy uses reflection to set the attributes directly, which allows it to set `private/protected` properties. You simply need to register an instance of this strategy with every model that you want to be hydrated by this strategy.
+
 ### Creation/Instantiation Callbacks
 
 You may optionally specify a callback to be executed on model creation/instantiation using the `setCallback` function, like this: `$fm->define('MyModel')->setCallback(function ($object, $saved) {})`. We will pass your model instance as the first parameter to the callback and a boolean as the second parameter. The boolean will be `true` if the model is being persisted to the database (the create function was used), and `false` if it's not being persisted (the instance function was used). We're using the `isPendingOrSaved` function under the hood here. Note that if you specify a callback and use the `create` function, we will try to save your model to the database both before and after we execute the callback.
