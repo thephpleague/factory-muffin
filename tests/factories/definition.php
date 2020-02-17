@@ -28,6 +28,14 @@ $fm->define('UserModelStub')->setDefinitions([
     $obj->test = 'foo';
 });
 
+$fm->define('CrashingUserModelStub')->setDefinitions([
+    'name'    => Faker::word(),
+    'active'  => Faker::boolean(),
+    'email'   => Faker::email(),
+    'age'     => Faker::numberBetween(18, 35),
+    'profile' => 'factory|ProfileModelStub',
+]);
+
 $fm->define('group:UserModelStub')->addDefinition('address', Faker::address());
 
 $fm->define('anothergroup:UserModelStub')->setDefinitions([
