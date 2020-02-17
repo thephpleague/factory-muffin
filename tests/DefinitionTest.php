@@ -38,7 +38,7 @@ class DefinitionTest extends AbstractTestCase
     {
         $definitions = static::$fm->getDefinitions();
 
-        $this->assertCount(39, $definitions);
+        $this->assertCount(40, $definitions);
     }
 
     public function testBasicDefinitionFunctions()
@@ -269,6 +269,30 @@ class DefinitionTest extends AbstractTestCase
         $this->assertNotEquals($users[0], $users[1]);
     }
 
+    /**
+     * @expectedException RuntimeException
+     * @expectedExceptionMessage Cannot save user model.
+     */
+    public function testSeedWithSaving()
+    {
+        $users = static::$fm->seed(2, 'CrashingUserModelStub', [], true);
+
+        $this->assertCount(2, $users);
+        $this->assertInstanceOf('CrashingUserModelStub', $users[0]);
+        $this->assertInstanceOf('CrashingUserModelStub', $users[1]);
+        $this->assertNotEquals($users[0], $users[1]);
+    }
+
+    public function testSeedWithoutSaving()
+    {
+        $users = static::$fm->seed(2, 'CrashingUserModelStub', [], false);
+
+        $this->assertCount(2, $users);
+        $this->assertInstanceOf('CrashingUserModelStub', $users[0]);
+        $this->assertInstanceOf('CrashingUserModelStub', $users[1]);
+        $this->assertNotEquals($users[0], $users[1]);
+    }
+
     public function testInstance()
     {
         $user = static::$fm->instance('UserModelStub');
@@ -379,6 +403,19 @@ class UserModelStub
     public function delete()
     {
         return true;
+    }
+}
+
+class CrashingUserModelStub
+{
+    public function save()
+    {
+        throw new RuntimeException('Cannot save user model.');
+    }
+
+    public function delete()
+    {
+        throw new RuntimeException('Cannot delete user model.');
     }
 }
 
