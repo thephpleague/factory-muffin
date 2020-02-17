@@ -3,8 +3,6 @@ Factory Muffin 3.0
 
 [![StyleCI Status](https://styleci.io/repos/7930464/shield)](https://styleci.io/repos/7930464)
 [![Build Status](https://img.shields.io/travis/thephpleague/factory-muffin.svg?style=flat-square)](https://travis-ci.org/thephpleague/factory-muffin)
-[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/thephpleague/factory-muffin.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/factory-muffin/code-structure)
-[![Quality Score](https://img.shields.io/scrutinizer/g/thephpleague/factory-muffin.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/factory-muffin)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Latest Version](https://img.shields.io/github/release/thephpleague/factory-muffin.svg?style=flat-square)](https://github.com/thephpleague/factory-muffin/releases)
 [![Total Downloads](https://img.shields.io/packagist/dt/league/factory-muffin.svg?style=flat-square)](https://packagist.org/packages/league/factory-muffin)
@@ -18,21 +16,21 @@ It's basically a "[factory\_girl](https://github.com/thoughtbot/factory_girl)", 
 
 [PHP](https://php.net) 5.4+ and [Composer](https://getcomposer.org) are required.
 
-In your composer.json, simply add `"league/factory-muffin": "^3.0"` to your `"require-dev"` section:
+In your composer.json, simply add `"league/factory-muffin": "^3.1"` to your `"require-dev"` section:
 ```json
 {
     "require-dev": {
-        "league/factory-muffin": "^3.0"
+        "league/factory-muffin": "^3.1"
     }
 }
 ```
 
-[Faker](https://github.com/fzaninotto/Faker) support is provided by [Factory Muffin Faker](https://github.com/thephpleague/factory-muffin-faker). If you want to enable faker support, then you need to add `"league/factory-muffin-faker": "^2.0"` too:
+[Faker](https://github.com/fzaninotto/Faker) support is provided by [Factory Muffin Faker](https://github.com/thephpleague/factory-muffin-faker). If you want to enable faker support, then you need to add `"league/factory-muffin-faker": "^2.2"` too:
 ```json
 {
     "require-dev": {
-        "league/factory-muffin": "^3.0",
-        "league/factory-muffin-faker": "^2.0"
+        "league/factory-muffin": "^3.1",
+        "league/factory-muffin-faker": "^2.2"
     }
 }
 ```
