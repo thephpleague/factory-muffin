@@ -26,7 +26,7 @@ matrix:
 install:
   - if [[ $TRAVIS_PHP_VERSION =~ ^hhvm ]]; then travis_retry composer require "doctrine/orm:2.5.*" --no-update ; fi
   - if [[ $TRAVIS_PHP_VERSION =~ ^hhvm ]]; then travis_retry composer require "illuminate/database:5.1.*" --no-update ; fi
-  - travis_retry composer install --no-suggest --prefer-dist -n -o
+  - travis_retry composer install --prefer-dist -n -o
 
 script:
   - vendor/bin/phpunit
