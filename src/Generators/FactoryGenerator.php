@@ -42,7 +42,7 @@ class FactoryGenerator extends EntityGenerator
     /**
      * Create a new factory generator instance.
      *
-     * @param string[]|null $methods   The primary key methods.
+     * @param string[]|null $methods    The primary key methods.
      * @param string[]|null $properties The primary key properties.
      *
      * @return void
