@@ -26,18 +26,32 @@ namespace League\FactoryMuffin\Generators;
 class FactoryGenerator extends EntityGenerator
 {
     /**
-     * Generate, and return the attribute.
+     * The primary key methods.
      *
      * @var string[]
      */
-    private static $methods = ['getKey', 'pk'];
+    private static $methods;
 
     /**
-     * The factory properties.
+     * The primary key properties.
      *
      * @var string[]
      */
-    private static $properties = ['id', '_id', 'Id'];
+    private static $properties;
+
+    /**
+     * Create a new factory generator instance.
+     *
+     * @param string[]|null $methods   The primary key methods.
+     * @param string[]|null $properties The primary key properties.
+     *
+     * @return void
+     */
+    public function __construct(array $methods = null, array $properties = null)
+    {
+        $this->methods = $methods ?: ['getKey', 'pk'];
+        $this->properties = $properties ?: ['id', '_id', 'Id'];
+    }
 
     /**
      * Generate, and return the attribute.
