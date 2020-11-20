@@ -4,8 +4,12 @@ matrix:
   include:
     - php: hhvm-3.18
       dist: trusty
+      before_install:
+        - travis_retry composer self-update --1
     - php: hhvm-3.30
       dist: trusty
+      before_install:
+        - travis_retry composer self-update --1
     - php: 5.4
       dist: trusty
     - php: 5.5
