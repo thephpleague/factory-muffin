@@ -1,4 +1,4 @@
-Factory Muffin 3.2
+Factory Muffin 3.3
 ==================
 
 [![StyleCI Status](https://github.styleci.io/repos/7930464/shield)](https://github.styleci.io/repos/7930464)
@@ -16,11 +16,11 @@ It's basically a "[factory\_girl](https://github.com/thoughtbot/factory_girl)", 
 
 [PHP](https://php.net) 5.4+ and [Composer](https://getcomposer.org) are required.
 
-In your composer.json, simply add `"league/factory-muffin": "^3.2"` to your `"require-dev"` section:
+In your composer.json, simply add `"league/factory-muffin": "^3.3"` to your `"require-dev"` section:
 ```json
 {
     "require-dev": {
-        "league/factory-muffin": "^3.2"
+        "league/factory-muffin": "^3.3"
     }
 }
 ```
@@ -29,7 +29,7 @@ In your composer.json, simply add `"league/factory-muffin": "^3.2"` to your `"re
 ```json
 {
     "require-dev": {
-        "league/factory-muffin": "^3.2",
+        "league/factory-muffin": "^3.3",
         "league/factory-muffin-faker": "^2.3"
     }
 }
