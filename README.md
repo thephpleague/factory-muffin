@@ -25,12 +25,12 @@ In your composer.json, simply add `"league/factory-muffin": "^3.2"` to your `"re
 }
 ```
 
-[Faker](https://github.com/fzaninotto/Faker) support is provided by [Factory Muffin Faker](https://github.com/thephpleague/factory-muffin-faker). If you want to enable faker support, then you need to add `"league/factory-muffin-faker": "^2.2"` too:
+[Faker](https://github.com/fzaninotto/Faker) support is provided by [Factory Muffin Faker](https://github.com/thephpleague/factory-muffin-faker). If you want to enable faker support, then you need to add `"league/factory-muffin-faker": "^2.3"` too:
 ```json
 {
     "require-dev": {
         "league/factory-muffin": "^3.2",
-        "league/factory-muffin-faker": "^2.2"
+        "league/factory-muffin-faker": "^2.3"
     }
 }
 ```
