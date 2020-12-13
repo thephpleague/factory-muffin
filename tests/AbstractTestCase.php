@@ -12,6 +12,7 @@
 
 use League\FactoryMuffin\FactoryMuffin;
 use League\FactoryMuffin\Faker\Facade as Faker;
+use PHPUnit\Framework\TestCase;
 
 /**
  * This is abstract test case class.
@@ -19,7 +20,7 @@ use League\FactoryMuffin\Faker\Facade as Faker;
  * @author Graham Campbell <graham@alt-three.com>
  * @author Scott Robertson <scottymeuk@gmail.com>
  */
-abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
+abstract class AbstractTestCase extends TestCase
 {
     protected static $fm;
 
