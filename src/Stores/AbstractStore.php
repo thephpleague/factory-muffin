@@ -63,6 +63,10 @@ abstract class AbstractStore
                 throw new SaveFailedException(get_class($model), $model->validationErrors);
             }
 
+            if (isset($model->errors) && is_array($model->errors)) {
+                throw new SaveFailedException(get_class($model), print_r($model->errors, 1));
+            }
+
             throw new SaveFailedException(get_class($model));
         }
 
