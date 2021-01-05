@@ -88,6 +88,40 @@ class DefinitionTest extends AbstractTestCase
         $this->assertNull($definition->getCallback());
     }
 
+    public function testCallbacksStack()
+    {
+        static::$fm->define('CallbacksStackStub')->setCallback(function ($object, $saved) {
+            $object->field1 = true;
+        })->setCallback(function ($object, $saved) {
+            $object->field2 = true;
+        });
+
+        static::$fm->define('group:CallbacksStackStub')->setCallback(function ($object, $saved) {
+            $object->field3 = true;
+        });
+
+        $object = static::$fm->create('group:CallbacksStackStub');
+
+        $this->assertObjectHasAttribute('field1', $object);
+        $this->assertObjectHasAttribute('field2', $object);
+        $this->assertObjectHasAttribute('field3', $object);
+
+        // Test that stacked callback will return false if any of the callbacks return false.
+        $definition = static::$fm->getDefinition('CallbacksStackStub')->clearCallback();
+        $definition
+            ->setCallback(function ($object, $model) { return false; })
+            ->setCallback(function ($object, $model) { return true; })
+            ->setCallback(function ($object, $model) { return true; });
+        $this->assertFalse(call_user_func($definition->getCallback(), null, null));
+
+        $definition = static::$fm->getDefinition('CallbacksStackStub')->clearCallback();
+        $definition
+            ->setCallback(function () {})
+            ->setCallback(function ($object) {})
+            ->setCallback(function ($object, $model) { return true; });
+        $this->assertNotEquals(call_user_func($definition->getCallback(), null, null), false);
+    }
+
     public function testDefineWithReplacementGenerators()
     {
         $user = static::$fm->create('UserModelStub', [
@@ -393,6 +427,18 @@ class AttributeDefinitionsStub
     }
 }
 
+class CallbacksStackStub
+{
+    public function save()
+    {
+        return true;
+    }
+
+    public function delete()
+    {
+        return true;
+    }
+}
 class UserModelStub
 {
     public function save()

@@ -145,7 +145,15 @@ final class Definition
      */
     public function setCallback(callable $callback)
     {
-        $this->callback = $callback;
+        if ($this->callback) { // "stack" the callbacks so that any previous callbacks will also be called.
+            $oldCallback = $this->callback;
+            $this->callback = function ($model, $saved) use ($oldCallback, $callback) {
+                // If the old callback returns false, the whole thing should return false.
+                return $oldCallback($model, $saved) !== false && $callback($model, $saved) !== false;
+            };
+        } else {
+            $this->callback = $callback;
+        }
 
         return $this;
     }
