@@ -190,12 +190,12 @@ final class Definition
     {
         if (count($this->callbackStack) == 0) {
             return null;
-        } else if (count($this->callbackStack) == 1) {
+        } elseif (count($this->callbackStack) == 1) {
             // just return the single callback directly,
             // this will keep backwards compatibility if someone was using the result of getCallback() directly for some reason
-            return $this->callbackStack[0]; 
+            return $this->callbackStack[0];
         } else { // combine the callbacks
-           return function ($model, $saved) { // Recreate callback function
+            return function ($model, $saved) { // Recreate callback function
                 $persist = true;
                 foreach ($this->callbackStack as $func) { // Call all functions, don't persist the model if any of them return false.
                     $persist = (call_user_func($func, $model, $saved) !== false) && $persist;
