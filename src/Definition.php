@@ -41,7 +41,14 @@ final class Definition
     private $maker;
 
     /**
-     * The callback.
+     * The stack of callbacks.
+     *
+     * @var callable[]
+     */
+    private $callbackStack = [];
+
+    /**
+     * The callback that combines all callbacks in the callbackStack.
      *
      * @var callable|null
      */
@@ -139,24 +146,57 @@ final class Definition
     /**
      * Set the callback.
      *
+     * This will clear any previous callbacks made with setCallback() or addCallback()
+     *
      * @param callable $callback The callback.
      *
      * @return \League\FactoryMuffin\Definition
      */
     public function setCallback(callable $callback)
     {
-        $this->callback = $callback;
+        $this->clearCallback();
+        $this->addCallback($callback);
 
         return $this;
     }
 
     /**
-     * Clear the callback.
+     * Add a callback to the callback stack.
+     *
+     * Previously defined callbacks will still be called.
+     *
+     * @param callable $callback The callback.
+     *
+     * @return \League\FactoryMuffin\Definition
+     */
+    public function addCallback(callable $callback)
+    {
+        $this->callbackStack[] = $callback; // Append callback to stack
+
+        if (count($this->callbackStack) == 1) {
+            $this->callback = $callback;
+        } else { // combine the callbacks
+            $this->callback = function ($model, $saved) { // Recreate callback function
+                $persist = true;
+                foreach ($this->callbackStack as $func) { // Call all functions, don't persist the model if any of them return false.
+                    $persist = (call_user_func($func, $model, $saved) !== false) && $persist;
+                }
+
+                return $persist;
+            };
+        }
+
+        return $this;
+    }
+
+    /**
+     * Clear all the callbacks.
      *
      * @return \League\FactoryMuffin\Definition
      */
     public function clearCallback()
     {
+        $this->callbackStack = [];
         $this->callback = null;
 
         return $this;
