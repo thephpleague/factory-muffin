@@ -48,13 +48,6 @@ final class Definition
     private $callbackStack = [];
 
     /**
-     * The callback that combines all callbacks in the callbackStack.
-     *
-     * @var callable|null
-     */
-    private $callback;
-
-    /**
      * The attribute definitions.
      *
      * @var array
@@ -173,19 +166,6 @@ final class Definition
     {
         $this->callbackStack[] = $callback; // Append callback to stack
 
-        if (count($this->callbackStack) == 1) {
-            $this->callback = $callback;
-        } else { // combine the callbacks
-            $this->callback = function ($model, $saved) { // Recreate callback function
-                $persist = true;
-                foreach ($this->callbackStack as $func) { // Call all functions, don't persist the model if any of them return false.
-                    $persist = (call_user_func($func, $model, $saved) !== false) && $persist;
-                }
-
-                return $persist;
-            };
-        }
-
         return $this;
     }
 
@@ -197,7 +177,6 @@ final class Definition
     public function clearCallback()
     {
         $this->callbackStack = [];
-        $this->callback = null;
 
         return $this;
     }
@@ -209,7 +188,22 @@ final class Definition
      */
     public function getCallback()
     {
-        return $this->callback;
+        if (count($this->callbackStack) == 0) {
+            return null;
+        } else if (count($this->callbackStack) == 1) {
+            // just return the single callback directly,
+            // this will keep backwards compatibility if someone was using the result of getCallback() directly for some reason
+            return $this->callbackStack[0]; 
+        } else { // combine the callbacks
+           return function ($model, $saved) { // Recreate callback function
+                $persist = true;
+                foreach ($this->callbackStack as $func) { // Call all functions, don't persist the model if any of them return false.
+                    $persist = (call_user_func($func, $model, $saved) !== false) && $persist;
+                }
+
+                return $persist;
+            };
+        }
     }
 
     /**
