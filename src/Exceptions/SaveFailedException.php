@@ -26,22 +26,22 @@ class SaveFailedException extends ModelException
     /**
      * The validation errors.
      *
-     * @var string|null
+     * @var string|string[]|null
      */
     private $validationErrors;
 
     /**
      * Create a new save failed exception instance.
      *
-     * @param string      $class   The model class name.
-     * @param string|null $errors  The validation errors.
-     * @param string|null $message The exception message.
+     * @param string               $class   The model class name.
+     * @param string|string[]|null $errors  The validation errors.
+     * @param string|null          $message The exception message.
      *
      * @return void
      */
     public function __construct($class, $errors = null, $message = null)
     {
-        $errors = $this->formatErrors($errors);
+        $errors = self::formatErrors($errors);
 
         $this->validationErrors = $errors;
 
@@ -62,21 +62,43 @@ class SaveFailedException extends ModelException
      * We're stripping any trailing whitespace, and ensuring they end in a
      * punctuation character. If null is passed, then null is returned also.
      *
-     * @param string|null $errors
+     * @param string|string[]|null $errors
      *
      * @return string|null
      */
-    private function formatErrors($errors)
+    private static function formatErrors($errors)
     {
-        if ($errors) {
-            $errors = trim($errors);
-
-            if (in_array(substr($errors, -1), ['.', '!', '?'], true)) {
-                return $errors;
-            }
-
-            return $errors.'.';
+        if (!$errors) {
+            return null;
         }
+
+        if (is_array($errors)) {
+            $errors = array_map(function ($error) {
+                return self::formatError($error);
+            }, $errors);
+
+            return implode(' ', $errors);
+        }
+
+        return self::formatError($errors);
+    }
+
+    /**
+     * Format the given error.
+     *
+     * @param string $error
+     *
+     * @return string
+     */
+    private static function formatError($error)
+    {
+        $error = trim($error);
+
+        if (in_array(substr($error, -1), ['.', '!', '?'], true)) {
+            return $error;
+        }
+
+        return $error.'.';
     }
 
     /**
