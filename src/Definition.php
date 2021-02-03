@@ -41,11 +41,11 @@ final class Definition
     private $maker;
 
     /**
-     * The callback.
+     * The stack of callbacks.
      *
-     * @var callable|null
+     * @var callable[]
      */
-    private $callback;
+    private $callbackStack = [];
 
     /**
      * The attribute definitions.
@@ -139,25 +139,44 @@ final class Definition
     /**
      * Set the callback.
      *
+     * This will clear any previous callbacks made with setCallback() or addCallback()
+     *
      * @param callable $callback The callback.
      *
      * @return \League\FactoryMuffin\Definition
      */
     public function setCallback(callable $callback)
     {
-        $this->callback = $callback;
+        $this->clearCallback();
+        $this->addCallback($callback);
 
         return $this;
     }
 
     /**
-     * Clear the callback.
+     * Add a callback to the callback stack.
+     *
+     * Previously defined callbacks will still be called.
+     *
+     * @param callable $callback The callback.
+     *
+     * @return \League\FactoryMuffin\Definition
+     */
+    public function addCallback(callable $callback)
+    {
+        $this->callbackStack[] = $callback; // Append callback to stack
+
+        return $this;
+    }
+
+    /**
+     * Clear all the callbacks.
      *
      * @return \League\FactoryMuffin\Definition
      */
     public function clearCallback()
     {
-        $this->callback = null;
+        $this->callbackStack = [];
 
         return $this;
     }
@@ -169,7 +188,22 @@ final class Definition
      */
     public function getCallback()
     {
-        return $this->callback;
+        if (count($this->callbackStack) == 0) {
+            return null;
+        } elseif (count($this->callbackStack) == 1) {
+            // just return the single callback directly,
+            // this will keep backwards compatibility if someone was using the result of getCallback() directly for some reason
+            return $this->callbackStack[0];
+        } else { // combine the callbacks
+            return function ($model, $saved) { // Recreate callback function
+                $persist = true;
+                foreach ($this->callbackStack as $func) { // Call all functions, don't persist the model if any of them return false.
+                    $persist = (call_user_func($func, $model, $saved) !== false) && $persist;
+                }
+
+                return $persist;
+            };
+        }
     }
 
     /**

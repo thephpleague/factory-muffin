@@ -88,6 +88,62 @@ class DefinitionTest extends AbstractTestCase
         $this->assertNull($definition->getCallback());
     }
 
+    public function testAddCallback()
+    {
+        static::$fm->define('CallbacksStackStub')
+            ->addCallback(function ($object, $saved) {
+                $object->field1 = true;
+            })->addCallback(function ($object, $saved) {
+                $object->field2 = true;
+            });
+
+        static::$fm->define('group:CallbacksStackStub')->addCallback(function ($object, $saved) {
+            $object->field3 = true;
+        });
+
+        $object = static::$fm->create('group:CallbacksStackStub');
+
+        $this->assertObjectHasAttribute('field1', $object);
+        $this->assertObjectHasAttribute('field2', $object);
+        $this->assertObjectHasAttribute('field3', $object);
+
+        // Calling setCallback() will remove all previous callbacks.
+        static::$fm->getDefinition('group:CallbacksStackStub')->setCallback(function ($object, $saved) {
+            $object->field4 = true;
+        });
+
+        $object = static::$fm->create('group:CallbacksStackStub');
+
+        $this->assertObjectNotHasAttribute('field1', $object);
+        $this->assertObjectNotHasAttribute('field2', $object);
+        $this->assertObjectNotHasAttribute('field3', $object);
+        $this->assertObjectHasAttribute('field4', $object);
+
+        // CallbackStackStub without group should be unaffected
+
+        $object = static::$fm->create('CallbacksStackStub');
+
+        $this->assertObjectHasAttribute('field1', $object);
+        $this->assertObjectHasAttribute('field2', $object);
+        $this->assertObjectNotHasAttribute('field3', $object);
+        $this->assertObjectNotHasAttribute('field4', $object);
+
+        // Test that stacked callback will return false if any of the callbacks return false
+        $definition = static::$fm->getDefinition('CallbacksStackStub')->clearCallback();
+        $definition
+            ->setCallback(function ($object, $model) { return false; })
+            ->addCallback(function ($object, $model) { return true; })
+            ->addCallback(function ($object, $model) { return true; });
+        $this->assertFalse(call_user_func($definition->getCallback(), null, null));
+
+        $definition = static::$fm->getDefinition('CallbacksStackStub')->clearCallback();
+        $definition
+            ->addCallback(function () {})
+            ->addCallback(function ($object) {})
+            ->addCallback(function ($object, $model) { return true; });
+        $this->assertNotEquals(call_user_func($definition->getCallback(), null, null), false);
+    }
+
     public function testDefineWithReplacementGenerators()
     {
         $user = static::$fm->create('UserModelStub', [
@@ -393,6 +449,18 @@ class AttributeDefinitionsStub
     }
 }
 
+class CallbacksStackStub
+{
+    public function save()
+    {
+        return true;
+    }
+
+    public function delete()
+    {
+        return true;
+    }
+}
 class UserModelStub
 {
     public function save()
