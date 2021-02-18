@@ -9,7 +9,7 @@ Factory Muffin 3.3
 
 The goal of this package is to enable the rapid creation of objects for the purpose of testing.
 
-It's basically a "[factory\_girl](https://github.com/thoughtbot/factory_girl)", simplified for use with PHP.
+It's basically a "[factory\_bot](https://github.com/thoughtbot/factory_bot)", simplified for use with PHP.
 
 
 ## Installing
