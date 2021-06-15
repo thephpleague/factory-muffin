@@ -49,7 +49,7 @@ This is the usage guide for Factory Muffin 3.0. Within this guide, you will see 
 
 ### Model Definitions
 
-You can define model factories using the `define` function. You may call it like this: `$fm->define('Fully\Qualifed\ModelName')->addDefinitions('foo', 'bar')`, where `foo` is the name of the attribute you want set on your model, and `bar` describes how you wish to generate the attribute. You may also define multiple attributes at once like this: `$fm->define('Fully\Qualifed\ModelName')->setDefinitions('foo', 'bar')`. Note that both functions append to the internal attributes definition array rather than replacing it. Please see the generators section for more information on how this works.
+You can define model factories using the `define` function. You may call it like this: `$fm->define('Fully\Qualifed\ModelName')->addDefinitions('foo', 'bar')`, where `foo` is the name of the attribute you want set on your model, and `bar` describes how you wish to generate the attribute. You may also define multiple attributes at once like this: `$fm->define('Fully\Qualifed\ModelName')->setDefinitions(['foo' => 'bar'])`. Note that both functions append to the internal attributes definition array rather than replacing it. Please see the generators section for more information on how this works.
 
 You can also define multiple different model definitions for your models. You can do this by prefixing the model class name with your "group" followed by a colon. This results in you defining your model like this: `$fm->define('myGroup:Fully\Qualifed\ModelName')->addDefinitions('bar', 'baz')`. You don't have to entirely define your model here because we will first look for a definition without the group prefix, then apply your group definition on top of that definition, overriding attribute definitions where required. Note that if you want to use group prefixes, you *must* also create a definition without the group prefix as well.
 
@@ -120,7 +120,7 @@ $fm->define('MyModel')->setDefinitions([
 
 ##### Example 5
 
-This will set the `name` attribute to a random female first name. Because we've called the `unique` method first, the attribute should be unique between all your generated models. Be careful with this if you're generating lots models because we might run out of unique items. Also, note that calling `Faker::setLocale('whatever')` will reset the internal unique list.
+This will set the `name` attribute to a random female first name. Because we've called the `unique` method first, the attribute should be unique between all your generated models. Be careful with this if you're generating a large number of models because we might run out of unique items. Also, note that calling `Faker::setLocale('whatever')` will reset the internal unique list.
 ```php
 use League\FactoryMuffin\Faker\Facade as Faker;
 
@@ -138,7 +138,7 @@ $fm->define('MyModel')->addDefinition('profile_pic', Faker::optional()->imageUrl
 
 ##### More
 
-Check out the [faker library](https://github.com/fzaninotto/Faker) itself to see all the available methods. There are far too many to cover in the documentation here, and far too many for them to cover in their documentation too. Note that you can fiddle with the underlying faker instance through the public methods on our faker class if you want.
+Check out the [faker library](https://github.com/FakerPHP/Faker/) itself to see all the available methods. There are far too many to cover in the documentation here, and far too many for them to cover in their documentation too. Note that you can fiddle with the underlying faker instance through the public methods on our faker class if you want.
 
 #### Factory
 
