@@ -21,7 +21,9 @@
         "doctrine/orm": "^2.5",
         "illuminate/database": "5.0.* || 5.1.* || 5.5.* || ^6.0",
         "league/factory-muffin-faker": "^2.3",
-        "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20"
+        "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20",
+        "symfony/cache": "^5.4",
+        "doctrine/annotations": "^1.13"
     },
     "replace": {
         "zizaco/factory-muff": "self.version"
