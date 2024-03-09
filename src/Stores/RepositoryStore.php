@@ -136,7 +136,7 @@ class RepositoryStore extends AbstractStore implements StoreInterface
         try {
             $this->flush();
         } catch (Exception $e) {
-            throw new DeletingFailedException([$e]);
+            throw new DeletingFailedException([$e], $e->getMessage());
         }
     }
 }
